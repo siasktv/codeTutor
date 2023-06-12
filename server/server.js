@@ -37,3 +37,5 @@ if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 server.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
+
+module.exports = server
