@@ -1,6 +1,7 @@
 const createUser = require('../../controllers/Users/createUser')
 const deleteUser = require('../../controllers/Users/deleteUser')
 const getAllUsers = require('../../controllers/Users/getAllUsers')
+const updateUser = require('../../controllers/Users/updateUser')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -42,8 +43,24 @@ const deleteUserHandler = async (req, res) => {
   }
 }
 
+const updateUserHandler = async (req, res) => {
+  const { userId } = req.params
+  const { fullName, email, password } = req.body
+  try {
+    const updatedUser = await updateUser(userId, {
+      fullName,
+      email,
+      password,
+    })
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
 module.exports = {
   createUserHandler,
   deleteUserHandler,
   getAllUsersHandler,
+  updateUserHandler,
 }
