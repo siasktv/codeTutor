@@ -1,8 +1,8 @@
+require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../../server')
 require('dotenv').config()
-
 
 const Tech = require('../../models/Tech.models')
 
@@ -34,7 +34,7 @@ describe('Pruebas sobre la API Tech', () => {
   describe('POST/api/tech', () => {
     const newTech = {
       name: 'Test tech',
-      category: 'Web App'
+      category: 'Web App',
     }
     const wrongTech = { nombre: 'Test tech' }
 
@@ -47,11 +47,10 @@ describe('Pruebas sobre la API Tech', () => {
 
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('json')
-      expect(response.body._id).toBeDefined();
-      expect(response.body.name).toBe(newTech.name);
+      expect(response.body._id).toBeDefined()
+      expect(response.body.name).toBe(newTech.name)
     })
 
-    
     it('Error en la inserción', async () => {
       const response = await request(app).post('/api/tech').send(wrongTech)
 
@@ -61,43 +60,39 @@ describe('Pruebas sobre la API Tech', () => {
   })
 
   describe('GET/api/tech/:id', () => {
-    let tech;
+    let tech
     beforeEach(async () => {
       tech = await Tech.create({
         name: 'Test tech',
         category: 'Web App',
-      });
-    });
+      })
+    })
 
     afterEach(async () => {
-      await Tech.findByIdAndDelete(tech._id);
-    });
+      await Tech.findByIdAndDelete(tech._id)
+    })
 
     it('La ruta funciona', async () => {
-      const response = await request(app)
-        .get(`/api/tech/${tech._id}`)
-        .send();
+      const response = await request(app).get(`/api/tech/${tech._id}`).send()
 
-      expect(response.status).toBe(200);
-      expect(response.headers['content-type']).toContain('json');
-    });
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('json')
+    })
 
     it('Se obtiene correctamente', async () => {
-      const response = await request(app)
-        .get(`/api/tech/${tech._id}`)
-        .send();
+      const response = await request(app).get(`/api/tech/${tech._id}`).send()
 
-      expect(response.body._id).toBeDefined();
-      expect(response.body.name).toBe(tech.name);
-    });
-  });
+      expect(response.body._id).toBeDefined()
+      expect(response.body.name).toBe(tech.name)
+    })
+  })
 
   describe('PUT/api/tech', () => {
     let tech
     beforeEach(async () => {
       tech = await Tech.create({
         name: 'test tech',
-        category: 'Web App'
+        category: 'Web App',
       })
     })
 
@@ -108,7 +103,7 @@ describe('Pruebas sobre la API Tech', () => {
     it('La ruta funciona', async () => {
       const response = await request(app).put(`/api/tech/${tech._id}`).send({
         name: 'tech updated',
-        category: 'Mobile App'
+        category: 'Mobile App',
       })
 
       expect(response.status).toBe(200)
@@ -119,7 +114,7 @@ describe('Pruebas sobre la API Tech', () => {
       const response = await request(app).put(`/api/tech/${tech._id}`).send({
         name: 'tech2 updated',
         category: 'Lenguajes',
-      });
+      })
 
       expect(response.body._id).toBeDefined()
       expect(response.body.name).toBe('tech2 updated')
@@ -132,7 +127,7 @@ describe('Pruebas sobre la API Tech', () => {
     beforeEach(async () => {
       tech = await Tech.create({
         name: 'test tech',
-        category: 'Web App'
+        category: 'Web App',
       })
       response = await request(app).delete(`/api/tech/${tech._id}`).send()
     })

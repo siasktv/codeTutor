@@ -1,3 +1,4 @@
+require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../../server')
@@ -33,14 +34,14 @@ describe('Pruebas sobre la API Projects', () => {
     const newProject = {
       name: 'Test project',
       link: 'https://www.testproject.com',
-      description: 'This is a test project'
+      description: 'This is a test project',
     }
 
     afterAll(async () => {
       await Projects.deleteMany({
         name: 'Test project',
         link: 'https://www.testproject.com',
-        description: 'This is a test project'
+        description: 'This is a test project',
       })
     })
 
@@ -98,7 +99,7 @@ describe('Pruebas sobre la API Projects', () => {
       project = await Projects.create({
         name: 'Test project',
         link: 'https://www.testproject.com',
-        description: 'This is a test project'
+        description: 'This is a test project',
       })
     })
 
@@ -112,7 +113,7 @@ describe('Pruebas sobre la API Projects', () => {
         .send({
           name: 'Test project updated',
           link: 'https://www.testprojectupdated.com',
-          description: 'This is a test project updated'
+          description: 'This is a test project updated',
         })
 
       expect(response.status).toBe(200)
@@ -125,7 +126,7 @@ describe('Pruebas sobre la API Projects', () => {
         .send({
           name: 'Test project updated 2',
           link: 'https://www.testprojectupdated2.com',
-          description: 'This is a test project updated 2'
+          description: 'This is a test project updated 2',
         })
 
       expect(response.body._id).toBeDefined()
@@ -140,7 +141,7 @@ describe('Pruebas sobre la API Projects', () => {
       project = await Projects.create({
         name: 'Test project',
         link: 'https://www.testproject.com',
-        description: 'This is a test project'
+        description: 'This is a test project',
       })
       response = await request(app)
         .delete(`/api/projects/${project._id}`)
