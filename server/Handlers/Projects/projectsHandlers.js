@@ -1,4 +1,5 @@
 const createProject = require('../../controllers/Projects/createProject.js')
+const getProjectById = require('../../controllers/Projects/getProjectById.js')
 const getAllProjects = require('../../controllers/Projects/getAllProjects.js')
 const deleteProject = require('../../controllers/Projects/deleteProject.js')
 const updateProject = require('../../controllers/Projects/updateProject.js')
@@ -7,6 +8,16 @@ const getAllProjectsHandler = async (req, res) => {
   try {
     const allProjects = await getAllProjects()
     res.status(200).json(allProjects)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+const getProjectByIdHandler = async (req, res) => {
+  const { id } = req.params
+  try {
+    const project = await getProjectById(id)
+    res.status(200).json(project)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -75,6 +86,7 @@ const updateProjectHandler = async (req, res) => {
 
 module.exports = {
   getAllProjectsHandler,
+  getProjectByIdHandler,
   deleteProjectHandler,
   createProjectHandler,
   updateProjectHandler
