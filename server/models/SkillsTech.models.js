@@ -11,5 +11,4 @@ const SkillsTechSchema = new Schema(
     timestamps: true,
   }
 );
-
 module.exports = model('SkillsTech', SkillsTechSchema);

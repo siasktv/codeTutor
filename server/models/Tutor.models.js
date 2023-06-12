@@ -35,7 +35,7 @@ const TutorSchema = new Schema(
       },
     ],
     banckAccount: { type: Types.ObjectId, ref: 'BanckAccount' },
-    status: { type: Boolean, default: false },
+    status: { type: String, default: 'pending' },
     socialMedia: [
       {
         name: { type: String },
