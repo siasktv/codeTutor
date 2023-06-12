@@ -10,7 +10,7 @@ const ExperienceSchema = new Schema(
     end_date: { type: Date },
     current: { type: Boolean, default: false },
     description: { type: String },
-    techName: { type: Types.ObjectId, ref: 'Tech' },
+    techName:[ { type: Types.ObjectId, ref: 'Tech' }],
   },
   {
     timestamps: true,

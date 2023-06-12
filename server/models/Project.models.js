@@ -6,7 +6,7 @@ const ProjectSchema = new Schema(
     name: { type: String, required: true },
     link: { type: String, required: true },
     description: { type: String, required: true },
-    techName: { type: Types.ObjectId, ref: 'Tech' },
+    techName:[ { type: Types.ObjectId, ref: 'Tech' }],
   },
   {
     timestamps: true,

@@ -34,7 +34,7 @@ const UserSchema = new Schema(
     password: { type: String, required: true, validate: passwordValidator },
     image: { type: String },
     location: { type: String },
-    role: { type: String, enum: ['Admin', 'Tutor', 'Client'], require: true },
+    role: { type: String, enum: [ 'Tutor', 'Client'], require: true },
     date_start: { type: Date, required: true },
     offline: { type: Boolean, default: false },
     admin: { type: Boolean, default: false },

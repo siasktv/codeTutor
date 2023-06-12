@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const RateSchema = new Schema(
   {
     tutor: { type: Types.ObjectId, ref: 'Tutor' },
-    tutorRate: { type: Number },
+    mentorshipRate: { type: Number },
     freelanceRate: { type: Number },
   },
   {
