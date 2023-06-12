@@ -5,7 +5,7 @@ const connectDB = require('./db.js')
 const morgan = require('morgan')
 const cors = require('cors')
 let PORT = 3001
-
+//test
 server.use(cors())
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -37,3 +37,5 @@ if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 server.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
+
+module.exports= server

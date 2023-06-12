@@ -20,7 +20,7 @@ const TutorSchema = new Schema(
     projects: [{ type: Types.ObjectId, ref: 'Project' }],
     rates: { type: Types.ObjectId, ref: 'Rate' },
     banckAccount: { type: Types.ObjectId, ref: 'BanckAccount' },
-    status: { type: Boolean, default: false },
+    status: { type: String, default: 'pending' },
     socialMedia: [{
       name: { type: String },
       link: { type: String },
