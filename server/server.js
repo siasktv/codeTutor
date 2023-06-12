@@ -32,6 +32,7 @@ server.use(morgan('dev'))
 // server.use(paths.reviews, require('./routes/reviewsRoutes'))
 // server.use(paths.users, require('./routes/usersRoutes'))
 // server.use(paths.orders, require('./routes/orders'))
+
 connectDB()
 server.use('/', routes)
 
