@@ -10,7 +10,7 @@ const createUser = async ({ fullName, email, password }) => {
     email,
     password,
   })
-  await user.save()
+
   return user
 }
 
