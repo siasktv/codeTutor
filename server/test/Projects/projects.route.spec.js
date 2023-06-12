@@ -60,6 +60,39 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
+  describe('GET /api/projects/:id', () => {
+    let project
+    beforeEach(async () => {
+      project = await Projects.create({
+        name: 'Test project',
+        link: 'https://www.testproject.com',
+        description: 'This is a test project'
+      })
+    })
+
+    afterEach(async () => {
+      await Projects.findByIdAndDelete(project._id)
+    })
+
+    it('La ruta funciona', async () => {
+      const response = await request(app)
+        .get(`/api/projects/${project._id}`)
+        .send()
+
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('json')
+    })
+
+    it('Se obtiene correctamente', async () => {
+      const response = await request(app)
+        .get(`/api/projects/${project._id}`)
+        .send()
+
+      expect(response.body._id).toBeDefined()
+      expect(response.body.name).toBe(project.name)
+    })
+  })
+
   describe('PUT /api/projects', () => {
     let project
     beforeEach(async () => {
