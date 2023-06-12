@@ -6,9 +6,7 @@ const Projects = require('../../models/Project.models')
 
 describe('Pruebas sobre la API Projects', () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      'mongodb+srv://dante:ynxcMv41DJ4K59xN@codetutor.zrw5km4.mongodb.net/?retryWrites=true&w=majority'
-    )
+    await mongoose.connect(process.env.dbURI)
   })
 
   afterAll(async () => {
@@ -58,6 +56,39 @@ describe('Pruebas sobre la API Projects', () => {
 
       expect(response.body._id).toBeDefined()
       expect(response.body.name).toBe(newProject.name)
+    })
+  })
+
+  describe('GET /api/projects/:id', () => {
+    let project
+    beforeEach(async () => {
+      project = await Projects.create({
+        name: 'Test project',
+        link: 'https://www.testproject.com',
+        description: 'This is a test project'
+      })
+    })
+
+    afterEach(async () => {
+      await Projects.findByIdAndDelete(project._id)
+    })
+
+    it('La ruta funciona', async () => {
+      const response = await request(app)
+        .get(`/api/projects/${project._id}`)
+        .send()
+
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('json')
+    })
+
+    it('Se obtiene correctamente', async () => {
+      const response = await request(app)
+        .get(`/api/projects/${project._id}`)
+        .send()
+
+      expect(response.body._id).toBeDefined()
+      expect(response.body.name).toBe(project.name)
     })
   })
 
