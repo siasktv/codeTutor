@@ -4,6 +4,7 @@ const server = express()
 const connectDB = require('./db.js')
 const morgan = require('morgan')
 const cors = require('cors')
+const routes = require('./routes/index.js')
 let PORT = 3001
 
 server.use(cors())
@@ -32,8 +33,11 @@ server.use(morgan('dev'))
 // server.use(paths.users, require('./routes/usersRoutes'))
 // server.use(paths.orders, require('./routes/orders'))
 connectDB()
+server.use('/', routes)
 
 if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 server.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
+
+module.exports = server

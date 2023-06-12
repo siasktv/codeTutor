@@ -5,8 +5,8 @@ const {
   getTutorById,
   createTutor,
   deleteTutor,
-  editTutor,
-} = require('../controllers/tutorsControllers.js')
+  editTutor
+} = require('../../controllers/Tutors/tutorsControllers.js')
 
 router.get('/', getAllTutors)
 router.get('/:id', getTutorById)
