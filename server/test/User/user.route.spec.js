@@ -12,10 +12,10 @@ describe('Pruebas sobre la API User', () => {
     await mongoose.disconnect()
   })
 
-  describe('GET /api/user', () => {
+  describe('GET /api/users', () => {
     let response
     beforeEach(async () => {
-      response = await request(server).get('/api/user').send()
+      response = await request(server).get('/api/users').send()
     })
 
     it('La ruta funciona', async () => {
@@ -28,45 +28,51 @@ describe('Pruebas sobre la API User', () => {
     })
   })
 
-  describe('POST /api/user', () => {
+  describe('POST /api/users', () => {
     const newUser = {
       fullName: 'bianca',
       email: 'bianca@gmail.com',
+      password: '12345',
     }
-    const wrongUser = { email: 'bianca@gmail.com' }
+    const wrongUser = {
+      email: 'bianca@gmail.com',
+    }
 
     afterAll(async () => {
       await User.deleteMany({ fullName: 'bianca' })
     })
 
     it('La ruta funciona', async () => {
-      const response = await request(server).post('/api/user').send(newUser)
+      const response = await request(server).post('/api/users').send(newUser)
 
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('json')
-    })
-
-    it('Se inserta correctamente', async () => {
-      const response = await request(server).post('/api/user').send(newUser)
-
       expect(response.body._id).toBeDefined()
       expect(response.body.name).toBe(newUser.name)
     })
 
     it('Error en la inserción', async () => {
-      const response = await request(server).post('/api/user').send(wrongUser)
+      const response = await request(server).post('/api/users').send(wrongUser)
+
+      expect(response.status).toBe(400)
+      expect(response.body.error).toBeDefined()
+    })
+
+    it('No cree duplicados', async () => {
+      const response = await request(server).post('/api/users').send(newUser)
 
       expect(response.status).toBe(500)
       expect(response.body.error).toBeDefined()
     })
   })
 
-  describe('PUT /api/user', () => {
+  describe('PUT /api/users', () => {
     let user
     beforeEach(async () => {
       user = await User.create({
-        fullName: 'bianca',
-        email: 'bianca@gmail.com',
+        fullName: 'masa',
+        email: 'masa@gmail.com',
+        password: '123456',
       })
     })
 
@@ -75,33 +81,38 @@ describe('Pruebas sobre la API User', () => {
     })
 
     it('La ruta funciona', async () => {
-      const response = await request(server).put(`/api/user/${user._id}`).send({
-        fullName: 'magali',
-      })
+      const response = await request(server)
+        .put(`/api/users/${user._id}`)
+        .send({
+          fullName: 'magali',
+        })
 
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('json')
     })
 
     it('Se actualiza correctamente', async () => {
-      const response = await request(server).put(`/api/user/${user._id}`).send({
-        fullName: 'magali',
-      })
+      const response = await request(server)
+        .put(`/api/users/${user._id}`)
+        .send({
+          fullName: 'magali',
+        })
 
       expect(response.body._id).toBeDefined()
-      expect(response.body.name).toBe('magali')
+      expect(response.body.fullName).toBe('magali')
     })
   })
 
-  describe('DELETE /api/user', () => {
+  describe('DELETE /api/users', () => {
     let user
     let response
     beforeEach(async () => {
       user = await User.create({
-        fullName: 'bianca',
-        email: 'bianca@gmail.com',
+        fullName: 'tati',
+        email: 'tati@gmail.com',
+        password: '123456',
       })
-      response = await request(server).delete(`/api/user/${user._id}`).send()
+      response = await request(server).delete(`/api/users/${user._id}`).send()
     })
 
     it('La ruta funciona', () => {

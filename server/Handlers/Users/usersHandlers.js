@@ -1,3 +1,4 @@
+const User = require('../../models/User.models')
 const createUser = require('../../controllers/Users/createUser')
 const deleteUser = require('../../controllers/Users/deleteUser')
 const getAllUsers = require('../../controllers/Users/getAllUsers')
@@ -13,30 +14,34 @@ const getAllUsersHandler = async (req, res) => {
 }
 
 const createUserHandler = async (req, res) => {
-  const { name, email, password } = req.body
+  const { fullName, email, password } = req.body
 
-  if (!name || !email || !password)
+  if (!fullName || !email || !password)
     return res
       .status(400)
-      .json({ message: 'Please fill in the required information' })
+      .json({ error: 'Please fill in the required information' })
+
+  const duplicate = await User.findOne({ email }).lean().exec()
+
+  if (duplicate) return res.status(500).json({ error: 'User already exits' })
 
   try {
-    const newUser = await createUser({
-      name,
+    const user = await createUser({
+      fullName,
       email,
       password,
     })
-    res.status(200).json(newUser)
+    res.status(200).json(user)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
 }
 
 const deleteUserHandler = async (req, res) => {
-  const { userId } = req.params
+  const { id } = req.params
 
   try {
-    const deletedUser = await deleteUser(userId)
+    const deletedUser = await deleteUser(id)
     res.status(200).json(deletedUser)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -44,10 +49,10 @@ const deleteUserHandler = async (req, res) => {
 }
 
 const updateUserHandler = async (req, res) => {
-  const { userId } = req.params
+  const { id } = req.params
   const { fullName, email, password } = req.body
   try {
-    const updatedUser = await updateUser(userId, {
+    const updatedUser = await updateUser(id, {
       fullName,
       email,
       password,
