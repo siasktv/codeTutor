@@ -45,4 +45,5 @@ const deleteUserHandler = async (req, res) => {
 module.exports = {
   createUserHandler,
   deleteUserHandler,
+  getAllUsersHandler,
 }
