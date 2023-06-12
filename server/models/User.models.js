@@ -1,25 +1,25 @@
 const { Schema, model } = require('mongoose')
-const validator = require('mongoose-validator')
+// const validator = require('mongoose-validator')
 
-const emailValidator = [
-  validator({
-    validator: 'isEmail',
-    message: 'Ingrese un Email Valido',
-  }),
-]
+// const emailValidator = [
+//   validator({
+//     validator: 'isEmail',
+//     message: 'Ingrese un Email Valido',
+//   }),
+// ]
 
-const passwordValidator = [
-  validator({
-    validator: 'isLength',
-    arguments: [6, 15],
-    message: 'El password debe tener entre 6 y 15 caracteres',
-  }),
-  validator({
-    validator: (value) => /^(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(value),
-    message:
-      'El password debe contener al menos una mayúscula y un caracter especial',
-  }),
-]
+// const passwordValidator = [
+//   validator({
+//     validator: 'isLength',
+//     arguments: [6, 15],
+//     message: 'El password debe tener entre 6 y 15 caracteres',
+//   }),
+//   validator({
+//     validator: (value) => /^(?=.*[A-Z])(?=.*[!@#$%^&*])/.test(value),
+//     message:
+//       'El password debe contener al menos una mayúscula y un caracter especial',
+//   }),
+// ]
 
 const UserSchema = new Schema(
   {
@@ -32,12 +32,12 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
       lowerCase: true,
-      validate: emailValidator,
+      // validate: emailValidator,
     },
     password: {
       type: String,
       required: true,
-      validate: passwordValidator,
+      // validate: passwordValidator,
     },
     image: {
       type: String,

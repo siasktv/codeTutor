@@ -1,3 +1,4 @@
+require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../../server')
@@ -6,9 +7,7 @@ const Rates = require('../../models/Rates.models')
 
 describe('Pruebas sobre la API Rates', () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      'mongodb+srv://dante:ynxcMv41DJ4K59xN@codetutor.zrw5km4.mongodb.net/?retryWrites=true&w=majority'
-    )
+    await mongoose.connect(process.env.dbURI)
   })
 
   afterAll(async () => {
@@ -34,13 +33,13 @@ describe('Pruebas sobre la API Rates', () => {
   describe('POST /api/rates', () => {
     const newRate = {
       mentorshipRate: 123456789,
-      freelanceRate: 123456789
+      freelanceRate: 123456789,
     }
 
     afterAll(async () => {
       await Rates.deleteMany({
         mentorshipRate: 123456789,
-        freelanceRate: 123456789
+        freelanceRate: 123456789,
       })
     })
 
@@ -64,7 +63,7 @@ describe('Pruebas sobre la API Rates', () => {
     beforeEach(async () => {
       rate = await Rates.create({
         mentorshipRate: 123456789,
-        freelanceRate: 123456789
+        freelanceRate: 123456789,
       })
     })
 
@@ -75,7 +74,7 @@ describe('Pruebas sobre la API Rates', () => {
     it('La ruta funciona', async () => {
       const response = await request(app).put(`/api/rates/${rate._id}`).send({
         mentorshipRate: 987654321,
-        freelanceRate: 987654321
+        freelanceRate: 987654321,
       })
 
       expect(response.status).toBe(200)
@@ -85,7 +84,7 @@ describe('Pruebas sobre la API Rates', () => {
     it('Se actualiza correctamente', async () => {
       const response = await request(app).put(`/api/rates/${rate._id}`).send({
         mentorshipRate: 9876543210,
-        freelanceRate: 9876543210
+        freelanceRate: 9876543210,
       })
 
       expect(response.body._id).toBeDefined()
@@ -99,7 +98,7 @@ describe('Pruebas sobre la API Rates', () => {
     beforeEach(async () => {
       rate = await Rates.create({
         mentorshipRate: 123456789,
-        freelanceRate: 123456789
+        freelanceRate: 123456789,
       })
       response = await request(app).delete(`/api/rates/${rate._id}`).send()
     })

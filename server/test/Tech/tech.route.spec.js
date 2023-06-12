@@ -1,3 +1,4 @@
+require('dotenv').config()
 const request = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../../server')
@@ -6,9 +7,7 @@ const Tech = require('../../models/Tech.models')
 
 describe('Pruebas sobre la API Tech', () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      'mongodb+srv://bianca:rrA0hZbUoR0WO0Ch@codetutor.zrw5km4.mongodb.net/'
-    )
+    await mongoose.connect(process.env.dbURI)
   })
 
   afterAll(async () => {

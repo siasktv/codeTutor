@@ -5,9 +5,7 @@ const User = require('../../models/User.models')
 
 describe('Pruebas sobre la API User', () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      'mongodb+srv://bianca:rrA0hZbUoR0WO0Ch@codetutor.zrw5km4.mongodb.net/'
-    )
+    await mongoose.connect(process.env.dbURI)
   })
 
   afterAll(async () => {
