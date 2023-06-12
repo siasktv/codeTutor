@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const routes = require('./routes/index.js')
 let PORT = 3001
-
+//test
 server.use(cors())
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
