@@ -6,9 +6,7 @@ const Tech = require('../../models/Tech.models')
 
 describe('Pruebas sobre la API Tech', () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      'mongodb+srv://dante:ynxcMv41DJ4K59xN@codetutor.zrw5km4.mongodb.net/?retryWrites=true&w=majority'
-    )
+    await mongoose.connect(process.env.dbURI)
   })
 
   afterAll(async () => {
