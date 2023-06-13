@@ -8,7 +8,11 @@ const updateProject = async (
     id,
     { tutor, name, link, description, techName },
     { new: true }
-  )
+  ).populate({
+    path: 'techName',
+    select: 'name'
+  })
+
   return updatedProject
 }
 

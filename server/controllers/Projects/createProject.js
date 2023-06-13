@@ -8,7 +8,13 @@ const createProject = async ({ tutor, name, link, description, techName }) => {
     description,
     techName
   })
-  return newProject
+
+  const newProjectPopulate = newProject.populate({
+    path: 'techName',
+    select: 'name'
+  })
+
+  return newProjectPopulate
 }
 
 module.exports = createProject
