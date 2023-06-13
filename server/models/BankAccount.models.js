@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose')
+const { Types } = Schema
 
 const BankAccountSchema = new Schema(
   {
@@ -9,12 +10,12 @@ const BankAccountSchema = new Schema(
     branchCode: { type: String }, //Opcional para almacenar sucursal o filial bancaria
     accountType: {
       type: String,
-      enum: ['Corriente', 'Ahorros', 'Inversion', 'Empresarial'],
-    },
+      enum: ['Corriente', 'Ahorros', 'Inversion', 'Empresarial']
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-module.exports = model('BanckAccount', BankAccountSchema);
+module.exports = model('BanckAccount', BankAccountSchema)
