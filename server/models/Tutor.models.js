@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 
 const TutorSchema = new Schema(
   {
-    user: { type: Types.ObjectId, ref: 'User' },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     bio: [
       {
         specialty: {
