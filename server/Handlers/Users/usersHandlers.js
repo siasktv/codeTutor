@@ -33,7 +33,7 @@ const createUserHandler = async (req, res) => {
       password,
     })
 
-    sendEmail(user)
+    await sendEmail(email)
 
     res.status(200).json(user)
   } catch (err) {
