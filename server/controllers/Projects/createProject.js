@@ -9,7 +9,7 @@ const createProject = async ({ tutor, name, link, description, techName }) => {
     techName
   })
 
-  const newProjectPopulate = newProject.populate({
+  const newProjectPopulate = await newProject.populate({
     path: 'techName',
     select: 'name'
   })

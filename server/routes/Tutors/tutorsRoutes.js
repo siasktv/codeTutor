@@ -1,16 +1,19 @@
-const express = require('express')
-const router = express.Router()
-const {
-  getAllTutors,
-  getTutorById,
-  createTutor,
-  deleteTutor,
-  editTutor
-} = require('../../controllers/Tutors/tutorsControllers.js')
+const { Router } = require('express')
 
-router.get('/', getAllTutors)
-router.get('/:id', getTutorById)
-router.delete('/:id', deleteTutor)
-router.post('/createProduct', createTutor)
-router.put('/:id', editTutor)
+const {
+  getAllTutorsHandler,
+  getTutorByIdHandler,
+  createTutorHandler,
+  deleteTutorHandler,
+  updateTutorHandler
+} = require('../../Handlers/Tutors/tutorsHandlers')
+
+const router = Router()
+
+router.get('/', getAllTutorsHandler)
+router.get('/:id', getTutorByIdHandler)
+router.delete('/:id', deleteTutorHandler)
+router.post('/', createTutorHandler)
+router.put('/:id', updateTutorHandler)
+
 module.exports = router
