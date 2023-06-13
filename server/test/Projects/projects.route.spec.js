@@ -32,16 +32,21 @@ describe('Pruebas sobre la API Projects', () => {
 
   describe('POST /api/projects', () => {
     const newProject = {
+      tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
       name: 'Test project',
       link: 'https://www.testproject.com',
       description: 'This is a test project',
+      techName: [
+        new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+        new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+      ]
     }
 
     afterAll(async () => {
       await Projects.deleteMany({
         name: 'Test project',
         link: 'https://www.testproject.com',
-        description: 'This is a test project',
+        description: 'This is a test project'
       })
     })
 
@@ -64,9 +69,14 @@ describe('Pruebas sobre la API Projects', () => {
     let project
     beforeEach(async () => {
       project = await Projects.create({
+        tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
         link: 'https://www.testproject.com',
-        description: 'This is a test project'
+        description: 'This is a test project',
+        techName: [
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+        ]
       })
     })
 
@@ -97,9 +107,14 @@ describe('Pruebas sobre la API Projects', () => {
     let project
     beforeEach(async () => {
       project = await Projects.create({
+        tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
         link: 'https://www.testproject.com',
         description: 'This is a test project',
+        techName: [
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+        ]
       })
     })
 
@@ -111,9 +126,14 @@ describe('Pruebas sobre la API Projects', () => {
       const response = await request(app)
         .put(`/api/projects/${project._id}`)
         .send({
+          tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
           name: 'Test project updated',
           link: 'https://www.testprojectupdated.com',
           description: 'This is a test project updated',
+          techName: [
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+          ]
         })
 
       expect(response.status).toBe(200)
@@ -124,9 +144,14 @@ describe('Pruebas sobre la API Projects', () => {
       const response = await request(app)
         .put(`/api/projects/${project._id}`)
         .send({
+          tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
           name: 'Test project updated 2',
           link: 'https://www.testprojectupdated2.com',
           description: 'This is a test project updated 2',
+          techName: [
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+          ]
         })
 
       expect(response.body._id).toBeDefined()
@@ -139,9 +164,14 @@ describe('Pruebas sobre la API Projects', () => {
     let response
     beforeEach(async () => {
       project = await Projects.create({
+        tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
         link: 'https://www.testproject.com',
         description: 'This is a test project',
+        techName: [
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
+        ]
       })
       response = await request(app)
         .delete(`/api/projects/${project._id}`)
