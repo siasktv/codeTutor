@@ -12,7 +12,7 @@ const SkillsTechSchema = new Schema(
       ref: 'Tech',
       required: true,
     },
-    year: {
+    years: {
       type: Number,
     },
     description: {
