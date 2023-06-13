@@ -1,10 +1,11 @@
 const { Schema, model } = require('mongoose');
 
+
 const SkillsTechSchema = new Schema(
   {
-    tutor: { type: Types.ObjectId, ref: 'Tutor' },
-    techName: { type: Types.ObjectId, ref: 'Tech' , required: true },
-    year: { type: Number },
+    tutor: { type: Schema.Types.ObjectId, ref: 'Tutor' },
+    techName: { type: Schema.Types.ObjectId, ref: 'Tech' , required: true },
+    years: { type: Number },
     description: { type: String},
   },
   {
