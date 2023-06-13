@@ -16,7 +16,10 @@ const updateExperience = async (
       techName,
     },
     { new: true }
-  )
+  ).populate({
+    path: 'techName',
+    select: 'name',
+  })
   return updatedExperience
 }
 

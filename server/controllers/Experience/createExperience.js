@@ -22,7 +22,13 @@ const createExperience = async ({
     description,
     techName,
   })
-  return newExperience
+
+  const newExperiencePopulate = newExperience.populate({
+    path: 'techName',
+    select: 'name',
+  })
+
+  return newExperiencePopulate
 }
 
 module.exports = createExperience
