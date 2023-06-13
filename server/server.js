@@ -2,10 +2,19 @@ require('dotenv').config()
 const express = require('express')
 const server = express()
 const connectDB = require('./db.js')
+require('./models/Tutor.models.js')
+require('./models/Project.models.js')
+require('./models/BankAccount.models.js')
+require('./models/Experience.models.js')
+require('./models/Rates.models.js')
+require('./models/SkillsTech.models.js')
+require('./models/User.models.js')
+
 const morgan = require('morgan')
 const cors = require('cors')
+const routes = require('./routes/index.js')
 let PORT = 3001
-
+//test
 server.use(cors())
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -31,9 +40,13 @@ server.use(morgan('dev'))
 // server.use(paths.reviews, require('./routes/reviewsRoutes'))
 // server.use(paths.users, require('./routes/usersRoutes'))
 // server.use(paths.orders, require('./routes/orders'))
+
 connectDB()
+server.use('/', routes)
 
 if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 server.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
+
+module.exports = server
