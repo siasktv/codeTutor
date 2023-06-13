@@ -3,6 +3,7 @@ const createUser = require('../../controllers/Users/createUser')
 const deleteUser = require('../../controllers/Users/deleteUser')
 const getAllUsers = require('../../controllers/Users/getAllUsers')
 const updateUser = require('../../controllers/Users/updateUser')
+const sendEmail = require('../../utils/nodemailer')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -31,6 +32,9 @@ const createUserHandler = async (req, res) => {
       email,
       password,
     })
+
+    await sendEmail(email)
+
     res.status(200).json(user)
   } catch (err) {
     res.status(500).json({ error: err.message })
