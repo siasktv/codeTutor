@@ -8,12 +8,13 @@ const updateProject = async (
     id,
     { tutor, name, link, description, techName },
     { new: true }
-  ).populate({
+  )
+
+  const updatedProjectPopulate = await updatedProject.populate({
     path: 'techName',
     select: 'name'
   })
-
-  return updatedProject
+  return updatedProjectPopulate
 }
 
 module.exports = updateProject
