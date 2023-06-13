@@ -1,8 +1,12 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose')
 
 const TechSchema = new Schema(
   {
-    name: { type: String, required: true, unique: true },
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     category: {
       type: String,
       required: true,
@@ -18,6 +22,6 @@ const TechSchema = new Schema(
   {
     timestamps: true,
   }
-);
+)
 
-module.exports = model('Tech', TechSchema);
+module.exports = model('Tech', TechSchema)

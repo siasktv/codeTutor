@@ -25,7 +25,7 @@ describe('Pruebas sobre la API Projects', () => {
       expect(response.headers['content-type']).toContain('json')
     })
 
-    it('La petición nos devuelve un array de projects', async () => {
+    it('La petición nos devuelve un array de experience', async () => {
       expect(response.body).toBeInstanceOf(Array)
     })
   })
@@ -34,16 +34,16 @@ describe('Pruebas sobre la API Projects', () => {
     const newExperience = {
       position: 'Test experience',
       company: 'Test experience',
-      start_date: 2022,
-      end_date: 2023,
+      start_date: '2023-06-12',
+      end_date: '2023-06-12',
     }
 
     afterAll(async () => {
       await Experience.deleteMany({
         position: 'Test experience',
         company: 'Test experience',
-        start_date: 2022,
-        end_date: 2023,
+        start_date: '2023-06-12',
+        end_date: '2023-06-12',
       })
     })
 
@@ -72,8 +72,8 @@ describe('Pruebas sobre la API Projects', () => {
       experience = await Experience.create({
         position: 'Test experience',
         company: 'Test experience',
-        start_date: 2022,
-        end_date: 2023,
+        start_date: '2023-06-12',
+        end_date: '2023-06-12',
       })
     })
 
@@ -100,19 +100,19 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
-  describe('PUT /api/experience', () => {
+  describe('PUT /api/experience/:id', () => {
     let experience
     beforeEach(async () => {
       experience = await Experience.create({
         position: 'Test experience',
         company: 'Test experience',
-        start_date: 2022,
-        end_date: 2023,
+        start_date: '2023-06-12',
+        end_date: '2023-06-12',
       })
     })
 
     afterEach(async () => {
-      await Experience.findByIdAndDelete(newExperience._id)
+      await Experience.findByIdAndDelete(experience._id)
     })
 
     it('La ruta funciona', async () => {
@@ -121,8 +121,8 @@ describe('Pruebas sobre la API Projects', () => {
         .send({
           position: 'Test experience',
           company: 'Test experience',
-          start_date: 2022,
-          end_date: 2023,
+          start_date: '2023-06-12',
+          end_date: '2023-06-12',
         })
 
       expect(response.status).toBe(200)
@@ -135,27 +135,27 @@ describe('Pruebas sobre la API Projects', () => {
         .send({
           position: 'Test experience2',
           company: 'Test experience2',
-          start_date: 2022,
-          end_date: 2023,
+          start_date: '2023-06-12',
+          end_date: '2023-06-12',
         })
 
       expect(response.body._id).toBeDefined()
-      expect(response.body.name).toBe('Test experience2')
+      expect(response.body.position).toBe('Test experience2')
     })
   })
 
-  describe('DELETE /api/experience', () => {
+  describe('DELETE /api/experience/:id', () => {
     let experience
     let response
     beforeEach(async () => {
       experience = await Experience.create({
         position: 'Test experience2',
         company: 'Test experience2',
-        start_date: 2022,
-        end_date: 2023,
+        start_date: '2023-06-12',
+        end_date: '2023-06-12',
       })
       response = await request(app)
-        .delete(`/api/projects/${experience._id}`)
+        .delete(`/api/experience/${experience._id}`)
         .send()
     })
 
