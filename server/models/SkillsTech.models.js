@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const { Types } = Schema
+
 
 const SkillsTechSchema = new Schema(
   {
