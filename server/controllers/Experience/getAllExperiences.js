@@ -1,9 +1,9 @@
 const Experience = require('../../models/Experience.models.js')
 
-const getAllExperiences = async (id) => {
-  const allExperiences = await Experience.find({ tutor: id }).populate({
+const getAllExperiences = async () => {
+  const allExperiences = await Experience.find().populate({
     path: 'techName',
-    select: 'name',
+    select: 'name'
   })
 
   console.log(allExperiences)

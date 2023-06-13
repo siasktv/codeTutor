@@ -1,9 +1,31 @@
 const Tutor = require('../../models/Tutor.models')
 
 const getTutorById = async id => {
-  const tutor = await Tutor.findById(id).populate(
-    'user skills experience projects bankAccount'
-  )
+  const tutor = await Tutor.findById(id)
+    .populate({
+      path: 'user'
+    })
+    .populate({
+      path: 'skills',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
+    .populate({
+      path: 'experience',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
+    .populate({
+      path: 'projects',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
 
   return tutor
 }

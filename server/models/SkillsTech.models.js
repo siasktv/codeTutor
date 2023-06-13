@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose')
 const { Types } = Schema
 
-
 const SkillsTechSchema = new Schema(
   {
     tutor: {
@@ -13,7 +12,7 @@ const SkillsTechSchema = new Schema(
       ref: 'Tech',
       required: true
     },
-    year: {
+    years: {
       type: Number
     },
     description: {

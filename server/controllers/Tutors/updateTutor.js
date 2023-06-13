@@ -34,9 +34,31 @@ const updateTutor = async (
     { new: true }
   )
 
-  const tutorPopulate = await tutor.populate(
-    'user skills experience projects bankAccount'
-  )
+  const tutorPopulate = await tutor
+    .populate({
+      path: 'user'
+    })
+    .populate({
+      path: 'skills',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
+    .populate({
+      path: 'experience',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
+    .populate({
+      path: 'projects',
+      populate: {
+        path: 'techName',
+        select: 'name'
+      }
+    })
 
   return tutorPopulate
 }
