@@ -387,8 +387,7 @@ const SearchPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div> 
     );
 };
 
