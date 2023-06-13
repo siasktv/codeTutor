@@ -1,10 +1,13 @@
 const User = require('../../models/User.models')
 
-const createUser = async ({ fullName, email, password }) => {
+const createUser = async ({ fullName, email, image, location, role, uid }) => {
   const user = User.create({
     fullName,
     email,
-    password,
+    image,
+    location,
+    role,
+    uid
   })
 
   return user
