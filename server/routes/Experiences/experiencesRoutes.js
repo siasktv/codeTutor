@@ -6,10 +6,12 @@ const {
   getAllExperiencesHandler,
   updatedExperienceHandler,
   getExperienceByIdHandler,
+  getExperienceByTutorIdHandler
 } = require('../../Handlers/Experience/experienceHandlers')
 
 router.get('/', getAllExperiencesHandler)
 router.get('/:id', getExperienceByIdHandler)
+router.get('/tutor/:id', getExperienceByTutorIdHandler)
 router.delete('/:id', deleteExperienceHandler)
 router.post('/', createExperienceHandler)
 router.put('/:id', updatedExperienceHandler)
