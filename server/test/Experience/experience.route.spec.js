@@ -14,10 +14,10 @@ describe('Pruebas sobre la API Projects', () => {
     await mongoose.disconnect()
   })
 
-  describe('GET /api/experience', () => {
+  describe('GET /api/experiences', () => {
     let response
     beforeEach(async () => {
-      response = await request(app).get('/api/experience').send()
+      response = await request(app).get('/api/experiences').send()
     })
 
     it('La ruta funciona', async () => {
@@ -30,7 +30,7 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
-  describe('POST /api/experience', () => {
+  describe('POST /api/experiences', () => {
     const newExperience = {
       position: 'Test experience',
       company: 'Test experience',
@@ -49,7 +49,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('La ruta funcione', async () => {
       const response = await request(app)
-        .post('/api/experience')
+        .post('/api/experiences')
         .send(newExperience)
 
       expect(response.status).toBe(200)
@@ -58,7 +58,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('Se inserta correctamente', async () => {
       const response = await request(app)
-        .post('/api/experience')
+        .post('/api/experiences')
         .send(newExperience)
 
       expect(response.body._id).toBeDefined()
@@ -66,7 +66,7 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
-  describe('GET /api/experience/:id', () => {
+  describe('GET /api/experiences/:id', () => {
     let experience
     beforeEach(async () => {
       experience = await Experience.create({
@@ -83,7 +83,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('La ruta funciona', async () => {
       const response = await request(app)
-        .get(`/api/experience/${experience._id}`)
+        .get(`/api/experiences/${experience._id}`)
         .send()
 
       expect(response.status).toBe(200)
@@ -92,7 +92,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('Se obtiene correctamente', async () => {
       const response = await request(app)
-        .get(`/api/experience/${experience._id}`)
+        .get(`/api/experiences/${experience._id}`)
         .send()
 
       expect(response.body._id).toBeDefined()
@@ -100,7 +100,7 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
-  describe('PUT /api/experience/:id', () => {
+  describe('PUT /api/experiences/:id', () => {
     let experience
     beforeEach(async () => {
       experience = await Experience.create({
@@ -117,7 +117,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('La ruta funciona', async () => {
       const response = await request(app)
-        .put(`/api/experience/${experience._id}`)
+        .put(`/api/experiences/${experience._id}`)
         .send({
           position: 'Test experience',
           company: 'Test experience',
@@ -131,7 +131,7 @@ describe('Pruebas sobre la API Projects', () => {
 
     it('Se actualiza correctamente', async () => {
       const response = await request(app)
-        .put(`/api/experience/${experience._id}`)
+        .put(`/api/experiences/${experience._id}`)
         .send({
           position: 'Test experience2',
           company: 'Test experience2',
@@ -144,7 +144,7 @@ describe('Pruebas sobre la API Projects', () => {
     })
   })
 
-  describe('DELETE /api/experience/:id', () => {
+  describe('DELETE /api/experiences/:id', () => {
     let experience
     let response
     beforeEach(async () => {
@@ -155,7 +155,7 @@ describe('Pruebas sobre la API Projects', () => {
         end_date: '2023-06-12',
       })
       response = await request(app)
-        .delete(`/api/experience/${experience._id}`)
+        .delete(`/api/experiences/${experience._id}`)
         .send()
     })
 

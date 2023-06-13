@@ -30,11 +30,13 @@ const TutorSchema = new Schema(
         name: {
           type: String,
           enum: ['Mentorship', 'Freelance'],
-          value: Number,
         },
       },
     ],
-    banckAccount: { type: Types.ObjectId, ref: 'BanckAccount' },
+    banckAccount: {
+      type: Schema.Types.ObjectId,
+      ref: 'BanckAccount',
+    },
     status: { type: String, default: 'pending' },
     socialMedia: [
       {
