@@ -4,7 +4,9 @@ import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 
 const SearchPage = () => {
   const tutors = useSelector((state) => state.tutors.tutors)
+  const locations = useSelector((state) => state.tutors.locations)
   console.log(tutors)
+  console.log(locations)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(tutorsFetch())
