@@ -1,9 +1,9 @@
 
 import './App.css'
 import { Routes,Route,Navigate } from 'react-router-dom'
-import Landing from './components/Landing'
-import SearchPage  from './components/SearchPage'
-import TutorProfile from './components/TutorProfile'
+import Landing from './views/Landing'
+import SearchPage  from './views/SearchPage'
+import TutorProfile from './views/TutorProfile'
 
 function App() {
 

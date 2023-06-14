@@ -16,8 +16,8 @@ const initialState = {
       rates: [],
       skills: [],
       socialMedia: [],
-      status: '',
-    },
+      status: ''
+    }
   ],
   allTutors: [
     {
@@ -32,9 +32,9 @@ const initialState = {
       rates: [],
       skills: [],
       socialMedia: [],
-      status: '',
-    },
-  ],
+      status: ''
+    }
+  ]
   //   location: [],
 }
 
@@ -54,9 +54,9 @@ const tutorsSlice = createSlice({
   name: 'tutors',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(tutorsFetch.pending, (state) => {
+      .addCase(tutorsFetch.pending, state => {
         state.loading = true
         state.error = null
       })
@@ -69,7 +69,7 @@ const tutorsSlice = createSlice({
         state.loading = false
         state.error = action.error.message
       })
-  },
+  }
 })
 
 export default tutorsSlice.reducer
