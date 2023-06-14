@@ -1,26 +1,25 @@
 const { Schema, model } = require('mongoose')
-const { Types } = Schema
 
 const SkillsTechSchema = new Schema(
   {
     tutor: {
-      type: Types.ObjectId,
-      ref: 'Tutor'
+      type: Schema.Types.ObjectId,
+      ref: 'Tutor',
     },
     techName: {
       type: Schema.Types.ObjectId,
       ref: 'Tech',
-      required: true
+      required: true,
     },
     years: {
-      type: Number
+      type: Number,
     },
     description: {
-      type: String
-    }
+      type: String,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 )
 module.exports = model('SkillsTech', SkillsTechSchema)

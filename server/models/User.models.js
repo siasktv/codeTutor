@@ -34,15 +34,18 @@ const UserSchema = new Schema(
       lowerCase: true,
       // validate: emailValidator,
     },
-    password: {
-      type: String,
-      required: true,
-      // validate: passwordValidator,
-    },
+    // password: {
+    //   type: String,
+    //   required: true,
+    //   // validate: passwordValidator,
+    // },
     image: {
       type: String,
     },
     location: {
+      type: String,
+    },
+    timezones: {
       type: String,
     },
     role: {
@@ -62,10 +65,14 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    uid: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
-)
+);
 
 module.exports = model('User', UserSchema)
