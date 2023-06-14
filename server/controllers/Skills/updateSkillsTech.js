@@ -10,7 +10,9 @@ const updateSkillsTech = async (
     { new: true }
   )
 
-  const updatedSkillsTechPopulate = updatedSkillsTech.populate({
+  const updatedSkillsTechPopulate = SkillsTech.findById(
+    updatedSkillsTech._id
+  ).populate({
     path: 'techName',
     name: 'name'
   })
