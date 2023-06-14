@@ -47,7 +47,13 @@ const createUserHandler = async (req, res) => {
       uid
     })
 
-    await sendEmail(email)
+    const userToMail = {
+      fullName,
+      email,
+      image
+    }
+
+    await sendEmail(userToMail)
 
     res.status(200).json(user)
   } catch (err) {
