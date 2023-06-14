@@ -8,7 +8,8 @@ import {
   MagicLeap,
   talking,
   bag,
-  lamp
+  lamp,
+  heroimgSvg
 } from '../assets'
 
 const Landing = () => {
@@ -145,7 +146,7 @@ const Landing = () => {
                 <img
                   className=' relative w-91.5 h-108 object-center justify-center top-20  object-fit border-transparent    mx-auto '
                   alt='hero'
-                  src='src\assets\heroimg.svg'
+                  src={heroimgSvg}
                 />
               </div>
             </div>

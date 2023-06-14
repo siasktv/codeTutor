@@ -1,123 +1,129 @@
-import AreaTutor3xl from "../../components/Area3xlTutor";
-import CountryTutor from "../../components/CountryTutor";
-import CoinHourTutor from "../../components/CoinHourTutor";
-import LanguageTutor from "../../components/LanguageTutor";
-import DescriptionTutor from "../../components/DescriptionTutor";
-import TechnicalSkillsTutor from "../../components/TechnicalSkillsTutor";
-import RatingTutor from "../../components/RatingTutor";
-import ReviewsTutorTotal from "../../components/ReviewsTutorTotal";
-import CardReviewUser from "./CardReviewUser";
-import CardExpJob from "./CardExpJob";
-import CardProyects from "./CardProyects";
-import ButtonShowMore from "../../components/Buttons/ButtonShowMore"
+import {
+  AreaTutor3xl,
+  CountryTutor,
+  CoinHourTutor,
+  LanguageTutor,
+  DescriptionTutor,
+  TechnicalSkillsTutor,
+  RatingTutor,
+  ReviewsTutorTotal,
+  ButtonShowMore
+} from '../../components'
+import { CardReviewUser, CardExpJob, CardProyects } from '../'
+
+import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
 const TutorInfoR = () => {
-    return (
-      <div className='w-full pl-9 flex flex-col relative z-0'>
-        <div className="p-9 bg-white border border-gray-200 shadow-md rounded-lg">
-          {/* Area del Developer */}
+  return (
+    <div className='w-full pl-9 flex flex-col relative z-0'>
+      <div className='p-9 bg-white border border-gray-200 shadow-md rounded-lg'>
+        {/* Area del Developer */}
+        <div>
+          <AreaTutor3xl />
+        </div>
+
+        {/* Contenedor de País,Tarifa e Idiomas */}
+        <div className='pt-6 pb-6 flex justify-start items-center'>
+          {/* Los svg y span contienen iconos */}
+          <img src={Pais} />
+          {/* País */}
+          <CountryTutor />
+
+          <span className='pl-4 pr-4 font-semibold text-sm text-gray-600'>
+            ◦
+          </span>
+
+          <img src={Moneda} />
+          {/* Tarifa */}
+          <CoinHourTutor />
+
+          <span className='pl-4 pr-4 font-semibold text-sm text-gray-600'>
+            ◦
+          </span>
+
+          <img src={Mensaje} />
+          {/* Idiomas */}
+          <LanguageTutor />
+        </div>
+
+        {/* Descripción del tutor */}
+        <div className='pt-2 pb-6 border-b'>
+          <DescriptionTutor />
+        </div>
+
+        {/* Cuadro de Habilidades Técnicas */}
+        <div className='pt-6 pb-6'>
+          <h2 className='text-left text-2xl font-medium'>
+            Habilidades Técnicas
+          </h2>
+        </div>
+        <div className='pb-6 border-b'>
+          <div className='grid grid-cols-4 gap-3'>
+            <TechnicalSkillsTutor />
+          </div>
+        </div>
+
+        {/* Valoraciones */}
+        <div className='pb-6 border-b'>
+          <div className='pt-6'>
+            <h2 className='text-left text-2xl font-medium'>Reviews</h2>
+          </div>
+          <div className='pt-6 pb-6 flex justify-between items-center space-x-6'>
+            <div className='flex items-center space-x-2'>
+              <img src={Star} />
+              {/* Puntuación */}
+              <RatingTutor />
+            </div>
+            {/* Reviews */}
+            <ReviewsTutorTotal />
+          </div>
+
+          {/* Contenedor de opiniones */}
           <div>
-            <AreaTutor3xl/>
+            <CardReviewUser />
           </div>
 
-          {/* Contenedor de País,Tarifa e Idiomas */}
-          <div className="pt-6 pb-6 flex justify-start items-center">
-            {/* Los svg y span contienen iconos */}
-            <img src="./src/assets/Pais.svg"/>
-            {/* País */}
-            <CountryTutor/>
+          {/* Boton ver más opiniones */}
+          <div className='flex flex-col items-center pt-6'>
+            <ButtonShowMore />
+          </div>
+        </div>
 
-            <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
-              ◦
-            </span>
-
-            <img src="./src/assets/Moneda.svg"/>
-            {/* Tarifa */}
-            <CoinHourTutor/>
-
-            <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
-              ◦
-            </span>
-
-            <img src="./src/assets/Mensaje.svg"/>
-            {/* Idiomas */}
-            <LanguageTutor/>
+        {/* Experiencia Laboral */}
+        <div className='pb-6 border-b'>
+          {/* Título */}
+          <div className='pt-6'>
+            <h2 className='text-left text-2xl font-medium'>
+              Experiencia Laboral
+            </h2>
           </div>
 
-          {/* Descripción del tutor */}
-          <div className="pt-2 pb-6 border-b">
-            <DescriptionTutor/>
-          </div>
-          
-          {/* Cuadro de Habilidades Técnicas */}
-          <div className="pt-6 pb-6">
-            <h2 className="text-left text-2xl font-medium">Habilidades Técnicas</h2>
-          </div>
-          <div className="pb-6 border-b">
-            <div className="grid grid-cols-4 gap-3">
-              <TechnicalSkillsTutor/>
-            </div>
-          </div>
+          {/* Card Experiencias */}
+          <CardExpJob />
 
-          {/* Valoraciones */}
-          <div className="pb-6 border-b">
-            <div className="pt-6">
-              <h2 className="text-left text-2xl font-medium">Reviews</h2>
-            </div>
-            <div className="pt-6 pb-6 flex justify-between items-center space-x-6">
-              <div className='flex items-center space-x-2'>
-                <img src="./src/assets/Star.svg"/>
-                {/* Puntuación */}
-                <RatingTutor/>
-              </div>
-              {/* Reviews */}
-              <ReviewsTutorTotal/>
-            </div>
+          {/* Boton ver más Experiencias laborales */}
+          <div className='flex flex-col items-center pt-6'>
+            <ButtonShowMore />
+          </div>
+        </div>
 
-            {/* Contenedor de opiniones */}
-            <div>
-              <CardReviewUser/>
-            </div>
-
-            {/* Boton ver más opiniones */}
-            <div className="flex flex-col items-center pt-6">
-              <ButtonShowMore/>
-            </div>
+        {/* Experiencia en Proyectos */}
+        <div className='pb-6'>
+          {/* Título */}
+          <div className='pt-6'>
+            <h2 className='text-left text-2xl font-medium'>Proyectos</h2>
           </div>
 
-          {/* Experiencia Laboral */}
-          <div className="pb-6 border-b">
-            {/* Título */}
-            <div className="pt-6">
-              <h2 className="text-left text-2xl font-medium">Experiencia Laboral</h2>
-            </div>
+          {/* Card Proyectos */}
+          <CardProyects />
 
-            {/* Card Experiencias */}
-            <CardExpJob/>
-
-            {/* Boton ver más Experiencias laborales */}
-            <div className="flex flex-col items-center pt-6">
-              <ButtonShowMore/>
-            </div>
-          </div>
-
-          {/* Experiencia en Proyectos */}
-          <div className="pb-6">
-            {/* Título */}
-            <div className="pt-6">
-              <h2 className="text-left text-2xl font-medium">Proyectos</h2>
-            </div>
-
-            {/* Card Proyectos */}
-            <CardProyects/>
-            
-            {/* Boton ver más Proyectos */}
-            <div className="flex flex-col items-center pt-6">
-              <ButtonShowMore/>
-            </div>
+          {/* Boton ver más Proyectos */}
+          <div className='flex flex-col items-center pt-6'>
+            <ButtonShowMore />
           </div>
         </div>
       </div>
-    )
-  }
-  export default TutorInfoR;
+    </div>
+  )
+}
+export default TutorInfoR
