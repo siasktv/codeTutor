@@ -12,7 +12,7 @@ const SearchPage = () => {
   useEffect(() => {
     dispatch(tutorsFetch())
     dispatch(usersFetch())
-  }, [])
+  }, [dispatch])
 
   const [rating, setRating] = useState(0)
 
