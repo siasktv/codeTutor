@@ -1,4 +1,4 @@
-const TutorProfilePicture = () => {
+const PictureTutor = () => {
     return (
       <img 
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF_oFhoPdG_gvarQsjy33Dwov47ETNFjw3Sg&usqp=CAU'
@@ -7,4 +7,4 @@ const TutorProfilePicture = () => {
       />
     )
 }
-export default TutorProfilePicture;
+export default PictureTutor;
