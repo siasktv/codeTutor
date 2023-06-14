@@ -12,7 +12,7 @@ const SearchPage = () => {
   useEffect(() => {
     dispatch(tutorsFetch())
     dispatch(usersFetch())
-  }, [])
+  }, [dispatch])
 
   const [rating, setRating] = useState(0)
 
@@ -82,7 +82,7 @@ const SearchPage = () => {
           </div>
         </div>
         <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0 top-72'>
-          <div className='box-border border w-1/5 h-max left-79 top-516 pb-10 bg-white border-1 border-gray-100 shadow-md'>
+          <div className='box-border border w-64 h-max left-79 top-516 pb-10 bg-white border-1 border-gray-100 shadow-md'>
             <div className='flex flex-col items-start pt-10 pl-10 pr-10 gap-30'>
               <h2 className='w-62 h-30 font-inter font-bold leading-150 text-xl text-black'>
                 Filtros

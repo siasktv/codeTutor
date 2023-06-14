@@ -6,16 +6,16 @@ const TutorInfoI = () => {
       <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
         <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
           {/* Foto Perfil */}
-          <TutorProfilePicture/>
+          <TutorProfilePicture />
           {/* Estado de conexion */}
-          <TutorProfileConexionState/>
+          <TutorProfileConexionState />
         </div>
-        
+
         {/* Valoraciones */}
         <div className="flex justify-center items-center space-x-6">
-          <div className='flex items-center space-x-2'>
-              <img src="./src/assets/Star.svg"/>
-              <h2 className="font-semibold text-sm text-codecolor">5.0</h2>
+          <div className="flex items-center space-x-2">
+            <img src="./src/assets/Star.svg" />
+            <h2 className="font-semibold text-sm text-codecolor">5.0</h2>
           </div>
           <h2 className="font-semibold text-sm text-gray-600">2000 reviews</h2>
         </div>
@@ -27,11 +27,21 @@ const TutorInfoI = () => {
 
         {/* Redes(GitHub y Linkedin) */}
         <div className="flex justify-center items-center pt-6 pb-6 space-x-6">
-          <a href="https://github.com/ " target="_blank" className="transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">
-            <img src="./src/assets/GitHub.svg"/>
+          <a
+            href="https://github.com/ "
+            target="_blank"
+            rel="noreferrer"
+            className="transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
+          >
+            <img src="./src/assets/GitHub.svg" />
           </a>
-          <a href="https://www.linkedin.com" target="_blank" className="transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">
-            <img src="./src/assets/LinkedIn.svg"/>
+          <a
+            href="https://www.linkedin.com"
+            target="_blank"
+            rel="noreferrer"
+            className="transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
+          >
+            <img src="./src/assets/LinkedIn.svg" />
           </a>
         </div>
 
@@ -49,13 +59,14 @@ const TutorInfoI = () => {
 
         {/* Boton para Contactar */}
         <div className="flex flex-col items-center pt-6">
-          <button 
-              type="button"
-              className="flex flex-row items-center justify-center w-36 h-14 bg-codecolor text-white rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">
-              Contactar
+          <button
+            type="button"
+            className="flex flex-row items-center justify-center w-36 h-14 bg-codecolor text-white rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
+          >
+            Contactar
           </button>
         </div>
       </div>
-    )
+    );
   }
   export default TutorInfoI;
