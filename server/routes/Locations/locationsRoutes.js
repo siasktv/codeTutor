@@ -1,16 +1,13 @@
-const { Router } = require('express');
-
+const { Router } = require('express')
 
 const {
   getAllLocationHandler,
-  saveApiLocationHandler,
+  saveApiLocationHandler
+} = require('../../Handlers/Locations/locationsHandlers')
 
-} = require('../../Handlers/Locations/locationsHandlers');
+const router = Router()
 
-const router = Router();
+router.get('/', getAllLocationHandler)
+// router.post('/', saveApiLocationHandler);
 
-router.get('/', getAllLocationHandler);
-router.post('/', saveApiLocationHandler);
-
-
-module.exports = router;
+module.exports = router
