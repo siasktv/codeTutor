@@ -5,10 +5,14 @@ const TutorInfoI = () => {
     return (
       <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
         <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
-          {/* Foto Perfil */}
-          <TutorProfilePicture/>
-          {/* Estado de conexion */}
-          <TutorProfileConexionState/>
+          <div className="w-40 h-40 rounded-full overflow-hidden transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none">
+            {/* Foto Perfil */}
+            <TutorProfilePicture/>
+          </div>
+          <div className="pt-10">
+            {/* Estado de conexion */}
+            <TutorProfileConexionState/>
+          </div>
         </div>
         
         {/* Valoraciones */}
