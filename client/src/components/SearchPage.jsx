@@ -281,10 +281,10 @@ const SearchPage = () => {
                                     <div className="pt-2 pb-2">
                                         <h2 className="font-semibold text-sm text-left">Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt.</h2>
                                     </div>
-                                    <div className="pt-2 pb-2 ">
-                                        <div className="flex items-center space-x-3">
-                                            <span className="flex pt-1 pb-1 w-1/4 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Javascript</span>
-                                            <span className="flex pt-1 pb-1 w-1/4 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Machine Learning</span>
+                                    <div className="pt-2 pb-2">
+                                        <div className="grid grid-cols-4 gap-3">
+                                            <span className="flex pt-1 pb-1 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Javascript</span>
+                                            <span className="flex pt-1 pb-1 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Machine Learning</span>
                                         </div>
                                     </div>
                                 </div>
@@ -363,10 +363,10 @@ const SearchPage = () => {
                                     <div className="pt-2 pb-2">
                                         <h2 className="font-semibold text-sm text-left">Deje el mundo del espectaculo para dedicarme a mi otra pasión...el skate. Ah y también a programar.</h2>
                                     </div>
-                                    <div className="pt-2 pb-2 ">
-                                        <div className="flex items-center space-x-3">
-                                            <span className="flex pt-1 pb-1 w-1/4 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Javascript</span>
-                                            <span className="flex pt-1 pb-1 w-1/4 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Machine Learning</span>
+                                    <div className="pt-2 pb-2">
+                                        <div className="grid grid-cols-4 gap-3">
+                                            <span className="flex pt-1 pb-1 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Javascript</span>
+                                            <span className="flex pt-1 pb-1 h-9 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none">Machine Learning</span>
                                         </div>
                                     </div>
                                 </div>
