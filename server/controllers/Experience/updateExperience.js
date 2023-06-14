@@ -13,14 +13,17 @@ const updateExperience = async (
       start_date,
       end_date,
       description,
-      techName,
+      techName
     },
     { new: true }
+  )
+  const updatedExperiencePopulate = await Experience.findById(
+    updatedExperience._id
   ).populate({
     path: 'techName',
-    select: 'name',
+    select: 'name'
   })
-  return updatedExperience
+  return updatedExperiencePopulate
 }
 
 module.exports = updateExperience

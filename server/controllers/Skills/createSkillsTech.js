@@ -8,10 +8,12 @@ const createSkillsTech = async ({ tutor, techName, years, description }) => {
     description
   })
 
-  const newSkillsTechPopulate = newSkillsTech.populate({
-    path: 'techName',
-    name: 'name'
-  })
+  const newSkillsTechPopulate = SkillsTech.findById(newSkillsTech._id).populate(
+    {
+      path: 'techName',
+      name: 'name'
+    }
+  )
 
   return newSkillsTechPopulate
 }

@@ -9,7 +9,7 @@ const createExperience = async ({
   end_date,
   current,
   description,
-  techName,
+  techName
 }) => {
   const newExperience = await Experience.create({
     tutor,
@@ -20,13 +20,15 @@ const createExperience = async ({
     end_date,
     current,
     description,
-    techName,
+    techName
   })
 
-  const newExperiencePopulate = newExperience.populate({
-    path: 'techName',
-    select: 'name',
-  })
+  const newExperiencePopulate = Experience.findById(newExperience._id).populate(
+    {
+      path: 'techName',
+      select: 'name'
+    }
+  )
 
   return newExperiencePopulate
 }
