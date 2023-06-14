@@ -2,7 +2,7 @@ const TutorProfile = () => {
   return (
     <div className="bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0">
       {/* Tabla de información izquierda */}
-      <div className="box-border border w-2/6 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
+      <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
         <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
           {/* Foto Perfil */}
           <div className="w-40 h-40 rounded-full overflow-hidden transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none">
