@@ -26,7 +26,7 @@ const getUserByUidHandler = async (req, res) => {
 }
 
 const createUserHandler = async (req, res) => {
-  const { fullName, email, image, location, role, uid } = req.body
+  const { fullName, email, image, location, timezone, role, uid } = req.body
 
   if (!fullName || !email || !uid)
     return res
@@ -43,6 +43,7 @@ const createUserHandler = async (req, res) => {
       email,
       image,
       location,
+      timezone,
       role,
       uid
     })
@@ -74,13 +75,14 @@ const deleteUserHandler = async (req, res) => {
 
 const updateUserHandler = async (req, res) => {
   const { id } = req.params
-  const { fullName, email, image, location, role } = req.body
+  const { fullName, email, image, location, timezone, role } = req.body
   try {
     const updatedUser = await updateUser(id, {
       fullName,
       email,
       image,
       location,
+      timezone,
       role
     })
     res.status(200).json(updatedUser)
