@@ -1,5 +1,5 @@
-import TutorProfilePicture from "../../components/TutorProfilePicture";
-import TutorProfileConexionState from "../../components/TutorProfileConexionState";
+import TutorProfilePicture from "../../components/Tutor/TutorProfilePicture";
+import TutorProfileConexionState from "../../components/Tutor/TutorProfileConexionState";
 
 const TutorInfoI = () => {
     return (
