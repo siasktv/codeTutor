@@ -108,7 +108,7 @@ const SearchPage = () => {
                 htmlFor='range'
               >{`$${rating}-$80`}</label>
             </div>
-            <div className='flex flex-col items-start pt-2 pl-10 pr-10 gap-30'>
+            {/* <div className='flex flex-col items-start pt-2 pl-10 pr-10 gap-30'>
               <h2 className='w-62 h-30 font-inter font-semibold leading-150 text-black pt-6'>
                 Nivel
               </h2>
@@ -182,7 +182,7 @@ const SearchPage = () => {
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className='flex flex-col items-start pt-2 pl-10 pr-10 gap-30'>
               <h2 className='w-62 h-30 font-inter font-semibold leading-150 text-black pt-6'>
                 Review

@@ -1,14 +1,13 @@
-import TutorInfoI from "../layouts/TutorProfileLayout/TutorInfoL";
-import TutorInfoD from "../layouts/TutorProfileLayout/TutorInfoR";
+import { TutorInfoR, TutorInfoL } from '../layouts'
 
 const TutorProfile = () => {
   return (
-    <div className="bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0">
+    <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0'>
       {/* Tabla de información Izquierda */}
-      <TutorInfoI/>
+      <TutorInfoL />
       {/* Tabla de Información Derecha */}
-      <TutorInfoD/>
+      <TutorInfoR />
     </div>
   )
 }
-export default TutorProfile;
+export default TutorProfile
