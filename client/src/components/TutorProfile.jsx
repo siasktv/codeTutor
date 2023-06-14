@@ -193,6 +193,7 @@ const TutorProfile = () => {
                 <h2 className="font-semibold">Frontend Engineer</h2>
               </div>
             </div>
+            
           </div>
 
         </div>
