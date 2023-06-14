@@ -34,8 +34,8 @@ const initialState = {
       socialMedia: [],
       status: ''
     }
-  ]
-  //   location: [],
+  ],
+  location: []
 }
 
 //createThunk
@@ -64,6 +64,11 @@ const tutorsSlice = createSlice({
         state.loading = false
         state.tutors = action.payload
         state.allTutors = action.payload
+        state.tutors.map(tutor => {
+          if (!state.location.includes(tutor.user.location)) {
+            state.location.push(tutor.user.location)
+          }
+        })
       })
       .addCase(tutorsFetch.rejected, (state, action) => {
         state.loading = false
