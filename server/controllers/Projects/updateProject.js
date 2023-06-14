@@ -10,7 +10,9 @@ const updateProject = async (
     { new: true }
   )
 
-  const updatedProjectPopulate = await updatedProject.populate({
+  const updatedProjectPopulate = await Project.findById(
+    updatedProject._id
+  ).populate({
     path: 'techName',
     select: 'name'
   })

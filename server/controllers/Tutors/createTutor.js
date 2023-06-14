@@ -27,7 +27,7 @@ const createTutor = async ({
     offline
   })
 
-  const tutorPopulate = await tutor
+  const tutorPopulate = await Tutor.findById(tutor._id)
     .populate({
       path: 'user'
     })
