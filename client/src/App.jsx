@@ -11,7 +11,7 @@ function App () {
         <Route path='/home' element={<Landing />} />
         <Route path='/nav' element={<NavLogin />} />
         <Route path='/search' element={<SearchPage />} />
-        <Route path='/tutor' element={<TutorProfile />} />
+        <Route path='/tutor/:id' element={<TutorProfile />} />
         <Route path='/testlogin' element={<TestLoginPage />} />
       </Routes>
     </div>

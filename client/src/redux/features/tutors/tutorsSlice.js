@@ -7,7 +7,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -23,7 +23,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -35,6 +35,20 @@ const initialState = {
       status: '',
     },
   ],
+  tutor: {
+      _id: '',
+      user: {},
+      bio: {},
+      experience: [],
+      languages: [],
+      offline: false,
+      timezone: '',
+      projects: [],
+      rates: [],
+      skills: [],
+      socialMedia: [],
+      status: '',
+  },
   locations: [],
   location: '',
   selectedRate: 0,
@@ -51,6 +65,17 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
     console.log(error)
   }
 })
+
+
+export const tutorFetchById = createAsyncThunk('tutor/tutorFetchById', async id => {
+  console.log(id);
+  try {
+    const response = await axios.get(`http://localhost:3001/api/tutors/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 function filterTutors(state, tutors) {
   const { location, selectedRate, selectedLanguage } = state
@@ -106,28 +131,42 @@ const tutorsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(tutorsFetch.pending, (state) => {
-        state.loading = true
-        state.error = null
+        state.loading = true;
+        state.error = null;
       })
       .addCase(tutorsFetch.fulfilled, (state, action) => {
-        state.loading = false
-        state.tutors = action.payload
+        state.loading = false;
+        state.tutors = action.payload;
         state.tutors.forEach((tutor) => {
           if (!state.locations.includes(tutor.user.location)) {
-            state.locations.push(tutor.user.location)
+            state.locations.push(tutor.user.location);
           }
-        })
-        state.allTutors = action.payload
+        });
+        state.allTutors = action.payload;
         state.tutors.map((tutor) => {
           if (!state.locations.includes(tutor.user.location)) {
-            state.locations.push(tutor.user.location)
+            state.locations.push(tutor.user.location);
           }
-        })
+        });
       })
       .addCase(tutorsFetch.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
+        state.loading = false;
+        state.error = action.error.message;
       })
+      .addCase(tutorFetchById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(tutorFetchById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tutor = action.payload;
+        
+      })
+      .addCase(tutorFetchById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    
   },
 })
 

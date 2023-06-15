@@ -24,12 +24,13 @@ import {
 import { Star } from '../../assets'
 
 const TutorInfoI = (tutor) => {
+  
   return (
     <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
       <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
         <div className="w-40 h-40 rounded-full overflow-hidden transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none">
           {/* Foto Perfil */}
-          <PictureTutor image={tutor.image} />
+          <PictureTutor image={tutor.user.image} />
         </div>
         <div className="pt-10">
           {/* Estado de conexion */}
@@ -48,7 +49,7 @@ const TutorInfoI = (tutor) => {
 
       {/* Apellido y nombre del tutor */}
       <div className="pt-6 pl-4 pr-4">
-        <NameTutor />
+        <NameTutor fullName={tutor.user.fullName} />
       </div>
 
       {/* Redes(GitHub y Linkedin) */}
@@ -60,7 +61,7 @@ const TutorInfoI = (tutor) => {
       {/* Costos y sesiones */}
       <div className="border-t border-b flex justify-evenly items-center pt-6 pb-6 pl-4 pr-4 space-x-6">
         <div>
-          <PriceHourPurple />
+          <PriceHourPurple rates={tutor.mentorship} />
           <h2 className="font-semibold text-sm text-gray-700">la hora</h2>
         </div>
         <div>
