@@ -1,10 +1,12 @@
-const PictureTutor = () => {
+/* eslint-disable react/prop-types */
+const PictureTutor = (props) => {
+  
     return (
-      <img 
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF_oFhoPdG_gvarQsjy33Dwov47ETNFjw3Sg&usqp=CAU'
-        alt="Imagen de perfil Tutor" 
+      <img
+        src={props.image}
+        alt="Imagen de perfil Tutor"
         className="w-full h-full object-cover"
       />
-    )
+    );
 }
 export default PictureTutor;

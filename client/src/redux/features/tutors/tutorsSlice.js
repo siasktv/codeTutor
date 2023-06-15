@@ -14,6 +14,8 @@ const initialState = {
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
       status: '',
@@ -30,6 +32,8 @@ const initialState = {
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
       status: '',
@@ -40,6 +44,7 @@ const initialState = {
   selectedRate: 0,
   selectedReview: 1,
   selectedLanguage: '',
+  selectedTech: '',
 }
 
 //createThunk
@@ -52,20 +57,43 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   }
 })
 
+export const tutorFetchById = createAsyncThunk(
+  'tutors/tutorFetchById',
+  async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 function filterTutors(state, tutors) {
-  const { location, selectedRate, selectedLanguage } = state
+  const { location, selectedRate, selectedLanguage, selectedTech } = state
 
   return tutors.filter((tutor) => {
     if (selectedLanguage) {
       if (!tutor.languages.some((lang) => lang.language === selectedLanguage))
         return false
     }
+    if (selectedTech) {
+      if (
+        tutor.skills.some(
+          ({ techName }) =>
+            techName.name.toLowerCase() !== selectedTech.toLowerCase()
+        )
+      )
+        return false
+    }
+
     if (selectedRate) {
       const rate = tutor.rates.find(({ name }) => name === 'Mentorship').value
       if (rate < selectedRate) return false
     }
     if (location) {
-      if (state.location !== tutor.user.location.toLowerCase()) return false
+      if (state.location.toLowerCase() !== tutor.user.location.toLowerCase())
+        return false
     }
 
     return true
@@ -77,12 +105,15 @@ const tutorsSlice = createSlice({
   name: 'tutors',
   initialState,
   reducers: {
+    sortedByTech(state, action) {
+      state.selectedTech = action.payload
+      state.tutors = filterTutors(state, state.allTutors)
+    },
     sortedByLocation(state, action) {
-      state.location = action.payload.toLowerCase()
+      state.locations = action.payload.toLowerCase()
       state.tutors = filterTutors(state, state.allTutors)
     },
     sortedByRate(state, action) {
-      console.log(action.payload)
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
@@ -111,7 +142,15 @@ const tutorsSlice = createSlice({
       .addCase(tutorsFetch.fulfilled, (state, action) => {
         state.loading = false
         state.tutors = action.payload
-        state.tutors.map((tutor) => {
+        state.tutors.forEach((tutor) => {
+          tutor.mentorship = tutor.rates.find(
+            ({ name }) => name === 'Mentorship'
+          ).value
+          tutor.freelance = tutor.rates.find(
+            ({ name }) => name === 'Freelance'
+          ).value
+        })
+        state.tutors.forEach((tutor) => {
           if (!state.locations.includes(tutor.user.location)) {
             state.locations.push(tutor.user.location)
           }
@@ -130,7 +169,12 @@ const tutorsSlice = createSlice({
   },
 })
 
-export const { sortedByLocation, sortedByRate, sortedByLanguages } =
-  tutorsSlice.actions
+export const {
+  sortedByTech,
+  sortedByLocation,
+  sortedByRate,
+  sortedByReview,
+  sortedByLanguages,
+} = tutorsSlice.actions
 
 export default tutorsSlice.reducer

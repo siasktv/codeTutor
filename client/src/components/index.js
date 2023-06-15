@@ -21,6 +21,7 @@ import NameTutor from './NameTutor'
 import NameUserReviewTutor from './NameUserReviewTutor'
 import PictureTutor from './PictureTutor'
 import PictureUserReviewTutor from './PictureUserReviewTutor'
+import PriceHourGray from './PriceHourGrayTutor'
 import PriceHourPurple from './PriceHourPurpleTutor'
 import ProyectNameLink from './ProyectNameLink'
 import RatingTutor from './RatingTutor'
@@ -29,6 +30,7 @@ import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
 import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
 import TechnicalSkillsTutor from './TechnicalSkillsTutor'
+
 
 export {
   NavLogin,
@@ -54,6 +56,7 @@ export {
   NameUserReviewTutor,
   PictureTutor,
   PictureUserReviewTutor,
+  PriceHourGray,
   PriceHourPurple,
   ProyectNameLink,
   RatingTutor,
