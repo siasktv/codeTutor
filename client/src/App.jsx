@@ -1,13 +1,9 @@
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Landing from './views/Landing'
-import SearchPage  from './views/SearchPage'
-import TutorProfile from './views/TutorProfile'
-import TestLoginPage from './views/testLoginPage'
-import Login from './views/Login'
-import Register from './views/Register'
-import NavUserNotifications from './components/NavUserNotifications'
 
+
+import { NavUserNotifications } from './components'
+import { SearchPage, TutorProfile, TestLoginPage, Landing,Login,Register } from './views'
 
 function App () {
   return (
