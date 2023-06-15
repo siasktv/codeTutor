@@ -30,6 +30,7 @@ import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
 import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
 import TechnicalSkillsTutor from './TechnicalSkillsTutor'
+import NavUserNotifications from './NavUserNotifications'
 
 
 export {
@@ -64,5 +65,6 @@ export {
   SessionsTutor,
   TechnicalSkillsJobTutor,
   TechnicalSkillsProyectTutor,
-  TechnicalSkillsTutor
+  TechnicalSkillsTutor,
+  NavUserNotifications,
 }
