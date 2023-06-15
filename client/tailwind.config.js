@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       width:{
+        '72px':'72px',
         '91.5':'368px',
         '125':'500px',
         '162px':'162px',
@@ -14,8 +15,11 @@ export default {
         '344px':'344px',
         '414px':'414px',
         '1224px':'1224px',
+        '1500px':'1500px',
       },
       height:{
+        '72px':'72px',
+        '91.5':'368px',
         '108':'432px',
         '125':'500px',
         '162px':'162px',
@@ -33,6 +37,7 @@ export default {
       },
       spacing: {
         '510px': '510px',
+        '480px': '490px',
       },
     },
   },
