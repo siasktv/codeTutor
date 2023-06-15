@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import '../testLoginPage.css'
+// import '../testLoginPage.css'
 import {
   signUp,
   uploadImage,
@@ -198,15 +198,15 @@ function TestLoginPage () {
   }, [emailLogin, passwordLogin])
 
   return (
-    <>
+    <div>
       {user === undefined && (
         <div className='loading'>
           <h1>Loading...</h1>
         </div>
       )}
       {user === null && (
-        <>
-          <div className='selector'>
+        <div className="flex flex-col items-center justify-center">
+          <div className='selector '>
             <button onClick={() => setSelectedSection('signup')}>
               Sign Up
             </button>
@@ -214,7 +214,7 @@ function TestLoginPage () {
           </div>
 
           {selectedSection === 'signup' && (
-            <div id='signUpForm' className='signup'>
+            <div id='signUpForm' className='signup bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16 '>
               <h1>Sign Up</h1>
               <label>Image</label>
               {imageSignup && (
@@ -296,10 +296,11 @@ function TestLoginPage () {
             </div>
           )}
           {selectedSection === 'login' && (
-            <div id='loginForm' className='login'>
+            <div id='loginForm' className='login bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16'>
               <h1>Login</h1>
-              <label htmlFor='email'>Email</label>
+              <label className='block text-lg' htmlFor='email'>Email</label>
               <input
+                className='block mb-1 text-xl font-medium  text-gray-700'
                 type='email'
                 id='email'
                 name='email'
@@ -308,6 +309,7 @@ function TestLoginPage () {
               />
               <label htmlFor='password'>Password</label>
               <input
+                className='block mb-1 text-xl font-medium text-gray-700'
                 type='password'
                 id='password'
                 name='password'
@@ -318,16 +320,17 @@ function TestLoginPage () {
                 Login
               </button>
               {loginError && <p className='error'>{loginError}</p>}
-            </div>
-          )}
-          <button
+              <button
             onClick={handleLoginWithGoogle}
             disabled={isDisabledGoogle}
             className='googleBtn'
           >
             Login with Google
           </button>
-        </>
+            </div>
+          )}
+          
+        </div>
       )}
       {user && (
         <div className='user'>
@@ -347,7 +350,7 @@ function TestLoginPage () {
           <button onClick={handleLogout}>Sign Out</button>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
