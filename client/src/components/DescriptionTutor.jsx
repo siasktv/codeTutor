@@ -1,6 +1,6 @@
-const DescriptionTutor = () => {
-    return (
-        <h2 className="font-semibold text-sm text-left">Deje el mundo del espectaculo para dedicarme a mi otra pasión...el skate. Ah y también a programar. Mollit in laborum tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem incididunt.</h2>
-    )
+const DescriptionTutor = props => {
+  return (
+    <h2 className='font-semibold text-sm text-left'>{props.description}</h2>
+  )
 }
-export default DescriptionTutor;
+export default DescriptionTutor

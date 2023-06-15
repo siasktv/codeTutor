@@ -7,7 +7,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -25,7 +25,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -56,6 +56,18 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
     console.log(error)
   }
 })
+
+export const tutorFetchById = createAsyncThunk(
+  'tutors/tutorFetchById',
+  async id => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
 
 function filterTutors (state, tutors) {
   const { location, selectedRate, selectedLanguage, selectedTech } = state
