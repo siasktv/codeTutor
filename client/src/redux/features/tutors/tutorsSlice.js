@@ -14,6 +14,8 @@ const initialState = {
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
       status: '',
@@ -30,6 +32,8 @@ const initialState = {
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
       status: '',
@@ -54,6 +58,7 @@ const initialState = {
   selectedRate: 0,
   selectedReview: 1,
   selectedLanguage: '',
+  selectedTech: '',
 }
 
 //createThunk
@@ -66,32 +71,42 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   }
 })
 
-
-export const tutorFetchById = createAsyncThunk('tutor/tutorFetchById', async id => {
-  console.log(id);
-  try {
-    const response = await axios.get(`http://localhost:3001/api/tutors/${id}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
+export const tutorFetchById = createAsyncThunk(
+  'tutors/tutorFetchById',
+  async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
   }
-});
+)
 
 function filterTutors(state, tutors) {
-  const { location, selectedRate, selectedLanguage } = state
+  const { location, selectedRate, selectedLanguage, selectedTech } = state
 
   return tutors.filter((tutor) => {
-    if (location) {
-      if (state.location !== tutor.user.location.toLowerCase()) return false
+    if (selectedLanguage) {
+      if (!tutor.languages.some((lang) => lang.language === selectedLanguage))
+        return false
+    }
+    if (selectedTech) {
+      if (
+        tutor.skills.some(
+          ({ techName }) =>
+            techName.name.toLowerCase() !== selectedTech.toLowerCase()
+        )
+      )
+        return false
     }
 
     if (selectedRate) {
       const rate = tutor.rates.find(({ name }) => name === 'Mentorship').value
-      if (rate >= selectedRate) return false
+      if (rate < selectedRate) return false
     }
-
-    if (selectedLanguage) {
-      if (tutor.languages.some(({ language }) => language === selectedLanguage))
+    if (location) {
+      if (state.location.toLowerCase() !== tutor.user.location.toLowerCase())
         return false
     }
 
@@ -104,6 +119,10 @@ const tutorsSlice = createSlice({
   name: 'tutors',
   initialState,
   reducers: {
+    sortedByTech(state, action) {
+      state.selectedTech = action.payload
+      state.tutors = filterTutors(state, state.allTutors)
+    },
     sortedByLocation(state, action) {
       state.locations = action.payload.toLowerCase()
       state.tutors = filterTutors(state, state.allTutors)
@@ -122,8 +141,8 @@ const tutorsSlice = createSlice({
     // }
 
     sortedByLanguages(state, action) {
-      const selectedLanguage = action.payload
-      state.selectedLanguage = selectedLanguage
+      console.log(action.payload)
+      state.selectedLanguage = action.payload
       state.tutors = filterTutors(state, state.allTutors)
     },
   },
@@ -137,6 +156,14 @@ const tutorsSlice = createSlice({
       .addCase(tutorsFetch.fulfilled, (state, action) => {
         state.loading = false;
         state.tutors = action.payload;
+        state.tutors.forEach((tutor) => {
+          tutor.mentorship = tutor.rates.find(
+            ({ name }) => name === 'Mentorship'
+          ).value
+          tutor.freelance = tutor.rates.find(
+            ({ name }) => name === 'Freelance'
+          ).value
+        })
         state.tutors.forEach((tutor) => {
           if (!state.locations.includes(tutor.user.location)) {
             state.locations.push(tutor.user.location);
@@ -169,5 +196,13 @@ const tutorsSlice = createSlice({
     
   },
 })
+
+export const {
+  sortedByTech,
+  sortedByLocation,
+  sortedByRate,
+  sortedByReview,
+  sortedByLanguages,
+} = tutorsSlice.actions
 
 export default tutorsSlice.reducer

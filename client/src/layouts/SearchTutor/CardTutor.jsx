@@ -9,43 +9,48 @@ import {
   LanguageTutor,
   DescriptionTutor,
   TechnicalSkillsTutor
-} from '../../components';
+} from '../../components'
 
-import {Calendario, MensajeTexto, Moneda, Pais, Star} from '../../assets/index'
+import {
+  Calendario,
+  MensajeTexto,
+  Moneda,
+  Pais,
+  Star
+} from '../../assets/index'
 
+const CardTutor = props => {
+  const { tutor } = props
 
-const CardTutor = (props) => {
-  const {tutor}= props
-  
   return (
     <div>
-      <div className="pb-5">
-        <div className="flex p-9 justify-between bg-white border border-gray-200 shadow-md rounded-lg">
+      <div className='pb-5'>
+        <div className='flex p-9 justify-between bg-white border border-gray-200 shadow-md rounded-lg'>
           {/* Imagen de perfil */}
-          <div className="w-20 h-20 rounded-full overflow-hidden">
+          <div className='w-20 h-20 rounded-full overflow-hidden'>
             <PictureTutor image={tutor.user.image} />
           </div>
           {/* Información del tutor */}
-          <div className="p-2 w-3/4 h-1/2">
-            <div className="flex justify-between items-center">
-              <h2 className="font-semibold">{tutor.user.fullName}</h2>
+          <div className='p-2 w-3/4 h-1/2'>
+            <div className='flex justify-between items-center'>
+              <h2 className='font-semibold'>{tutor.user.fullName}</h2>
               <ConexionStateTutor offline={tutor.offline} />
             </div>
 
-            <div className="pt-2 pb-2 flex justify-between items-center">
-              <h2 className="text-2xl font-medium">{tutor.bio.specialty}</h2>
-              <div className="flex items-center space-x-2">
+            <div className='pt-2 pb-2 flex justify-between items-center'>
+              <h2 className='text-2xl font-medium'>{tutor.bio.specialty}</h2>
+              <div className='flex items-center space-x-2'>
                 <img src={Star} />
                 <RatingTutor />
               </div>
               <ReviewsTutorTotal />
             </div>
 
-            <div className="flex justify-start items-center">
+            <div className='flex justify-start items-center'>
               <img src={Pais} />
               <CountryTutor location={tutor.user.location} />
 
-              <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
+              <span className='pl-4 pr-4 font-semibold text-sm text-gray-600'>
                 ◦
               </span>
 
@@ -53,18 +58,18 @@ const CardTutor = (props) => {
 
               <PriceHourGray rates={tutor.mentorship} />
 
-              <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
+              <span className='pl-4 pr-4 font-semibold text-sm text-gray-600'>
                 ◦
               </span>
 
               <img src={Calendario} />
               <LanguageTutor languages={tutor.languages} />
             </div>
-            <div className="pt-2 pb-2">
-              <DescriptionTutor />
+            <div className='pt-2 pb-2'>
+              <DescriptionTutor description={tutor.bio.description} />
             </div>
-            <div className="pt-2 pb-2">
-              <div className="grid grid-cols-4 gap-3">
+            <div className='pt-2 pb-2'>
+              <div className='grid grid-cols-4 gap-3'>
                 <TechnicalSkillsTutor skills={tutor.skills} />
               </div>
             </div>
@@ -72,16 +77,16 @@ const CardTutor = (props) => {
 
           {/* Button Mensage */}
           <button
-            className="flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
-            type="button"
-            title="Contactar"
+            className='flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none'
+            type='button'
+            title='Contactar'
           >
             <img src={MensajeTexto} />
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CardTutor;
+export default CardTutor

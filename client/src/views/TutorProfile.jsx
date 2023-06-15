@@ -21,6 +21,7 @@ console.log(tutor);
       {/* <TutorInfoL /> */}
       {/* Tabla de Información Derecha */}
       {/* <TutorInfoR /> */}
+      <h1>Under development</h1>
     </div>
   )
 }
