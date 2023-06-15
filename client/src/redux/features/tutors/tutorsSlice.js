@@ -7,7 +7,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -23,7 +23,7 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
@@ -56,18 +56,16 @@ function filterTutors(state, tutors) {
   const { location, selectedRate, selectedLanguage } = state
 
   return tutors.filter((tutor) => {
-    if (location) {
-      if (state.location !== tutor.user.location.toLowerCase()) return false
+    if (selectedLanguage) {
+      if (!tutor.languages.some((lang) => lang.language === selectedLanguage))
+        return false
     }
-
     if (selectedRate) {
       const rate = tutor.rates.find(({ name }) => name === 'Mentorship').value
-      if (rate >= selectedRate) return false
+      if (rate < selectedRate) return false
     }
-
-    if (selectedLanguage) {
-      if (tutor.languages.some(({ language }) => language === selectedLanguage))
-        return false
+    if (location) {
+      if (state.location !== tutor.user.location.toLowerCase()) return false
     }
 
     return true
@@ -80,10 +78,11 @@ const tutorsSlice = createSlice({
   initialState,
   reducers: {
     sortedByLocation(state, action) {
-      state.locations = action.payload.toLowerCase()
+      state.location = action.payload.toLowerCase()
       state.tutors = filterTutors(state, state.allTutors)
     },
     sortedByRate(state, action) {
+      console.log(action.payload)
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
@@ -97,8 +96,8 @@ const tutorsSlice = createSlice({
     // }
 
     sortedByLanguages(state, action) {
-      const selectedLanguage = action.payload
-      state.selectedLanguage = selectedLanguage
+      console.log(action.payload)
+      state.selectedLanguage = action.payload
       state.tutors = filterTutors(state, state.allTutors)
     },
   },
@@ -112,15 +111,15 @@ const tutorsSlice = createSlice({
       .addCase(tutorsFetch.fulfilled, (state, action) => {
         state.loading = false
         state.tutors = action.payload
-        state.tutors.forEach((tutor) => {
+        state.tutors.map((tutor) => {
           if (!state.locations.includes(tutor.user.location)) {
             state.locations.push(tutor.user.location)
           }
         })
         state.allTutors = action.payload
         state.tutors.map((tutor) => {
-          if (!state.location.includes(tutor.user.location)) {
-            state.location.push(tutor.user.location)
+          if (!state.locations.includes(tutor.user.location)) {
+            state.locations.push(tutor.user.location)
           }
         })
       })
@@ -130,5 +129,8 @@ const tutorsSlice = createSlice({
       })
   },
 })
+
+export const { sortedByLocation, sortedByRate, sortedByLanguages } =
+  tutorsSlice.actions
 
 export default tutorsSlice.reducer
