@@ -119,8 +119,8 @@ const tutorsSlice = createSlice({
         })
         state.allTutors = action.payload
         state.tutors.map((tutor) => {
-          if (!state.location.includes(tutor.user.location)) {
-            state.location.push(tutor.user.location)
+          if (!state.locations.includes(tutor.user.location)) {
+            state.locations.push(tutor.user.location)
           }
         })
       })
