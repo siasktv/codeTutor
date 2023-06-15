@@ -1,6 +1,7 @@
-const PriceHourPurple = () => {
+/* eslint-disable react/prop-types */
+const PriceHourPurple = (props) => {
     return (
-        <h2 className="font-semibold text-codecolor">US$80.00</h2>
+      <h2 className="font-semibold text-codecolor">US$ { props.rates}</h2>
     )
 }
 export default PriceHourPurple;
