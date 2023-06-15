@@ -2,16 +2,28 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
+import { techesFetch } from '../redux/features/teches/techesSlice'
+import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
+import { Star, MensajeTexto } from '../assets'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
   const users = useSelector(state => state.users.users)
-  console.log('tutors', tutors)
-  console.log('users', users)
+  const locations = useSelector(state => state.tutors.locations)
+  const teches = useSelector(state => state.teches.teches)
+  const categories = useSelector(state => state.teches.categories)
+  const selectedTech = useSelector(state => state.tutors.selectedTech)
+  // console.log('tutors', tutors)
+  // console.log('users', users)
+  // console.log('locations', locations)
+  // console.log('teches', teches)
+  // console.log('categories', categories)
+  // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(tutorsFetch())
     dispatch(usersFetch())
+    dispatch(techesFetch())
   }, [dispatch])
 
   const [rating, setRating] = useState(0)
@@ -37,6 +49,27 @@ const SearchPage = () => {
 
   return (
     <div>
+      {/* {categories.map(category => (
+        <button
+          key={category}
+          type='button'
+          role='menuitem'
+          className='p-4 text-codecolor font-bold cursor-default'
+        >
+          {category}
+          {teches
+            .filter(tech => tech.category === category)
+            .map(tech => (
+              <div
+                key={tech._id}
+                className='text-codecolor font-normal hover:underline cursor-pointer'
+                onClick={() => dispatch(sortedByTech(tech.name))}
+              >
+                <h1>{tech.name}</h1>
+              </div>
+            ))}
+        </button>
+      ))} */}
       <div className='bg-white flex flex-col justify-center items-start p-20 gap-2 absolute w-1440 h-379 left-0 right-0'>
         <div className='flex flex-col items-start p-0 gap-4 w-1312 h-219'>
           <h1 className='w-830 h-84 font-inter font-semibold text-5xl leading-1.5 text-black'>
@@ -384,20 +417,7 @@ const SearchPage = () => {
                       Fullstack Software Engineer
                     </h2>
                     <div className='flex items-center space-x-2'>
-                      <svg
-                        width='22'
-                        height='22'
-                        viewBox='0 0 22 22'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          clipRule='evenodd'
-                          d='M9.57283 1.57795C10.1706 0.140682 12.2067 0.140687 12.8045 1.57795L14.8206 6.42537C14.8566 6.51193 14.938 6.57107 15.0315 6.57856L20.2647 6.9981C21.8163 7.1225 22.4455 9.05889 21.2633 10.0716L17.2761 13.487C17.2049 13.548 17.1738 13.6437 17.1956 13.7348L18.4137 18.8416C18.7749 20.3557 17.1277 21.5524 15.7993 20.7411L11.319 18.0045C11.239 17.9556 11.1383 17.9556 11.0583 18.0045L6.57798 20.7411C5.24956 21.5525 3.60237 20.3557 3.96355 18.8416L5.18169 13.7348C5.20344 13.6437 5.17234 13.548 5.10115 13.487L1.114 10.0716C-0.068189 9.05888 0.560988 7.1225 2.11263 6.9981L7.34583 6.57856C7.43927 6.57107 7.52068 6.51193 7.55668 6.42537L9.57283 1.57795ZM11.4195 2.15399C11.3341 1.94867 11.0432 1.94867 10.9578 2.15399L8.94166 7.00141C8.68965 7.60732 8.11983 8.02132 7.4657 8.07376L2.2325 8.4933C2.01083 8.51108 1.92096 8.7877 2.08984 8.93237L6.07698 12.3478C6.57536 12.7747 6.79301 13.4446 6.64075 14.0829L5.42261 19.1896C5.37101 19.4059 5.60633 19.5769 5.7961 19.461L10.2764 16.7244C10.8365 16.3823 11.5408 16.3823 12.1008 16.7244L16.5812 19.4609C16.771 19.5769 17.0063 19.4059 16.9547 19.1896L15.7365 14.0829C15.5843 13.4446 15.8019 12.7747 16.3003 12.3478L20.2874 8.93237C20.4563 8.7877 20.3665 8.51107 20.1448 8.4933L14.9116 8.07376C14.2575 8.02132 13.6876 7.60732 13.4356 7.00141L11.4195 2.15399Z'
-                          fill='#7F56D9'
-                        />
-                      </svg>
+                      <img src={Star} />
                       <h2 className='font-semibold text-sm text-codecolor'>
                         5.0
                       </h2>
@@ -750,32 +770,7 @@ const SearchPage = () => {
                   type='button'
                   title='Contactar'
                 >
-                  <svg
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M1.75 6.5C1.75 3.87665 3.87665 1.75 6.5 1.75H17.5C20.1234 1.75 22.25 3.87665 22.25 6.5V12C22.25 14.6234 20.1234 16.75 17.5 16.75H13.7663L7.42786 21.9C6.43412 22.7074 5.01331 21.6761 5.47294 20.4811L6.90798 16.75H6.5C3.87665 16.75 1.75 14.6234 1.75 12V6.5ZM6.5 3.25C4.70507 3.25 3.25 4.70507 3.25 6.5V12C3.25 13.7949 4.70507 15.25 6.5 15.25H7.27199C8.14921 15.25 8.75357 16.13 8.43867 16.9487L7.20943 20.1447L12.8893 15.5299C13.1121 15.3488 13.3904 15.25 13.6775 15.25H17.5C19.2949 15.25 20.75 13.7949 20.75 12V6.5C20.75 4.70507 19.2949 3.25 17.5 3.25H6.5Z'
-                      fill='white'
-                    />
-                    <path
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M6.75 11.3574C6.75 10.9432 7.08579 10.6074 7.5 10.6074H16.5C16.9142 10.6074 17.25 10.9432 17.25 11.3574C17.25 11.7716 16.9142 12.1074 16.5 12.1074H7.5C7.08579 12.1074 6.75 11.7716 6.75 11.3574Z'
-                      fill='white'
-                    />
-                    <path
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M6.75 8C6.75 7.58579 7.08579 7.25 7.5 7.25H12C12.4142 7.25 12.75 7.58579 12.75 8C12.75 8.41421 12.4142 8.75 12 8.75H7.5C7.08579 8.75 6.75 8.41421 6.75 8Z'
-                      fill='white'
-                    />
-                  </svg>
+                  <img src={MensajeTexto} alt='Mensaje' />
                 </button>
               </div>
             </div>
