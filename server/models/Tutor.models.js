@@ -4,8 +4,8 @@ const { Types } = Schema
 const TutorSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    bio: [
-      {
+    bio: {
+      
         specialty: {
           type: String,
           enum: ['Full Stack Developer', 'Front-end Developer', 'Back-end Developer', 'Data Base speciality'],
@@ -13,7 +13,7 @@ const TutorSchema = new Schema(
         description: { type: String },
         linkBriefcase: { type: String },
       },
-    ],
+    
     languages: [
       {
         language: {
