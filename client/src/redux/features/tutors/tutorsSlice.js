@@ -7,39 +7,44 @@ const initialState = {
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
-      status: '',
-    },
+      status: ''
+    }
   ],
   allTutors: [
     {
       _id: '',
       user: {},
-      bio: [],
+      bio: {},
       experience: [],
       languages: [],
       offline: false,
       timezone: '',
       projects: [],
       rates: [],
+      mentorship: 0,
+      freelance: 0,
       skills: [],
       socialMedia: [],
-      status: '',
-    },
+      status: ''
+    }
   ],
   locations: [],
   location: '',
   selectedRate: 0,
   selectedReview: 1,
   selectedLanguage: '',
+  selectedTech: ''
 }
 
 //createThunk
@@ -52,10 +57,31 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   }
 })
 
-function filterTutors(state, tutors) {
-  const { location, selectedRate, selectedLanguage } = state
+export const tutorFetchById = createAsyncThunk(
+  'tutors/tutorFetchById',
+  async id => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
 
-  return tutors.filter((tutor) => {
+function filterTutors (state, tutors) {
+  const { location, selectedRate, selectedLanguage, selectedTech } = state
+
+  return tutors.filter(tutor => {
+    if (selectedTech) {
+      if (
+        tutor.skills.some(
+          ({ techName }) =>
+            techName.name.toLowerCase() !== selectedTech.toLowerCase()
+        )
+      )
+        return false
+    }
     if (location) {
       if (state.location !== tutor.user.location.toLowerCase()) return false
     }
@@ -79,11 +105,15 @@ const tutorsSlice = createSlice({
   name: 'tutors',
   initialState,
   reducers: {
-    sortedByLocation(state, action) {
+    sortedByTech (state, action) {
+      state.selectedTech = action.payload
+      state.tutors = filterTutors(state, state.allTutors)
+    },
+    sortedByLocation (state, action) {
       state.locations = action.payload.toLowerCase()
       state.tutors = filterTutors(state, state.allTutors)
     },
-    sortedByRate(state, action) {
+    sortedByRate (state, action) {
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
@@ -96,29 +126,37 @@ const tutorsSlice = createSlice({
     //   })
     // }
 
-    sortedByLanguages(state, action) {
+    sortedByLanguages (state, action) {
       const selectedLanguage = action.payload
       state.selectedLanguage = selectedLanguage
       state.tutors = filterTutors(state, state.allTutors)
-    },
+    }
   },
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(tutorsFetch.pending, (state) => {
+      .addCase(tutorsFetch.pending, state => {
         state.loading = true
         state.error = null
       })
       .addCase(tutorsFetch.fulfilled, (state, action) => {
         state.loading = false
         state.tutors = action.payload
-        state.tutors.forEach((tutor) => {
+        state.tutors.forEach(tutor => {
+          tutor.mentorship = tutor.rates.find(
+            ({ name }) => name === 'Mentorship'
+          ).value
+          tutor.freelance = tutor.rates.find(
+            ({ name }) => name === 'Freelance'
+          ).value
+        })
+        state.tutors.forEach(tutor => {
           if (!state.locations.includes(tutor.user.location)) {
             state.locations.push(tutor.user.location)
           }
         })
         state.allTutors = action.payload
-        state.tutors.map((tutor) => {
+        state.tutors.map(tutor => {
           if (!state.locations.includes(tutor.user.location)) {
             state.locations.push(tutor.user.location)
           }
@@ -128,7 +166,14 @@ const tutorsSlice = createSlice({
         state.loading = false
         state.error = action.error.message
       })
-  },
+  }
 })
 
 export default tutorsSlice.reducer
+export const {
+  sortedByTech,
+  sortedByLocation,
+  sortedByRate,
+  sortedByReview,
+  sortedByLanguages
+} = tutorsSlice.actions

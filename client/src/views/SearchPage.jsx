@@ -2,17 +2,30 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
+import { techesFetch } from '../redux/features/teches/techesSlice'
+import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
+import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
+import { Star, MensajeTexto } from '../assets'
 import CardTutor from '../layouts/SearchTutor/CardTutor'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
   const users = useSelector(state => state.users.users)
+  const locations = useSelector(state => state.tutors.locations)
+  const teches = useSelector(state => state.teches.teches)
+  const categories = useSelector(state => state.teches.categories)
+  const selectedTech = useSelector(state => state.tutors.selectedTech)
   // console.log('tutors', tutors)
   // console.log('users', users)
+  // console.log('locations', locations)
+  // console.log('teches', teches)
+  // console.log('categories', categories)
+  // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(tutorsFetch())
     dispatch(usersFetch())
+    dispatch(techesFetch())
   }, [dispatch])
 
   const [rating, setRating] = useState(0)
@@ -38,6 +51,27 @@ const SearchPage = () => {
 
   return (
     <div>
+      {/* {categories.map(category => (
+        <button
+          key={category}
+          type='button'
+          role='menuitem'
+          className='p-4 text-codecolor font-bold cursor-default'
+        >
+          {category}
+          {teches
+            .filter(tech => tech.category === category)
+            .map(tech => (
+              <div
+                key={tech._id}
+                className='text-codecolor font-normal hover:underline cursor-pointer'
+                onClick={() => dispatch(sortedByTech(tech.name))}
+              >
+                <h1>{tech.name}</h1>
+              </div>
+            ))}
+        </button>
+      ))} */}
       <div className='bg-white flex flex-col justify-center items-start p-20 gap-2 absolute w-1440 h-379 left-0 right-0'>
         <div className='flex flex-col items-start p-0 gap-4 w-1312 h-219'>
           <h1 className='w-830 h-84 font-inter font-semibold text-5xl leading-1.5 text-black'>
@@ -361,14 +395,9 @@ const SearchPage = () => {
                 </div>
               </div>
             </div>
-            {tutors.map(tutor => (  
-              
-                <CardTutor key={tutor._id} tutor={tutor} />
-              
+            {tutors.map(tutor => (
+              <CardTutor key={tutor._id} tutor={tutor} />
             ))}
-            
-            
-            
           </div>
         </div>
       </div>
