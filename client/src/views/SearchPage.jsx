@@ -17,6 +17,9 @@ import { ButtonDropdownLocation } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
 import { Loader } from '../components'
 import { Link } from 'react-router-dom'
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -25,6 +28,26 @@ const SearchPage = () => {
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
+  const tutorsPerPage = 5
+  const [currentPage, setCurrentPage] = useState(1)
+  const indexOfLastTutor = tutorsPerPage * currentPage
+  const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
+  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor)
+  const pageNumbers = []
+  for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
+    pageNumbers.push(i)
+  }
+  const handlePreviusPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+  const handleNextPage = () => {
+    if (currentPage < pageNumbers.length) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
   // console.log('tutors', tutors)
   // console.log('users', users)
   // console.log('locations', locations)
@@ -115,11 +138,38 @@ const SearchPage = () => {
                     </div>
                   </div>
                 </div>
-                {tutors.map(tutor => (
+                {currentTutors.map(tutor => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                     <CardTutor key={tutor._id} tutor={tutor} />
                   </Link>
                 ))}
+                <div className='flex justify-center items-center'>
+                  <div className='flex justify-center items-center'>
+                    <button
+                      onClick={handlePreviusPage}
+                      className={
+                        currentPage === 1
+                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 rounded-l cursor-default'
+                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 rounded-l hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                      }
+                    >
+                      <FontAwesomeIcon icon={faArrowLeft} />
+                    </button>
+                    <button className='bg-codecolor border border-codecolor text-white font-bold py-2 px-4 cursor-default mx-1'>
+                      {currentPage} / {pageNumbers.length}
+                    </button>
+                    <button
+                      onClick={handleNextPage}
+                      className={
+                        currentPage === pageNumbers.length
+                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 rounded-r cursor-default'
+                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 rounded-r hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                      }
+                    >
+                      <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
+                  </div>
+                </div>
               </>
             )}
           </div>
