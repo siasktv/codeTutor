@@ -25,6 +25,7 @@ import Moneda from './Moneda.svg'
 import Pais from './Pais.svg'
 import react from './react.svg'
 import Star from './Star.svg'
+import loaderGoogle from './loadergoogle.gif'
 
 export {
   videocallicon,
@@ -53,5 +54,6 @@ export {
   Moneda,
   Pais,
   react,
-  Star
+  Star,
+  loaderGoogle
 }

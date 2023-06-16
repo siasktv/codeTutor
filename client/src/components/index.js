@@ -24,12 +24,14 @@ import PictureUserReviewTutor from './PictureUserReviewTutor'
 import PriceHourGray from './PriceHourGrayTutor'
 import PriceHourPurple from './PriceHourPurpleTutor'
 import ProyectNameLink from './ProyectNameLink'
+import RangeBar from './Search/RangeBar'
 import RatingTutor from './RatingTutor'
 import ReviewsTutorTotal from './ReviewsTutorTotal'
 import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
 import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
 import TechnicalSkillsTutor from './TechnicalSkillsTutor'
+import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
 import NavUserNotifications from './NavUserNotifications'
 
 
@@ -38,6 +40,7 @@ export {
   LandingDropdown,
   ButtonShowMore,
   ButtonContactar,
+  ButtonDropdownLocation,
   AreaTutor3xl,
   CoinHourTutor,
   CompanyJobTutor,
@@ -60,6 +63,7 @@ export {
   PriceHourGray,
   PriceHourPurple,
   ProyectNameLink,
+  RangeBar,
   RatingTutor,
   ReviewsTutorTotal,
   SessionsTutor,
