@@ -121,7 +121,7 @@ const Landing = () => {
               <div className='h-10 w-125 p-0 mt-0  bg-gray-50 rounded-md ring-1 ring-offset-2 ring-gray-400 sm:flex shadow-md shadow-gray-400'>
                 <img src={MagnifyingGlassSearch} className='pl-2'></img>
                 <form
-                  className='flex-1 min-w-0 revue-form-group'
+                  className='flex-1 min-w-0 revue-form-group mt-0.5'
                   onSubmit={handleSubmit}
                 >
                   <input
