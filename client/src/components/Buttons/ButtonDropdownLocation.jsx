@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 const ButtonDropdownLocation = () => {
   const locations = useSelector(state => state.tutors.locations)
   const dispatch = useDispatch()
-  const button = document.getElementById('dropdown-menu-button')
   const menu = document.querySelector('.origin-top-right')
 
   const handleFilterByLocation = location => {
