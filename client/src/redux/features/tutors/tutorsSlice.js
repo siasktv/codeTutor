@@ -174,7 +174,6 @@ const tutorsSlice = createSlice({
     // }
 
     sortedByLanguages (state, action) {
-      console.log(action.payload)
       state.selectedLanguage = action.payload
       state.tutors = filterTutors(state, state.allTutors)
     }

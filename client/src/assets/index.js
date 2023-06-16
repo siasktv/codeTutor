@@ -26,6 +26,7 @@ import Pais from './Pais.svg'
 import react from './react.svg'
 import Star from './Star.svg'
 import loaderGoogle from './loadergoogle.gif'
+import MagnifyingGlassSearch from './MagnifyingGlassSearch.svg'
 
 export {
   videocallicon,
@@ -55,5 +56,6 @@ export {
   Pais,
   react,
   Star,
-  loaderGoogle
+  loaderGoogle,
+  MagnifyingGlassSearch
 }
