@@ -18,8 +18,8 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: '',
-    },
+      status: ''
+    }
   ],
   allTutors: [
     {
@@ -36,22 +36,22 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: '',
-    },
+      status: ''
+    }
   ],
   tutor: {
-      _id: '',
-      user: {},
-      bio: {},
-      experience: [],
-      languages: [],
-      offline: false,
-      timezone: '',
-      projects: [],
-      rates: [],
-      skills: [],
-      socialMedia: [],
-      status: '',
+    _id: '',
+    user: {},
+    bio: {},
+    experience: [],
+    languages: [],
+    offline: false,
+    timezone: '',
+    projects: [],
+    rates: [],
+    skills: [],
+    socialMedia: [],
+    status: ''
   },
   locations: [],
   location: '',
@@ -59,6 +59,7 @@ const initialState = {
   selectedReview: 1,
   selectedLanguage: '',
   selectedTech: '',
+  currentSearch: ''
 }
 
 //createThunk
@@ -73,7 +74,7 @@ export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
 
 export const tutorFetchById = createAsyncThunk(
   'tutors/tutorFetchById',
-  async (id) => {
+  async id => {
     try {
       const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
       return response.data
@@ -83,12 +84,27 @@ export const tutorFetchById = createAsyncThunk(
   }
 )
 
-function filterTutors(state, tutors) {
-  const { location, selectedRate, selectedLanguage, selectedTech } = state
+function filterTutors (state, tutors) {
+  const {
+    currentSearch,
+    location,
+    selectedRate,
+    selectedLanguage,
+    selectedTech
+  } = state
 
-  return tutors.filter((tutor) => {
+  return tutors.filter(tutor => {
+    if (currentSearch) {
+      if (
+        !tutor.bio.specialty
+          .toLowerCase()
+          .includes(currentSearch.toLowerCase()) &&
+        !tutor.user.fullName.toLowerCase().includes(currentSearch.toLowerCase())
+      )
+        return false
+    }
     if (selectedLanguage) {
-      if (!tutor.languages.some((lang) => lang.language === selectedLanguage))
+      if (!tutor.languages.some(lang => lang.language === selectedLanguage))
         return false
     }
     if (selectedTech) {
@@ -119,15 +135,25 @@ const tutorsSlice = createSlice({
   name: 'tutors',
   initialState,
   reducers: {
-    sortedByTech(state, action) {
+    sortedBySearch (state, action) {
+      state.currentSearch = action.payload
+      state.tutors = filterTutors(state, state.allTutors)
+    },
+    sortedByTech (state, action) {
       state.selectedTech = action.payload
       state.tutors = filterTutors(state, state.allTutors)
     },
-    sortedByLocation(state, action) {
-      state.location = action.payload.toLowerCase()
-      state.tutors = filterTutors(state, state.allTutors)
+    sortedByLocation (state, action) {
+      if (action.payload === 'Todos') {
+        state.location = ''
+        state.tutors = filterTutors(state, state.allTutors)
+        return
+      } else {
+        state.location = action.payload.toLowerCase()
+        state.tutors = filterTutors(state, state.allTutors)
+      }
     },
-    sortedByRate(state, action) {
+    sortedByRate (state, action) {
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
@@ -140,23 +166,23 @@ const tutorsSlice = createSlice({
     //   })
     // }
 
-    sortedByLanguages(state, action) {
+    sortedByLanguages (state, action) {
       console.log(action.payload)
       state.selectedLanguage = action.payload
       state.tutors = filterTutors(state, state.allTutors)
-    },
+    }
   },
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(tutorsFetch.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+      .addCase(tutorsFetch.pending, state => {
+        state.loading = true
+        state.error = null
       })
       .addCase(tutorsFetch.fulfilled, (state, action) => {
-        state.loading = false;
-        state.tutors = action.payload;
-        state.tutors.forEach((tutor) => {
+        state.loading = false
+        state.tutors = action.payload
+        state.tutors.forEach(tutor => {
           tutor.mentorship = tutor.rates.find(
             ({ name }) => name === 'Mentorship'
           ).value
@@ -164,45 +190,44 @@ const tutorsSlice = createSlice({
             ({ name }) => name === 'Freelance'
           ).value
         })
-        state.tutors.forEach((tutor) => {
+        state.tutors.forEach(tutor => {
           if (!state.locations.includes(tutor.user.location)) {
-            state.locations.push(tutor.user.location);
+            state.locations.push(tutor.user.location)
           }
-        });
-        state.allTutors = action.payload;
-        state.tutors.map((tutor) => {
+        })
+        state.allTutors = action.payload
+        state.tutors.map(tutor => {
           if (!state.locations.includes(tutor.user.location)) {
-            state.locations.push(tutor.user.location);
+            state.locations.push(tutor.user.location)
           }
-        });
+        })
       })
       .addCase(tutorsFetch.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
+        state.loading = false
+        state.error = action.error.message
       })
-      .addCase(tutorFetchById.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+      .addCase(tutorFetchById.pending, state => {
+        state.loading = true
+        state.error = null
       })
       .addCase(tutorFetchById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.tutor = action.payload;
-        
+        state.loading = false
+        state.tutor = action.payload
       })
       .addCase(tutorFetchById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
-    
-  },
+        state.loading = false
+        state.error = action.error.message
+      })
+  }
 })
 
 export const {
+  sortedBySearch,
   sortedByTech,
   sortedByLocation,
   sortedByRate,
   sortedByReview,
-  sortedByLanguages,
+  sortedByLanguages
 } = tutorsSlice.actions
 
 export default tutorsSlice.reducer
