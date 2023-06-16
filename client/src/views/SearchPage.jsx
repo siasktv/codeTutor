@@ -33,7 +33,7 @@ const SearchPage = () => {
   // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (!tutors[0].bio?.specialty) {
+    if (!tutors[0]?.bio?.specialty) {
       dispatch(tutorsFetch())
     }
     dispatch(usersFetch())
@@ -41,7 +41,7 @@ const SearchPage = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (tutors[0].bio?.specialty) {
+    if (tutors[0]?.bio?.specialty) {
       setIsLoading(false)
     }
   }, [tutors])

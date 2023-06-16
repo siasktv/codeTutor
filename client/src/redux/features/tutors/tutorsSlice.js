@@ -79,7 +79,7 @@ export const tutorFetchById = createAsyncThunk(
       const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
       return response.data
     } catch (error) {
-      console.log(error)
+      state.error = error.message
     }
   }
 )

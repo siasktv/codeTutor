@@ -5,14 +5,16 @@ import FormLogin from '../layouts/FormLogin'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
 import { Loader } from '../components'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
-      window.location.href = '/navuser'
+      navigate('/navuser')
     } else if (user === null) {
       setIsLoading(false)
     }
