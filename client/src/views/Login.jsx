@@ -4,6 +4,7 @@ import Navlogo from '../components/Navlogo'
 import FormLogin from '../layouts/FormLogin'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
+import { Loader } from '../components'
 
 const Login = () => {
   const user = useUser()
@@ -21,7 +22,7 @@ const Login = () => {
     <>
       {isLoading && (
         <div className='flex justify-center items-center h-screen'>
-          <h1 className='text-4xl font-bold'>Loading...</h1>
+          <Loader />
         </div>
       )}
       {!isLoading && (

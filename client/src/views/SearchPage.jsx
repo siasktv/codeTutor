@@ -15,6 +15,8 @@ import { Star, MensajeTexto } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import { ButtonDropdownLocation } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
+import { Loader } from '../components'
+import { Link } from 'react-router-dom'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -22,6 +24,7 @@ const SearchPage = () => {
   const teches = useSelector(state => state.teches.teches)
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
+  const [isLoading, setIsLoading] = useState(true)
   // console.log('tutors', tutors)
   // console.log('users', users)
   // console.log('locations', locations)
@@ -30,10 +33,18 @@ const SearchPage = () => {
   // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(tutorsFetch())
+    if (!tutors[0].bio?.specialty) {
+      dispatch(tutorsFetch())
+    }
     dispatch(usersFetch())
     dispatch(techesFetch())
   }, [dispatch])
+
+  useEffect(() => {
+    if (tutors[0].bio?.specialty) {
+      setIsLoading(false)
+    }
+  }, [tutors])
 
   // const handleLocationChange = () => {
   //   dispatch(sortedByLocation('Argentina'))
@@ -82,19 +93,30 @@ const SearchPage = () => {
         <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0 top-72'>
           <FilterTutor sortedByLanguages={sortedByLanguages} />
           <div className='w-full p-9 flex flex-col relative z-0'>
-            <div className='flex items-center justify-between'>
-              <h2 className='pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left'>
-                {tutors.length} Programadores
-              </h2>
-              <div className='pb-5 relative inline-block text-left'>
-                <div>
-                  <ButtonDropdownLocation />
-                </div>
+            {isLoading && (
+              <div className='flex justify-center items-center'>
+                <Loader />
               </div>
-            </div>
-            {tutors.map(tutor => (
-              <CardTutor key={tutor._id} tutor={tutor} />
-            ))}
+            )}
+            {!isLoading && (
+              <>
+                <div className='flex items-center justify-between'>
+                  <h2 className='pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left'>
+                    {tutors.length} Programadores
+                  </h2>
+                  <div className='pb-5 relative inline-block text-left'>
+                    <div>
+                      <ButtonDropdownLocation />
+                    </div>
+                  </div>
+                </div>
+                {tutors.map(tutor => (
+                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
+                    <CardTutor key={tutor._id} tutor={tutor} />
+                  </Link>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

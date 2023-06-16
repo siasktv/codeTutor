@@ -80,6 +80,9 @@ const CardTutor = props => {
             className='flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none'
             type='button'
             title='Contactar'
+            onClick={e => {
+              e.preventDefault()
+            }}
           >
             <img src={MensajeTexto} />
           </button>
