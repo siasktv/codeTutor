@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 import { signOut } from '../firebase/client'
 import { Loader } from '../components'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const NavUserNotifications = () => {
   const user = useUser()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user === null) {
-      window.location.href = '/login'
+      navigate('/login')
     }
   }, [user])
 

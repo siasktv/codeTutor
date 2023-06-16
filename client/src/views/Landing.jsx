@@ -16,11 +16,13 @@ import { sortedBySearch } from '../redux/features/tutors/tutorsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Landing = () => {
   const dispatch = useDispatch()
   const tutors = useSelector(state => state.tutors.tutors)
   const currentSearch = useSelector(state => state.tutors.currentSearch)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!tutors[0].bio?.specialty) {
@@ -31,6 +33,12 @@ const Landing = () => {
   const handleSearch = e => {
     dispatch(sortedBySearch(e.target.value))
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    navigate('/search')
+  }
+
   return (
     <section>
       <NavLogin className='z-50' />
@@ -124,7 +132,10 @@ const Landing = () => {
                     d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
                   ></path>
                 </svg>
-                <div className='flex-1 min-w-0 revue-form-group'>
+                <form
+                  className='flex-1 min-w-0 revue-form-group'
+                  onSubmit={handleSubmit}
+                >
                   <input
                     type='text'
                     onChange={handleSearch}
@@ -132,7 +143,7 @@ const Landing = () => {
                     className='block w-full px-5 py-2 text-lg placeholder-gray-300   bg-transparent   text-codecolor outline-none   '
                     placeholder='Encuentra un desarrollador  '
                   />
-                </div>
+                </form>
                 <div className='mt-4 sm:mt-0 sm:ml-3 revue-form-actions'>
                   <div className='relative inline-block text-left'>
                     <div>

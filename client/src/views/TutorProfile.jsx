@@ -4,11 +4,14 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
 import { Loader } from '../components'
+import { useNavigate } from 'react-router-dom'
 
 const TutorProfile = () => {
   const { id } = useParams()
   const tutor = useSelector(state => state.tutors.tutor)
+  const error = useSelector(state => state.tutors.error)
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -17,7 +20,7 @@ const TutorProfile = () => {
   }, [dispatch, id])
 
   useEffect(() => {
-    if (tutor.bio?.specialty) {
+    if (tutor?.bio?.specialty) {
       if (tutor._id === id) {
         setIsLoading(false)
       } else {
@@ -26,7 +29,12 @@ const TutorProfile = () => {
     }
   }, [tutor, id])
 
-  console.log(tutor)
+  useEffect(() => {
+    if (error) {
+      navigate('/search')
+    }
+  }, [error])
+
   return (
     <>
       {isLoading && (
