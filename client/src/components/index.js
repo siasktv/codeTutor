@@ -34,6 +34,7 @@ import TechnicalSkillsTutor from './TechnicalSkillsTutor'
 import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
 import NavUserNotifications from './NavUserNotifications'
 import Loader from './Loader'
+import NavBar from './Navbar/Index'
 
 export {
   NavLogin,
@@ -71,5 +72,6 @@ export {
   TechnicalSkillsProyectTutor,
   TechnicalSkillsTutor,
   NavUserNotifications,
-  Loader
+  Loader,
+  NavBar,
 }

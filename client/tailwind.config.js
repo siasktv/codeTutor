@@ -12,7 +12,7 @@ export default {
         '344px': '344px',
         '414px': '414px',
         '1224px': '1224px',
-        '1500px': '1500px'
+        '1500px': '1500px',
       },
       height: {
         '72px': '72px',
@@ -22,22 +22,22 @@ export default {
         '162px': '162px',
         '265px': '265px',
         '344px': '344px',
-        '414px': '414px'
+        '414px': '414px',
       },
       colors: {
         codecolor: '#7F56D9',
         codecolordark: '#573b94',
         spiralcolor: 'rgba(32, 180, 134, 0.25)',
-        blackcodecolor: '#101828'
+        blackcodecolor: '#101828',
       },
       lineHeight: {
-        20: '5rem'
+        20: '5rem',
       },
       spacing: {
         '510px': '510px',
-        '480px': '490px'
-      }
-    }
+        '480px': '490px',
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }
