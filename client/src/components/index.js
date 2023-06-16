@@ -31,12 +31,8 @@ import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
 import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
 import TechnicalSkillsTutor from './TechnicalSkillsTutor'
-<<<<<<< HEAD
 import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
-=======
 import NavUserNotifications from './NavUserNotifications'
->>>>>>> d1ae0525f476ab3551afac9975f6101c8a9fe245
-
 
 export {
   NavLogin,
@@ -73,5 +69,5 @@ export {
   TechnicalSkillsJobTutor,
   TechnicalSkillsProyectTutor,
   TechnicalSkillsTutor,
-  NavUserNotifications,
+  NavUserNotifications
 }
