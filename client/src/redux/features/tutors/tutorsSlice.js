@@ -174,8 +174,14 @@ const tutorsSlice = createSlice({
     // }
 
     sortedByLanguages (state, action) {
-      state.selectedLanguage = action.payload
-      state.tutors = filterTutors(state, state.allTutors)
+      if (action.payload === 'Todos') {
+        state.selectedLanguage = ''
+        state.tutors = filterTutors(state, state.allTutors)
+        return
+      } else {
+        state.selectedLanguage = action.payload
+        state.tutors = filterTutors(state, state.allTutors)
+      }
     }
   },
 
