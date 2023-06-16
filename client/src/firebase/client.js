@@ -43,7 +43,7 @@ export const uploadImage = file => {
   return task
 }
 
-export const signUp = (email, password, name, location, timezone, image) => {
+export const signUp = (email, password, name) => {
   return firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -52,9 +52,10 @@ export const signUp = (email, password, name, location, timezone, image) => {
         .post('http://localhost:3001/api/users', {
           fullName: name,
           email,
-          image,
-          location,
-          timezone,
+          image:
+            'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/default.jpg?alt=media&token=a00c43ae-f17a-4846-af97-57d034696532.png',
+          location: '',
+          timezone: '',
           role: 'Client',
           uid: user.user.uid
         })

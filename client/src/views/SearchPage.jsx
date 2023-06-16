@@ -93,14 +93,14 @@ const SearchPage = () => {
               <h2 className="pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left">
                 {tutors.length} Programadores
               </h2>
-              <div className="pb-5 relative inline-block text-left">
+              <div className='pb-5 relative inline-block text-left'>
                 <div>
                   <ButtonDropdownLocation/>
                 </div>
                 
               </div>
             </div>
-            {tutors.map((tutor) => (
+            {tutors.map(tutor => (
               <CardTutor key={tutor._id} tutor={tutor} />
             ))}
           </div>
