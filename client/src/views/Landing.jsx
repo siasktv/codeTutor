@@ -9,7 +9,8 @@ import {
   talking,
   bag,
   lamp,
-  heroimgSvg
+  heroimgSvg,
+  MagnifyingGlassSearch
 } from '../assets'
 import { Link } from 'react-router-dom'
 import { sortedBySearch } from '../redux/features/tutors/tutorsSlice'
@@ -118,20 +119,7 @@ const Landing = () => {
                 </div>
               </div>
               <div className='h-10 w-125 p-0 mt-0  bg-gray-50 rounded-md ring-1 ring-offset-2 ring-gray-400 sm:flex shadow-md shadow-gray-400'>
-                <svg
-                  className='w-5 h-5 m-3 text-gray-500 dark:text-gray-400'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                  ></path>
-                </svg>
+                <img src={MagnifyingGlassSearch} className='pl-2'></img>
                 <form
                   className='flex-1 min-w-0 revue-form-group'
                   onSubmit={handleSubmit}
@@ -140,7 +128,7 @@ const Landing = () => {
                     type='text'
                     onChange={handleSearch}
                     value={currentSearch}
-                    className='block w-full px-5 py-2 text-lg placeholder-gray-300   bg-transparent   text-codecolor outline-none   '
+                    className='flex flex-row items-center justify-center w-full py-1 pl-2 pr-2 text-lg placeholder-gray-300   bg-transparent   text-codecolor outline-none   '
                     placeholder='Encuentra un desarrollador  '
                   />
                 </form>
