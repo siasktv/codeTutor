@@ -65,9 +65,14 @@ const SearchPage = () => {
   //   }
   // }, [])
 
+  const handleSortByTech = tech => {
+    dispatch(sortedByTech(tech))
+  }
+
   return (
     <div>
-      {/* {categories.map(category => (
+      {/* <button onClick={() => handleSortByTech('Todos')}>Reset</button>
+      {categories.map(category => (
         <button
           key={category}
           type='button'
@@ -81,7 +86,7 @@ const SearchPage = () => {
               <div
                 key={tech._id}
                 className='text-codecolor font-normal hover:underline cursor-pointer'
-                onClick={() => dispatch(sortedByTech(tech.name))}
+                onClick={() => handleSortByTech(tech.name)}
               >
                 <h1>{tech.name}</h1>
               </div>
