@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // import PictureTutor from "../../components/PictureTutor";
 // import ConexionStateTutor from "../../components/ConexionStateTutor";
 // import RatingTutor from "../../components/RatingTutor";
@@ -23,8 +24,8 @@ import {
 
 import { Star } from '../../assets'
 
-const TutorInfoI = (tutor) => {
-  
+const TutorInfoI = (props) => {
+  const { tutor } = props;
   return (
     <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
       <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">

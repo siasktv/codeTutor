@@ -55,7 +55,7 @@ const initialState = {
   },
   locations: [],
   location: '',
-  selectedRate: 0,
+  selectedRate: 150,
   selectedReview: 1,
   selectedLanguage: '',
   selectedTech: '',
@@ -103,7 +103,7 @@ function filterTutors(state, tutors) {
 
     if (selectedRate) {
       const rate = tutor.rates.find(({ name }) => name === 'Mentorship').value
-      if (rate < selectedRate) return false
+      if (rate > selectedRate) return false
     }
     if (location) {
       if (state.location.toLowerCase() !== tutor.user.location.toLowerCase())
@@ -124,7 +124,7 @@ const tutorsSlice = createSlice({
       state.tutors = filterTutors(state, state.allTutors)
     },
     sortedByLocation(state, action) {
-      state.locations = action.payload.toLowerCase()
+      state.location = action.payload.toLowerCase()
       state.tutors = filterTutors(state, state.allTutors)
     },
     sortedByRate(state, action) {

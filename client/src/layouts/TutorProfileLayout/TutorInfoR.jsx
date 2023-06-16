@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   AreaTutor3xl,
   CountryTutor,
@@ -13,7 +14,8 @@ import { CardReviewUser, CardExpJob, CardProyects } from '../'
 
 import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
-const TutorInfoR = (tutor) => {
+const TutorInfoR = (props) => {
+  const {tutor}= props
   return (
     <div className="w-full pl-9 flex flex-col relative z-0">
       <div className="p-9 bg-white border border-gray-200 shadow-md rounded-lg">
@@ -35,7 +37,7 @@ const TutorInfoR = (tutor) => {
 
           <img src={Moneda} />
           {/* Tarifa */}
-          <CoinHourTutor />
+          <CoinHourTutor rates={tutor.mentorship} />
 
           <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
             ◦
@@ -48,7 +50,7 @@ const TutorInfoR = (tutor) => {
 
         {/* Descripción del tutor */}
         <div className="pt-2 pb-6 border-b">
-          <DescriptionTutor />
+          <DescriptionTutor description={ tutor.bio.description} />
         </div>
 
         {/* Cuadro de Habilidades Técnicas */}
@@ -59,7 +61,7 @@ const TutorInfoR = (tutor) => {
         </div>
         <div className="pb-6 border-b">
           <div className="grid grid-cols-4 gap-3">
-            <TechnicalSkillsTutor />
+            <TechnicalSkillsTutor skills={ tutor.skills} />
           </div>
         </div>
 
