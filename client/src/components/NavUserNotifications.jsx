@@ -2,13 +2,17 @@ import notification from '../assets/notification.svg'
 import useUser from '../hooks/useUser'
 import { useEffect } from 'react'
 import { signOut } from '../firebase/client'
+import { Loader } from '../components'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const NavUserNotifications = () => {
   const user = useUser()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user === null) {
-      window.location.href = '/login'
+      navigate('/login')
     }
   }, [user])
 
@@ -20,7 +24,7 @@ const NavUserNotifications = () => {
             <div className='mx-auto max-w-screen-xl p-4 '>
               <div className='flex items-center justify-between gap-4 lg:gap-10'>
                 <div className='flex lg:w-0 lg:flex-1'>
-                  <a href='#'>
+                  <Link to='/'>
                     <span className='inline-block h-10 w-52'>
                       <div className='flex'>
                         <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
@@ -28,7 +32,7 @@ const NavUserNotifications = () => {
                         <h1 className='font-bold text-2xl ml-1'>Code-Tutor.</h1>
                       </div>
                     </span>
-                  </a>
+                  </Link>
                 </div>
                 <div className='w-72px h-72px bg-black rounded-full border-none'>
                   <img
@@ -50,7 +54,7 @@ const NavUserNotifications = () => {
       )}
       {!user && (
         <div className='flex justify-center items-center h-screen'>
-          <h1 className='text-4xl font-bold'>Loading...</h1>
+          <Loader />
         </div>
       )}
     </>

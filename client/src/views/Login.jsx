@@ -4,14 +4,17 @@ import Navlogo from '../components/Navlogo'
 import FormLogin from '../layouts/FormLogin'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
+import { Loader } from '../components'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
-      window.location.href = '/navuser'
+      navigate('/navuser')
     } else if (user === null) {
       setIsLoading(false)
     }
@@ -21,7 +24,7 @@ const Login = () => {
     <>
       {isLoading && (
         <div className='flex justify-center items-center h-screen'>
-          <h1 className='text-4xl font-bold'>Loading...</h1>
+          <Loader />
         </div>
       )}
       {!isLoading && (

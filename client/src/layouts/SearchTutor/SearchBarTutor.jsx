@@ -1,9 +1,10 @@
 import { Lupa } from '../../assets'
 import { sortedBySearch } from '../../redux/features/tutors/tutorsSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const SearchBarTutor = () => {
   const dispatch = useDispatch()
+  const currentSearch = useSelector(state => state.tutors.currentSearch)
 
   const handleSearch = e => {
     dispatch(sortedBySearch(e.target.value))
@@ -31,6 +32,7 @@ const SearchBarTutor = () => {
                 id='simple-search'
                 required=''
                 onChange={handleSearch}
+                value={currentSearch}
                 className='p-2 pl-10 pr-10  text-sm box-border flex flex-row items-center w-full h-12 bg-white border border-gray-200 rounded-l text-black'
               />
             </div>

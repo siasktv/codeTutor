@@ -1,16 +1,19 @@
 import ImageSlider from '../components/ImageSlider'
 import Navlogo from '../components/Navlogo'
+import { Loader } from '../components'
 import FormRegister from '../layouts/FormRegister'
 import useUser from '../hooks/useUser'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
-      window.location.href = '/navuser'
+      navigate('/navuser')
     } else if (user === null) {
       setIsLoading(false)
     }
@@ -19,7 +22,7 @@ const Register = () => {
     <>
       {isLoading && (
         <div className='flex justify-center items-center h-screen'>
-          <h1 className='text-4xl font-bold'>Loading...</h1>
+          <Loader />
         </div>
       )}
       {!isLoading && (

@@ -15,8 +15,7 @@ function App () {
   return (
     <div className='App'>
       <Routes>
-        <Route path='/' element={<Navigate to='/home' />} />
-        <Route path='/home' element={<Landing />} />
+        <Route path='/' element={<Landing />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/search' element={<SearchPage />} />
