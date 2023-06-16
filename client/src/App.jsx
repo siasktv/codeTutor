@@ -24,6 +24,7 @@ function App() {
     <div className="App">
       <Routes>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -36,6 +37,9 @@ function App() {
 =======
         <Route path='/' element={<Navigate to='/home' />} />
         <Route path='/home' element={<Landing />} />
+=======
+        <Route path='/' element={<Landing />} />
+>>>>>>> 7fbb65612b2834324d6185290062ab970902d5ef
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/search' element={<SearchPage />} />

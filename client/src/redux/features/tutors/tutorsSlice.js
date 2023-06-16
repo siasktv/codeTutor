@@ -79,7 +79,7 @@ export const tutorFetchById = createAsyncThunk(
       const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
       return response.data
     } catch (error) {
-      console.log(error)
+      state.error = error.message
     }
   }
 )
@@ -112,7 +112,8 @@ function filterTutors (state, tutors) {
         tutor.skills.some(
           ({ techName }) =>
             techName.name.toLowerCase() !== selectedTech.toLowerCase()
-        )
+        ) ||
+        !tutor.skills.length
       )
         return false
     }
@@ -140,8 +141,14 @@ const tutorsSlice = createSlice({
       state.tutors = filterTutors(state, state.allTutors)
     },
     sortedByTech (state, action) {
-      state.selectedTech = action.payload
-      state.tutors = filterTutors(state, state.allTutors)
+      if (action.payload === 'Todos') {
+        state.selectedTech = ''
+        state.tutors = filterTutors(state, state.allTutors)
+        return
+      } else {
+        state.selectedTech = action.payload
+        state.tutors = filterTutors(state, state.allTutors)
+      }
     },
     sortedByLocation (state, action) {
       if (action.payload === 'Todos') {

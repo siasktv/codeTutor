@@ -5,7 +5,12 @@ import { sortedByLocation } from '../../redux/features/tutors/tutorsSlice'
 import { useEffect } from 'react'
 
 const ButtonDropdownLocation = () => {
+<<<<<<< HEAD
   const locations = useSelector((state) => state.tutors.locations)
+=======
+  const locations = useSelector(state => state.tutors.locations)
+  const selectedLocation = useSelector(state => state.tutors.location)
+>>>>>>> 7fbb65612b2834324d6185290062ab970902d5ef
   const dispatch = useDispatch()
 
   const menu = document.querySelector('.origin-top-right')
@@ -40,7 +45,16 @@ const ButtonDropdownLocation = () => {
         className="inline-flex justify-center items-center pb-4 pt-4 pr-2 w-full rounded border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor"
       >
         <img src={LineasFiltro} />
+<<<<<<< HEAD
         <span className="pr-5">Filtrar por país</span>
+=======
+        <span className='pr-5 ml-2'>
+          {selectedLocation === ''
+            ? 'Filtrar por país'
+            : selectedLocation.charAt(0).toUpperCase() +
+              selectedLocation.slice(1)}
+        </span>
+>>>>>>> 7fbb65612b2834324d6185290062ab970902d5ef
         <img src={FlechaFiltro} />
       </button>
 

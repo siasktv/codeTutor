@@ -33,6 +33,7 @@ import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
 import TechnicalSkillsTutor from './TechnicalSkillsTutor'
 import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
 import NavUserNotifications from './NavUserNotifications'
+import Loader from './Loader'
 
 export {
   NavLogin,
@@ -69,5 +70,6 @@ export {
   TechnicalSkillsJobTutor,
   TechnicalSkillsProyectTutor,
   TechnicalSkillsTutor,
-  NavUserNotifications
+  NavUserNotifications,
+  Loader
 }
