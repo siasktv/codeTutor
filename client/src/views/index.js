@@ -5,7 +5,7 @@ import TutorProfile from './TutorProfile'
 import Login from './Login'
 import Register from './Register'
 import TutorForm from './TutorForm'
-
+import TutorFormData from './TutorFormBio'
 export {
   Landing,
   SearchPage,
@@ -14,4 +14,5 @@ export {
   Login,
   Register,
   TutorForm,
+  TutorFormData,
 }

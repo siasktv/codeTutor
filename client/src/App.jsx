@@ -10,6 +10,7 @@ import {
   Landing,
   Login,
   Register,
+  TutorFormData,
 } from './views'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         {/* <Route path='/testlogin' element={<TestLoginPage />} /> */}
         <Route path="/navuser" element={<NavUserNotifications />} />
         <Route path="/form" element={<TutorForm />} />
+        <Route path="form/data" element={<TutorFormData />} />
       </Routes>
     </div>
   )
