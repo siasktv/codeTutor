@@ -20,7 +20,7 @@ import {
 } from '../../assets/index'
 
 const CardTutor = props => {
-  const { tutor } = props
+  const { tutor, handleShowMessage, user } = props
 
   return (
     <div>
@@ -76,16 +76,27 @@ const CardTutor = props => {
           </div>
 
           {/* Button Mensage */}
-          <button
-            className='flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none'
-            type='button'
-            title='Contactar'
-            onClick={e => {
-              e.preventDefault()
-            }}
-          >
-            <img src={MensajeTexto} />
-          </button>
+          {user && user.uid !== tutor.user.uid ? (
+            <button
+              className='flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none'
+              type='button'
+              title='Contactar'
+              onClick={e => handleShowMessage(e, tutor)}
+            >
+              <img src={MensajeTexto} />
+            </button>
+          ) : (
+            <button
+              className='flex justify-center items-center w-16 h-16 bg-gray-400 cursor-not-allowed shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:outline-none focus:outline-none'
+              type='button'
+              title='Contactar'
+              onClick={e => {
+                e.preventDefault()
+              }}
+            >
+              <img src={MensajeTexto} />
+            </button>
+          )}
         </div>
       </div>
     </div>
