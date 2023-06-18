@@ -1,8 +1,8 @@
-import { faXmark, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faMinus, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function MessageContainer (props) {
-  const { tutor, handleShowMessage, user } = props
+  const { tutor, handleMinimizeMessage, user } = props
 
   return (
     // container must be in the bottom right corner
@@ -10,9 +10,9 @@ export default function MessageContainer (props) {
       <div className='flex flex-col justify-center items-center bg-codecolor p-2 m-0 rounded-t-md'>
         <div className='flex justify-end w-full'>
           <FontAwesomeIcon
-            icon={faXmark}
+            icon={faMinus}
             className='text-white cursor-pointer'
-            onClick={e => handleShowMessage(e, tutor)}
+            onClick={e => handleMinimizeMessage(e)}
           />
         </div>
         <div className='flex justify-center items-center'>
@@ -130,9 +130,9 @@ export default function MessageContainer (props) {
         </div>
       </div>
       <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md '>
-        <input
+        <textarea
           type='text'
-          className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none'
+          className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none'
           placeholder='Escribe un mensaje...'
         />
         <button className='bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded'>
