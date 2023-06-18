@@ -15,7 +15,7 @@ import { Star, MensajeTexto } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import { ButtonDropdownLocation } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
-import { Loader, MessageContainer } from '../components'
+import { Loader, MessageContainer, MessageMinimized } from '../components'
 import { Link } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -41,13 +41,28 @@ const SearchPage = () => {
       setShowMessage(true)
     } else {
       if (selectedTutor._id === tutor._id) {
-        setShowMessage(false)
-        setSelectedTutor(null)
+        setShowMessage(true)
       } else {
         setSelectedTutor(tutor)
         setShowMessage(true)
       }
     }
+  }
+
+  const handleMinimizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+  }
+
+  const handleMaximizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(true)
+  }
+
+  const handleCloseMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    setSelectedTutor(null)
   }
 
   const tutorsPerPage = 5
@@ -256,10 +271,19 @@ const SearchPage = () => {
                     </p>
                   </>
                 )}
-                {showMessage && (
+                {showMessage && selectedTutor !== null && (
                   <MessageContainer
                     tutor={selectedTutor}
-                    handleShowMessage={handleShowMessage}
+                    handleMinimizeMessage={handleMinimizeMessage}
+                    user={user}
+                  />
+                )}
+                {user && selectedTutor !== null && !showMessage && (
+                  <MessageMinimized
+                    tutor={selectedTutor}
+                    handleCloseMessage={handleCloseMessage}
+                    handleMinimizeMessage={handleMinimizeMessage}
+                    handleMaximizeMessage={handleMaximizeMessage}
                     user={user}
                   />
                 )}
