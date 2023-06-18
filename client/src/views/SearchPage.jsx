@@ -15,11 +15,12 @@ import { Star, MensajeTexto } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import { ButtonDropdownLocation } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
-import { Loader } from '../components'
+import { Loader, MessageContainer, MessageMinimized } from '../components'
 import { Link } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import useUser from '../hooks/useUser'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -28,6 +29,42 @@ const SearchPage = () => {
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
+
+  const user = useUser()
+  const [showMessage, setShowMessage] = useState(false)
+  const [selectedTutor, setSelectedTutor] = useState(null)
+
+  const handleShowMessage = (e, tutor) => {
+    e.preventDefault()
+    if (selectedTutor === null) {
+      setSelectedTutor(tutor)
+      setShowMessage(true)
+    } else {
+      if (selectedTutor._id === tutor._id) {
+        setShowMessage(true)
+      } else {
+        setSelectedTutor(tutor)
+        setShowMessage(true)
+      }
+    }
+  }
+
+  const handleMinimizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+  }
+
+  const handleMaximizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(true)
+  }
+
+  const handleCloseMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    setSelectedTutor(null)
+  }
+
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
   const indexOfLastTutor = tutorsPerPage * currentPage
@@ -48,6 +85,31 @@ const SearchPage = () => {
     }
   }
 
+  const handlePage = number => {
+    setCurrentPage(number)
+  }
+
+  const pagesCutCount = 21
+
+  const getPagesCut = (pageNumbers, pagesCutCount, currentPage) => {
+    const ceiling = Math.ceil(pagesCutCount / 2)
+    const floor = Math.floor(pagesCutCount / 2)
+    if (pageNumbers.length < pagesCutCount) {
+      return { start: 1, end: pageNumbers.length + 1 }
+    } else if (currentPage >= 1 && currentPage <= ceiling) {
+      return { start: 1, end: pagesCutCount + 1 }
+    } else if (currentPage + floor >= pageNumbers.length) {
+      return {
+        start: pageNumbers.length - pagesCutCount + 1,
+        end: pageNumbers.length + 1
+      }
+    } else {
+      return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
+    }
+  }
+  const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
+  const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
+
   // console.log('tutors', tutors)
   // console.log('users', users)
   // console.log('locations', locations)
@@ -66,6 +128,9 @@ const SearchPage = () => {
   useEffect(() => {
     if (tutors[0]?.bio?.specialty) {
       setIsLoading(false)
+      if (currentPage > pageNumbers.length) {
+        setCurrentPage(pageNumbers.length)
+      }
     }
   }, [tutors])
 
@@ -130,7 +195,11 @@ const SearchPage = () => {
               <>
                 <div className='flex items-center justify-between'>
                   <h2 className='pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left'>
-                    {tutors.length} Programadores
+                    {tutors.length === 0
+                      ? ''
+                      : tutors.length === 1
+                      ? '1 programador encontrado'
+                      : `${tutors.length} programadores encontrados`}
                   </h2>
                   <div className='pb-5 relative inline-block text-left'>
                     <div>
@@ -138,38 +207,86 @@ const SearchPage = () => {
                     </div>
                   </div>
                 </div>
+                {tutors.length === 0 && (
+                  <div className='flex justify-center items-center mt-40'>
+                    <h1 className='text-2xl font-semibold'>
+                      No se encontraron programadores.
+                    </h1>
+                  </div>
+                )}
                 {currentTutors.map(tutor => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                    <CardTutor key={tutor._id} tutor={tutor} />
+                    <CardTutor
+                      key={tutor._id}
+                      tutor={tutor}
+                      handleShowMessage={handleShowMessage}
+                      user={user}
+                    />
                   </Link>
                 ))}
-                <div className='flex justify-center items-center'>
-                  <div className='flex justify-center items-center'>
-                    <button
-                      onClick={handlePreviusPage}
-                      className={
-                        currentPage === 1
-                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 rounded-l cursor-default'
-                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 rounded-l hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
-                      }
-                    >
-                      <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                    <button className='bg-codecolor border border-codecolor text-white font-bold py-2 px-4 cursor-default mx-1'>
-                      {currentPage} / {pageNumbers.length}
-                    </button>
-                    <button
-                      onClick={handleNextPage}
-                      className={
-                        currentPage === pageNumbers.length
-                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 rounded-r cursor-default'
-                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 rounded-r hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
-                      }
-                    >
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
-                  </div>
-                </div>
+                {tutors.length > currentTutors.length && (
+                  <>
+                    <div className='flex justify-center items-center'>
+                      <div className='flex justify-center items-center'>
+                        <button
+                          onClick={handlePreviusPage}
+                          className={
+                            currentPage === 1
+                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                          }
+                        >
+                          <FontAwesomeIcon icon={faArrowLeft} />
+                        </button>
+
+                        {pages.map(number => (
+                          <button
+                            key={number}
+                            onClick={() => handlePage(number)}
+                            className={
+                              currentPage === number
+                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            }
+                          >
+                            {number}
+                          </button>
+                        ))}
+                        <>
+                          <button
+                            onClick={handleNextPage}
+                            className={
+                              currentPage === pageNumbers.length
+                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            }
+                          >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                          </button>
+                        </>
+                      </div>
+                    </div>
+                    <p className='text-codecolor font-bold text-md mt-3'>
+                      {pageNumbers.length} páginas en total
+                    </p>
+                  </>
+                )}
+                {showMessage && selectedTutor !== null && (
+                  <MessageContainer
+                    tutor={selectedTutor}
+                    handleMinimizeMessage={handleMinimizeMessage}
+                    user={user}
+                  />
+                )}
+                {user && selectedTutor !== null && !showMessage && (
+                  <MessageMinimized
+                    tutor={selectedTutor}
+                    handleCloseMessage={handleCloseMessage}
+                    handleMinimizeMessage={handleMinimizeMessage}
+                    handleMaximizeMessage={handleMaximizeMessage}
+                    user={user}
+                  />
+                )}
               </>
             )}
           </div>

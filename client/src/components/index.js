@@ -34,6 +34,8 @@ import TechnicalSkillsTutor from './TechnicalSkillsTutor'
 import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
 import NavUserNotifications from './NavUserNotifications'
 import Loader from './Loader'
+import MessageContainer from './MessageContainer'
+import MessageMinimized from './MessageMinimized'
 
 export {
   NavLogin,
@@ -71,5 +73,7 @@ export {
   TechnicalSkillsProyectTutor,
   TechnicalSkillsTutor,
   NavUserNotifications,
-  Loader
+  Loader,
+  MessageContainer,
+  MessageMinimized
 }
