@@ -2,8 +2,8 @@ import { AgregarButton } from '../../index'
 
 const CardForm = ({ children, title }) => {
   return (
-    <div className="bg-white w-[800px]  h-[230px] border border-[#1414140D] rounded-[8px]">
-      <div className="flex flex-col gap-[62px] pt-[36px] pl-[52px]">
+    <div className="bg-white w-full h-full border border-[#1414140D] rounded-[8px]">
+      <div className="flex flex-col w-full gap-[62px] py-[36px] px-[52px]">
         <h2 className="font-inter text-xl font-semibold leading-[38px] tracking-normal text-left text-[#05004E]">
           {title}
         </h2>

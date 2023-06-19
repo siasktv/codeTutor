@@ -3,11 +3,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const TutorFormProgressBar = () => {
   return (
-    <div className="flex items-center  gap-x-2 mt-[37px] ">
+    <div className="flex items-center pl-28 gap-x-2 mt-[37px] ">
       <div className="rounded-full items-center justify-center flex p-2 text-[#7F56D9] text-[10px] font-bold  bg-[#7D5AE21A] w-[40px] h-[40px]">
         <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" size="lg" />
       </div>
-      <div className="w-[1065px]">
+      <div className="w-full pr-28">
         <span id="ProgressLabel" className="sr-only">
           Loading
         </span>
