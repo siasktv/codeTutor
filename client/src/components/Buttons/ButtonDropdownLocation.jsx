@@ -8,7 +8,6 @@ const ButtonDropdownLocation = () => {
   const locations = useSelector((state) => state.tutors.locations)
   const selectedLocation = useSelector((state) => state.tutors.location)
   const dispatch = useDispatch()
-
   const menu = document.querySelector('.origin-top-right')
 
   const handleFilterByLocation = (location) => {

@@ -50,7 +50,7 @@ const CardTutor = props => {
           <div className='p-2 w-3/4 h-1/2'>
             <div className='flex justify-between items-center'>
               <h2 className='font-semibold'>{tutor.user.fullName}</h2>
-              <ConexionStateTutor offline={tutor.offline} />
+              <ConexionStateTutor offline={tutor.user.offline} />
             </div>
 
             <div className='pt-2 pb-2 flex justify-between items-center'>
