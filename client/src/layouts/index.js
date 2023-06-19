@@ -6,5 +6,18 @@ import CardReviewUser from './TutorProfileLayout/CardReviewUser'
 import CardTutor from './SearchTutor/CardTutor'
 import FilterTutor from './SearchTutor/FilterTutor'
 import SearchBarTutor from './SearchTutor/SearchBarTutor'
+import TutorFormData from './FormTutor/TutorFormData'
+import TutorForm from './FormTutor/TutorForm'
 
-export { TutorInfoL, TutorInfoR, CardExpJob, CardProyects, CardReviewUser, CardTutor,FilterTutor,SearchBarTutor }
+export {
+  TutorInfoL,
+  TutorInfoR,
+  CardExpJob,
+  CardProyects,
+  CardReviewUser,
+  CardTutor,
+  FilterTutor,
+  SearchBarTutor,
+  TutorFormData,
+  TutorForm,
+}

@@ -5,4 +5,13 @@ import TutorProfile from './TutorProfile'
 import Login from './Login'
 import Register from './Register'
 
-export { Landing, SearchPage, TestLoginPage, TutorProfile,Login,Register }
+import TutorFormBio from './TutorFormBio'
+export {
+  Landing,
+  SearchPage,
+  TestLoginPage,
+  TutorProfile,
+  Login,
+  Register,
+  TutorFormBio,
+}
