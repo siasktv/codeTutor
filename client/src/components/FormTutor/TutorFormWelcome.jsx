@@ -1,6 +1,6 @@
 const TutorFormWelcome = () => {
   return (
-    <div className="flex flex-col items-start  gap-y-2">
+    <div className="flex flex-col w-full items-start px-28 gap-y-2">
       <h2 className="text-[#05004E] font-bold text-2xl">
         ¡Hola, Shi Juan! ¡Bienvenido!
       </h2>
