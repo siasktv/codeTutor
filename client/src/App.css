@@ -2,8 +2,30 @@
   /* no poner max-width */
   /* max-width: 1280px; */
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7f56d9;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7f56d9;
+  border-radius: 20px;
+  border: 1px solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7f56d9;
 }
 
 .logo {

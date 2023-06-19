@@ -1,4 +1,4 @@
-import { AgregarButton } from '../../index';
+import { AgregarButton } from '../../index'
 
 const CardForm = ({ children, title }) => {
   return (
@@ -11,8 +11,7 @@ const CardForm = ({ children, title }) => {
         <AgregarButton />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CardForm;
-
+export default CardForm
