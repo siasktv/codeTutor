@@ -11,6 +11,7 @@ import {
   Login,
   Register,
   TutorFormData,
+  TutorFormBio,
 } from './views'
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/navuser" element={<NavUserNotifications />} />
         <Route path="/form" element={<TutorForm />} />
         <Route path="form/data" element={<TutorFormData />} />
+        <Route path="form/biografia" element={<TutorFormBio />} />
       </Routes>
     </div>
   )

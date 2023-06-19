@@ -27,6 +27,8 @@ export default {
       colors: {
         codecolor: '#7F56D9',
         codecolordark: '#573b94',
+        codecolorlight: '#e8defc',
+        codecolorlighter: '#ece3ff',
         spiralcolor: 'rgba(32, 180, 134, 0.25)',
         blackcodecolor: '#101828',
       },
