@@ -1,9 +1,9 @@
-import { NavBar } from '../components'
+import { NavUserNotifications } from '../components/index'
 
 const TutorFormBio = () => {
   return (
     <>
-      <NavBar />
+      <NavUserNotifications />
       <section className="bg-[#FAFBFC] min-h-screen w-full flex flex-col ">
         <div className="flex flex-col items-start pl-[142px] pt-[50px] gap-[50px]">
           <h2 className="text-[#05004E] font-bold text-[30px]">

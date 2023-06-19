@@ -4,8 +4,7 @@ import TestLoginPage from './testLoginPage'
 import TutorProfile from './TutorProfile'
 import Login from './Login'
 import Register from './Register'
-import TutorForm from './TutorForm'
-import TutorFormData from './TutorFormData'
+
 import TutorFormBio from './TutorFormBio'
 export {
   Landing,
@@ -14,7 +13,5 @@ export {
   TutorProfile,
   Login,
   Register,
-  TutorForm,
-  TutorFormData,
   TutorFormBio,
 }
