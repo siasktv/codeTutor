@@ -19,6 +19,7 @@ export const onAuthStateChanged = onChange => {
             return getUser()
           }
           onChange({
+            id: res.data._id,
             uid: user.uid,
             email: user.email,
             role: res.data.role,
