@@ -14,15 +14,17 @@ import {
 const TutorForm = () => {
   return (
     <>
-      <section className="bg-[#FAFBFC] min-h-screen w-full flex flex-col">
-        <div className="flex flex-col ml-[150px] justify-center mt-[33px]">
-          <TutorFormWelcome />
-          <TutorFormProgressBar />
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className='flex flex-col'>
+          <div className="flex flex-col mt-[33px]">
+            <TutorFormWelcome />
+            <TutorFormProgressBar />
+          </div>
         </div>
 
-        <section className="flex justify-center mt-[33px]">
+        <section className="flex justify-center mt-[33px] mx-8">
           <TutorFormDataLeft />
-          <section className="flex flex-col gap-[18px] ml-8">
+          <section className="flex flex-col w-full gap-[18px] ml-6 ">
             {/* {/ biografia /} */}
             <TutorFormBiografia />
             {/* {/ biografia /}
