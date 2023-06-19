@@ -11,15 +11,10 @@ const Login = () => {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
-  const redirect = location.search.split('redirect=')[1]
 
   useEffect(() => {
     if (user) {
-      if (redirect) {
-        navigate(redirect)
-      } else {
-        navigate('/navuser')
-      }
+      navigate('/navuser')
     } else if (user === null) {
       setIsLoading(false)
     }

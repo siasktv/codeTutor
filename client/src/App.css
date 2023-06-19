@@ -5,29 +5,6 @@
   text-align: center;
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #7f56d9;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #fff;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #7f56d9;
-  border-radius: 20px;
-  border: 1px solid #fff;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #7f56d9;
-}
-
 .logo {
   height: 6em;
   padding: 1.5em;

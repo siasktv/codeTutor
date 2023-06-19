@@ -15,12 +15,11 @@ import { Star, MensajeTexto } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import { ButtonDropdownLocation } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
-import { Loader, MessageContainer, MessageMinimized } from '../components'
+import { Loader } from '../components'
 import { Link } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import useUser from '../hooks/useUser'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -29,42 +28,6 @@ const SearchPage = () => {
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
-
-  const user = useUser()
-  const [showMessage, setShowMessage] = useState(false)
-  const [selectedTutor, setSelectedTutor] = useState(null)
-
-  const handleShowMessage = (e, tutor) => {
-    e.preventDefault()
-    if (selectedTutor === null) {
-      setSelectedTutor(tutor)
-      setShowMessage(true)
-    } else {
-      if (selectedTutor._id === tutor._id) {
-        setShowMessage(true)
-      } else {
-        setSelectedTutor(tutor)
-        setShowMessage(true)
-      }
-    }
-  }
-
-  const handleMinimizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-  }
-
-  const handleMaximizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(true)
-  }
-
-  const handleCloseMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-    setSelectedTutor(null)
-  }
-
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
   const indexOfLastTutor = tutorsPerPage * currentPage
@@ -216,12 +179,7 @@ const SearchPage = () => {
                 )}
                 {currentTutors.map(tutor => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                    <CardTutor
-                      key={tutor._id}
-                      tutor={tutor}
-                      handleShowMessage={handleShowMessage}
-                      user={user}
-                    />
+                    <CardTutor key={tutor._id} tutor={tutor} />
                   </Link>
                 ))}
                 {tutors.length > currentTutors.length && (
@@ -270,22 +228,6 @@ const SearchPage = () => {
                       {pageNumbers.length} páginas en total
                     </p>
                   </>
-                )}
-                {showMessage && selectedTutor !== null && (
-                  <MessageContainer
-                    tutor={selectedTutor}
-                    handleMinimizeMessage={handleMinimizeMessage}
-                    user={user}
-                  />
-                )}
-                {user && selectedTutor !== null && !showMessage && (
-                  <MessageMinimized
-                    tutor={selectedTutor}
-                    handleCloseMessage={handleCloseMessage}
-                    handleMinimizeMessage={handleMinimizeMessage}
-                    handleMaximizeMessage={handleMaximizeMessage}
-                    user={user}
-                  />
                 )}
               </>
             )}

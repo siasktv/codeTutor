@@ -10,7 +10,6 @@ import {
   bag,
   lamp,
   heroimgSvg,
-  devslanding,
   MagnifyingGlassSearch
 } from '../assets'
 import { Link } from 'react-router-dom'
@@ -73,14 +72,18 @@ const Landing = () => {
 
       <div className='absolute flex-row justify-items-start  w-56 h-24 bottom-20 right-12 bg-white rounded-2xl border border-codecolor z-40 shadow-md shadow-gray-600'>
         <div className='relative w-14 h-14 top-5 left-5 flex items-center justify-center bg-codecolor rounded-2xl '>
-          <img src={devslanding} alt='devs-icon' className='w-10 h-10'></img>
+          <img
+            src={videocallicon}
+            alt='video-call-icon'
+            className='w-10 h-10'
+          ></img>
         </div>
-        <p className='relative text-lg text-gray-500 bottom-10 left-8 '>
-          Desarrolladores
-        </p>
-        <h1 className='relative text-3xl text-blackcodecolor font-bold bottom-11 left-2'>
-          250+
+        <h1 className='relative text-3xl text-blackcodecolor font-bold bottom-10 left-5'>
+          2K+
         </h1>
+        <p className='relative text-lg text-gray-500 bottom-10 left-8 '>
+          Videollamadas
+        </p>
       </div>
 
       <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10 '>
@@ -171,9 +174,9 @@ const Landing = () => {
           <div className='w-full lg:max-w-lg lg:w-1/2 rounded-xl'>
             <div className='box-border absolute w-125 h-125 right-44 top-32 border border-codecolor rounded-full z-0 '></div>
             <div className='relative w-full max-w-lg z-10 border-transparent'>
-              <div className='absolute rounded-full bg-codecolor -top-56 -right-[30%] w-125 h-125 mix-blend-multiply overflow-hidden border-transparent '>
+              <div className='absolute rounded-full bg-codecolor -top-56 right-12 w-125 h-125 mix-blend-multiply overflow-hidden border-transparent '>
                 <img
-                  className=' relative w-91.5 h-108 object-center justify-center top-20  object-fit border-transparent mx-auto '
+                  className=' relative w-91.5 h-108 object-center justify-center top-20  object-fit border-transparent    mx-auto '
                   alt='hero'
                   src={heroimgSvg}
                 />
