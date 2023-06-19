@@ -35,7 +35,8 @@ const getConversationByMembersHandler = async (req, res) => {
   try {
     const conversation = await getConversationByMembers([userId, otherUserId])
     if (!conversation) {
-      return res.status(400).json({ error: 'Conversation does not exist' })
+      const createConversationAction = await createConversation([userId, otherUserId])
+      return res.status(200).json(createConversationAction)
     }
     res.status(200).json(conversation)
   } catch (error) {
