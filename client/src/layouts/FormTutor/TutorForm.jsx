@@ -8,11 +8,11 @@ import {
   TutorFormProjects,
   TutorFormRate,
   EnviarPerfilButton,
-  CancelarPerfilButton
+  CancelarPerfilButton,
 } from '../../components/'
 import { useState, useEffect } from 'react'
 
-const TutorForm = props => {
+const TutorForm = (props) => {
   const {
     progress,
     setProgress,
@@ -22,7 +22,7 @@ const TutorForm = props => {
     setSection,
     user,
     isDone,
-    setIsDone
+    setIsDone,
   } = props
   const [isDisabled, setIsDisabled] = useState(true)
 
@@ -42,9 +42,9 @@ const TutorForm = props => {
 
   return (
     <>
-      <section className='bg-[#FAFBFC] h-full w-full'>
-        <div className='flex flex-col'>
-          <div className='flex flex-col mt-[33px]'>
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className="flex flex-col">
+          <div className="flex flex-col mt-[33px]">
             <TutorFormWelcome user={user} />
             <TutorFormProgressBar
               progress={progress}
@@ -56,9 +56,9 @@ const TutorForm = props => {
           </div>
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className="flex justify-center mt-[33px] mx-28">
           <TutorFormDataLeft user={user} form={form} />
-          <section className='flex flex-col w-full gap-[18px] ml-6 '>
+          <section className="flex flex-col w-full gap-[18px] ml-6 ">
             <TutorFormBiografia
               form={form}
               isDone={isDone}
@@ -66,18 +66,28 @@ const TutorForm = props => {
               setSection={setSection}
             />
 
-            <TutorFormTech />
+            <TutorFormTech
+              form={form}
+              isDone={isDone}
+              setIsDone={setIsDone}
+              setSection={setSection}
+            />
 
             <TutorFormExperience />
 
             <TutorFormProjects />
 
-            <TutorFormRate />
+            <TutorFormRate
+              form={form}
+              isDone={isDone}
+              setIsDone={setIsDone}
+              setSection={setSection}
+            />
 
-            <section className='flex justify-end items-center space-x-4 mb-[64px]'>
+            <section className="flex justify-end items-center space-x-4 mb-[64px]">
               <CancelarPerfilButton />
               <EnviarPerfilButton
-                title='Enviar perfil'
+                title="Enviar perfil"
                 isDisabled={isDisabled}
                 setSection={setSection}
                 setProgress={setProgress}
