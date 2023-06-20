@@ -21,13 +21,13 @@ const TutorFormDataLeft = props => {
       !file.type.includes('image/jpeg') &&
       !file.type.includes('image/jpg')
     ) {
-      setErrorImage('Por favor, selecciona un archivo de imagen válido')
+      setErrorImage('Imagen no válida')
 
       return
     }
     // check if file is larger than 5mb
     if (file.size > 5000000) {
-      setErrorImage('El archivo no puede ser mayor a 5MB')
+      setErrorImage('Imagen demasiado grande')
 
       return
     }
@@ -87,6 +87,9 @@ const TutorFormDataLeft = props => {
           />
         </label>
       </div>
+      {errorImage && (
+        <p className='text-red-500 text-sm mt-2 text-center'>{errorImage}</p>
+      )}
       <p className='font-inter font-medium text-2xl leading-[37.5px] mt-5'>
         {form?.name || user?.fullName}
       </p>
