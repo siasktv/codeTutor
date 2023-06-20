@@ -5,6 +5,7 @@ const getAllUsers = require('../../controllers/Users/getAllUsers')
 const updateUser = require('../../controllers/Users/updateUser')
 const getUserByUid = require('../../controllers/Users/getUserByUid')
 const sendEmail = require('../../utils/nodemailer')
+const Tutor = require('../../models/Tutor.models')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -19,7 +20,11 @@ const getUserByUidHandler = async (req, res) => {
   const { uid } = req.params
   try {
     const user = await getUserByUid(uid)
-    res.status(200).json(user)
+    const tutor = await Tutor.findOne({ user: user._id })
+    res.status(200).json({
+      ...user._doc,
+      tutor
+    })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
