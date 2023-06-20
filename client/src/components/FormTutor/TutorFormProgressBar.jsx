@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const TutorFormProgressBar = props => {
   const { progress, setProgress, section, setSection, isDone } = props
-  const totalProgress = 3
+  const totalProgress = 7
   const progressPercent = (progress / totalProgress) * 100
   const navigate = useNavigate()
 

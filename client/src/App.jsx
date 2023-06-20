@@ -23,7 +23,7 @@ function App () {
         <Route path='/search' element={<SearchPage />} />
         <Route path='/tutor/:id' element={<TutorProfile />} />
         <Route path='/navuser' element={<NavUserNotifications />} />
-        <Route path='/form' element={<TutorForm />} />
+        {/* <Route path='/form' element={<TutorForm />} /> */}
         {/* <Route path='form/biografia' element={<TutorFormBio />} />
         <Route path='form/data' element={<TutorFormData />} /> */}
         <Route path='/tutor' element={<FormTutor />} />
