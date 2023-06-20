@@ -25,7 +25,15 @@ const EnviarPerfilButton = props => {
       setForm({ ...form, ...dataForm })
     } else if (section === 'bio') {
       setSection('form')
-      setForm({ ...form, bio: dataForm })
+      setForm({
+        ...form,
+        avatar: dataForm.avatar,
+        bio: {
+          specialty: dataForm.specialty,
+          description: dataForm.description,
+          portfolio: dataForm.portfolio
+        }
+      })
       if (isDone.bio === false) {
         setIsDone({ ...isDone, bio: true })
         setProgress(progress + 1)

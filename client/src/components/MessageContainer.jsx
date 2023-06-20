@@ -3,19 +3,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState, useRef } from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
+import React from 'react'
 
 export default function MessageContainer (props) {
   const { tutor, handleMinimizeMessage, user } = props
 
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
+  const [isOnline, setIsOnline] = useState(!tutor.user.offline)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [conversationId, setConversationId] = useState(null)
   const socket = useRef()
   const scrollRef = useRef()
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
   useEffect(() => {
-    socket.current = io('http://localhost:3001')
+    socket.current = io(BACKEND_URL)
     socket.current.on('getMessage', data => {
       setArrivalMessage({
         sender: data.senderId,
@@ -23,6 +27,23 @@ export default function MessageContainer (props) {
         createdAt: Date.now()
       })
     })
+    socket.current.on('online', data => {
+      if (data.find(item => item.userId === tutor.user._id)) {
+        setIsOnline(true)
+      } else {
+        setIsOnline(false)
+      }
+    })
+
+    socket.current.on('checkOnline', data => {
+      console.log(data)
+      if (data.online) {
+        setIsOnline(true)
+      } else {
+        setIsOnline(false)
+      }
+    })
+    socket.current.emit('checkOnline', tutor.user._id)
   }, [])
 
   useEffect(() => {
@@ -30,15 +51,11 @@ export default function MessageContainer (props) {
   }, [arrivalMessage])
 
   useEffect(() => {
-    socket.current?.emit('addUser', user.id)
-  }, [socket.current])
-
-  useEffect(() => {
     if (user && tutor) {
       const getConversationId = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:3001/api/conversations/${user.id}/${tutor.user._id}`
+            `${BACKEND_URL}/api/conversations/${user.id}/${tutor.user._id}`
           )
           setConversationId(res.data._id)
         } catch (err) {
@@ -58,7 +75,7 @@ export default function MessageContainer (props) {
       const getMessages = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:3001/api/message/${conversationId}`
+            `${BACKEND_URL}/api/message/${conversationId}`
           )
           setMessages(res.data)
         } catch (err) {
@@ -69,8 +86,8 @@ export default function MessageContainer (props) {
     }
   }, [conversationId])
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
 
     if (!message.trim()) return
 
@@ -83,7 +100,7 @@ export default function MessageContainer (props) {
     })
 
     try {
-      const res = await axios.post('http://localhost:3001/api/message', {
+      const res = await axios.post(`${BACKEND_URL}/api/message`, {
         conversationId,
         sender: user.id,
         message
@@ -117,7 +134,7 @@ export default function MessageContainer (props) {
           <h1 className='text-white font-semibold text-xl'>
             Chat con {tutor.user.fullName}
           </h1>
-          {tutor.user.offline ? (
+          {!isOnline ? (
             <h2 className='font-semibold text-xl text-red-500 ml-2'>◉</h2>
           ) : (
             <h2 className='font-semibold text-xl text-green-500 ml-2'>◉</h2>
@@ -127,11 +144,10 @@ export default function MessageContainer (props) {
       </div>
       <div className='flex flex-col justify-start items-center bg-white p-2 m-0 rounded-b-md overflow-y-auto overflow-x-hidden h-[365px]'>
         {messages.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             {item.sender !== user.id ? (
               <div
                 ref={scrollRef}
-                key={index}
                 className='flex flex-start justify-start items-center w-full  bg-gray-100 rounded-md p-2'
               >
                 <div className='flex flex-col justify-center items-start bg-gray-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
@@ -145,7 +161,7 @@ export default function MessageContainer (props) {
               </div>
             ) : (
               <div
-                key={index}
+                ref={scrollRef}
                 className='flex flex-end justify-end items-center w-full rounded-md p-2 '
               >
                 <div className='flex flex-col justify-center items-start bg-blue-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
@@ -156,23 +172,26 @@ export default function MessageContainer (props) {
                 </div>
               </div>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
-      <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md'>
-        <textarea
-          type='text'
-          className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none'
-          placeholder='Escribe un mensaje...'
-          onChange={e => setMessage(e.target.value)}
-        />
-        <button
-          className='bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded'
-          onClick={handleSubmit}
-        >
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </button>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md'>
+          <input
+            type='text'
+            className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none'
+            placeholder='Escribe un mensaje...'
+            value={message}
+            onChange={event => setMessage(event.target.value)}
+          />
+          <button
+            type='submit'
+            className='bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded'
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+        </div>
+      </form>
     </div>
   )
 }

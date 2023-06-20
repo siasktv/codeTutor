@@ -3,7 +3,16 @@ import { faArrowLeft, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
 const TutorFormProgressBar = props => {
-  const { progress, setProgress, section, setSection, isDone } = props
+  const {
+    progress,
+    setProgress,
+    section,
+    setSection,
+    isDone,
+    form,
+    setForm,
+    dataForm
+  } = props
   const totalProgress = 7
   const progressPercent = (progress / totalProgress) * 100
   const navigate = useNavigate()
@@ -19,6 +28,10 @@ const TutorFormProgressBar = props => {
       setSection('data')
     } else if (section === 'bio') {
       setSection('form')
+      setForm({
+        ...form,
+        avatar: dataForm.avatar
+      })
     }
   }
 
