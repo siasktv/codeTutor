@@ -48,11 +48,11 @@ import CardForm from './FormTutor/TutorFormGeneral/CardForm'
 import AgregarButton from './FormTutor/TutorFormGeneral/AgregarButton'
 
 //componentes de Data
-import TutorFormProfileImage from './FormTutor/TutorData/TutorFormProfileImage'
 import TutorFormProfileLanguages from './FormTutor/TutorData/TutorFormProfileLanguages'
 import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName'
 import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia'
 import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime'
+import CardTutorData from './FormTutor/TutorData/CardTutorData'
 
 //componentes del Form General
 import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia'
@@ -62,6 +62,7 @@ import TutorFormRate from './FormTutor/TutorFormGeneral/TutorFormRate'
 import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech'
 
 export {
+  CardTutorData,
   CardForm,
   AgregarButton,
   EnviarPerfilButton,
@@ -74,7 +75,6 @@ export {
   TutorFormDataLeft,
   TutorFormProgressBar,
   TutorFormWelcome,
-  TutorFormProfileImage,
   TutorFormProfileLanguages,
   TutorFormProfileName,
   TutorFormProfileSocialMedia,

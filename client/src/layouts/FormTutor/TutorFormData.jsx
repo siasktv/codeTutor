@@ -2,7 +2,6 @@ import {
   TutorFormWelcome,
   TutorFormProgressBar,
   TutorFormDataLeft,
-  TutorFormProfileImage,
   TutorFormProfileName,
   TutorFormProfileTime,
   TutorFormProfileSocialMedia,
@@ -13,48 +12,28 @@ const TutorFormData = () => {
   return (
     <>
       {/* contenedor principal */}
-      <section className="bg-[#FAFBFC] min-h-screen w-full flex flex-col ">
-        {/* componente bienvenido */}
-        <TutorFormWelcome />
-        {/* componente bienvenido */}
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className="flex flex-col">
+          <div className="flex flex-col mt-[33px]">
+            <TutorFormWelcome />
+            <TutorFormProgressBar />
+          </div>
+        </div>
 
-        {/* barra de progreso y boton back */}
-        <TutorFormProgressBar />
-        {/* barra de progreso y boton back */}
-
-        {/* componente toda la info */}
-        <section className="flex ml-[68px] mt-[33px]">
-          {/* componente info/data left */}
+        <section className="flex justify-center mt-[33px] mx-28">
           <TutorFormDataLeft />
-          {/* componente info/data left */}
 
-          {/* componente info/data right */}
-          <section className="flex flex-col gap-[18px] ml-[86px]">
-            {/* componente picture/profile */}
-            <TutorFormProfileImage />
-            {/* componente picture/profile */}
-
-            {/* componente nombre/profile */}
+          <section className="flex flex-col w-full gap-[18px] ml-6">
             <TutorFormProfileName />
-            {/* componente nombre/profile */}
 
-            {/* componente zona horaria/profile */}
             <TutorFormProfileTime />
-            {/* componente zona horaria/profile */}
 
-            {/* componente social media/profile */}
             <TutorFormProfileSocialMedia />
-            {/* componente social media/profile */}
 
-            {/* componente/idiomas mas boton agregar */}
             <TutorFormProfileLanguages />
-            {/* componente/idiomas */}
           </section>
-          {/* componente info/data right */}
         </section>
-        {/* componente toda la info */}
       </section>
-      {/* contenedor principal */}
     </>
   )
 }
