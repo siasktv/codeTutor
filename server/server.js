@@ -9,10 +9,14 @@ require('./models/Experience.models.js')
 require('./models/Rates.models.js')
 require('./models/SkillsTech.models.js')
 require('./models/User.models.js')
+const User = require('./models/User.models')
 
-const morgan = require('morgan')
+const { Server: SocketServer } = require('socket.io')
+const http = require('http')
+// const morgan = require('morgan')
 const cors = require('cors')
 const routes = require('./routes/index.js')
+const { log } = require('console')
 let PORT = 3001
 //test
 server.use(cors())
@@ -27,7 +31,75 @@ server.use((req, res, next) => {
   next()
 })
 server.use(express.json())
-server.use(morgan('dev'))
+// server.use(morgan('dev'))
+
+const serverhttp = http.createServer(server)
+const io = new SocketServer(serverhttp, {
+  cors: {
+    origin: 'http://localhost:5173'
+  }
+})
+
+let users = []
+
+const addUser = (userId, socketId) => {
+  !users.some(user => user.userId === userId) &&
+    users.push({ userId, socketId })
+}
+
+const removeUser = socketId => {
+  users = users.filter(user => user.socketId !== socketId)
+}
+
+const getUser = userId => {
+  return users.find(user => user.userId === userId)
+}
+
+const getUserBySocketId = socketId => {
+  return users.find(user => user.socketId === socketId)
+}
+
+io.on('connection', socket => {
+  socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
+    const user = await getUser(receiverId)
+    if (user) {
+      io.to(user.socketId).emit('getMessage', {
+        senderId,
+        message
+      })
+    }
+  })
+
+  socket.on('addUser', async userId => {
+    await addUser(userId, socket.id)
+    io.emit('getUsers', users)
+    const setOnline = async () => {
+      try {
+        await User.findByIdAndUpdate(userId, { offline: false })
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    setOnline()
+  })
+
+  socket.on('disconnect', async () => {
+    const user = await getUserBySocketId(socket.id)
+    if (user) {
+      const setOffline = async () => {
+        try {
+          await User.findByIdAndUpdate(user.userId, { offline: true })
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      setOffline()
+      removeUser(socket.id)
+      io.emit('getUsers', users)
+    }
+  })
+})
 
 // const paths = {
 //   tutors: '/tutors',
@@ -45,7 +117,7 @@ connectDB()
 server.use('/', routes)
 
 if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
-server.listen(PORT, () => {
+serverhttp.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
 

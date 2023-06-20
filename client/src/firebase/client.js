@@ -26,7 +26,8 @@ export const onAuthStateChanged = onChange => {
             fullName: res.data.fullName,
             image: res.data.image,
             location: res.data.location,
-            timezone: res.data.timezone
+            timezone: res.data.timezone,
+            tutor: res.data?.tutor
           })
         })
       }

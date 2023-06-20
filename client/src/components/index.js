@@ -37,7 +37,48 @@ import Loader from './Loader'
 import MessageContainer from './MessageContainer'
 import MessageMinimized from './MessageMinimized'
 
+//FormTutor
+//componentes generales
+import TutorFormDataLeft from './FormTutor/TutorFormDataLeft'
+import TutorFormProgressBar from './FormTutor/TutorFormProgressBar'
+import TutorFormWelcome from './FormTutor/TutorFormWelcome'
+import EnviarPerfilButton from './FormTutor/EnviarPerfilButton'
+import CancelarPerfilButton from './FormTutor/CancelarPerfilButton'
+import CardForm from './FormTutor/TutorFormGeneral/CardForm'
+import AgregarButton from './FormTutor/TutorFormGeneral/AgregarButton'
+
+//componentes de Data
+import TutorFormProfileLanguages from './FormTutor/TutorData/TutorFormProfileLanguages'
+import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName'
+import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia'
+import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime'
+import CardTutorData from './FormTutor/TutorData/CardTutorData'
+
+//componentes del Form General
+import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia'
+import TutorFormExperience from './FormTutor/TutorFormGeneral/TutorFormExperience'
+import TutorFormProjects from './FormTutor/TutorFormGeneral/TutorFormProjects'
+import TutorFormRate from './FormTutor/TutorFormGeneral/TutorFormRate'
+import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech'
+
 export {
+  CardTutorData,
+  CardForm,
+  AgregarButton,
+  EnviarPerfilButton,
+  CancelarPerfilButton,
+  TutorFormBiografia,
+  TutorFormExperience,
+  TutorFormProjects,
+  TutorFormRate,
+  TutorFormTech,
+  TutorFormDataLeft,
+  TutorFormProgressBar,
+  TutorFormWelcome,
+  TutorFormProfileLanguages,
+  TutorFormProfileName,
+  TutorFormProfileSocialMedia,
+  TutorFormProfileTime,
   NavLogin,
   LandingDropdown,
   ButtonShowMore,
@@ -75,5 +116,5 @@ export {
   NavUserNotifications,
   Loader,
   MessageContainer,
-  MessageMinimized
+  MessageMinimized,
 }

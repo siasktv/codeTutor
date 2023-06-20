@@ -5,10 +5,12 @@ import {
   TutorProfile,
   Landing,
   Login,
-  Register
+  Register,
+  FormTutor
 } from './views'
 import NavUserSearch from './components/NavUserSearch'
 import UserDashboard from './views/UserDashboard'
+// import { TutorFormData, TutorForm, TutorFormBio } from './layouts'
 
 function App () {
   return (
@@ -21,6 +23,11 @@ function App () {
         <Route path='/tutor/:id' element={<TutorProfile />} />
         <Route path='/user' element={<UserDashboard />} />
         
+        <Route path='/navuser' element={<NavUserNotifications />} />
+        {/* <Route path='/form' element={<TutorForm />} /> */}
+        {/* <Route path='form/biografia' element={<TutorFormBio />} />
+        <Route path='form/data' element={<TutorFormData />} /> */}
+        <Route path='/tutor' element={<FormTutor />} />
       </Routes>
     </div>
   )
