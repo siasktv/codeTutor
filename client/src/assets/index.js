@@ -28,6 +28,10 @@ import Star from './Star.svg'
 import loaderGoogle from './loadergoogle.gif'
 import MagnifyingGlassSearch from './MagnifyingGlassSearch.svg'
 import devslanding from './devslanding.svg'
+import pt from './pt.png'
+import uk from './uk.png'
+import es from './es.png'
+import fr from './fr.png'
 
 export {
   videocallicon,
@@ -59,5 +63,9 @@ export {
   Star,
   loaderGoogle,
   MagnifyingGlassSearch,
-  devslanding
+  devslanding,
+  pt,
+  uk,
+  es,
+  fr
 }
