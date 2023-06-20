@@ -69,8 +69,8 @@ export default function MessageContainer (props) {
     }
   }, [conversationId])
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
 
     if (!message.trim()) return
 
@@ -104,54 +104,55 @@ export default function MessageContainer (props) {
 
   return (
     // container must be in the bottom right corner
-    <div className='fixed bottom-0 right-28 z-50 h-125 w-96 bg-white rounded-t-lg'>
-      <div className='flex flex-col justify-center items-center bg-codecolor p-2 m-0 rounded-t-md'>
-        <div className='flex justify-end w-full'>
+    <div className="fixed bottom-0 right-28 z-50 h-125 w-96 bg-white rounded-t-lg">
+      <div className="flex flex-col justify-center items-center bg-codecolor p-2 m-0 rounded-t-md">
+        <div className="flex justify-end w-full">
           <FontAwesomeIcon
             icon={faMinus}
-            className='text-white cursor-pointer'
-            onClick={event => handleMinimizeMessage(event)}
+            className="text-white cursor-pointer"
+            onClick={(event) => handleMinimizeMessage(event)}
           />
         </div>
-        <div className='flex justify-center items-center'>
-          <h1 className='text-white font-semibold text-xl'>
+        <div className="flex justify-center items-center">
+          <h1 className="text-white font-semibold text-xl">
             Chat con {tutor.user.fullName}
           </h1>
           {tutor.user.offline ? (
-            <h2 className='font-semibold text-xl text-red-500 ml-2'>◉</h2>
+            <h2 className="font-semibold text-xl text-red-500 ml-2">◉</h2>
           ) : (
-            <h2 className='font-semibold text-xl text-green-500 ml-2'>◉</h2>
+            <h2 className="font-semibold text-xl text-green-500 ml-2">◉</h2>
           )}
         </div>
-        <p className='text-white text-sm'>{tutor.bio.specialty}</p>
+        <p className="text-white text-sm">{tutor.bio.specialty}</p>
       </div>
-      <div className='flex flex-col justify-start items-center bg-white p-2 m-0 rounded-b-md overflow-y-auto overflow-x-hidden h-[365px]'>
+      <div className="flex flex-col justify-start items-center bg-white p-2 m-0 rounded-b-md overflow-y-auto overflow-x-hidden h-[365px]">
         {messages.map((item, index) => (
           <>
             {item.sender !== user.id ? (
               <div
                 ref={scrollRef}
                 key={index}
-                className='flex flex-start justify-start items-center w-full  bg-gray-100 rounded-md p-2'
+                className="flex flex-start justify-start items-center w-full  bg-gray-100 rounded-md p-2"
               >
-                <div className='flex flex-col justify-center items-start bg-gray-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
-                  <strong className='text-blue-500'>
+                <div className="flex flex-col justify-center items-start bg-gray-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]">
+                  <strong className="text-blue-500">
                     {tutor.user.fullName}
                   </strong>
-                  <div className='flex flex-col justify-center items-center text-left'>
-                    <p className='text-sm text-gray-500'>{item.message}</p>
+                  <div className="flex flex-col justify-center items-center text-left">
+                    <p className="text-sm text-gray-500">{item.message}</p>
                   </div>
                 </div>
               </div>
             ) : (
               <div
+                ref={scrollRef}
                 key={index}
-                className='flex flex-end justify-end items-center w-full rounded-md p-2 '
+                className="flex flex-end justify-end items-center w-full rounded-md p-2 "
               >
-                <div className='flex flex-col justify-center items-start bg-blue-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
-                  <strong className='text-blue-500'>{user.fullName}</strong>
-                  <div className='flex flex-col justify-center items-center text-left'>
-                    <p className='text-sm text-gray-500'>{item.message}</p>
+                <div className="flex flex-col justify-center items-start bg-blue-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]">
+                  <strong className="text-blue-500">{user.fullName}</strong>
+                  <div className="flex flex-col justify-center items-center text-left">
+                    <p className="text-sm text-gray-500">{item.message}</p>
                   </div>
                 </div>
               </div>
@@ -159,20 +160,23 @@ export default function MessageContainer (props) {
           </>
         ))}
       </div>
-      <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md'>
-        <textarea
-          type='text'
-          className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none'
-          placeholder='Escribe un mensaje...'
-          onChange={e => setMessage(e.target.value)}
-        />
-        <button
-          className='bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded'
-          onClick={handleSubmit}
-        >
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </button>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="flex justify-center items-center bg-white p-2 m-0 rounded-b-md">
+          <input
+            type="text"
+            className="w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none"
+            placeholder="Escribe un mensaje..."
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded"
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+        </div>
+      </form>
     </div>
-  )
+  );
 }
