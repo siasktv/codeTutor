@@ -56,15 +56,15 @@ const TutorProfileLanguages = props => {
   return (
     <>
       <CardTutorData title='Idiomas' correct={correct}>
-        <div className='flex flex-col gap-8'>
-          <p className='text-[#737791] font-inter text-base font-medium text-left'>
+        <div className='flex flex-col'>
+          <p className='text-[#737791] -mt-6 font-inter text-base font-medium text-left'>
             Por favor, añade los idiomas en los que tienes fluidez para que
             aparezcan en tu perfil.
           </p>
-          <div className='flex flex-row gap-4'>
+          <div className='flex flex-row'>
             {selectedLangs.map((lang, index) => (
               <div
-                className='bg-[#7D5AE21A] w-[100px] justify-center p-4 flex flex-row items-center text-[#7D5AE2]  py-3 rounded-[8px]'
+                className='bg-[#7D5AE21A] w-[100px] justify-center p-4 mt-2 -mb-4 flex flex-row items-center text-[#7D5AE2]  py-3 rounded-[8px]'
                 key={index}
               >
                 <p className='text-[#7D5AE2]'>{lang}</p>
