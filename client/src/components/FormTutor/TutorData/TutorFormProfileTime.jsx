@@ -2,10 +2,8 @@ import { CardTutorData } from '../../index'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  fetchLocations,
-  selectLocations
-} from '../../../redux/features/locations/locationsSlice'
+import { fetchLocations } from '../../../redux/features/locations/locationsSlice'
+import { FlechaFiltro } from '../../../assets'
 
 const TutorFormProfileTime = props => {
   const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
@@ -97,30 +95,35 @@ const TutorFormProfileTime = props => {
   return (
     <>
       <CardTutorData title='Actualizar zona horaria' correct={correct}>
-        <select
-          id='inputFieldLocation'
-          onChange={handleSelectLocation}
-          className={
-            errorsData.location
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500'
-          }
-          defaultValue='default'
-        >
-          <option value='default' disabled hidden>
-            Ubicación
-          </option>
-          {locations.map((location, index) => (
-            <option
-              key={index}
-              value={location.name}
-              selected={locationSelected === location.name}
-              className='bg-white text-gray-500'
-            >
-              {location.name}
+        <div className='relative'>
+          <select
+            id='inputFieldLocation'
+            onChange={handleSelectLocation}
+            className={
+              errorsData.location
+                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
+                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+            }
+            defaultValue='default'
+          >
+            <option value='default' disabled hidden>
+              Ubicación
             </option>
-          ))}
-        </select>
+            {locations.map((location, index) => (
+              <option
+                key={index}
+                value={location.name}
+                selected={locationSelected === location.name}
+                className='bg-white text-gray-500'
+              >
+                {location.name}
+              </option>
+            ))}
+          </select>
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+            <img src={FlechaFiltro} />
+          </div>
+        </div>
 
         {errorsData.location && (
           <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
@@ -129,32 +132,37 @@ const TutorFormProfileTime = props => {
         )}
         {locationSelected !== '' && locationSelected !== 'default' && (
           <>
-            <select
-              id='inputField'
-              onChange={handleSelect}
-              className={
-                errorsData.zona_horaria
-                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100'
-                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500'
-              }
-            >
-              <option value='default' hidden selected>
-                Zona Horaria
-              </option>
-              {timeZones.map((timezone, index) => (
-                <option
-                  key={index + 1}
-                  value={timezone}
-                  selected={
-                    dataForm.zona_horaria === timezone ||
-                    form.zona_horaria === timezone
-                  }
-                  className='bg-white text-gray-500'
-                >
-                  {timezone}
+            <div className='relative'>
+              <select
+                id='inputField'
+                onChange={handleSelect}
+                className={
+                  errorsData.zona_horaria
+                    ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
+                    : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                }
+              >
+                <option value='default' hidden selected>
+                  Zona Horaria
                 </option>
-              ))}
-            </select>
+                {timeZones.map((timezone, index) => (
+                  <option
+                    key={index + 1}
+                    value={timezone}
+                    selected={
+                      dataForm.zona_horaria === timezone ||
+                      form.zona_horaria === timezone
+                    }
+                    className='bg-white text-gray-500'
+                  >
+                    {timezone}
+                  </option>
+                ))}
+              </select>
+              <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+                <img src={FlechaFiltro} />
+              </div>
+            </div>
             {errorsData.zona_horaria && (
               <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
                 {errorsData.zona_horaria}
