@@ -150,7 +150,7 @@ const TutorFormDataLeft = props => {
           ))}
         </div>
       )}
-      <div className='flex justify-center gap-8 mt-8'>
+      <div className='flex justify-center gap-6 mt-8'>
         <LinkGitHub link={form?.social?.github} />
         <LinkLinkedIn link={form?.social?.linkedin} />
       </div>
