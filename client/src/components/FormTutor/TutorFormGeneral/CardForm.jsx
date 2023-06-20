@@ -1,5 +1,5 @@
 import { AgregarButton } from '../../index'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CardForm = props => {
@@ -16,6 +16,9 @@ const CardForm = props => {
           {title}{' '}
           {next === 'bio' && isDone?.bio && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
+          )}
+          {next === 'bio' && !isDone?.bio && (
+            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
           )}
         </h2>
         {children}
