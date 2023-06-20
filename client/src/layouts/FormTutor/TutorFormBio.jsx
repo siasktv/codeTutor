@@ -7,7 +7,7 @@ import {
   CancelarPerfilButton
 } from '../../components'
 import { useState, useEffect } from 'react'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const TutorFormBio = props => {
@@ -178,6 +178,12 @@ const TutorFormBio = props => {
                     <FontAwesomeIcon
                       icon={faCheckCircle}
                       className='text-green-500 text-xl'
+                    />
+                  )}
+                  {!correct && (
+                    <FontAwesomeIcon
+                      icon={faWarning}
+                      className='text-orange-300 text-xl'
                     />
                   )}
                 </h2>

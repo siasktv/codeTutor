@@ -1,4 +1,4 @@
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CardTutorData = ({ children, title, correct }) => {
@@ -9,6 +9,9 @@ const CardTutorData = ({ children, title, correct }) => {
           {title}{' '}
           {correct && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
+          )}
+          {!correct && (
+            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
           )}
         </h2>
         {children}
