@@ -1,33 +1,115 @@
-import { CardTutorData, EnviarPerfilButton } from '../../index'
+import { CardTutorData } from '../../index'
+import { useState, useEffect } from 'react'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const TutorProfileLanguages = () => {
+const TutorProfileLanguages = props => {
+  const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
+  const [selectedLangs, setSelectedLangs] = useState([])
+  const availableLangs = ['Español', 'Inglés', 'Francés', 'Portugués']
+  const [correct, setCorrect] = useState(false)
+
+  useEffect(() => {
+    if (errorsData.idiomas === '' && selectedLangs.length > 0) {
+      setCorrect(true)
+    } else {
+      setCorrect(false)
+    }
+  }, [errorsData, selectedLangs])
+
+  useEffect(() => {
+    if (form.languages.length > 0) {
+      setSelectedLangs(form.languages)
+    }
+  }, [])
+
+  const handleSelect = e => {
+    const lang = e.target.value
+    if (lang === 'default') {
+      setErrorsData({
+        ...errorsData,
+        idiomas: 'Debes seleccionar un idioma'
+      })
+    } else {
+      setErrorsData({ ...errorsData, idiomas: '' })
+    }
+    if (!selectedLangs.includes(lang)) {
+      setSelectedLangs([...selectedLangs, lang])
+    }
+    setDataForm({ ...dataForm, languages: [...selectedLangs, lang] })
+    e.target.value = 'default'
+  }
+
+  const handleDelete = lang => {
+    const newLangs = selectedLangs.filter(l => l !== lang)
+    setSelectedLangs(newLangs)
+    setDataForm({ ...dataForm, languages: newLangs })
+    if (newLangs.length === 0) {
+      setErrorsData({
+        ...errorsData,
+        idiomas: 'Debes seleccionar al menos un idioma'
+      })
+    }
+  }
+
   return (
     <>
-      <CardTutorData title="Idiomas">
-        <div className="flex flex-col gap-8">
-          <p className="text-[#737791] font-inter text-base font-medium text-left">
+      <CardTutorData title='Idiomas' correct={correct}>
+        <div className='flex flex-col gap-8'>
+          <p className='text-[#737791] font-inter text-base font-medium text-left'>
             Por favor, añade los idiomas en los que tienes fluidez para que
             aparezcan en tu perfil.
           </p>
-          <button className="bg-[#7D5AE21A] w-[100px] justify-between items-center p-4 text-[#7D5AE2]  py-3 rounded-[8px]">
-            <p className="text-[#7D5AE2]">Español</p>
-          </button>
+          <div className='flex flex-row gap-4'>
+            {selectedLangs.map((lang, index) => (
+              <div
+                className='bg-[#7D5AE21A] w-[100px] justify-center p-4 flex flex-row items-center text-[#7D5AE2]  py-3 rounded-[8px]'
+                key={index}
+              >
+                <p className='text-[#7D5AE2]'>{lang}</p>
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  onClick={() => handleDelete(lang)}
+                  className='ml-2 mt-[1px] hover:text-codecolordark cursor-pointer'
+                  size='sm'
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <select
-          id="inputField"
-          className="w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500"
-          defaultValue="default"
-        >
-          <option value="default" disabled hidden>
-            Idiomas
-          </option>
-          <option value="GMT-7">Ingles</option>
-          <option value="GMT-6">Portugues</option>
-          <option value="GMT-5">Frances</option>
-        </select>
-        <button className="mb-[36px] mt-auto ml-auto font-inter text-sm font-semibold leading-[20px] tracking-normal text-center flex items-center justify-center text-white bg-[#7F56D9] px-6 py-3 rounded-[8px] border border-[#FFFFFF]">
-          Agregar
-        </button>
+        {availableLangs.filter(lang => !selectedLangs.includes(lang)).length >
+          0 && (
+          <select
+            id='inputField'
+            className={
+              errorsData.idiomas
+                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 focus:outline-red-500 bg-red-100'
+                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500'
+            }
+            defaultValue='default'
+            onChange={handleSelect}
+          >
+            <option value='default' selected disabled hidden>
+              Agregar idioma
+            </option>
+            {availableLangs
+              .filter(lang => !selectedLangs.includes(lang))
+              .map((lang, index) => (
+                <option
+                  key={index}
+                  value={lang}
+                  className='text-gray-500 bg-white'
+                >
+                  {lang}
+                </option>
+              ))}
+          </select>
+        )}
+        {errorsData.idiomas && (
+          <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
+            {errorsData.idiomas}
+          </p>
+        )}
       </CardTutorData>
     </>
   )
