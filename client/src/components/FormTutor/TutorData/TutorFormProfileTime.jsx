@@ -1,15 +1,36 @@
 import { CardTutorData } from '../../index'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchLocations } from '../../../redux/features/locations/locationsSlice'
 import { FlechaFiltro } from '../../../assets'
 
 const TutorFormProfileTime = props => {
   const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
   const [timeZones, setTimeZones] = useState([])
   const [correct, setCorrect] = useState(false)
+  const locations = useSelector(state => state.locations.locations)
+  const [locationSelected, setLocationSelected] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (errorsData.zona_horaria === '' && dataForm.zona_horaria !== '') {
+    if (form.zona_horaria !== '' && form.location !== '') {
+      setLocationSelected(form.location)
+      setDataForm({
+        ...dataForm,
+        zona_horaria: form.zona_horaria,
+        location: form.location
+      })
+    }
+  }, [form])
+
+  useEffect(() => {
+    if (
+      errorsData.zona_horaria === '' &&
+      errorsData.location === '' &&
+      dataForm.zona_horaria !== '' &&
+      dataForm.location !== ''
+    ) {
       setCorrect(true)
     } else {
       setCorrect(false)
@@ -17,28 +38,46 @@ const TutorFormProfileTime = props => {
   }, [errorsData, dataForm])
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/api/locations')
-      .then(res => {
-        // set timeZones from res.data.timeZones[]
-        const locations = res.data
-        const timeZones = locations.map(location =>
-          location.timezones.map(timezone => timezone)
-        )
-        const removeDuplicates = timeZones
-          .flat()
-          .filter((timezone, index, self) => self.indexOf(timezone) === index)
-          .filter(timezone => timezone !== 'UTC')
-        // order timeZones from end to start (UTC-12 to UTC+14)
-        removeDuplicates.sort((a, b) => {
-          const aNumber = parseInt(a.slice(3))
-          const bNumber = parseInt(b.slice(3))
-          return bNumber - aNumber
-        })
-        setTimeZones(removeDuplicates)
+    if (!locations[0]?.name) {
+      dispatch(fetchLocations())
+    } else if (locations.length > 0) {
+      const getTimeZones = locations.map(location =>
+        location.timezones.map(timezone => timezone)
+      )
+      // remove duplicates
+      const timeZones = [
+        ...new Set(getTimeZones.flat().filter(timezone => timezone !== 'UTC'))
+      ]
+      setTimeZones(timeZones)
+    }
+  }, [locations])
+
+  useEffect(() => {
+    if (locationSelected !== '' && locationSelected !== 'default') {
+      const location = locations.find(
+        location => location.name === locationSelected
+      )
+      const timeZones = location.timezones.map(timezone => timezone)
+      setTimeZones(timeZones)
+    }
+  }, [locationSelected])
+
+  const handleSelectLocation = e => {
+    const location = e.target.value
+    setLocationSelected(location)
+    if (location === 'default') {
+      setErrorsData({
+        ...errorsData,
+        location: 'Debes seleccionar una ubicación'
       })
-      .catch(err => console.log(err))
-  }, [])
+    } else {
+      setErrorsData({ ...errorsData, location: '' })
+    }
+    setDataForm({ ...dataForm, location: location, zona_horaria: '' })
+    const inputField = document.getElementById('inputField')
+    // set index 0 to default
+    inputField.selectedIndex = 0
+  }
 
   const handleSelect = e => {
     const zona_horaria = e.target.value
@@ -58,29 +97,26 @@ const TutorFormProfileTime = props => {
       <CardTutorData title='Actualizar zona horaria' correct={correct}>
         <div className='relative'>
           <select
-            id='inputField'
-            onChange={handleSelect}
+            id='inputFieldLocation'
+            onChange={handleSelectLocation}
             className={
-              errorsData.zona_horaria
+              errorsData.location
                 ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
                 : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
             }
             defaultValue='default'
           >
             <option value='default' disabled hidden>
-              Zona Horaria
+              Ubicación
             </option>
-            {timeZones.map((timezone, index) => (
+            {locations.map((location, index) => (
               <option
                 key={index}
-                value={timezone}
-                selected={
-                  dataForm.zona_horaria === timezone ||
-                  form.zona_horaria === timezone
-                }
+                value={location.name}
+                selected={locationSelected === location.name}
                 className='bg-white text-gray-500'
               >
-                {timezone}
+                {location.name}
               </option>
             ))}
           </select>
@@ -88,10 +124,51 @@ const TutorFormProfileTime = props => {
             <img src={FlechaFiltro} />
           </div>
         </div>
-        {errorsData.zona_horaria && (
+
+        {errorsData.location && (
           <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
-            {errorsData.zona_horaria}
+            {errorsData.location}
           </p>
+        )}
+        {locationSelected !== '' && locationSelected !== 'default' && (
+          <>
+            <div className='relative'>
+              <select
+                id='inputField'
+                onChange={handleSelect}
+                className={
+                  errorsData.zona_horaria
+                    ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
+                    : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                }
+              >
+                <option value='default' hidden selected>
+                  Zona Horaria
+                </option>
+                {timeZones.map((timezone, index) => (
+                  <option
+                    key={index + 1}
+                    value={timezone}
+                    selected={
+                      dataForm.zona_horaria === timezone ||
+                      form.zona_horaria === timezone
+                    }
+                    className='bg-white text-gray-500'
+                  >
+                    {timezone}
+                  </option>
+                ))}
+              </select>
+              <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+                <img src={FlechaFiltro} />
+              </div>
+            </div>
+            {errorsData.zona_horaria && (
+              <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
+                {errorsData.zona_horaria}
+              </p>
+            )}
+          </>
         )}
       </CardTutorData>
     </>

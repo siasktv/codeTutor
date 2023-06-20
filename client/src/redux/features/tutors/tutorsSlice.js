@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 //initialState
 const initialState = {
   tutors: [
@@ -65,7 +67,7 @@ const initialState = {
 //createThunk
 export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/tutors')
+    const response = await axios.get(`${BACKEND_URL}/api/tutors`)
     return response.data
   } catch (error) {
     console.log(error)
@@ -76,7 +78,7 @@ export const tutorFetchById = createAsyncThunk(
   'tutors/tutorFetchById',
   async id => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/tutors/${id}`)
+      const response = await axios.get(`${BACKEND_URL}/api/tutors/${id}`)
       return response.data
     } catch (error) {
       state.error = error.message

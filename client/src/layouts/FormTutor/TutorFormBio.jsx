@@ -7,7 +7,7 @@ import {
   CancelarPerfilButton
 } from '../../components'
 import { useState, useEffect } from 'react'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const TutorFormBio = props => {
@@ -25,6 +25,7 @@ const TutorFormBio = props => {
   const [isDisabled, setIsDisabled] = useState(true)
   const [charCount, setCharCount] = useState(form.bio.description.length)
   const [dataForm, setDataForm] = useState({
+    avatar: form.avatar,
     specialty: form.bio.specialty || '',
     description: form.bio.description || '',
     portfolio: form.bio.portfolio || ''
@@ -42,6 +43,7 @@ const TutorFormBio = props => {
       errors.specialty === '' &&
       errors.description === '' &&
       errors.portfolio === '' &&
+      dataForm.avatar !== '' &&
       dataForm.specialty !== '' &&
       dataForm.description !== ''
     ) {
@@ -153,12 +155,20 @@ const TutorFormBio = props => {
               section={section}
               setSection={setSection}
               isDone={isDone}
+              form={form}
+              setForm={setForm}
+              dataForm={dataForm}
             />
           </div>
         </div>
 
         <section className='flex justify-center mt-[33px] mx-28'>
-          <TutorFormDataLeft user={user} form={form} />
+          <TutorFormDataLeft
+            user={user}
+            form={form}
+            dataForm={dataForm}
+            setDataForm={setDataForm}
+          />
           <section className='flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6'>
             <div className='mx-[52px] my-[36px] '>
               <div className='flex flex-row items-center mb-[50px]'>
@@ -168,6 +178,12 @@ const TutorFormBio = props => {
                     <FontAwesomeIcon
                       icon={faCheckCircle}
                       className='text-green-500 text-xl'
+                    />
+                  )}
+                  {!correct && (
+                    <FontAwesomeIcon
+                      icon={faWarning}
+                      className='text-orange-300 text-xl'
                     />
                   )}
                 </h2>
@@ -235,7 +251,7 @@ const TutorFormBio = props => {
                 maxLength={500}
                 placeholder='Escribe una breve biografía'
                 onChange={handleDescriptionInput}
-                value={dataForm.description || form.bio.description}
+                value={dataForm.description}
               ></textarea>
               {/* ACTUALIZAR el número de caracteres de acuerdo al limite */}
               <p

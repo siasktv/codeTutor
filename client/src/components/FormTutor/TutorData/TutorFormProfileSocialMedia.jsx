@@ -44,18 +44,35 @@ const TutorFormProfileSocialMedia = props => {
     } else {
       setErrorsData({
         ...errorsData,
-        linkedin: '',
-        github: ''
+        [name]: ''
       })
     }
     setDataForm({
       ...dataForm,
       social: {
         ...dataForm.social,
-        [name]: value
+        [name]: value.replace(' ', '')
       }
     })
   }
+
+  useEffect(() => {
+    if (dataForm.social.linkedin && dataForm.social.github) {
+      if (!dataForm.social.linkedin.includes('linkedin.com/' || 'https://')) {
+        setErrorsData({
+          ...errorsData,
+          linkedin: 'Ingresa un link de Linkedin válido'
+        })
+      }
+      if (!dataForm.social.github.includes('github.com/' || 'https://')) {
+        setErrorsData({
+          ...errorsData,
+          github: 'Ingresa un link de Github válido'
+        })
+      }
+    }
+  }, [dataForm])
+
   return (
     <>
       <CardTutorData title='Actualizar Social Media' correct={correct}>
@@ -70,7 +87,11 @@ const TutorFormProfileSocialMedia = props => {
               }
               name='github'
               onChange={handleChange}
-              value={dataForm.social.github || form.social.github || 'https://'}
+              value={
+                dataForm.social.github ||
+                form.social.github ||
+                'https://github.com/'
+              }
               type='link'
               placeholder='https://'
             />
@@ -87,7 +108,11 @@ const TutorFormProfileSocialMedia = props => {
               id='inputField'
               name='linkedin'
               onChange={handleChange}
-              value={dataForm.social.linkedin || form.social.linkedin || 'https://'}
+              value={
+                dataForm.social.linkedin ||
+                form.social.linkedin ||
+                'https://linkedin.com/'
+              }
               className={
                 errorsData.linkedin
                   ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
