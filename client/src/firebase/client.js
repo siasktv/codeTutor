@@ -9,12 +9,14 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 export const onAuthStateChanged = onChange => {
   return firebase.auth().onAuthStateChanged(user => {
     if (user) {
       // make get request until user is found
       function getUser () {
-        axios.get(`http://localhost:3001/api/users/${user.uid}`).then(res => {
+        axios.get(`${BACKEND_URL}/api/users/${user.uid}`).then(res => {
           if (!res.data?.uid) {
             return getUser()
           }
@@ -51,7 +53,7 @@ export const signUp = (email, password, name) => {
     .createUserWithEmailAndPassword(email, password)
     .then(user => {
       axios
-        .post('http://localhost:3001/api/users', {
+        .post(`${BACKEND_URL}/api/users`, {
           fullName: name,
           email,
           image:
@@ -83,13 +85,13 @@ export const loginWithGoogle = () => {
     .signInWithPopup(provider)
     .then(user => {
       axios
-        .get(`http://localhost:3001/api/users/${user.user.uid}`)
+        .get(`${BACKEND_URL}/api/users/${user.user.uid}`)
         .then(res => {
           if (res.data) {
             return user
           } else {
             axios
-              .post('http://localhost:3001/api/users', {
+              .post(`${BACKEND_URL}/api/users`, {
                 fullName: user.user.displayName,
                 email: user.user.email,
                 image: user.user.photoURL.replaceAll('s96-c', 's1080-c'),
