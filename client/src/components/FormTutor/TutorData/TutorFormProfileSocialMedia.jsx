@@ -59,42 +59,52 @@ const TutorFormProfileSocialMedia = props => {
   return (
     <>
       <CardTutorData title='Actualizar Social Media' correct={correct}>
-        <input
-          id='inputField'
-          className={
-            errorsData.github
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
-          }
-          name='github'
-          onChange={handleChange}
-          value={dataForm.social.github || form.social.github || 'https://'}
-          type='link'
-          placeholder='https://'
-        />
-        {errorsData.github && (
-          <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
-            {errorsData.github}
-          </p>
-        )}
-        <input
-          id='inputField'
-          name='linkedin'
-          onChange={handleChange}
-          value={dataForm.social.linkedin || form.social.linkedin || 'https://'}
-          className={
-            errorsData.linkedin
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
-          }
-          type='link'
-          placeholder='https://'
-        />
-        {errorsData.linkedin && (
-          <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
-            {errorsData.linkedin}
-          </p>
-        )}
+        <div className='flex space-x-8'>
+          <div className='block w-full'>
+            <input
+              id='inputField'
+              className={
+                errorsData.github
+                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
+                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+              }
+              name='github'
+              onChange={handleChange}
+              value={dataForm.social.github || form.social.github || 'https://'}
+              type='link'
+              placeholder='https://'
+            />
+            <div className='pt-3'>
+              {errorsData.github && (
+                <p className='font-inter font-normal italic text-red-500 text-left'>
+                  {errorsData.github}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className='block w-full'>
+            <input
+              id='inputField'
+              name='linkedin'
+              onChange={handleChange}
+              value={dataForm.social.linkedin || form.social.linkedin || 'https://'}
+              className={
+                errorsData.linkedin
+                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
+                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+              }
+              type='link'
+              placeholder='https://'
+            />
+            <div className='pt-3'>
+              {errorsData.linkedin && (
+                <p className='font-inter font-normal italic text-red-500 text-left'>
+                  {errorsData.linkedin}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
       </CardTutorData>
     </>
   )

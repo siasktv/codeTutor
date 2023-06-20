@@ -1,6 +1,7 @@
 import { CardTutorData } from '../../index'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { FlechaFiltro } from '../../../assets'
 
 const TutorFormProfileTime = props => {
   const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
@@ -55,33 +56,38 @@ const TutorFormProfileTime = props => {
   return (
     <>
       <CardTutorData title='Actualizar zona horaria' correct={correct}>
-        <select
-          id='inputField'
-          onChange={handleSelect}
-          className={
-            errorsData.zona_horaria
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500'
-          }
-          defaultValue='default'
-        >
-          <option value='default' disabled hidden>
-            Zona Horaria
-          </option>
-          {timeZones.map((timezone, index) => (
-            <option
-              key={index}
-              value={timezone}
-              selected={
-                dataForm.zona_horaria === timezone ||
-                form.zona_horaria === timezone
-              }
-              className='bg-white text-gray-500'
-            >
-              {timezone}
+        <div className='relative'>
+          <select
+            id='inputField'
+            onChange={handleSelect}
+            className={
+              errorsData.zona_horaria
+                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
+                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+            }
+            defaultValue='default'
+          >
+            <option value='default' disabled hidden>
+              Zona Horaria
             </option>
-          ))}
-        </select>
+            {timeZones.map((timezone, index) => (
+              <option
+                key={index}
+                value={timezone}
+                selected={
+                  dataForm.zona_horaria === timezone ||
+                  form.zona_horaria === timezone
+                }
+                className='bg-white text-gray-500'
+              >
+                {timezone}
+              </option>
+            ))}
+          </select>
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+            <img src={FlechaFiltro} />
+          </div>
+        </div>
         {errorsData.zona_horaria && (
           <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
             {errorsData.zona_horaria}
