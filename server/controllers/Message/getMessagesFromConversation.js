@@ -7,9 +7,7 @@ const getMessagesFromConversation = async conversationId => {
     .populate({
       path: 'conversationId'
     })
-    .populate({
-      path: 'sender'
-    })
+    
   return messages
 }
 
