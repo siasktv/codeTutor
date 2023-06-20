@@ -11,7 +11,10 @@ require('./models/SkillsTech.models.js')
 require('./models/User.models.js')
 const User = require('./models/User.models')
 const {
-  addUser, removeUser, getUser, getUserBySocketId, users
+  addUser,
+  getUser,
+  getUserBySocketId,
+  users
 } = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
@@ -20,11 +23,12 @@ const http = require('http')
 const cors = require('cors')
 const routes = require('./routes/index.js')
 const { log } = require('console')
-let PORT = 3001
+const PORT = process.env.PORT || 3001
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173'
 //test
 server.use(cors())
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Origin', FRONTEND_URL)
   res.header('Access-Control-Allow-Credentials', 'true')
   res.header(
     'Access-Control-Allow-Headers',
@@ -39,10 +43,9 @@ server.use(express.json())
 const serverhttp = http.createServer(server)
 const io = new SocketServer(serverhttp, {
   cors: {
-    origin: 'http://localhost:5173'
+    origin: FRONTEND_URL
   }
 })
-
 
 io.on('connection', socket => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
@@ -57,7 +60,10 @@ io.on('connection', socket => {
 
   socket.on('addUser', async userId => {
     await addUser(userId, socket.id)
-    io.emit('getUsers', users)
+    io.emit(
+      'online',
+      users.filter(user => user.online === true)
+    )
     const setOnline = async () => {
       try {
         await User.findByIdAndUpdate(userId, { offline: false })
@@ -67,6 +73,19 @@ io.on('connection', socket => {
     }
 
     setOnline()
+  })
+
+  socket.on('checkOnline', async userId => {
+    const user = await getUser(userId)
+    if (user.online) {
+      io.to(user.socketId).emit('checkOnline', {
+        online: true
+      })
+    } else {
+      io.to(socket.id).emit('checkOnline', {
+        online: false
+      })
+    }
   })
 
   socket.on('disconnect', async () => {
@@ -80,8 +99,11 @@ io.on('connection', socket => {
         }
       }
       setOffline()
-      removeUser(socket.id)
-      io.emit('getUsers', users)
+      user.online = false
+      io.emit(
+        'online',
+        users.filter(user => user.online === true)
+      )
     }
   })
 })

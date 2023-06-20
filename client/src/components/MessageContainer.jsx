@@ -10,6 +10,7 @@ export default function MessageContainer (props) {
 
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
+  const [isOnline, setIsOnline] = useState(!tutor.user.offline)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [conversationId, setConversationId] = useState(null)
   const socket = useRef()
@@ -26,15 +27,28 @@ export default function MessageContainer (props) {
         createdAt: Date.now()
       })
     })
+    socket.current.on('online', data => {
+      if (data.find(item => item.userId === tutor.user._id)) {
+        setIsOnline(true)
+      } else {
+        setIsOnline(false)
+      }
+    })
+
+    socket.current.on('checkOnline', data => {
+      console.log(data)
+      if (data.online) {
+        setIsOnline(true)
+      } else {
+        setIsOnline(false)
+      }
+    })
+    socket.current.emit('checkOnline', tutor.user._id)
   }, [])
 
   useEffect(() => {
     arrivalMessage && setMessages([...messages, arrivalMessage])
   }, [arrivalMessage])
-
-  useEffect(() => {
-    socket.current?.emit('addUser', user.id)
-  }, [socket.current])
 
   useEffect(() => {
     if (user && tutor) {
@@ -120,7 +134,7 @@ export default function MessageContainer (props) {
           <h1 className='text-white font-semibold text-xl'>
             Chat con {tutor.user.fullName}
           </h1>
-          {tutor.user.offline ? (
+          {!isOnline ? (
             <h2 className='font-semibold text-xl text-red-500 ml-2'>◉</h2>
           ) : (
             <h2 className='font-semibold text-xl text-green-500 ml-2'>◉</h2>
