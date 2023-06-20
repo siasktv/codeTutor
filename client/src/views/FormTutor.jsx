@@ -17,6 +17,8 @@ export default function FormTutor() {
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({
     name: '',
+    avatar: '',
+    location: '',
     zona_horaria: '',
     social: {
       linkedin: '',
@@ -44,6 +46,10 @@ export default function FormTutor() {
       navigate('/login')
     } else if (user) {
       setLoading(false)
+      setForm({
+        ...form,
+        avatar: user.image
+      })
       //   if (user.tutor) {
       //     if (user.tutor.status === 'pending') {
       //       alert('Ya tienes un perfil pendiente de aprobación')

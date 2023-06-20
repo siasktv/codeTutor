@@ -45,7 +45,7 @@ const ImageSlider = () => {
           key={index}
           src={image}
           alt="Slider"
-          className={`absolute -bottom-600px left-0 transform transition-transform duration-1000 ease-in-out ${
+          className={`absolute -bottom-600px left-32 transform transition-transform duration-1000 ease-in-out ${
             index === currentImageIndex && !isAnimating
               ? "translate-y-0 opacity-100"
               : index === currentImageIndex && isAnimating

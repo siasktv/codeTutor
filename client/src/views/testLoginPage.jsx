@@ -30,10 +30,12 @@ function TestLoginPage () {
   const [selectedLocation, setSelectedLocation] = useState('')
   const [selectedTimezone, setSelectedTimezone] = useState('')
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
   useEffect(() => {
     const getLocations = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3001/api/locations')
+        const { data } = await axios.get(`${BACKEND_URL}/api/locations`)
         setLocations(data)
       } catch (error) {
         console.log(error)
@@ -205,7 +207,7 @@ function TestLoginPage () {
         </div>
       )}
       {user === null && (
-        <div className="flex flex-col items-center justify-center">
+        <div className='flex flex-col items-center justify-center'>
           <div className='selector '>
             <button onClick={() => setSelectedSection('signup')}>
               Sign Up
@@ -214,7 +216,10 @@ function TestLoginPage () {
           </div>
 
           {selectedSection === 'signup' && (
-            <div id='signUpForm' className='signup bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16 '>
+            <div
+              id='signUpForm'
+              className='signup bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16 '
+            >
               <h1>Sign Up</h1>
               <label>Image</label>
               {imageSignup && (
@@ -296,9 +301,14 @@ function TestLoginPage () {
             </div>
           )}
           {selectedSection === 'login' && (
-            <div id='loginForm' className='login bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16'>
+            <div
+              id='loginForm'
+              className='login bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16'
+            >
               <h1>Login</h1>
-              <label className='block text-lg' htmlFor='email'>Email</label>
+              <label className='block text-lg' htmlFor='email'>
+                Email
+              </label>
               <input
                 className='block mb-1 text-xl font-medium  text-gray-700'
                 type='email'
@@ -321,15 +331,14 @@ function TestLoginPage () {
               </button>
               {loginError && <p className='error'>{loginError}</p>}
               <button
-            onClick={handleLoginWithGoogle}
-            disabled={isDisabledGoogle}
-            className='googleBtn'
-          >
-            Login with Google
-          </button>
+                onClick={handleLoginWithGoogle}
+                disabled={isDisabledGoogle}
+                className='googleBtn'
+              >
+                Login with Google
+              </button>
             </div>
           )}
-          
         </div>
       )}
       {user && (

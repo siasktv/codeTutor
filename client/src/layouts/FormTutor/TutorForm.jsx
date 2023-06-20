@@ -26,6 +26,16 @@ const TutorForm = (props) => {
   } = props
   const [isDisabled, setIsDisabled] = useState(true)
 
+  const [dataForm, setDataForm] = useState({
+    avatar: form.avatar,
+  })
+
+  useEffect(() => {
+    if (dataForm.avatar !== form.avatar) {
+      setForm({ ...form, avatar: dataForm.avatar })
+    }
+  }, [dataForm])
+
   useEffect(() => {
     if (
       isDone.bio &&
@@ -57,7 +67,12 @@ const TutorForm = (props) => {
         </div>
 
         <section className="flex justify-center mt-[33px] mx-28">
-          <TutorFormDataLeft user={user} form={form} />
+          <TutorFormDataLeft
+            user={user}
+            form={form}
+            dataForm={dataForm}
+            setDataForm={setDataForm}
+          />
           <section className="flex flex-col w-full gap-[18px] ml-6 ">
             <TutorFormBiografia
               form={form}

@@ -147,7 +147,7 @@ const NavUserNotifications = () => {
     <>
       {user && (
         <>
-          <header className=' sm:w-screen 2xl:w-1500px -ml-0 xl:-ml-28'>
+          <header className=' sm:w-screen 2xl:w-1500px -ml-0 2xl:-ml-28'>
             <div className='mx-auto max-w-screen-xl p-4 '>
               <div className='flex items-center justify-between gap-4 lg:gap-10'>
                 <div className='flex lg:w-0 lg:flex-1'>
@@ -198,7 +198,7 @@ const NavUserNotifications = () => {
                     <img src={notification} className=''></img>
                   </div>
                   {showNotifications && (
-                    <div className='absolute top-20 mt-2 right-0 xl:mr-52 bg-white rounded-xl shadow-xl'>
+                    <div className='absolute top-20 mt-2 right-0 2xl:mr-52  bg-white rounded-xl shadow-xl'>
                       <div className='flex flex-col gap-2 p-4'>
                         <div className='flex justify-between items-center flex-1'>
                           <h1 className='font-bold text-2xl text-codecolor'>

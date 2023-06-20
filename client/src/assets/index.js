@@ -32,6 +32,16 @@ import pt from './pt.png'
 import uk from './uk.png'
 import es from './es.png'
 import fr from './fr.png'
+import dashboard from './dashboard.svg'
+import calendar from './calendar.svg'
+import creditcard from './creditcard.svg'
+import exit from './exit.svg'
+import faqs from './FAQs.svg'
+import history from './history.svg'
+import settings from './settings.svg'
+import revision from './revision.svg'
+import contrate from './contrate.svg'
+import help from './help.svg'
 
 export {
   videocallicon,
@@ -67,5 +77,15 @@ export {
   pt,
   uk,
   es,
-  fr
+  fr,
+  calendar,
+  creditcard,
+  dashboard,
+  exit,
+  faqs,
+  history,
+  settings,
+  help,
+  revision,
+  contrate
 }
