@@ -8,13 +8,7 @@ const TutorFormDataLeft = () => {
         Shi Juan
       </p>
       <div className="flex justify-center gap-8 mt-8">
-        {/* <div className="bg-[#7D5AE21A] flex w-[50px] rounded-[10px] h-[50px]">
-          L
-        </div> */}
         <LinkGitHub />
-        {/* <div className="bg-[#7D5AE21A] flex w-[50px] rounded-[10px] h-[50px]">
-          G
-        </div> */}
         <LinkLinkedIn />
       </div>
     </div>
