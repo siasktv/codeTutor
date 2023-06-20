@@ -175,7 +175,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <div className='flex flex-row items-start  pl-10 absolute w-1224px h-10  '>
+      <div className='flex flex-row items-start pl-40 relative w-full h-10  '>
         <div className='flex basis-3/12 '>
           <img src={talking} />
           <p className='pl-2 p-1'>Ayuda en depuración de código</p>
@@ -193,7 +193,7 @@ const Landing = () => {
           </p>
         </div>
       </div>
-      <div className='px-5 py-14 mx-auto lg:px-16'>
+      <div className='px-5 py-6 mx-auto lg:px-16'>
         <div className='mx-auto text-center'>
           <div className='grid grid-cols-5 gap-4 mx-auto lg:grid-cols-5'>
             <div>

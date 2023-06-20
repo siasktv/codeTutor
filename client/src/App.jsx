@@ -1,15 +1,14 @@
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
-import { NavUserNotifications } from './components'
 import {
   SearchPage,
   TutorProfile,
-  // TestLoginPage,
   Landing,
   Login,
   Register
 } from './views'
+import NavUserSearch from './components/NavUserSearch'
+import UserDashboard from './views/UserDashboard'
 
 function App () {
   return (
@@ -20,8 +19,8 @@ function App () {
         <Route path='/register' element={<Register />} />
         <Route path='/search' element={<SearchPage />} />
         <Route path='/tutor/:id' element={<TutorProfile />} />
-        {/* <Route path='/testlogin' element={<TestLoginPage />} /> */}
-        <Route path='/navuser' element={<NavUserNotifications />} />
+        <Route path='/user' element={<UserDashboard />} />
+        
       </Routes>
     </div>
   )

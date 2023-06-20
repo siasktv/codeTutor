@@ -21,6 +21,7 @@ import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
+import NavUserSearch from '../components/NavUserSearch'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -181,7 +182,9 @@ const SearchPage = () => {
             ))}
         </button>
       ))} */}
-      <div className='bg-white flex flex-col justify-center items-start p-20 gap-2 absolute w-1440 h-379 left-0 right-0'>
+      <NavUserSearch className="z-50"/>
+
+      <div className='bg-transparent flex flex-col justify-center items-start px-20 gap-2 absolute w-1440 h-379 left-0 right-0'>
         <SearchBarTutor />
         <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0 top-72'>
           <FilterTutor sortedByLanguages={sortedByLanguages} />
