@@ -251,7 +251,7 @@ const TutorFormBio = props => {
                 maxLength={500}
                 placeholder='Escribe una breve biografía'
                 onChange={handleDescriptionInput}
-                value={dataForm.description || form.bio.description}
+                value={dataForm.description}
               ></textarea>
               {/* ACTUALIZAR el número de caracteres de acuerdo al limite */}
               <p
