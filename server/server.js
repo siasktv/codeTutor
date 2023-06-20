@@ -10,6 +10,9 @@ require('./models/Rates.models.js')
 require('./models/SkillsTech.models.js')
 require('./models/User.models.js')
 const User = require('./models/User.models')
+const {
+  addUser, removeUser, getUser, getUserBySocketId, users
+} = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -40,24 +43,6 @@ const io = new SocketServer(serverhttp, {
   }
 })
 
-let users = []
-
-const addUser = (userId, socketId) => {
-  !users.some(user => user.userId === userId) &&
-    users.push({ userId, socketId })
-}
-
-const removeUser = socketId => {
-  users = users.filter(user => user.socketId !== socketId)
-}
-
-const getUser = userId => {
-  return users.find(user => user.userId === userId)
-}
-
-const getUserBySocketId = socketId => {
-  return users.find(user => user.socketId === socketId)
-}
 
 io.on('connection', socket => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
