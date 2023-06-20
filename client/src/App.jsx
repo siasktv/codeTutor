@@ -1,16 +1,16 @@
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
-import { NavUserNotifications } from './components'
 import {
   SearchPage,
   TutorProfile,
-  // TestLoginPage,
   Landing,
   Login,
   Register,
   FormTutor
 } from './views'
+import NavUserSearch from './components/NavUserSearch'
+import UserDashboard from './views/UserDashboard'
+import { NavUserNotifications } from './components'
 // import { TutorFormData, TutorForm, TutorFormBio } from './layouts'
 import { TutorFormExperience,TutorFormProject } from './layouts'
 
@@ -23,6 +23,8 @@ function App () {
         <Route path='/register' element={<Register />} />
         <Route path='/search' element={<SearchPage />} />
         <Route path='/tutor/:id' element={<TutorProfile />} />
+        <Route path='/user' element={<UserDashboard />} />
+        
         <Route path='/navuser' element={<NavUserNotifications />} />
         {/* <Route path='/form' element={<TutorForm />} /> */}
         {/* <Route path='form/biografia' element={<TutorFormBio />} />

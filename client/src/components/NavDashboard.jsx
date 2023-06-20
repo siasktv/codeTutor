@@ -1,24 +1,44 @@
 import notification from '../assets/notification.svg'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
-import { signOut } from '../firebase/client'
+import { useDispatch, useSelector } from 'react-redux'
+import {tutorsFetch} from '../redux/features/tutors/tutorsSlice'
+import { usersFetch } from '../redux/features/users/usersSlice'
+import { techesFetch } from '../redux/features/teches/techesSlice'
+import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
 import { Loader } from '../components'
+import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
-const NavUserNotifications = () => {
+const NavDashboard = () => {
   const user = useUser()
   const navigate = useNavigate()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showTech, setShowTech] = useState(false)
   useEffect(() => {
     if (user === null) {
       navigate('/login')
     }
   }, [user])
+
+  const tutors = useSelector(state => state.tutors.tutors)
+  const teches = useSelector(state => state.teches.teches)
+  const categories = useSelector(state => state.teches.categories)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (!tutors[0]?.bio?.specialty) {
+      dispatch(tutorsFetch())
+    }
+    dispatch(usersFetch())
+    dispatch(techesFetch())
+  }, [dispatch])
+
 
   const [notifications, setNotifications] = useState([
     {
@@ -143,23 +163,48 @@ const NavUserNotifications = () => {
     setShowNotifications(false)
   }
 
+  const handleShowTech = () => {
+    setShowTech(!showTech)
+    setShowNotifications(false)
+    setShowProfile(false)
+  }
+
+  const handleSortByTech = tech => {
+    dispatch(sortedByTech(tech))
+  }
+
   return (
     <>
       {user && (
         <>
-          <header className=' sm:w-screen 2xl:w-1500px -ml-0 2xl:-ml-28'>
+          <header className=' h-24 w-12/12  z-50 '>
             <div className='mx-auto max-w-screen-xl p-4 '>
-              <div className='flex items-center justify-between gap-4 lg:gap-10'>
+              <div className='flex items-center justify-between gap-4 lg:gap-10 2xl:max-w-full'>
                 <div className='flex lg:w-0 lg:flex-1'>
-                  <Link to='/'>
-                    <span className='inline-block h-10 w-52'>
-                      <div className='flex'>
-                        <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
-                        <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply'></div>
-                        <h1 className='font-bold text-2xl ml-1'>Code-Tutor.</h1>
-                      </div>
-                    </span>
-                  </Link>
+                  
+                  <div className="relative  space-x-1 md:inline-flex pl-10 z-50">
+                    <div className="relative">
+                        <button className="flex items-center rounded-full btn btn-sm btn-white text-codecolor" onClick={handleShowTech} >
+                        Encuentra desarrolladores
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                            className="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
+                            
+                        >
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                        </button>
+                        </div>
+                        </div>
+
+                
                 </div>
                 <div className='flex flex-col items-center'>
                   <div className='w-72px h-72px bg-black rounded-full border-none'>
@@ -171,7 +216,7 @@ const NavUserNotifications = () => {
                     ></img>
                   </div>
                   {showProfile && (
-                    <div className='absolute top-20 mt-2 mr-10 bg-white rounded-xl shadow-xl'>
+                    <div className='absolute top-20 mt-2 mr-10 bg-white rounded-xl shadow-xl z-50'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
                           <Link to='/profile'>
@@ -192,13 +237,13 @@ const NavUserNotifications = () => {
                 </div>
                 <div className='flex flex-col items-center'>
                   <div
-                    className=' sm:mx-2 xl:-mr-20 p-4  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
+                    className=' sm:mx-2  p-4  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
                     onClick={handleShowNotifications}
                   >
                     <img src={notification} className=''></img>
                   </div>
                   {showNotifications && (
-                    <div className='absolute top-20 mt-2 right-0 2xl:mr-52  bg-white rounded-xl shadow-xl'>
+                    <div className='absolute top-20 mt-2 right-0 2xl:mr-52  bg-white rounded-xl shadow-xl z-50'>
                       <div className='flex flex-col gap-2 p-4'>
                         <div className='flex justify-between items-center flex-1'>
                           <h1 className='font-bold text-2xl text-codecolor'>
@@ -265,6 +310,38 @@ const NavUserNotifications = () => {
                 </div>
               </div>
             </div>
+            {showTech && (
+            <div className='absolute z-50 top-20  max-w-fit  left-[22rem] 2xl:left-[28rem] 3xl:left-[40rem] 4xl:left-[50rem] 5xl:left-[60rem] 6xl:left-[80rem] 7xl:left-[120rem]'> 
+
+                
+                    <div className='bg-white relative border border-gray-400 rounded-xl shadow-xl  max-w-fit z-50'>
+
+                        <button className='relative mx-5 border p-2 px-4 top-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark' onClick={() => handleSortByTech('Todos')}>Reset</button>
+                            {categories.map(category => (
+                                <button
+                                key={category}
+                                type='button'
+                                role='menuitem'
+                                className='p-4 text-codecolor font-bold cursor-default border border-y-transparent'
+                                >
+                                {category}
+                                {teches
+                                    .filter(tech => tech.category === category)
+                                    .map(tech => (
+                                    <div
+                                        key={tech._id}
+                                        className='text-codecolor font-normal text-sm hover:underline cursor-pointer'
+                                        onClick={() => handleSortByTech(tech.name)}
+                                    >
+                                        <h1>{tech.name}</h1>
+                                    </div>
+                                    ))}
+                                </button>
+                            ))}
+
+                    </div>
+                  </div>
+                  )}
           </header>
         </>
       )}
@@ -277,4 +354,4 @@ const NavUserNotifications = () => {
   )
 }
 
-export default NavUserNotifications
+export default NavDashboard

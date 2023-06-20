@@ -13,7 +13,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/navuser')
+      navigate('/user')
     } else if (user === null) {
       setIsLoading(false)
     }
