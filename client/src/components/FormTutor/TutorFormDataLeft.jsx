@@ -5,10 +5,10 @@ const TutorFormDataLeft = props => {
   const { user, form } = props
 
   return (
-    <div className='bg-red-white items-center h-[600px] justify-center p-[100px] rounded-[8px] border border-[#1414140D] '>
-      <div className='rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9]'>
+    <div className='flex flex-col bg-white items-center h-full justify-center p-[80px] rounded-[8px] border border-[#1414140D] '>
+      <div className=' rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9]'>
         <img
-          className='rounded-full w-[145px] h-[145px]'
+          className='rounded-full items-center justify-center w-[145px] h-[145px]'
           src={user?.image}
           alt='user'
         />
