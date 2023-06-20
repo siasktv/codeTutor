@@ -25,6 +25,7 @@ const TutorFormBio = props => {
   const [isDisabled, setIsDisabled] = useState(true)
   const [charCount, setCharCount] = useState(form.bio.description.length)
   const [dataForm, setDataForm] = useState({
+    avatar: form.avatar,
     specialty: form.bio.specialty || '',
     description: form.bio.description || '',
     portfolio: form.bio.portfolio || ''
@@ -42,6 +43,7 @@ const TutorFormBio = props => {
       errors.specialty === '' &&
       errors.description === '' &&
       errors.portfolio === '' &&
+      dataForm.avatar !== '' &&
       dataForm.specialty !== '' &&
       dataForm.description !== ''
     ) {
@@ -153,12 +155,20 @@ const TutorFormBio = props => {
               section={section}
               setSection={setSection}
               isDone={isDone}
+              form={form}
+              setForm={setForm}
+              dataForm={dataForm}
             />
           </div>
         </div>
 
         <section className='flex justify-center mt-[33px] mx-28'>
-          <TutorFormDataLeft user={user} form={form} />
+          <TutorFormDataLeft
+            user={user}
+            form={form}
+            dataForm={dataForm}
+            setDataForm={setDataForm}
+          />
           <section className='flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6'>
             <div className='mx-[52px] my-[36px] '>
               <div className='flex flex-row items-center mb-[50px]'>

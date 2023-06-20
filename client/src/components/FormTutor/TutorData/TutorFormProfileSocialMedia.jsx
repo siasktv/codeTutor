@@ -44,8 +44,7 @@ const TutorFormProfileSocialMedia = props => {
     } else {
       setErrorsData({
         ...errorsData,
-        linkedin: '',
-        github: ''
+        [name]: ''
       })
     }
     setDataForm({
@@ -56,6 +55,24 @@ const TutorFormProfileSocialMedia = props => {
       }
     })
   }
+
+  useEffect(() => {
+    if (dataForm.social.linkedin && dataForm.social.github) {
+      if (!dataForm.social.linkedin.includes('linkedin.com/' || 'https://')) {
+        setErrorsData({
+          ...errorsData,
+          linkedin: 'Ingresa un link de Linkedin válido'
+        })
+      }
+      if (!dataForm.social.github.includes('github.com/' || 'https://')) {
+        setErrorsData({
+          ...errorsData,
+          github: 'Ingresa un link de Github válido'
+        })
+      }
+    }
+  }, [dataForm])
+
   return (
     <>
       <CardTutorData title='Actualizar Social Media' correct={correct}>
