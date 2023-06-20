@@ -44,8 +44,8 @@ const TutorForm = () => {
             <TutorFormRate />
             {/* {/ rate */}
             <section className="flex justify-end items-center space-x-4 mb-[64px]">
-              <EnviarPerfilButton />
               <CancelarPerfilButton />
+              <EnviarPerfilButton title="Enviar perfil"/>
             </section>
           </section>
         </section>
