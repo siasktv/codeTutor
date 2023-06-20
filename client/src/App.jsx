@@ -12,6 +12,7 @@ import {
   FormTutor
 } from './views'
 // import { TutorFormData, TutorForm, TutorFormBio } from './layouts'
+import { TutorFormExperience,TutorFormProject } from './layouts'
 
 function App () {
   return (
@@ -26,6 +27,8 @@ function App () {
         {/* <Route path='/form' element={<TutorForm />} /> */}
         {/* <Route path='form/biografia' element={<TutorFormBio />} />
         <Route path='form/data' element={<TutorFormData />} /> */}
+        <Route path='form/exp' element={<TutorFormExperience />} />
+        <Route path='form/project' element={<TutorFormProject />} />
         <Route path='/tutor' element={<FormTutor />} />
       </Routes>
     </div>
