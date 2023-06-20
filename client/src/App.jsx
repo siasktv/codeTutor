@@ -10,6 +10,7 @@ import {
 } from './views'
 import NavUserSearch from './components/NavUserSearch'
 import UserDashboard from './views/UserDashboard'
+import { NavUserNotifications } from './components'
 // import { TutorFormData, TutorForm, TutorFormBio } from './layouts'
 
 function App () {

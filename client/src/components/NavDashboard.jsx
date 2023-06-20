@@ -2,31 +2,19 @@ import notification from '../assets/notification.svg'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    tutorsFetch,
-    sortedByRate,
-    sortedByLanguages
-  } from '../redux/features/tutors/tutorsSlice'
+import {tutorsFetch} from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
-import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
 import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
-import { Star, MensajeTexto } from '../assets'
-import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
-import { ButtonDropdownLocation } from '../components'
-import Dropdown from '../components/Buttons/Dropdown'
-import { Loader, MessageContainer, MessageMinimized } from '../components'
-import ReactDOM from 'react-dom'
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { Loader } from '../components'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-
 import React from 'react'
 
-const NavUserSearch = () => {
+const NavDashboard = () => {
   const user = useUser()
   const navigate = useNavigate()
   const [showNotifications, setShowNotifications] = useState(false)
@@ -39,96 +27,9 @@ const NavUserSearch = () => {
   }, [user])
 
   const tutors = useSelector(state => state.tutors.tutors)
-  const users = useSelector(state => state.users.users)
   const teches = useSelector(state => state.teches.teches)
   const categories = useSelector(state => state.teches.categories)
-  const selectedTech = useSelector(state => state.tutors.selectedTech)
-  const [isLoading, setIsLoading] = useState(true)
-  const [showMessage, setShowMessage] = useState(false)
-  const [selectedTutor, setSelectedTutor] = useState(null)
 
-  const handleShowMessage = (e, tutor) => {
-    e.preventDefault()
-    if (selectedTutor === null) {
-      setSelectedTutor(tutor)
-      setShowMessage(true)
-    } else {
-      if (selectedTutor._id === tutor._id) {
-        setShowMessage(true)
-      } else {
-        setSelectedTutor(tutor)
-        setShowMessage(true)
-      }
-    }
-  }
-
-  const handleMinimizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-  }
-
-  const handleMaximizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(true)
-  }
-
-  const handleCloseMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-    setSelectedTutor(null)
-  }
-
-  const tutorsPerPage = 5
-  const [currentPage, setCurrentPage] = useState(1)
-  const indexOfLastTutor = tutorsPerPage * currentPage
-  const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
-  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor)
-  const pageNumbers = []
-  for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
-    pageNumbers.push(i)
-  }
-  const handlePreviusPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    }
-  }
-  const handleNextPage = () => {
-    if (currentPage < pageNumbers.length) {
-      setCurrentPage(currentPage + 1)
-    }
-  }
-
-  const handlePage = number => {
-    setCurrentPage(number)
-  }
-
-  const pagesCutCount = 21
-
-  const getPagesCut = (pageNumbers, pagesCutCount, currentPage) => {
-    const ceiling = Math.ceil(pagesCutCount / 2)
-    const floor = Math.floor(pagesCutCount / 2)
-    if (pageNumbers.length < pagesCutCount) {
-      return { start: 1, end: pageNumbers.length + 1 }
-    } else if (currentPage >= 1 && currentPage <= ceiling) {
-      return { start: 1, end: pagesCutCount + 1 }
-    } else if (currentPage + floor >= pageNumbers.length) {
-      return {
-        start: pageNumbers.length - pagesCutCount + 1,
-        end: pageNumbers.length + 1
-      }
-    } else {
-      return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
-    }
-  }
-  const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
-  const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
-
-  // console.log('tutors', tutors)
-  // console.log('users', users)
-  // console.log('locations', locations)
-  // console.log('teches', teches)
-  // console.log('categories', categories)
-  // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!tutors[0]?.bio?.specialty) {
@@ -138,33 +39,6 @@ const NavUserSearch = () => {
     dispatch(techesFetch())
   }, [dispatch])
 
-  useEffect(() => {
-    if (tutors[0]?.bio?.specialty) {
-      setIsLoading(false)
-      if (currentPage > pageNumbers.length) {
-        setCurrentPage(pageNumbers.length)
-      }
-    }
-  }, [tutors])
-
-  // const handleLocationChange = () => {
-  //   dispatch(sortedByLocation('Argentina'))
-  // }
-
-  // useEffect(() => {
-  //   const button = document.getElementById('dropdown-menu-button')
-  //   const menu = document.querySelector('.origin-top-right')
-
-  //   const handleClick = () => {
-  //     menu.classList.toggle('hidden')
-  //   }
-
-  //   button.addEventListener('click', handleClick)
-
-  //   return () => {
-  //     button.removeEventListener('click', handleClick)
-  //   }
-  // }, [])
 
   const [notifications, setNotifications] = useState([
     {
@@ -307,31 +181,21 @@ const NavUserSearch = () => {
             <div className='mx-auto max-w-screen-xl p-4 '>
               <div className='flex items-center justify-between gap-4 lg:gap-10 2xl:max-w-full'>
                 <div className='flex lg:w-0 lg:flex-1'>
-                  <Link to='/'>
-                    <span className='inline-block h-10 w-52'>
-                      <div className='flex'>
-                        <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
-                        <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply'></div>
-                        <h1 className='font-bold text-2xl ml-1'>Code-Tutor.</h1>
-                      </div>
-                    </span>
-                  </Link>
                   
-                  
-                  <div class="relative  space-x-1 md:inline-flex left-40 z-50">
-                    <div class="relative">
-                        <button class="flex items-center rounded-full btn btn-sm btn-white text-codecolor" onClick={handleShowTech} >
+                  <div className="relative  space-x-1 md:inline-flex pl-10 z-50">
+                    <div className="relative">
+                        <button className="flex items-center rounded-full btn btn-sm btn-white text-codecolor" onClick={handleShowTech} >
                         Encuentra desarrolladores
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             aria-hidden="true"
-                            class="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
+                            className="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
                             
                         >
                             <polyline points="6 9 12 15 18 9"></polyline>
@@ -373,7 +237,7 @@ const NavUserSearch = () => {
                 </div>
                 <div className='flex flex-col items-center'>
                   <div
-                    className=' sm:mx-2 xl:-mr-20 p-4  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
+                    className=' sm:mx-2  p-4  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
                     onClick={handleShowNotifications}
                   >
                     <img src={notification} className=''></img>
@@ -447,12 +311,12 @@ const NavUserSearch = () => {
               </div>
             </div>
             {showTech && (
-            <div className='absolute z-50 top-20  max-w-fit  left-[30rem] 2xl:left-[40rem] 3xl:left-[55rem] 4xl:left-[80rem] 5xl:left-[120rem] 6xl:left-[130rem] 7xl:left-[150rem]'> 
+            <div className='absolute z-50 top-20  max-w-fit  left-[22rem] 2xl:left-[28rem] 3xl:left-[40rem] 4xl:left-[50rem] 5xl:left-[60rem] 6xl:left-[80rem] 7xl:left-[120rem]'> 
 
                 
-                    <div className='bg-white relative border border-gray-400 rounded-xl shadow-xl  w-[50rem] z-50'>
+                    <div className='bg-white relative border border-gray-400 rounded-xl shadow-xl  max-w-fit z-50'>
 
-                        <button className='relative mx-10 border p-2 px-4 top-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark' onClick={() => handleSortByTech('Todos')}>Reset</button>
+                        <button className='relative mx-5 border p-2 px-4 top-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark' onClick={() => handleSortByTech('Todos')}>Reset</button>
                             {categories.map(category => (
                                 <button
                                 key={category}
@@ -466,7 +330,7 @@ const NavUserSearch = () => {
                                     .map(tech => (
                                     <div
                                         key={tech._id}
-                                        className='text-codecolor font-normal hover:underline cursor-pointer'
+                                        className='text-codecolor font-normal text-sm hover:underline cursor-pointer'
                                         onClick={() => handleSortByTech(tech.name)}
                                     >
                                         <h1>{tech.name}</h1>
@@ -490,4 +354,4 @@ const NavUserSearch = () => {
   )
 }
 
-export default NavUserSearch
+export default NavDashboard
