@@ -2,6 +2,7 @@ import { CardTutorData } from '../../index'
 import { useState, useEffect } from 'react'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FlechaFiltro } from '../../../assets'
 
 const TutorProfileLanguages = props => {
   const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
@@ -79,31 +80,36 @@ const TutorProfileLanguages = props => {
         </div>
         {availableLangs.filter(lang => !selectedLangs.includes(lang)).length >
           0 && (
-          <select
-            id='inputField'
-            className={
-              errorsData.idiomas
-                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 focus:outline-red-500 bg-red-100'
-                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500'
-            }
-            defaultValue='default'
-            onChange={handleSelect}
-          >
-            <option value='default' selected disabled hidden>
-              Agregar idioma
-            </option>
-            {availableLangs
-              .filter(lang => !selectedLangs.includes(lang))
-              .map((lang, index) => (
-                <option
-                  key={index}
-                  value={lang}
-                  className='text-gray-500 bg-white'
-                >
-                  {lang}
-                </option>
-              ))}
-          </select>
+          <div className='relative'>
+            <select
+              id='inputField'
+              className={
+                errorsData.idiomas
+                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 focus:outline-red-500 bg-red-100 appearance-none'
+                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+              }
+              defaultValue='default'
+              onChange={handleSelect}
+            >
+              <option value='default' selected disabled hidden>
+                Agregar idioma
+              </option>
+              {availableLangs
+                .filter(lang => !selectedLangs.includes(lang))
+                .map((lang, index) => (
+                  <option
+                    key={index}
+                    value={lang}
+                    className='text-gray-500 bg-white'
+                  >
+                    {lang}
+                  </option>
+                ))}
+            </select>
+            <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+              <img src={FlechaFiltro} />
+            </div>
+          </div>
         )}
         {errorsData.idiomas && (
           <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
