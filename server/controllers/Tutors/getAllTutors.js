@@ -27,9 +27,12 @@ const getAllTutors = async () => {
       },
     })
     .populate({
-      path: 'reviews'
-      // select: 'rating',
-          });
+      path: 'reviews',
+      populate: {
+        path: 'rating',
+        
+      },
+    });
 
   return tutors
 }

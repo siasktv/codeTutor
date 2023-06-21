@@ -28,10 +28,10 @@ const getTutorById = async (id) => {
     })
     .populate({
       path: 'reviews',
-      populate: {
-        path: 'techName',
-        select: 'name',
-      },
+      // populate: {
+      //   path: 'rating',
+
+      // },
     })
 
   return tutor

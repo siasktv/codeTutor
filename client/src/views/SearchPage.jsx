@@ -186,12 +186,11 @@ const SearchPage = () => {
             ))}
         </button>
       ))} */}
-      <div className=''>
-      <NavUserSearch className="z-50"/>
-
+      <div>
+        <NavUserSearch/>
       </div>
 
-      <div className='bg-transparent flex flex-col justify-center items-start px-20 gap-2 absolute w-1440 h-379 left-0 right-0'>
+      <div className='bg-transparent flex flex-col justify-center items-start px-20 pt-1 gap-2 w-full h-full left-0 right-0'>
         <SearchBarTutor />
         <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0 top-72'>
           <FilterTutor sortedByLanguages={sortedByLanguages} />

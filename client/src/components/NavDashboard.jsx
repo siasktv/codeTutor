@@ -177,181 +177,191 @@ const NavDashboard = () => {
     <>
       {user && (
         <>
-          <header className=' h-24 w-12/12  z-50 '>
-            <div className='mx-auto max-w-screen-xl p-4 '>
-              <div className='flex items-center justify-between gap-4 lg:gap-10 2xl:max-w-full'>
-                <div className='flex lg:w-0 lg:flex-1'>
-                  
-                  <div className="relative  space-x-1 md:inline-flex pl-10 z-50">
-                    <div className="relative">
-                        <button className="flex items-center rounded-full btn btn-sm btn-white text-codecolor" onClick={handleShowTech} >
-                        Encuentra desarrolladores
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                            className="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
-                            
-                        >
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                        </button>
-                        </div>
-                        </div>
-
-                
-                </div>
-                <div className='flex flex-col items-center'>
-                  <div className='w-72px h-72px bg-black rounded-full border-none'>
-                    <img
-                      src={user.image}
-                      alt='avatar'
-                      className='w-72px h-72px  rounded-full border-none cursor-pointer'
-                      onClick={handleShowProfile}
-                    ></img>
-                  </div>
-                  {showProfile && (
-                    <div className='absolute top-20 mt-2 mr-10 bg-white rounded-xl shadow-xl z-50'>
-                      <div className='flex flex-col gap-2 p-2'>
-                        <div className='flex flex-col gap-2'>
-                          <Link to='/profile'>
-                            <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-40 hover:outline text-center'>
-                              Ir a mi perfil
-                            </button>
-                          </Link>
-                          <button
-                            className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-40 hover:outline text-center'
-                            onClick={signOut}
-                          >
-                            Cerrar sesión
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className='flex flex-col items-center'>
-                  <div
-                    className=' sm:mx-2  p-4  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
-                    onClick={handleShowNotifications}
+          <header className="flex items-center h-20 w-full z-50">
+            <div className="flex justify-between w-full items-center">
+              <div className="pl-8 pt-1">
+                <div className="relative">
+                  <button
+                    className="flex items-center rounded-full btn btn-sm btn-white text-codecolor"
+                    onClick={handleShowTech}
                   >
-                    <img src={notification} className=''></img>
-                  </div>
-                  {showNotifications && (
-                    <div className='absolute top-20 mt-2 right-0 2xl:mr-52  bg-white rounded-xl shadow-xl z-50'>
-                      <div className='flex flex-col gap-2 p-4'>
-                        <div className='flex justify-between items-center flex-1'>
-                          <h1 className='font-bold text-2xl text-codecolor'>
-                            Notificaciones
-                          </h1>
-                          <button onClick={() => setShowNotifications(false)}>
-                            <FontAwesomeIcon
-                              icon={faXmark}
-                              className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark'
-                            />
-                          </button>
-                        </div>
-                        <div className='flex flex-col overflow-y-auto max-h-480px'>
-                          {notifications.filter(
-                            notification => notification.isRead === false
-                          ).length === 0 && (
-                            <div className='flex flex-col gap-2 m-3'>
-                              <div className='flex justify-center align-middle items-center'>
-                                <h1 className='text-black font-semibold w-72 m-3'>
-                                  No tienes notificaciones.
-                                </h1>
-                              </div>
-                            </div>
-                          )}
-                          {notifications.map(notification => (
-                            <React.Fragment key={notification.id}>
-                              {notification.isRead === false && (
-                                <Link
-                                  to={notification.link}
-                                  className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'
-                                >
-                                  <div className='flex justify-center align-middle items-center'>
-                                    <img
-                                      className='w-10 h-10 rounded-full border-none mr-2'
-                                      src={notification.avatar}
-                                      alt='avatar'
-                                    />
-                                    <div className='flex flex-col w-60 text-left'>
-                                      <h2 className='text-md'>
-                                        {notification.message}{' '}
-                                      </h2>
-                                    </div>
-                                    <div className='flex justify-end ml-3'>
-                                      <FontAwesomeIcon
-                                        icon={faTrash}
-                                        className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
-                                        onClick={e => {
-                                          e.preventDefault()
-                                          markAsRead(notification.id)
-                                        }}
-                                      >
-                                        Marcar como leído
-                                      </FontAwesomeIcon>
-                                    </div>
-                                  </div>
-                                </Link>
-                              )}
-                            </React.Fragment>
-                          ))}
+                    Encuentra desarrolladores
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                {/* Foto Usuario */}
+                <div className="flex items-center">
+                  <div className="flex flex-col items-center">
+                    <div className="rounded-full border-none">
+                      <img
+                        src={user.image}
+                        alt="avatar"
+                        className="w-10 h-10  rounded-full border-none cursor-pointer"
+                        onClick={handleShowProfile}
+                      ></img>
+                    </div>
+                    {showProfile && (
+                      <div className="absolute top-20 mt-2 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]">
+                        <div className="flex flex-col gap-2 p-2">
+                          <div className="flex flex-col gap-2">
+                            <Link to="/profile">
+                              <button className="text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-40 hover:outline text-center">
+                                Ir a mi perfil
+                              </button>
+                            </Link>
+                            <button
+                              className="text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-40 hover:outline text-center"
+                              onClick={signOut}
+                            >
+                              Cerrar sesión
+                            </button>
+                          </div>
                         </div>
                       </div>
+                    )}
+                  </div>
+
+                  {/* Notificaciones */}
+                  <div className="px-8 flex items-center">
+                    <div
+                      className="p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none"
+                      onClick={handleShowNotifications}
+                    >
+                      <img src={notification} className=""></img>
                     </div>
-                  )}
+                    {showNotifications && (
+                      <div className="absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]">
+                        <div className="flex flex-col gap-2 p-4 h-80">
+                          <div className="flex justify-between items-center flex-1">
+                            <h1 className="font-bold text-xl text-codecolor">
+                              Notificaciones
+                            </h1>
+                            <button onClick={() => setShowNotifications(false)}>
+                              <FontAwesomeIcon
+                                icon={faXmark}
+                                className="text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark"
+                              />
+                            </button>
+                          </div>
+                          <div className="flex flex-col overflow-y-auto max-h-480px">
+                            {notifications.filter(
+                              (notification) => notification.isRead === false
+                            ).length === 0 && (
+                              <div className="flex flex-col gap-2 m-3">
+                                <div className="flex justify-center align-middle items-center">
+                                  <h1 className="text-black font-semibold w-72 m-3">
+                                    No tienes notificaciones.
+                                  </h1>
+                                </div>
+                              </div>
+                            )}
+                            {notifications.map((notification) => (
+                              <React.Fragment key={notification.id}>
+                                {notification.isRead === false && (
+                                  <Link
+                                    to={notification.link}
+                                    className="flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md"
+                                  >
+                                    <div className="flex justify-center align-middle items-center">
+                                      <img
+                                        className="w-10 h-10 rounded-full border-none mr-2"
+                                        src={notification.avatar}
+                                        alt="avatar"
+                                      />
+                                      <div className="flex flex-col w-60 text-left">
+                                        <h2 className="text-md">
+                                          {notification.message}{" "}
+                                        </h2>
+                                      </div>
+                                      <div className="flex justify-end ml-3">
+                                        <FontAwesomeIcon
+                                          icon={faTrash}
+                                          className="text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            markAsRead(notification.id);
+                                          }}
+                                        >
+                                          Marcar como leído
+                                        </FontAwesomeIcon>
+                                      </div>
+                                    </div>
+                                  </Link>
+                                )}
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
             {showTech && (
-            <div className='absolute z-50 top-20  max-w-fit  left-[22rem] 2xl:left-[28rem] 3xl:left-[40rem] 4xl:left-[50rem] 5xl:left-[60rem] 6xl:left-[80rem] 7xl:left-[120rem]'> 
-
-                
-                    <div className='bg-white relative border border-gray-400 rounded-xl shadow-xl  max-w-fit z-50'>
-
-                        <button className='relative mx-5 border p-2 px-4 top-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark' onClick={() => handleSortByTech('Todos')}>Reset</button>
-                            {categories.map(category => (
-                                <button
-                                key={category}
-                                type='button'
-                                role='menuitem'
-                                className='p-4 text-codecolor font-bold cursor-default border border-y-transparent'
-                                >
-                                {category}
-                                {teches
-                                    .filter(tech => tech.category === category)
-                                    .map(tech => (
-                                    <div
-                                        key={tech._id}
-                                        className='text-codecolor font-normal text-sm hover:underline cursor-pointer'
-                                        onClick={() => handleSortByTech(tech.name)}
-                                    >
-                                        <h1>{tech.name}</h1>
-                                    </div>
-                                    ))}
-                                </button>
+              <div className="absolute w-full z-50 top-20  ">
+                <div className="flex justify-start">
+                  <div className="pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50">
+                    {categories.map((category) => (
+                      <button
+                        key={category}
+                        type="button"
+                        role="menuitem"
+                        className="py-4 text-codecolor font-bold cursor-default"
+                      >
+                        <div className="h-80 w-40 px-6 border-x border-[#1414140D]">
+                          {category}
+                          {teches
+                            .filter((tech) => tech.category === category)
+                            .map((tech) => (
+                              <div
+                                key={tech._id}
+                                className="text-codecolor font-normal hover:underline cursor-pointer"
+                                onClick={() => handleSortByTech(tech.name)}
+                              >
+                                <h1>{tech.name}</h1>
+                              </div>
                             ))}
-
+                        </div>
+                      </button>
+                    ))}
+                    <div className="h-full w-full">
+                      <button
+                        className="relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark"
+                        onClick={() => handleSortByTech("Todos")}
+                      >
+                        Restaurar
+                      </button>
                     </div>
                   </div>
-                  )}
+                </div>
+              </div>
+            )}
           </header>
         </>
       )}
       {!user && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className="flex justify-center items-center h-screen">
           <Loader />
         </div>
       )}
     </>
-  )
+  );
 }
 
 export default NavDashboard
