@@ -8,6 +8,7 @@ const experiencesRoutes = require('./Experiences/experiencesRoutes')
 const locationsRoutes = require('./Locations/locationsRoutes')
 const messageRoutes = require('./Message/messageRoutes')
 const conversationsRoutes = require('./Conversations/conversationsRoutes')
+const reviews = require('./Reviews/reviewsRoutes')
 
 const router = Router()
 
@@ -16,10 +17,10 @@ router.use('/api/projects', projectsRoutes)
 router.use('/api/users', usersRoutes)
 router.use('/api/tech', techsRoutes)
 router.use('/api/experiences', experiencesRoutes)
-// router.use('/api/skillstech', skillsTechsRoutes);
 router.use('/api/skillstech', skillsTechsRoutes)
 router.use('/api/locations', locationsRoutes)
 router.use('/api/message', messageRoutes)
 router.use('/api/conversations', conversationsRoutes)
+router.use('/api/reviews', reviews)
 
 module.exports = router
