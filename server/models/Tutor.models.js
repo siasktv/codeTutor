@@ -11,21 +11,21 @@ const TutorSchema = new Schema(
           'Full Stack Developer',
           'Front-end Developer',
           'Back-end Developer',
-          'Data Base speciality',
-        ],
+          'Data Base speciality'
+        ]
       },
       description: { type: String },
-      linkBriefcase: { type: String },
+      linkBriefcase: { type: String }
     },
 
     languages: [
       {
         language: {
           type: String,
-          enum: ['Español', 'Ingles', 'Portugues', 'Frances'],
+          enum: ['Español', 'Ingles', 'Portugues', 'Frances']
         },
-        level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'] },
-      },
+        level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'] }
+      }
     ],
     skills: [{ type: Types.ObjectId, ref: 'SkillsTech' }],
     experience: [{ type: Types.ObjectId, ref: 'Experience' }],
@@ -34,24 +34,24 @@ const TutorSchema = new Schema(
       {
         name: {
           type: String,
-          enum: ['Mentorship', 'Freelance'],
+          enum: ['Mentorship', 'Freelance']
         },
-        value: { type: Number },
-      },
+        value: { type: Number }
+      }
     ],
     bankAccount: { type: Types.ObjectId, ref: 'BankAccount' },
     status: { type: String, default: 'pending' },
     socialMedia: [
       {
         name: { type: String },
-        link: { type: String },
-      },
+        link: { type: String }
+      }
     ],
-    offline: { type: Boolean, default: false },
+    offline: { type: Boolean, default: false }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
 module.exports = model('Tutor', TutorSchema)

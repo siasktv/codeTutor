@@ -1,5 +1,5 @@
 import { CardForm } from '../../index'
-import { faXmark, faEdit, faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
@@ -46,7 +46,7 @@ const TutorFormExperience = props => {
         next='experience'
       >
         {isDone?.experience && (
-          <div className='flex flex-col -mt-10 -mb-10'>
+          <div className='flex flex-col -mt-14 -mb-14'>
             {form.experience.map((experience, index) => (
               <div key={index} className='flex flex-col mr-3 mb-5'>
                 <p className='font-inter text-base font-semibold leading-[28px] tracking-normal text-[#141414] text-left break-words mb-3 mt-3'>
@@ -68,7 +68,7 @@ const TutorFormExperience = props => {
                     {experience.company}
                   </p>
                 </div>
-                <div className='flex flex-row mb-3'>
+                <div className='flex flex-row flex-wrap justify-start items-center mb-3'>
                   {experience.technologies.map((tech, index) => (
                     <div
                       className='bg-[#7D5AE21A] mr-2 max-w-[200px] justify-center p-4 mb-2 flex flex-row items-center text-[#7D5AE2]  py-1 rounded-[8px]'
@@ -80,7 +80,7 @@ const TutorFormExperience = props => {
                     </div>
                   ))}
                 </div>
-                <p className='font-inter text-sm font-normal leading-[28px] tracking-normal text-[#141414] text-left break-words mb-5'>
+                <p className='font-inter text-md font-normal leading-[28px] tracking-normal text-[#141414] text-left break-words mb-5'>
                   {experience.description}
                 </p>
                 <div className='flex flex-row justify-left'>

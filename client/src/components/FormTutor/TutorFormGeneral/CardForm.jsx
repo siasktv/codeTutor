@@ -26,6 +26,24 @@ const CardForm = props => {
           {next === 'experience' && !isDone?.experience && (
             <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
           )}
+          {next === 'skills' && isDone?.skills && (
+            <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
+          )}
+          {next === 'skills' && !isDone?.skills && (
+            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+          )}
+          {next === 'projects' && isDone?.projects && (
+            <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
+          )}
+          {next === 'projects' && !isDone?.projects && (
+            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+          )}
+          {next === 'rate' && isDone?.rate && (
+            <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
+          )}
+          {next === 'rate' && !isDone?.rate && (
+            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+          )}
         </h2>
         {children}
         <AgregarButton onClick={handleAdd} isDone={isDone} next={next} />

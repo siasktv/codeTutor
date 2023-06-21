@@ -65,7 +65,7 @@ const JobTechnologies = props => {
   return (
     <>
       <p className='text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
-        Tecnologías Utilizadas*
+        Tecnologías Utilizadas <span className='text-[#FF5757]'>*</span>
       </p>
       <div className='flex flex-row justify-start flex-wrap'>
         {selectedTechs.map((tech, index) => (

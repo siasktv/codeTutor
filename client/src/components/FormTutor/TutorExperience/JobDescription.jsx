@@ -28,6 +28,10 @@ const JobDescription = props => {
     }
   }
 
+  useEffect(() => {
+    setCharCount(dataForm.description.length)
+  }, [dataForm.description])
+
   return (
     <>
       <p className='text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
@@ -36,8 +40,8 @@ const JobDescription = props => {
       <textarea
         className={
           errorsData.description
-            ? 'w-full h-40 py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500'
-            : 'w-full h-40 py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+            ? 'w-full h-40 py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500 resize-none'
+            : 'w-full h-40 py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] resize-none'
         }
         maxLength={500}
         placeholder='Escribe una breve descripción...'
@@ -47,7 +51,7 @@ const JobDescription = props => {
       />
       <p
         className={
-          charCount < 50
+          charCount < 1
             ? 'font-inter font-normal italic mb-[50px] text-red-500 text-left'
             : charCount < 450
             ? 'font-inter font-normal mb-[50px] italic text-[#98A2B3] text-left'

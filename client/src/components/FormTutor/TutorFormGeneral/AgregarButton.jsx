@@ -8,7 +8,9 @@ const AgregarButton = props => {
     >
       {next === 'bio' && <>{isDone?.bio ? 'Editar' : 'Agregar'}</>}
       {next === 'experience' && 'Agregar'}
-      {next !== 'bio' && next !== 'experience' && 'Agregar'}
+      {next === 'skills' && 'Agregar'}
+      {next === 'projects' && 'Agregar'}
+      {next === 'rate' && <>{isDone?.rate ? 'Editar' : 'Agregar'}</>}
     </button>
   )
 }

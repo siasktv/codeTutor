@@ -213,7 +213,7 @@ const TutorFormExperience = props => {
             </div>
           </section>
         </section>
-        <section className='flex justify-end items-center space-x-4 mx-40 pt-6 pb-[64px]'>
+        <section className='flex justify-end items-center space-x-4 mx-40 -mt-12 pt-6 pb-[64px]'>
           <CancelarPerfilButton />
           <EnviarPerfilButton
             title={isEdit ? 'Actualizar' : 'Guardar'}

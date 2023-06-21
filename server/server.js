@@ -19,7 +19,7 @@ const {
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
-// const morgan = require('morgan')
+const morgan = require('morgan')
 const cors = require('cors')
 const routes = require('./routes/index.js')
 const { log } = require('console')
@@ -38,7 +38,7 @@ server.use((req, res, next) => {
   next()
 })
 server.use(express.json())
-// server.use(morgan('dev'))
+server.use(morgan('dev'))
 
 const serverhttp = http.createServer(server)
 const io = new SocketServer(serverhttp, {
