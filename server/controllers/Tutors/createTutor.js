@@ -7,12 +7,12 @@ const createTutor = async ({
   skills,
   experience,
   projects,
-  // reviews,
+  reviews,
   rates,
   bankAccount,
   status,
   socialMedia,
-  offline
+  offline,
 }) => {
   const tutor = await Tutor.create({
     user,
@@ -21,12 +21,12 @@ const createTutor = async ({
     skills,
     experience,
     projects,
-    // reviews,
+    reviews,
     rates,
     bankAccount,
     status,
     socialMedia,
-    offline
+    offline,
   })
 
   const tutorPopulate = await Tutor.findById(tutor._id)
@@ -56,10 +56,10 @@ const createTutor = async ({
     })
     .populate({
       path: 'reviews',
-      // populate: {
-      //   path: 'rating',
-      // },
-    });
+      populate: {
+        path: 'rating',
+      },
+    })
 
   return tutorPopulate
 }

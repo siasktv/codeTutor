@@ -30,6 +30,12 @@ const TutorSchema = new Schema(
     skills: [{ type: Types.ObjectId, ref: 'SkillsTech' }],
     experience: [{ type: Types.ObjectId, ref: 'Experience' }],
     projects: [{ type: Types.ObjectId, ref: 'Project' }],
+    reviews: [
+      {
+        type: Types.ObjectId,
+        ref: 'Reviews',
+      },
+    ],
     rates: [
       {
         name: {
@@ -52,6 +58,6 @@ const TutorSchema = new Schema(
   {
     timestamps: true,
   }
-);
+)
 
 module.exports = model('Tutor', TutorSchema)
