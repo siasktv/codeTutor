@@ -18,7 +18,7 @@ const Login = () => {
       if (redirect) {
         navigate(redirect)
       } else {
-        navigate('/navuser')
+        navigate('/user')
       }
     } else if (user === null) {
       setIsLoading(false)

@@ -1,32 +1,37 @@
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
-import { NavUserNotifications } from './components'
 import {
   SearchPage,
   TutorProfile,
-  // TestLoginPage,
   Landing,
   Login,
   Register,
-  FormTutor
+  FormTutor,
 } from './views'
+import NavUserSearch from './components/NavUserSearch'
+import UserDashboard from './views/UserDashboard'
+import { NavUserNotifications } from './components'
 // import { TutorFormData, TutorForm, TutorFormBio } from './layouts'
+import { TutorFormExperience, TutorFormProject } from './layouts'
 
-function App () {
+function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<Landing />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/search' element={<SearchPage />} />
-        <Route path='/tutor/:id' element={<TutorProfile />} />
-        <Route path='/navuser' element={<NavUserNotifications />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/tutor/:id" element={<TutorProfile />} />
+        <Route path="/user" element={<UserDashboard />} />
+
+        <Route path="/navuser" element={<NavUserNotifications />} />
         {/* <Route path='/form' element={<TutorForm />} /> */}
         {/* <Route path='form/biografia' element={<TutorFormBio />} />
         <Route path='form/data' element={<TutorFormData />} /> */}
-        <Route path='/tutor' element={<FormTutor />} />
+        <Route path="form/exp" element={<TutorFormExperience />} />
+        <Route path="form/project" element={<TutorFormProject />} />
+        <Route path="/tutor" element={<FormTutor />} />
       </Routes>
     </div>
   )

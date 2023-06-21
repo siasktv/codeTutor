@@ -94,7 +94,7 @@ const TutorFormDataLeft = props => {
         {form?.name || user?.fullName}
       </p>
       {form?.bio?.specialty && (
-        <p className='font-inter font-semi text-[15px] leading-[28px] mt-2'>
+        <p className="font-inter font-semi text-[15px] leading-[28px] mt-2">
           {form?.bio?.specialty}
         </p>
       )}
@@ -107,12 +107,12 @@ const TutorFormDataLeft = props => {
         </div>
       )}
       {form?.zona_horaria && (
-        <p className='font-inter font-normal text-xs leading-[28px] ml-1'>
+        <p className="font-inter font-normal text-xs leading-[28px] ml-1">
           {form?.zona_horaria}
         </p>
       )}
       {form?.languages && (
-        <div className='flex justify-center gap-1 items-center mt-2'>
+        <div className="flex justify-center gap-1 items-center mt-2">
           {form?.languages?.map((language, index) => (
             <div key={index}>
               {language === 'Español' ? (
@@ -155,16 +155,16 @@ const TutorFormDataLeft = props => {
         <LinkLinkedIn link={form?.social?.linkedin} />
       </div>
       {form?.bio?.portfolio && (
-        <div className='flex items-center justify-center mt-5'>
+        <div className="flex items-center justify-center mt-5">
           <a
             href={
               form?.bio?.portfolio.includes('https://')
                 ? form?.bio?.portfolio
                 : `https://${form?.bio?.portfolio}`
             }
-            target='_blank'
-            rel='noreferrer'
-            className='font-inter font-normal text-md leading-[28px] text-codecolor hover:underline'
+            target="_blank"
+            rel="noreferrer"
+            className="font-inter font-normal text-md leading-[28px] text-codecolor hover:underline"
           >
             {form?.bio?.portfolio.includes('https://') ? (
               <p>{form?.bio?.portfolio}</p>

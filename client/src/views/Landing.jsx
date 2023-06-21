@@ -83,9 +83,9 @@ const Landing = () => {
         </h1>
       </div>
 
-      <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10 '>
-        <div className='flex flex-wrap items-center mx-auto max-w-7xl'>
-          <div className='flex flex-col items-start  ml-0 text-left lg:flex-grow  lg:w-1/2 lg:pl-6 xl:pl-5 md:mb-0 xl:mt-0'>
+      <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10'>
+        <div className='flex flex-wrap items-center mx-auto max-w-7x'>
+          <div className='flex flex-col items-start  text-left lg:flex-grow  lg:w-1/2 lg:pl-6 xl:pl-5 md:mb-0 '>
             <h1 className='mb-8 text-4xl font-bold pt-8 tracking-tighter  md:text-9xl lg:text-7xl'>
               <span className='block text-blackcodecolor leading-20 '>
                 Encuentra
@@ -141,14 +141,7 @@ const Landing = () => {
                         aria-haspopup='true'
                       >
                         Buscar
-                        {/* <svg
-                          className='-mr-0.5 h-5 w-5 text-gray-400 mt-0.5'
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 30 30'
-                          fill='currentColor'
-                        >
-                          <path d='M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z'></path>
-                        </svg> */}
+                        
                       </Link>
                     </div>
                   </div>
@@ -168,10 +161,10 @@ const Landing = () => {
               </div>
             </div>
           </div>
-          <div className='w-full lg:max-w-lg lg:w-1/2 rounded-xl'>
-            <div className='box-border absolute w-125 h-125 right-44 top-32 border border-codecolor rounded-full z-0 '></div>
-            <div className='relative w-full max-w-lg z-10 border-transparent'>
-              <div className='absolute rounded-full bg-codecolor -top-56 -right-[30%] w-125 h-125 mix-blend-multiply overflow-hidden border-transparent '>
+          <div className='w-full lg:max-w-lg lg:w-1/2 rounded-xl h-[35rem]'>
+            <div className='box-border relative w-125 h-125 right-0 top-0 border border-codecolor rounded-full z-0 '></div>
+            <div className='relative w-full max-w-lg z-10 border-transparent bottom-510px'>
+              <div className='relative rounded-full bg-codecolor  w-125 h-125 mt-8 ml-5 mix-blend-multiply overflow-hidden border-transparent '>
                 <img
                   className=' relative w-91.5 h-108 object-center justify-center top-20  object-fit border-transparent mx-auto '
                   alt='hero'
@@ -182,7 +175,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <div className='flex flex-row items-start  pl-10 absolute w-1224px h-10  '>
+      <div className='flex flex-row items-start pl-40 relative w-full h-10  '>
         <div className='flex basis-3/12 '>
           <img src={talking} />
           <p className='pl-2 p-1'>Ayuda en depuración de código</p>
@@ -200,7 +193,7 @@ const Landing = () => {
           </p>
         </div>
       </div>
-      <div className='px-5 py-14 mx-auto lg:px-16'>
+      <div className='px-5 py-6 mx-auto lg:px-16'>
         <div className='mx-auto text-center'>
           <div className='grid grid-cols-5 gap-4 mx-auto lg:grid-cols-5'>
             <div>

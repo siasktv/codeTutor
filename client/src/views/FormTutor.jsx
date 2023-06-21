@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useUser from '../hooks/useUser'
-import { TutorForm, TutorFormData, TutorFormBio } from '../layouts'
+import {
+  TutorForm,
+  TutorFormData,
+  TutorFormBio,
+  TutorFormTech,
+  TutorFormRate,
+} from '../layouts'
 import { Loader } from '../components'
 
-export default function FormTutor () {
+export default function FormTutor() {
   const user = useUser()
   const navigate = useNavigate()
   const [progress, setProgress] = useState(0)
@@ -16,14 +22,15 @@ export default function FormTutor () {
     zona_horaria: '',
     social: {
       linkedin: '',
-      github: ''
+      github: '',
     },
     languages: [],
     bio: {
       specialty: '',
       description: '',
-      portfolio: ''
-    }
+      portfolio: '',
+    },
+    tech: [],
   })
   const [section, setSection] = useState('data')
   const [isDone, setIsDone] = useState({
@@ -31,7 +38,7 @@ export default function FormTutor () {
     skills: false,
     experience: false,
     projects: false,
-    rate: false
+    rate: false,
   })
 
   useEffect(() => {
@@ -61,7 +68,7 @@ export default function FormTutor () {
   return (
     <>
       {loading && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className="flex justify-center items-center h-screen">
           <Loader />
         </div>
       )}
@@ -95,6 +102,32 @@ export default function FormTutor () {
           )}
           {section === 'bio' && (
             <TutorFormBio
+              progress={progress}
+              setProgress={setProgress}
+              form={form}
+              setForm={setForm}
+              section={section}
+              setSection={setSection}
+              user={user}
+              isDone={isDone}
+              setIsDone={setIsDone}
+            />
+          )}
+          {section === 'skills' && (
+            <TutorFormTech
+              progress={progress}
+              setProgress={setProgress}
+              form={form}
+              setForm={setForm}
+              section={section}
+              setSection={setSection}
+              user={user}
+              isDone={isDone}
+              setIsDone={setIsDone}
+            />
+          )}
+          {section === 'rate' && (
+            <TutorFormRate
               progress={progress}
               setProgress={setProgress}
               form={form}

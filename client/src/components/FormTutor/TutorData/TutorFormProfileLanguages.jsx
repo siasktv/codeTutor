@@ -61,7 +61,7 @@ const TutorProfileLanguages = props => {
             Por favor, añade los idiomas en los que tienes fluidez para que
             aparezcan en tu perfil.
           </p>
-          <div className='flex flex-row'>
+          <div className='flex flex-row space-x-3'>
             {selectedLangs.map((lang, index) => (
               <div
                 className='bg-[#7D5AE21A] w-[100px] justify-center p-4 mt-2 -mb-4 flex flex-row items-center text-[#7D5AE2]  py-3 rounded-[8px]'

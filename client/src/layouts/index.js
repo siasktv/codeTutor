@@ -9,8 +9,13 @@ import SearchBarTutor from './SearchTutor/SearchBarTutor'
 import TutorFormData from './FormTutor/TutorFormData'
 import TutorForm from './FormTutor/TutorForm'
 import TutorFormBio from './FormTutor/TutorFormBio'
+import TutorFormTech from './FormTutor/TutorFormTech'
+import TutorFormRate from './FormTutor/TutorFormRate'
+import TutorFormExperience from './FormTutor/TutorFormExperience'
+import TutorFormProject from './FormTutor/TutorFormProject'
 
 export {
+  TutorFormRate,
   TutorInfoL,
   TutorInfoR,
   CardExpJob,
@@ -21,5 +26,8 @@ export {
   SearchBarTutor,
   TutorFormData,
   TutorForm,
-  TutorFormBio
+  TutorFormBio,
+  TutorFormTech,
+  TutorFormExperience,
+  TutorFormProject,
 }

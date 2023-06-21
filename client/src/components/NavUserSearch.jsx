@@ -1,25 +1,172 @@
 import notification from '../assets/notification.svg'
 import useUser from '../hooks/useUser'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    tutorsFetch,
+    sortedByRate,
+    sortedByLanguages
+  } from '../redux/features/tutors/tutorsSlice'
+import { usersFetch } from '../redux/features/users/usersSlice'
+import { techesFetch } from '../redux/features/teches/techesSlice'
+import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
+import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
+import { Star, MensajeTexto } from '../assets'
+import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
+import { ButtonDropdownLocation } from '../components'
+import Dropdown from '../components/Buttons/Dropdown'
+import { Loader, MessageContainer, MessageMinimized } from '../components'
+import ReactDOM from 'react-dom'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { signOut } from '../firebase/client'
-import { Loader } from '../components'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import IconCodeTutor from "../assets/IconCodeTutor.svg";
+
+
 import React from 'react'
 
-const NavUserNotifications = () => {
+const NavUserSearch = () => {
   const user = useUser()
   const navigate = useNavigate()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showTech, setShowTech] = useState(false)
   useEffect(() => {
     if (user === null) {
       navigate('/login')
     }
   }, [user])
+
+  const tutors = useSelector(state => state.tutors.tutors)
+  const users = useSelector(state => state.users.users)
+  const teches = useSelector(state => state.teches.teches)
+  const categories = useSelector(state => state.teches.categories)
+  const selectedTech = useSelector(state => state.tutors.selectedTech)
+  const [isLoading, setIsLoading] = useState(true)
+  const [showMessage, setShowMessage] = useState(false)
+  const [selectedTutor, setSelectedTutor] = useState(null)
+
+  const handleShowMessage = (e, tutor) => {
+    e.preventDefault()
+    if (selectedTutor === null) {
+      setSelectedTutor(tutor)
+      setShowMessage(true)
+    } else {
+      if (selectedTutor._id === tutor._id) {
+        setShowMessage(true)
+      } else {
+        setSelectedTutor(tutor)
+        setShowMessage(true)
+      }
+    }
+  }
+
+  const handleMinimizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+  }
+
+  const handleMaximizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(true)
+  }
+
+  const handleCloseMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    setSelectedTutor(null)
+  }
+
+  const tutorsPerPage = 5
+  const [currentPage, setCurrentPage] = useState(1)
+  const indexOfLastTutor = tutorsPerPage * currentPage
+  const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
+  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor)
+  const pageNumbers = []
+  for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
+    pageNumbers.push(i)
+  }
+  const handlePreviusPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+  const handleNextPage = () => {
+    if (currentPage < pageNumbers.length) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handlePage = number => {
+    setCurrentPage(number)
+  }
+
+  const pagesCutCount = 21
+
+  const getPagesCut = (pageNumbers, pagesCutCount, currentPage) => {
+    const ceiling = Math.ceil(pagesCutCount / 2)
+    const floor = Math.floor(pagesCutCount / 2)
+    if (pageNumbers.length < pagesCutCount) {
+      return { start: 1, end: pageNumbers.length + 1 }
+    } else if (currentPage >= 1 && currentPage <= ceiling) {
+      return { start: 1, end: pagesCutCount + 1 }
+    } else if (currentPage + floor >= pageNumbers.length) {
+      return {
+        start: pageNumbers.length - pagesCutCount + 1,
+        end: pageNumbers.length + 1
+      }
+    } else {
+      return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
+    }
+  }
+  const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
+  const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
+
+  // console.log('tutors', tutors)
+  // console.log('users', users)
+  // console.log('locations', locations)
+  // console.log('teches', teches)
+  // console.log('categories', categories)
+  // console.log('selectedTech', selectedTech)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (!tutors[0]?.bio?.specialty) {
+      dispatch(tutorsFetch())
+    }
+    dispatch(usersFetch())
+    dispatch(techesFetch())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (tutors[0]?.bio?.specialty) {
+      setIsLoading(false)
+      if (currentPage > pageNumbers.length) {
+        setCurrentPage(pageNumbers.length)
+      }
+    }
+  }, [tutors])
+
+  // const handleLocationChange = () => {
+  //   dispatch(sortedByLocation('Argentina'))
+  // }
+
+  // useEffect(() => {
+  //   const button = document.getElementById('dropdown-menu-button')
+  //   const menu = document.querySelector('.origin-top-right')
+
+  //   const handleClick = () => {
+  //     menu.classList.toggle('hidden')
+  //   }
+
+  //   button.addEventListener('click', handleClick)
+
+  //   return () => {
+  //     button.removeEventListener('click', handleClick)
+  //   }
+  // }, [])
 
   const [notifications, setNotifications] = useState([
     {
@@ -144,6 +291,16 @@ const NavUserNotifications = () => {
     setShowNotifications(false)
   }
 
+  const handleShowTech = () => {
+    setShowTech(!showTech)
+    setShowNotifications(false)
+    setShowProfile(false)
+  }
+
+  const handleSortByTech = tech => {
+    dispatch(sortedByTech(tech))
+  }
+
   return (
     <>
       {user && (
@@ -152,14 +309,34 @@ const NavUserNotifications = () => {
             <div className="flex justify-between w-full items-center">
               <div className="pl-8 pt-2">
                 <Link to="/">
-                  <span className="flex h-10 w-52">
+                  <span className="flex h-10 ">
                     <img className="h-8" src={IconCodeTutor} />
                     <h1 className="font-bold text-xl ml-1">Code-Tutor.</h1>
                   </span>
                 </Link>
               </div>
 
-              
+              <div className="relative pr-8">
+                <button
+                  className="flex items-center rounded-full btn btn-sm btn-white text-codecolor"
+                  onClick={handleShowTech}
+                >
+                  Encuentra desarrolladores
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+              </div>
 
               <div>
                 {/* Foto Usuario */}
@@ -270,18 +447,56 @@ const NavUserNotifications = () => {
                   </div>
                 </div>
               </div>
-              
+              {showTech && (
+                <div className="absolute w-full z-50 top-20  ">
+                  <div className="flex justify-center">
+                    <div className="pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50">
+                      {categories.map((category) => (
+                        <button
+                          key={category}
+                          type="button"
+                          role="menuitem"
+                          className="py-4 text-codecolor font-bold cursor-default"
+                        >
+                          <div className="h-80 w-40 px-6 border-x border-[#1414140D]">
+                            {category}
+                            {teches
+                              .filter((tech) => tech.category === category)
+                              .map((tech) => (
+                                <div
+                                  key={tech._id}
+                                  className="text-codecolor font-normal hover:underline cursor-pointer"
+                                  onClick={() => handleSortByTech(tech.name)}
+                                >
+                                  <h1>{tech.name}</h1>
+                                </div>
+                              ))}
+                          </div>
+                        </button>
+                      ))}
+                      <div className="h-full w-full">
+                        <button
+                          className="relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark"
+                          onClick={() => handleSortByTech("Todos")}
+                        >
+                          Restaurar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </header>
         </>
       )}
-      {!user && (
-        <div className="flex justify-center items-center h-screen">
+      {/* {!user && (
+        <div className='flex justify-center items-center h-screen'>
           <Loader />
         </div>
-      )}
+      )} */}
     </>
   );
 }
 
-export default NavUserNotifications
+export default NavUserSearch
