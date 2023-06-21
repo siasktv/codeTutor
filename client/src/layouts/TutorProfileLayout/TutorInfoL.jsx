@@ -37,7 +37,7 @@ const TutorInfoI = (props) => {
   const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
 
   return (
-    <div className="box-border border w-96 h-max pt-10 pb-10 bg-white border-gray-200 shadow-md rounded-lg">
+    <div className="box-border border w-96 h-max pt-8 pb-8 bg-white border-gray-200 shadow-md rounded-lg">
       <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
         <div className="w-40 h-40 rounded-full overflow-hidden transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none">
           {/* Foto Perfil */}
