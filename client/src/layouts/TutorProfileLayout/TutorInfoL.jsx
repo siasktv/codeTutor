@@ -12,7 +12,6 @@
 import {
   PictureTutor,
   ConexionStateTutor,
-  RatingTutor,
   ReviewsTutorTotal,
   NameTutor,
   LinkGitHub,
@@ -26,6 +25,17 @@ import { Star } from '../../assets'
 
 const TutorInfoI = (props) => {
   const { tutor } = props;
+  const reviewCount = tutor.reviews ? tutor.reviews.length : 0;
+  const totalRatings = tutor.reviews
+    ? tutor.reviews.reduce((total, review) => {
+        if (!isNaN(review.rating)) {
+          return total + review.rating;
+        }
+        return total;
+      }, 0)
+    : 0;
+  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
+
   return (
     <div className="box-border border w-96 h-max pt-8 pb-8 bg-white border-gray-200 shadow-md rounded-lg">
       <div className="flex flex-col items-center pt-5 pl-10 pr-10 pb-5">
@@ -35,7 +45,7 @@ const TutorInfoI = (props) => {
         </div>
         <div className="pt-10">
           {/* Estado de conexion */}
-          <ConexionStateTutor tutor={tutor}/>
+          <ConexionStateTutor tutor={tutor} />
         </div>
       </div>
 
@@ -43,9 +53,11 @@ const TutorInfoI = (props) => {
       <div className="flex justify-center items-center space-x-6">
         <div className="flex items-center space-x-2">
           <img src={Star} />
-          <RatingTutor />
+          <h2 className="font-semibold text-lg text-codecolor">
+            {Math.round(averageRating)}
+          </h2>
         </div>
-        <ReviewsTutorTotal />
+        {tutor.reviews && <ReviewsTutorTotal reviews={tutor.reviews.length} />}
       </div>
 
       {/* Apellido y nombre del tutor */}

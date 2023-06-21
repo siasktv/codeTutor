@@ -2,20 +2,31 @@
 import {
   AreaTutor3xl,
   CountryTutor,
-  CoinHourTutor,
   LanguageTutor,
   DescriptionTutor,
   TechnicalSkillsTutor,
-  RatingTutor,
   ReviewsTutorTotal,
-  ButtonShowMore
+  ButtonShowMore,
+  PriceHourGray
 } from '../../components'
 import { CardReviewUser, CardExpJob, CardProyects } from '../'
 
 import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
-const TutorInfoR = (props) => {
-  const {tutor}= props
+const TutorInfoR = props => {
+  const { tutor } = props
+  console.log(tutor);
+const reviewCount = tutor.reviews ? tutor.reviews.length : 0;
+const totalRatings = tutor.reviews
+  ? tutor.reviews.reduce((total, review) => {
+      if (!isNaN(review.rating)) {
+        return total + review.rating;
+      }
+      return total;
+    }, 0)
+  : 0;
+const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
+
   return (
     <div className="w-full pl-9 flex flex-col relative z-0">
       <div className="p-9 bg-white border border-gray-200 shadow-md rounded-lg">
@@ -37,7 +48,8 @@ const TutorInfoR = (props) => {
 
           <img src={Moneda} />
           {/* Tarifa */}
-          <CoinHourTutor rates={tutor.mentorship} />
+          <PriceHourGray rates={tutor.mentorship} />
+          
 
           <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
             ◦
@@ -74,10 +86,14 @@ const TutorInfoR = (props) => {
             <div className="flex items-center space-x-2">
               <img src={Star} />
               {/* Puntuación */}
-              <RatingTutor />
+              <h2 className="font-semibold text-lg text-codecolor">
+                {Math.round(averageRating)}
+              </h2>
             </div>
             {/* Reviews */}
-            <ReviewsTutorTotal />
+            {tutor.reviews && (
+              <ReviewsTutorTotal reviews={tutor.reviews.length} />
+            )}
           </div>
 
           {/* Contenedor de opiniones */}

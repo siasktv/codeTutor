@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   tutorsFetch,
   sortedByRate,
-  sortedByLanguages
+  sortedByLanguages,
+  sortedByReview
 } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
@@ -129,9 +130,7 @@ const SearchPage = () => {
     }
   }, [tutors])
 
-  const handleSortByTech = tech => {
-    dispatch(sortedByTech(tech))
-  }
+  
 
   return (
     <div>
@@ -142,7 +141,10 @@ const SearchPage = () => {
       <div className="bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0">
         <SearchBarTutor />
         <div className="bg-gray-100 flex items-start px-20 py-10  w-full h-max left-0 right-0">
-          <FilterTutor sortedByLanguages={sortedByLanguages} />
+          <FilterTutor
+            sortedByLanguages={sortedByLanguages}
+            sortedByReview={sortedByReview}
+          />
           <div className="w-full p-9 flex flex-col relative z-0">
             {isLoading && (
               <div className="flex justify-center items-center">
@@ -154,9 +156,9 @@ const SearchPage = () => {
                 <div className="flex items-center justify-between">
                   <h2 className="pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left">
                     {tutors.length === 0
-                      ? ""
+                      ? ''
                       : tutors.length === 1
-                      ? "1 programador encontrado"
+                      ? '1 programador encontrado'
                       : `${tutors.length} programadores encontrados`}
                   </h2>
                   <div className="pb-5 relative inline-block text-left">
@@ -190,8 +192,8 @@ const SearchPage = () => {
                           onClick={handlePreviusPage}
                           className={
                             currentPage === 1
-                              ? "bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default"
-                              : "bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer"
+                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
                           }
                         >
                           <FontAwesomeIcon icon={faArrowLeft} />
@@ -203,8 +205,8 @@ const SearchPage = () => {
                             onClick={() => handlePage(number)}
                             className={
                               currentPage === number
-                                ? "bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1"
-                                : "bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1"
+                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                             }
                           >
                             {number}
@@ -215,8 +217,8 @@ const SearchPage = () => {
                             onClick={handleNextPage}
                             className={
                               currentPage === pageNumbers.length
-                                ? "bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1"
-                                : "bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1"
+                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                             }
                           >
                             <FontAwesomeIcon icon={faArrowRight} />
