@@ -10,18 +10,18 @@ const EnviarPerfilButton = props => {
     dataForm,
     progress,
     setIsDone,
-    isDone
+    isDone,
+    isEdit,
+    editIndex
   } = props
+
+  const isDoneCount = Object.values(isDone).filter(value => value === true)
 
   const handleClick = () => {
     if (isDisabled) return
     if (section === 'data') {
       setSection('form')
-      if (isDone.bio === false) {
-        setProgress(1)
-      } else {
-        setProgress(2)
-      }
+      setProgress(progress + 1 + isDoneCount.length)
       setForm({ ...form, ...dataForm })
     } else if (section === 'bio') {
       setSection('form')
@@ -34,8 +34,54 @@ const EnviarPerfilButton = props => {
           portfolio: dataForm.portfolio
         }
       })
-      if (isDone.bio === false) {
+      if (!isDone.bio) {
         setIsDone({ ...isDone, bio: true })
+        setProgress(progress + 1)
+      }
+    } else if (section === 'experience') {
+      setSection('form')
+      if (isEdit) {
+        const newExperience = form.experience.map((experience, index) => {
+          if (index === editIndex) {
+            return {
+              position: dataForm.position,
+              company: dataForm.company,
+              location: dataForm.location,
+              startDate: dataForm.startDate,
+              endDate: dataForm.endDate,
+              currentlyWorking: dataForm.currentlyWorking,
+              description: dataForm.description,
+              technologies: dataForm.technologies
+            }
+          }
+          return experience
+        })
+        setForm({
+          ...form,
+          experience: newExperience,
+          editExpIndex: null
+        })
+        return
+      }
+      setForm({
+        ...form,
+        avatar: dataForm.avatar,
+        experience: [
+          ...form.experience,
+          {
+            position: dataForm.position,
+            company: dataForm.company,
+            location: dataForm.location,
+            startDate: dataForm.startDate,
+            endDate: dataForm.endDate,
+            currentlyWorking: dataForm.currentlyWorking,
+            description: dataForm.description,
+            technologies: dataForm.technologies
+          }
+        ]
+      })
+      if (!isDone.experience) {
+        setIsDone({ ...isDone, experience: true })
         setProgress(progress + 1)
       }
     }

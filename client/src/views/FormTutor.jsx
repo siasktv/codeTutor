@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useUser from '../hooks/useUser'
-import { TutorForm, TutorFormData, TutorFormBio } from '../layouts'
+import {
+  TutorForm,
+  TutorFormData,
+  TutorFormBio,
+  TutorFormExperience
+} from '../layouts'
 import { Loader } from '../components'
 
 export default function FormTutor () {
@@ -23,7 +28,9 @@ export default function FormTutor () {
       specialty: '',
       description: '',
       portfolio: ''
-    }
+    },
+    experience: [],
+    editExpIndex: null
   })
   const [section, setSection] = useState('data')
   const [isDone, setIsDone] = useState({
@@ -57,6 +64,14 @@ export default function FormTutor () {
       //   }
     }
   }, [user, navigate])
+
+  useEffect(() => {
+    console.log(progress)
+  }, [progress])
+
+  useEffect(() => {
+    console.log(form)
+  }, [form])
 
   return (
     <>
@@ -95,6 +110,19 @@ export default function FormTutor () {
           )}
           {section === 'bio' && (
             <TutorFormBio
+              progress={progress}
+              setProgress={setProgress}
+              form={form}
+              setForm={setForm}
+              section={section}
+              setSection={setSection}
+              user={user}
+              isDone={isDone}
+              setIsDone={setIsDone}
+            />
+          )}
+          {section === 'experience' && (
+            <TutorFormExperience
               progress={progress}
               setProgress={setProgress}
               form={form}

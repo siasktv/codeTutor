@@ -83,7 +83,15 @@ const TutorForm = props => {
 
             <TutorFormTech />
 
-            <TutorFormExperience />
+            <TutorFormExperience
+              form={form}
+              setForm={setForm}
+              isDone={isDone}
+              setIsDone={setIsDone}
+              setSection={setSection}
+              progress={progress}
+              setProgress={setProgress}
+            />
 
             <TutorFormProjects />
 
@@ -100,6 +108,7 @@ const TutorForm = props => {
                 setForm={setForm}
                 form={form}
                 progress={progress}
+                isDone={isDone}
               />
             </section>
           </section>

@@ -7,7 +7,7 @@ import { uploadImage } from '../../firebase/client'
 
 const TutorFormDataLeft = props => {
   const { user, form, setDataForm, dataForm } = props
-  const [avatar, setAvatar] = useState(form.avatar || user.avatar)
+  const [avatar, setAvatar] = useState(form?.avatar || user?.avatar)
   const [errorImage, setErrorImage] = useState('')
 
   const handleUploadImage = async e => {

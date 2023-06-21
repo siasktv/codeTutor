@@ -17,20 +17,19 @@ const TutorFormProgressBar = props => {
   const progressPercent = (progress / totalProgress) * 100
   const navigate = useNavigate()
 
+  const isDoneCount = Object.values(isDone).filter(value => value === true)
+
   const handleBack = e => {
     e.preventDefault()
     if (section === 'form') {
-      if (isDone.bio === false) {
-        setProgress(progress - 1)
-      } else {
-        setProgress(progress - 2)
-      }
+      setProgress(progress - 1 - isDoneCount.length)
       setSection('data')
-    } else if (section === 'bio') {
+    } else if (section === 'bio' || section === 'experience') {
       setSection('form')
       setForm({
         ...form,
-        avatar: dataForm.avatar
+        avatar: dataForm.avatar,
+        editExpIndex: null
       })
     }
   }
