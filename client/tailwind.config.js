@@ -37,9 +37,17 @@ export default {
       },
       spacing: {
         '510px': '510px',
-        '480px': '490px',
+        '480px': '490px'
       },
-    },
+      screens: {
+        '3xl': '2000px',
+        '4xl': '2500px',
+        '5xl': '3000px',
+        '6xl': '3800px',
+        '7xl': '4900px',
+
+      },
+    }
   },
   plugins: [],
 }

@@ -5,7 +5,9 @@ import {
   TutorForm,
   TutorFormData,
   TutorFormBio,
-  TutorFormExperience
+  TutorFormExperience,
+  TutorFormTech,
+  TutorFormRate
 } from '../layouts'
 import { Loader } from '../components'
 
@@ -30,7 +32,9 @@ export default function FormTutor () {
       portfolio: ''
     },
     experience: [],
-    editExpIndex: null
+    editExpIndex: null,
+    portfolio: '',
+    tech: []
   })
   const [section, setSection] = useState('data')
   const [isDone, setIsDone] = useState({
@@ -123,6 +127,32 @@ export default function FormTutor () {
           )}
           {section === 'experience' && (
             <TutorFormExperience
+              progress={progress}
+              setProgress={setProgress}
+              form={form}
+              setForm={setForm}
+              section={section}
+              setSection={setSection}
+              user={user}
+              isDone={isDone}
+              setIsDone={setIsDone}
+            />
+          )}
+          {section === 'skills' && (
+            <TutorFormTech
+              progress={progress}
+              setProgress={setProgress}
+              form={form}
+              setForm={setForm}
+              section={section}
+              setSection={setSection}
+              user={user}
+              isDone={isDone}
+              setIsDone={setIsDone}
+            />
+          )}
+          {section === 'rate' && (
+            <TutorFormRate
               progress={progress}
               setProgress={setProgress}
               form={form}

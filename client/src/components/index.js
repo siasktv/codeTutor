@@ -61,7 +61,13 @@ import TutorFormProjects from './FormTutor/TutorFormGeneral/TutorFormProjects'
 import TutorFormRate from './FormTutor/TutorFormGeneral/TutorFormRate'
 import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech'
 
+//componented del tutor tech
+import TutorProfileFormTech from './FormTutor/TutorTech/TutorProfileFormTech'
+import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields'
+
 export {
+  CardTutorInputFields,
+  TutorProfileFormTech,
   CardTutorData,
   CardForm,
   AgregarButton,
