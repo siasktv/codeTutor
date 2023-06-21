@@ -30,6 +30,10 @@ const SearchPage = () => {
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
 
+  useEffect(() => {
+    console.log(tutors)
+  }, [tutors]);
+
   const user = useUser()
   const [showMessage, setShowMessage] = useState(false)
   const [selectedTutor, setSelectedTutor] = useState(null)
