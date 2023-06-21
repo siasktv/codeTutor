@@ -50,25 +50,25 @@ const TutorInfoR = (props) => {
 
         {/* Descripción del tutor */}
         <div className="pt-2 pb-6 border-b">
-          <DescriptionTutor description={ tutor.bio.description} />
+          <DescriptionTutor description={tutor.bio.description} />
         </div>
 
         {/* Cuadro de Habilidades Técnicas */}
         <div className="pt-6 pb-6">
-          <h2 className="text-left text-2xl font-medium">
+          <h2 className="text-left text-xl font-medium">
             Habilidades Técnicas
           </h2>
         </div>
         <div className="pb-6 border-b">
-          <div className="grid grid-cols-4 gap-3">
-            <TechnicalSkillsTutor skills={ tutor.skills} />
+          <div className="grid grid-cols-5 gap-3">
+            <TechnicalSkillsTutor skills={tutor.skills} />
           </div>
         </div>
 
         {/* Valoraciones */}
         <div className="pb-6 border-b">
           <div className="pt-6">
-            <h2 className="text-left text-2xl font-medium">Reviews</h2>
+            <h2 className="text-left text-xl font-medium">Reviews</h2>
           </div>
           <div className="pt-6 pb-6 flex justify-between items-center space-x-6">
             <div className="flex items-center space-x-2">
@@ -95,7 +95,7 @@ const TutorInfoR = (props) => {
         <div className="pb-6 border-b">
           {/* Título */}
           <div className="pt-6">
-            <h2 className="text-left text-2xl font-medium">
+            <h2 className="text-left text-xl font-medium">
               Experiencia Laboral
             </h2>
           </div>
@@ -113,7 +113,7 @@ const TutorInfoR = (props) => {
         <div className="pb-6">
           {/* Título */}
           <div className="pt-6">
-            <h2 className="text-left text-2xl font-medium">Proyectos</h2>
+            <h2 className="text-left text-xl font-medium">Proyectos</h2>
           </div>
 
           {/* Card Proyectos */}

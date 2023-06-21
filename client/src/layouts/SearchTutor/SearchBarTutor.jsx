@@ -13,11 +13,11 @@ const SearchBarTutor = () => {
   return (
     <div>
       <div className="flex flex-col items-start px-20 gap-4 w-full h-full pb-8">
-        <h1 className="w-830 h-84 font-inter font-bold text-5xl leading-1.5 text-black">
+        <h1 className="w-830 font-inter font-bold text-4xl leading-1.5 text-black">
           Encuentra <span className="inline text-codecolor">programadores</span>{" "}
           hoy
         </h1>
-        <h2 className="w-685 h-27 font-inter font-normal text-base leading-7 text-black">
+        <h2 className="w-685 h-8 font-inter font-normal text-base text-black">
           Encuentra programadores listos para ayudarte con el desarrollo de tu
           aplicación.
         </h2>
@@ -33,13 +33,13 @@ const SearchBarTutor = () => {
                 required=""
                 onChange={handleSearch}
                 value={currentSearch}
-                className="p-2 pl-10 pr-10  text-sm box-border flex flex-row items-center w-full h-12 bg-white border border-gray-200 rounded-l text-black"
+                className="p-2 pl-10 pr-10  text-sm box-border flex flex-row items-center w-full h-10 bg-white border border-gray-200 rounded-l text-black"
               />
             </div>
           </form>
           <button
             type="button"
-            className="pl-10 pr-10 flex flex-row items-center justify-center w-50 h-12 bg-codecolor text-white rounded-r rounded-l-none transition duration-1 ease-in-out transform  active:outline-none focus:outline-none"
+            className="pl-10 pr-10 flex flex-row items-center justify-center w-28 h-10 bg-codecolor text-white rounded-r rounded-l-none transition duration-1 ease-in-out transform  active:outline-none focus:outline-none"
           >
             Buscar
           </button>

@@ -15,7 +15,7 @@ const CardProyects = () => {
       </div>
 
       {/* Habilidades técnicas trabajadas en el proyecto */}
-      <div className='grid grid-cols-4 gap-3'>
+      <div className='grid grid-cols-5 gap-3'>
         <TechnicalSkillsProyectTutor />
       </div>
 
