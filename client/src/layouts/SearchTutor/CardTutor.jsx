@@ -3,7 +3,6 @@ import {
   PictureTutor,
   CountryTutor,
   ConexionStateTutor,
-  // RatingTutor,
   ReviewsTutorTotal,
   PriceHourGray,
   LanguageTutor,
@@ -70,8 +69,8 @@ const CardTutor = props => {
                 <h2 className="text-2xl font-medium">{tutor.bio.specialty}</h2>
                 <div className="flex items-center space-x-2">
                   <img src={Star} />
-                  <h2 className="font-semibold text-codecolor">
-                    {averageRating.toFixed(2)}
+                  <h2 className="font-semibold  text-codecolor">
+                    {Math.round(averageRating)}
                   </h2>
                 </div>
               </div>
@@ -91,6 +90,7 @@ const CardTutor = props => {
               <img src={Moneda} />
 
               <PriceHourGray rates={tutor.mentorship} />
+              
 
               <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
                 ◦
@@ -115,7 +115,7 @@ const CardTutor = props => {
               className="flex justify-center items-center w-16 h-16 bg-codecolor shadow-xl rounded-2xl transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
               type="button"
               title="Contactar"
-              onClick={(e) => handleShowMessage(e, tutor)}
+              onClick={(event) => handleShowMessage(event, tutor)}
             >
               <img src={MensajeTexto} />
             </button>
@@ -125,7 +125,7 @@ const CardTutor = props => {
               type="button"
               title="Contactar"
               onClick={
-                user ? (e) => e.preventDefault() : (e) => handleShowModal(e)
+                user ? (event) => event.preventDefault() : (event) => handleShowModal(event)
               }
             >
               <img src={MensajeTexto} />
@@ -137,8 +137,8 @@ const CardTutor = props => {
               tabIndex="-1"
               aria-hidden="true"
               className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto transition-all duration-300 bg-white bg-opacity-10 backdrop-blur-sm"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={(event) => {
+                event.preventDefault();
               }}
             >
               <div className="relative w-full max-w-2xl max-h-full p-4 mx-auto my-10 overflow-hidden transition-all transform cursor-default md:my-0 ">
@@ -149,8 +149,8 @@ const CardTutor = props => {
                       className="text-codecolor bg-transparent hover:text-codecolordark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                       data-modal-hide="defaultModal"
                       aria-label="Close"
-                      onClick={(e) => {
-                        handleCloseModal(e);
+                      onClick={(event) => {
+                        handleCloseModal(event);
                       }}
                     >
                       <svg
@@ -179,8 +179,8 @@ const CardTutor = props => {
                       data-modal-hide="defaultModal"
                       type="button"
                       className="text-white bg-codecolor hover:bg-codecolordark hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
-                      onClick={(e) => {
-                        e.preventDefault();
+                      onClick={(event) => {
+                        event.preventDefault();
                         document.body.style.overflow = 'auto';
                         navigate('/login?redirect=/search');
                       }}
@@ -191,8 +191,8 @@ const CardTutor = props => {
                       data-modal-hide="defaultModal"
                       type="button"
                       className="text-white bg-red-500 hover:bg-red-700 hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
-                      onClick={(e) => {
-                        handleCloseModal(e);
+                      onClick={(event) => {
+                        handleCloseModal(event);
                       }}
                     >
                       Cancelar
