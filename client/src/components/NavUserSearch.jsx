@@ -490,11 +490,11 @@ const NavUserSearch = () => {
           </header>
         </>
       )}
-      {/* {!user && (
+      {!user && (
         <div className='flex justify-center items-center h-screen'>
           <Loader />
         </div>
-      )} */}
+      )}
     </>
   );
 }
