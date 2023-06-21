@@ -63,9 +63,9 @@ const updateTutor = async (
     })
     .populate({
       path: 'reviews',
-      populate: {
-        path: 'rating',
-      },
+      // populate: {
+      //   path: 'rating',
+      // },
     });
 
   return tutorPopulate
