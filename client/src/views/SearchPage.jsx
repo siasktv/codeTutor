@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   tutorsFetch,
   sortedByRate,
-  sortedByLanguages
+  sortedByLanguages,
+  sortedByReview
 } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
@@ -115,12 +116,6 @@ const SearchPage = () => {
   const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
   const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
 
-  // console.log('tutors', tutors)
-  // console.log('users', users)
-  // console.log('locations', locations)
-  // console.log('teches', teches)
-  // console.log('categories', categories)
-  // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!tutors[0]?.bio?.specialty) {
@@ -139,53 +134,10 @@ const SearchPage = () => {
     }
   }, [tutors])
 
-  // const handleLocationChange = () => {
-  //   dispatch(sortedByLocation('Argentina'))
-  // }
-
-  // useEffect(() => {
-  //   const button = document.getElementById('dropdown-menu-button')
-  //   const menu = document.querySelector('.origin-top-right')
-
-  //   const handleClick = () => {
-  //     menu.classList.toggle('hidden')
-  //   }
-
-  //   button.addEventListener('click', handleClick)
-
-  //   return () => {
-  //     button.removeEventListener('click', handleClick)
-  //   }
-  // }, [])
-
-  const handleSortByTech = tech => {
-    dispatch(sortedByTech(tech))
-  }
+  
 
   return (
     <div>
-      {/* <button onClick={() => handleSortByTech('Todos')}>Reset</button>
-      {categories.map(category => (
-        <button
-          key={category}
-          type='button'
-          role='menuitem'
-          className='p-4 text-codecolor font-bold cursor-default'
-        >
-          {category}
-          {teches
-            .filter(tech => tech.category === category)
-            .map(tech => (
-              <div
-                key={tech._id}
-                className='text-codecolor font-normal hover:underline cursor-pointer'
-                onClick={() => handleSortByTech(tech.name)}
-              >
-                <h1>{tech.name}</h1>
-              </div>
-            ))}
-        </button>
-      ))} */}
       <div>
         <NavUserSearch/>
       </div>
@@ -193,7 +145,7 @@ const SearchPage = () => {
       <div className='bg-transparent flex flex-col justify-center items-start px-20 pt-1 gap-2 w-full h-full left-0 right-0'>
         <SearchBarTutor />
         <div className='bg-gray-100 flex items-start p-20 gap-2 absolute w-full h-max left-0 right-0 top-72'>
-          <FilterTutor sortedByLanguages={sortedByLanguages} />
+          <FilterTutor sortedByLanguages={sortedByLanguages} sortedByReview={sortedByReview} />
           <div className='w-full p-9 flex flex-col relative z-0'>
             {isLoading && (
               <div className='flex justify-center items-center'>

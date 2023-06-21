@@ -33,6 +33,7 @@ const initialState = {
       offline: false,
       timezone: '',
       projects: [],
+      reviews:[],
       rates: [],
       mentorship: 0,
       freelance: 0,
@@ -50,6 +51,7 @@ const initialState = {
     offline: false,
     timezone: '',
     projects: [],
+    reviews: [],
     rates: [],
     skills: [],
     socialMedia: [],
@@ -58,7 +60,7 @@ const initialState = {
   locations: [],
   location: '',
   selectedRate: 150,
-  selectedReview: 1,
+  selectedReview: false,
   selectedLanguage: '',
   selectedTech: '',
   currentSearch: ''
@@ -92,6 +94,7 @@ function filterTutors (state, tutors) {
     location,
     selectedRate,
     selectedLanguage,
+    selectedReview,
     selectedTech
   } = state
 
@@ -124,6 +127,21 @@ function filterTutors (state, tutors) {
       const rate = tutor.rates.find(({ name }) => name === 'Mentorship').value
       if (rate > selectedRate) return false
     }
+    if (selectedReview) {
+      if (tutor.reviews.length === 0) return false;
+      const totalRating = tutor.reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
+      const averageRating = Math.round(totalRating / tutor.reviews.length);
+
+      // Almacena el promedio de calificación en cada tutor
+      tutor.averageRating = averageRating;
+      if (state.selectedReview !== averageRating) return false
+      
+    }
+
+  
     if (location) {
       if (state.location.toLowerCase() !== tutor.user.location.toLowerCase())
         return false
@@ -166,14 +184,16 @@ const tutorsSlice = createSlice({
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
-    // sortedByReview(state, action) {
-    //   state.selectedReview = parseInt(action.payload)
-    //   state.tutors = Array.from(state.allTutors).filter((tutor) => {
-    //     return state.selectedReview.includes(
-    //       tutor.
-    //     )
-    //   })
-    // }
+    sortedByReview(state, action) {
+      if (action.payload === 'Todos') {
+        state.selectedReview = false
+        state.tutor = filterTutors(state, state.allTutors)
+        return
+      } else{
+        state.selectedReview = parseInt(action.payload);
+        state.tutors = filterTutors(state, state.allTutors);
+      }
+    },
 
     sortedByLanguages (state, action) {
       if (action.payload === 'Todos') {
