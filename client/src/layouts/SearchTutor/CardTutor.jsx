@@ -69,8 +69,8 @@ const CardTutor = props => {
               <div className="flex space-x-3">
                 <h2 className="text-2xl font-medium">{tutor.bio.specialty}</h2>
                 <div className="flex items-center space-x-2">
-                  <img className="pt-[2px]" src={Star} />
-                  <h2 className="font-semibold text-lg text-codecolor">
+                  <img src={Star} />
+                  <h2 className="font-semibold text-codecolor">
                     {averageRating.toFixed(2)}
                   </h2>
                 </div>
