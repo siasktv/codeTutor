@@ -35,7 +35,7 @@ const TutorInfoI = (props) => {
         </div>
         <div className="pt-10">
           {/* Estado de conexion */}
-          <ConexionStateTutor />
+          <ConexionStateTutor tutor={tutor}/>
         </div>
       </div>
 

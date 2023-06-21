@@ -54,10 +54,12 @@ const CardTutor = props => {
             </div>
 
             <div className='pt-2 pb-2 flex justify-between items-center'>
-              <h2 className='text-2xl font-medium'>{tutor.bio.specialty}</h2>
-              <div className='flex items-center space-x-2'>
-                <img src={Star} />
-                <RatingTutor />
+              <div className='flex space-x-3'>
+                <h2 className='text-2xl font-medium'>{tutor.bio.specialty}</h2>
+                <div className='flex items-center space-x-2'>
+                  <img className='pt-[2px]' src={Star} />
+                  <RatingTutor />
+                </div>
               </div>
               <ReviewsTutorTotal />
             </div>
