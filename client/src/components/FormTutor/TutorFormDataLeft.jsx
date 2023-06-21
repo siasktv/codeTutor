@@ -5,18 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { uploadImage } from '../../firebase/client'
 
-<<<<<<< HEAD
-const TutorFormDataLeft = (props) => {
-  const { user, form } = props
-
-  return (
-    <div className="bg-white flex flex-col items-center h-[600px] justify-center p-20 rounded-[8px] border border-[#1414140D] ">
-      <div className="rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9]">
-        <img
-          className="rounded-full items-center justify-center w-[145px] h-[145px]"
-          src={user?.image}
-          alt="user"
-=======
 const TutorFormDataLeft = props => {
   const { user, form, setDataForm, dataForm } = props
   const [avatar, setAvatar] = useState(form.avatar || user.avatar)
@@ -86,7 +74,6 @@ const TutorFormDataLeft = props => {
           id='avatar'
           className='hidden'
           onChange={handleUploadImage}
->>>>>>> 2e0c72d34a4117063d4e4d06694900e6b4d22625
         />
         <label htmlFor='avatar'>
           <img
@@ -100,14 +87,10 @@ const TutorFormDataLeft = props => {
           />
         </label>
       </div>
-<<<<<<< HEAD
-      <p className="font-inter font-medium text-2xl leading-[37.5px] mt-5">
-=======
       {errorImage && (
         <p className='text-red-500 text-sm mt-2 text-center'>{errorImage}</p>
       )}
       <p className='font-inter font-medium text-2xl leading-[37.5px] mt-5'>
->>>>>>> 2e0c72d34a4117063d4e4d06694900e6b4d22625
         {form?.name || user?.fullName}
       </p>
       {form?.bio?.specialty && (
@@ -116,17 +99,10 @@ const TutorFormDataLeft = props => {
         </p>
       )}
       {user?.location && (
-<<<<<<< HEAD
-        <div className="inline-flex items-center mt-2">
-          <img src={Pais} alt="pais" />
-          <p className="font-inter font-normal text-sm leading-[28px] ml-1">
-            {user?.location}
-=======
         <div className='inline-flex items-center mt-2'>
           <img src={Pais} alt='pais' />
           <p className='font-inter font-normal text-sm leading-[28px] ml-1'>
             {form?.location || user?.location}
->>>>>>> 2e0c72d34a4117063d4e4d06694900e6b4d22625
           </p>
         </div>
       )}
@@ -140,15 +116,6 @@ const TutorFormDataLeft = props => {
           {form?.languages?.map((language, index) => (
             <div key={index}>
               {language === 'Español' ? (
-<<<<<<< HEAD
-                <img src={es} alt="es" className="w-[20px] h-[20px]" />
-              ) : language === 'Inglés' ? (
-                <img src={uk} alt="us" className="w-[20px] h-[20px]" />
-              ) : language === 'Portugués' ? (
-                <img src={pt} alt="pt" className="w-[20px] h-[20px]" />
-              ) : language === 'Francés' ? (
-                <img src={fr} alt="fr" className="w-[20px] h-[20px]" />
-=======
                 <img
                   src={es}
                   alt='es'
@@ -176,7 +143,6 @@ const TutorFormDataLeft = props => {
                   className='w-[20px] h-[20px]'
                   title='Francés'
                 />
->>>>>>> 2e0c72d34a4117063d4e4d06694900e6b4d22625
               ) : (
                 language
               )}
@@ -184,11 +150,7 @@ const TutorFormDataLeft = props => {
           ))}
         </div>
       )}
-<<<<<<< HEAD
-      <div className="flex justify-center gap-8 mt-8">
-=======
       <div className='flex justify-center gap-6 mt-8'>
->>>>>>> 2e0c72d34a4117063d4e4d06694900e6b4d22625
         <LinkGitHub link={form?.social?.github} />
         <LinkLinkedIn link={form?.social?.linkedin} />
       </div>
