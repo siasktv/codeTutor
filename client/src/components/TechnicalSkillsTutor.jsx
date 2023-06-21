@@ -2,15 +2,15 @@
 const TechnicalSkillsTutor = props => {
   return (
     <>
-      {props.skills.map(skill => (
+      {props.skills.map((skill) => (
         <span
-          className='flex pt-1 pb-1 h-14 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:outline-none focus:outline-none'
+          className="flex pt-1 pb-1 h-10 justify-center items-center font-bold text-sm text-codecolor bg-purple-200 rounded transition duration-1 ease-in-out transform active:outline-none focus:outline-none"
           key={skill._id}
         >
           {skill.techName.name}
         </span>
       ))}
     </>
-  )
+  );
 }
 export default TechnicalSkillsTutor
