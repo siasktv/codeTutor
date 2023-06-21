@@ -14,7 +14,7 @@ const {
   addUser,
   getUser,
   getUserBySocketId,
-  users
+  users,
 } = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
@@ -43,26 +43,26 @@ server.use(express.json())
 const serverhttp = http.createServer(server)
 const io = new SocketServer(serverhttp, {
   cors: {
-    origin: FRONTEND_URL
-  }
+    origin: FRONTEND_URL,
+  },
 })
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
     const user = await getUser(receiverId)
     if (user) {
       io.to(user.socketId).emit('getMessage', {
         senderId,
-        message
+        message,
       })
     }
   })
 
-  socket.on('addUser', async userId => {
+  socket.on('addUser', async (userId) => {
     await addUser(userId, socket.id)
     io.emit(
       'online',
-      users.filter(user => user.online === true)
+      users.filter((user) => user.online === true)
     )
     const setOnline = async () => {
       try {
@@ -75,15 +75,15 @@ io.on('connection', socket => {
     setOnline()
   })
 
-  socket.on('checkOnline', async userId => {
+  socket.on('checkOnline', async (userId) => {
     const user = await getUser(userId)
     if (user.online) {
       io.to(user.socketId).emit('checkOnline', {
-        online: true
+        online: true,
       })
     } else {
       io.to(socket.id).emit('checkOnline', {
-        online: false
+        online: false,
       })
     }
   })
@@ -102,7 +102,7 @@ io.on('connection', socket => {
       user.online = false
       io.emit(
         'online',
-        users.filter(user => user.online === true)
+        users.filter((user) => user.online === true)
       )
     }
   })
