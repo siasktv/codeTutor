@@ -5,15 +5,19 @@ const TutorSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     bio: {
-      
-        specialty: {
-          type: String,
-          enum: ['Full Stack Developer', 'Front-end Developer', 'Back-end Developer', 'Data Base speciality'],
-        },
-        description: { type: String },
-        linkBriefcase: { type: String },
+      specialty: {
+        type: String,
+        enum: [
+          'Full Stack Developer',
+          'Front-end Developer',
+          'Back-end Developer',
+          'Data Base speciality',
+        ],
       },
-    
+      description: { type: String },
+      linkBriefcase: { type: String },
+    },
+
     languages: [
       {
         language: {
