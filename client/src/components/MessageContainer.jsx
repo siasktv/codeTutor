@@ -1,9 +1,10 @@
 import { faMinus, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 import React from 'react'
+import { SocketContext, socket } from '../socket/context'
 
 export default function MessageContainer (props) {
   const { tutor, handleMinimizeMessage, user } = props
@@ -13,21 +14,19 @@ export default function MessageContainer (props) {
   const [isOnline, setIsOnline] = useState(!tutor.user.offline)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [conversationId, setConversationId] = useState(null)
-  const socket = useRef()
+  const socket = useContext(SocketContext)
   const scrollRef = useRef()
-
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
-    socket.current = io(BACKEND_URL)
-    socket.current.on('getMessage', data => {
+    socket.on('getMessage', data => {
       setArrivalMessage({
         sender: data.senderId,
         message: data.message,
         createdAt: Date.now()
       })
     })
-    socket.current.on('online', data => {
+    socket.on('online', data => {
       if (data.find(item => item.userId === tutor.user._id)) {
         setIsOnline(true)
       } else {
@@ -35,15 +34,14 @@ export default function MessageContainer (props) {
       }
     })
 
-    socket.current.on('checkOnline', data => {
-      console.log(data)
+    socket.on('checkOnline', data => {
       if (data.online) {
         setIsOnline(true)
       } else {
         setIsOnline(false)
       }
     })
-    socket.current.emit('checkOnline', tutor.user._id)
+    socket.emit('checkOnline', tutor.user._id)
   }, [])
 
   useEffect(() => {
@@ -93,7 +91,7 @@ export default function MessageContainer (props) {
 
     const receiverId = tutor.user._id
 
-    socket.current.emit('sendMessage', {
+    socket.emit('sendMessage', {
       senderId: user.id,
       receiverId,
       message

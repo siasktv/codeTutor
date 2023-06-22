@@ -43,18 +43,26 @@ server.use(morgan('dev'))
 const serverhttp = http.createServer(server)
 const io = new SocketServer(serverhttp, {
   cors: {
-    origin: FRONTEND_URL
-  }
+    origin: FRONTEND_URL,
+    methods: ['GET', 'POST'],
+    transports: ['websocket', 'polling'],
+    credentials: true
+  },
+  allowEIO3: true
 })
 
 io.on('connection', socket => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
     const user = await getUser(receiverId)
+    const sender = await getUser(senderId)
+
     if (user) {
       io.to(user.socketId).emit('getMessage', {
         senderId,
         message
       })
+      console.log('sent from ' + user.socketId + ' to ' + sender.socketId)
+      console.log(users)
     }
   })
 
@@ -77,7 +85,7 @@ io.on('connection', socket => {
 
   socket.on('checkOnline', async userId => {
     const user = await getUser(userId)
-    if (user.online) {
+    if (user?.online) {
       io.to(user.socketId).emit('checkOnline', {
         online: true
       })

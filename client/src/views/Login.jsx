@@ -41,7 +41,7 @@ const Login = () => {
             </div>
             <div className='flex-grow flex items-center justify-center'>
               <div className='w-11/12'>
-                <FormLogin />
+                <FormLogin redirect={redirect} />
               </div>
             </div>
           </div>

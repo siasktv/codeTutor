@@ -10,10 +10,13 @@ const Register = () => {
   const user = useUser()
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
+  const redirect = location.search.split('redirect=')[1]
 
   useEffect(() => {
     if (user) {
-      navigate('/user')
+      if (redirect) {
+        navigate(redirect)
+      } else navigate('/user')
     } else if (user === null) {
       setIsLoading(false)
     }
@@ -34,7 +37,7 @@ const Register = () => {
             </div>
             <div className='flex-grow flex items-center justify-center'>
               <div className='w-11/12'>
-                <FormRegister />
+                <FormRegister redirect={redirect} />
               </div>
             </div>
           </div>
