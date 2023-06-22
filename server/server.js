@@ -85,8 +85,8 @@ io.on('connection', socket => {
 
   socket.on('checkOnline', async userId => {
     const user = await getUser(userId)
-    if (user?.online) {
-      io.to(user.socketId).emit('checkOnline', {
+    if (user?.online === true) {
+      io.to(socket.id).emit('checkOnline', {
         online: true
       })
     } else {
