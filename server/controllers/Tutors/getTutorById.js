@@ -1,6 +1,6 @@
 const Tutor = require('../../models/Tutor.models')
 
-const getTutorById = async id => {
+const getTutorById = async (id) => {
   const tutor = await Tutor.findById(id)
     .populate({
       path: 'user',
@@ -30,9 +30,9 @@ const getTutorById = async id => {
       path: 'reviews',
       // populate: {
       //   path: 'rating',
-        
+
       // },
-    });
+    })
 
   return tutor
 }

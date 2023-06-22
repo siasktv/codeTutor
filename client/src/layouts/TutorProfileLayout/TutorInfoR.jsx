@@ -5,16 +5,16 @@ import {
   LanguageTutor,
   DescriptionTutor,
   TechnicalSkillsTutor,
-  ReviewsTutorTotal,
   ButtonShowMore,
-  PriceHourGray
+  PriceHourGray,
 } from '../../components'
 import { CardReviewUser, CardExpJob, CardProyects } from '../'
 
 import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
-const TutorInfoR = props => {
+const TutorInfoR = (props) => {
   const { tutor } = props
+  console.log(tutor)
   const reviewCount = tutor.reviews ? tutor.reviews.length : 0
   const totalRatings = tutor.reviews
     ? tutor.reviews.reduce((total, review) => {
@@ -90,13 +90,16 @@ const TutorInfoR = props => {
             </div>
             {/* Reviews */}
             {tutor.reviews && (
-              <ReviewsTutorTotal reviews={tutor.reviews.length} />
+              <h2 className="font-semibold text-gray-600">
+                {tutor.reviews.length}
+              </h2>
             )}
           </div>
 
           {/* Contenedor de opiniones */}
+
           <div>
-            <CardReviewUser />
+            <CardReviewUser reviews={tutor.reviews} />
           </div>
 
           {/* Boton ver más opiniones */}
