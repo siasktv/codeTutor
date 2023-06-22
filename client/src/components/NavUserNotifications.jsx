@@ -1,25 +1,17 @@
 import notification from '../assets/notification.svg'
-import useUser from '../hooks/useUser'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { signOut } from '../firebase/client'
 import { Loader } from '../components'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-import IconCodeTutor from "../assets/IconCodeTutor.svg";
+import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
+import { Default } from '../assets'
 
-const NavUserNotifications = () => {
-  const user = useUser()
-  const navigate = useNavigate()
+const NavUserNotifications = ({ user }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login')
-    }
-  }, [user])
 
   const [notifications, setNotifications] = useState([
     {
@@ -146,113 +138,124 @@ const NavUserNotifications = () => {
 
   return (
     <>
-      {user && (
-        <>
-          <header className="flex items-center h-20 w-full z-50">
-            <div className="flex justify-between w-full items-center">
-              <div className="pl-8 pt-2">
-                <Link to="/">
-                  <span className="flex h-10 w-52">
-                    <img className="h-8" src={IconCodeTutor} />
-                    <h1 className="font-bold text-xl ml-1">Code-Tutor.</h1>
-                  </span>
-                </Link>
-              </div>
+      <header className='flex items-center h-20 w-full z-50'>
+        <div className='flex justify-between w-full items-center'>
+          <div className='pl-8 pt-2'>
+            <Link to='/'>
+              <span className='flex h-10 w-52'>
+                <img className='h-8' src={IconCodeTutor} />
+                <h1 className='font-bold text-xl ml-1'>Code-Tutor.</h1>
+              </span>
+            </Link>
+          </div>
 
-              
-
-              <div>
-                {/* Foto Usuario */}
-                <div className="flex items-center">
-                  <div className="flex flex-col items-center">
-                    <div className="bg-black rounded-full border-none">
-                      <img
-                        src={user.image}
-                        alt="avatar"
-                        className="w-10 h-10  rounded-full border-none cursor-pointer"
-                        onClick={handleShowProfile}
-                      ></img>
-                    </div>
-                    {showProfile && (
-                      <div className="absolute top-20 mt-2 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]">
-                        <div className="flex flex-col gap-2 p-2">
-                          <div className="flex flex-col gap-2">
-                            <Link to="/profile">
-                              <button className="text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-40 hover:outline text-center">
+          <div>
+            {/* Foto Usuario */}
+            <div className='flex items-center'>
+              <div className='flex flex-col items-center'>
+                <div className='bg-black rounded-full border-none'>
+                  <img
+                    src={user?.image ? user.image : Default}
+                    alt='avatar'
+                    className='w-10 h-10  rounded-full border-none cursor-pointer'
+                    onClick={handleShowProfile}
+                  ></img>
+                </div>
+                {showProfile && (
+                  <div className='absolute top-16 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                    <div className='flex flex-col gap-2 p-2'>
+                      <div className='flex flex-col gap-2'>
+                        {user && (
+                          <>
+                            <Link to='/user'>
+                              <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Ir a mi perfil
                               </button>
                             </Link>
                             <button
-                              className="text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-40 hover:outline text-center"
+                              className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
                               onClick={signOut}
                             >
                               Cerrar sesión
                             </button>
-                          </div>
-                        </div>
+                          </>
+                        )}
+                        {!user && (
+                          <>
+                            <Link to='/login'>
+                              <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
+                                Iniciar sesión
+                              </button>
+                            </Link>
+                          </>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
+                )}
+              </div>
 
-                  {/* Notificaciones */}
-                  <div className="px-8 flex items-center">
+              {/* Notificaciones */}
+              <div className='px-8 flex items-center'>
+                {user && (
+                  <>
                     <div
-                      className="p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none"
+                      className='p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
                       onClick={handleShowNotifications}
                     >
-                      <img src={notification} className=""></img>
+                      <img src={notification} className=''></img>
                     </div>
                     {showNotifications && (
-                      <div className="absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]">
-                        <div className="flex flex-col gap-2 p-4 h-80">
-                          <div className="flex justify-between items-center flex-1">
-                            <h1 className="font-bold text-xl text-codecolor">
+                      <div className='absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                        <div className='flex flex-col gap-2 p-4 h-80'>
+                          <div className='flex justify-between items-center flex-1'>
+                            <h1 className='font-bold text-xl text-codecolor'>
                               Notificaciones
                             </h1>
                             <button onClick={() => setShowNotifications(false)}>
                               <FontAwesomeIcon
                                 icon={faXmark}
-                                className="text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark"
+                                className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark'
                               />
                             </button>
                           </div>
-                          <div className="flex flex-col overflow-y-auto max-h-480px">
+                          <div className='flex flex-col overflow-y-auto max-h-480px'>
                             {notifications.filter(
-                              (notification) => notification.isRead === false
+                              notification => notification.isRead === false
                             ).length === 0 && (
-                              <div className="flex flex-col gap-2 m-3">
-                                <div className="flex justify-center align-middle items-center">
-                                  <h1 className="text-black font-semibold w-72 m-3">
+                              <div className='flex flex-col gap-2 m-3'>
+                                <div className='flex justify-center align-middle items-center'>
+                                  <h1 className='text-black font-semibold w-72 m-3'>
                                     No tienes notificaciones.
                                   </h1>
                                 </div>
                               </div>
                             )}
-                            {notifications.map((notification) => (
+                            {notifications.map(notification => (
                               <React.Fragment key={notification.id}>
                                 {notification.isRead === false && (
                                   <Link
                                     to={notification.link}
-                                    className="flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md"
+                                    className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'
                                   >
-                                    <div className="flex justify-center align-middle items-center">
+                                    <div className='flex justify-center align-middle items-center'>
                                       <img
-                                        className="w-10 h-10 rounded-full border-none mr-2"
+                                        className='w-10 h-10 rounded-full border-none mr-2'
                                         src={notification.avatar}
-                                        alt="avatar"
+                                        alt='avatar'
                                       />
-                                      <div className="flex flex-col w-60 text-left">
-                                        <h2 className="text-md">
-                                          {notification.message}{" "}
+                                      <div className='flex flex-col w-60 text-left'>
+                                        <h2 className='text-md'>
+                                          {notification.message}{' '}
                                         </h2>
                                       </div>
-                                      <div className="flex justify-end ml-3">
+                                      <div className='flex justify-end ml-3'>
                                         <FontAwesomeIcon
                                           icon={faTrash}
-                                          className="text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark"
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            markAsRead(notification.id);
+                                          className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
+                                          onClick={e => {
+                                            e.preventDefault()
+                                            markAsRead(notification.id)
                                           }}
                                         >
                                           Marcar como leído
@@ -267,21 +270,15 @@ const NavUserNotifications = () => {
                         </div>
                       </div>
                     )}
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
-              
             </div>
-          </header>
-        </>
-      )}
-      {!user && (
-        <div className="flex justify-center items-center h-screen">
-          <Loader />
+          </div>
         </div>
-      )}
+      </header>
     </>
-  );
+  )
 }
 
 export default NavUserNotifications

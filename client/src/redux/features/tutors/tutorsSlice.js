@@ -33,7 +33,7 @@ const initialState = {
       offline: false,
       timezone: '',
       projects: [],
-      reviews:[],
+      reviews: [],
       rates: [],
       mentorship: 0,
       freelance: 0,
@@ -70,7 +70,7 @@ const initialState = {
 export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   try {
     const response = await axios.get(`${BACKEND_URL}/api/tutors`)
-    return response.data
+    return response.data.filter(tutor => tutor.status === 'approved')
   } catch (error) {
     console.log(error)
   }
@@ -128,20 +128,18 @@ function filterTutors (state, tutors) {
       if (rate > selectedRate) return false
     }
     if (selectedReview) {
-      if (tutor.reviews.length === 0) return false;
+      if (tutor.reviews.length === 0) return false
       const totalRating = tutor.reviews.reduce(
         (sum, review) => sum + review.rating,
         0
-      );
-      const averageRating = Math.round(totalRating / tutor.reviews.length);
+      )
+      const averageRating = Math.round(totalRating / tutor.reviews.length)
 
       // Almacena el promedio de calificación en cada tutor
-      tutor.averageRating = averageRating;
+      tutor.averageRating = averageRating
       if (state.selectedReview !== averageRating) return false
-      
     }
 
-  
     if (location) {
       if (state.location.toLowerCase() !== tutor.user.location.toLowerCase())
         return false
@@ -184,14 +182,14 @@ const tutorsSlice = createSlice({
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
-    sortedByReview(state, action) {
+    sortedByReview (state, action) {
       if (action.payload === 'Todos') {
         state.selectedReview = false
         state.tutors = filterTutors(state, state.allTutors)
         return
-      } else{
-        state.selectedReview = parseInt(action.payload);
-        state.tutors = filterTutors(state, state.allTutors);
+      } else {
+        state.selectedReview = parseInt(action.payload)
+        state.tutors = filterTutors(state, state.allTutors)
       }
     },
 
@@ -222,7 +220,7 @@ const tutorsSlice = createSlice({
           ).value
           tutor.freelance = tutor.rates.find(
             ({ name }) => name === 'Freelance'
-          ).value
+          )?.value
         })
         state.tutors.forEach(tutor => {
           if (!state.locations.includes(tutor.user.location)) {
