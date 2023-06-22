@@ -162,7 +162,7 @@ const TutorFormRate = props => {
                   </p>
                 )}
 
-                <div className='flex flex-col gap-6 mt-16'>
+                <div className='flex flex-col gap-6 mt-12'>
                   <h2 className='font-inter text-left font-bold text-[#05004E]'>
                     Promoción
                   </h2>
