@@ -120,5 +120,5 @@ export {
   NavUserNotifications,
   Loader,
   MessageContainer,
-  MessageMinimized,
+  MessageMinimized
 }

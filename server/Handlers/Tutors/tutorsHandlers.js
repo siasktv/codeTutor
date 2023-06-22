@@ -26,17 +26,17 @@ const getTutorByIdHandler = async (req, res) => {
 const createTutorHandler = async (req, res) => {
   const {
     user,
-    bio,
-    languages,
-    skills,
-    experience,
-    projects,
-    reviews,
-    rates,
-    bankAccount,
-    status,
+    avatar,
+    location,
+    timezone,
     socialMedia,
-    offline
+    languages,
+    bio,
+    experience,
+    skills,
+    projects,
+    rates,
+    fullName
   } = req.body
   if (!user) {
     res.status(400).json({ error: 'User is required' })
@@ -44,17 +44,17 @@ const createTutorHandler = async (req, res) => {
   try {
     const tutor = await createTutor({
       user,
-      bio,
-      languages,
-      skills,
-      experience,
-      projects,
-      reviews,
-      rates,
-      bankAccount,
-      status,
+      avatar,
+      location,
+      timezone,
       socialMedia,
-      offline
+      languages,
+      bio,
+      experience,
+      skills,
+      projects,
+      rates,
+      fullName
     })
     res.status(200).json(tutor)
   } catch (error) {

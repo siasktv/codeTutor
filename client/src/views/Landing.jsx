@@ -21,12 +21,15 @@ import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { useNavigate } from 'react-router-dom'
 import LandingContent from '../layouts/LandingContent/LandingContent'
 import LandingCarousel from '../layouts/LandingContent/LandingCarousel'
+import useUser from '../hooks/useUser'
+import NavUserSearch from '../components/NavUserSearch'
 
 const Landing = () => {
   const dispatch = useDispatch()
   const tutors = useSelector(state => state.tutors.tutors)
   const currentSearch = useSelector(state => state.tutors.currentSearch)
   const navigate = useNavigate()
+  const user = useUser()
 
   useEffect(() => {
     if (!tutors[0].bio?.specialty) {
@@ -45,7 +48,7 @@ const Landing = () => {
 
   return (
     <section className='overflow-x-hidden flex-1'>
-      <NavLogin className='z-50' />
+      <NavLogin className='z-50' user={user} />
       
       
     
@@ -98,7 +101,6 @@ const Landing = () => {
                         aria-haspopup='true'
                       >
                         Buscar
-                        
                       </Link>
                     </div>
                   </div>

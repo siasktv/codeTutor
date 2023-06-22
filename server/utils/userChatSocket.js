@@ -7,6 +7,7 @@ const addUser = (userId, socketId) => {
     findUser.online = true
   } else {
     users.push({ userId, socketId, online: true })
+    console.log(users)
   }
 }
 

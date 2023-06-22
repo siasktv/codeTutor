@@ -3,7 +3,7 @@ import { loginWithGoogle, signUp } from '../firebase/client'
 import { loaderGoogle } from '../assets'
 import { Link } from 'react-router-dom'
 
-const FormRegister = () => {
+const FormRegister = ({ redirect }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({
     start: true
@@ -118,6 +118,8 @@ const FormRegister = () => {
     setShowPassword(!showPassword)
   }
 
+  const loginRedirect = redirect ? `/login?redirect=${redirect}` : '/login'
+
   return (
     <>
       <div className='flex flex-col items-center justify-center'>
@@ -133,7 +135,7 @@ const FormRegister = () => {
             className='pt-4 text-left hover:text-violet-400    text-sm font-medium leading-none text-codecolor'
           >
             <span className='text-black'>¿Ya tienes una cuenta? </span>
-            <Link to='/login' className='hover:underline cursor-pointer'>
+            <Link to={loginRedirect} className='hover:underline cursor-pointer'>
               Inicia sesión
             </Link>
           </p>
@@ -283,12 +285,6 @@ const FormRegister = () => {
                 </p>
               )}
             </div>
-            <p
-              href='#'
-              className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
-            >
-              ¿Olvidaste tu contraseña?
-            </p>
             <div className='mt-8'>
               <button
                 role='button'

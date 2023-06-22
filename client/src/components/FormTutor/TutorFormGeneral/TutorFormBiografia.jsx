@@ -13,8 +13,8 @@ const TutorFormBiografia = props => {
         next='bio'
       >
         {isDone?.bio && (
-          <div className='flex flex-col -mt-10 -mb-10'>
-            <p className='font-inter p-2 text-base italic font-normal leading-[28px] tracking-normal text-[#141414] text-left break-words'>
+          <div className='flex flex-col -mt-10 -mb-14'>
+            <p className='font-inter text-md font-normal leading-[28px] tracking-normal text-[#141414] text-left break-words mb-5'>
               {form.bio.description}
             </p>
           </div>
