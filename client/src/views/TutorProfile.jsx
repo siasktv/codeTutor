@@ -6,12 +6,14 @@ import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
 import { Loader } from '../components'
 import { useNavigate } from 'react-router-dom'
 import NavUserNotifications from '../components/NavUserNotifications'
+import useUser from '../hooks/useUser'
 
 const TutorProfile = () => {
   const { id } = useParams()
   const tutor = useSelector((state) => state.tutors.tutor)
   const error = useSelector((state) => state.tutors.error)
   const [isLoading, setIsLoading] = useState(true)
+  const user = useUser()
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -45,7 +47,7 @@ const TutorProfile = () => {
       )}
       {!isLoading && (
         <>
-          <NavUserNotifications />
+          <NavUserNotifications user={user} />
           <div className="bg-gray-100 flex items-start px-20 py-10 gap-2 absolute w-full h-max left-0 right-0">
             {tutor.bio.specialty && (
               <>

@@ -135,6 +135,7 @@ const TutorFormData = props => {
               <CancelarPerfilButton />
               <EnviarPerfilButton
                 title='Continuar'
+                progress={progress}
                 isDisabled={isDisabled}
                 setSection={setSection}
                 setProgress={setProgress}

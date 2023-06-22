@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { loaderGoogle } from '../assets'
 import { signIn, loginWithGoogle } from '../firebase/client'
 
-const FormRegister = () => {
+const FormRegister = props => {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({
     start: true
@@ -107,6 +107,10 @@ const FormRegister = () => {
     setShowPassword(!showPassword)
   }
 
+  const registerRedirect = props.redirect
+    ? `/register?redirect=${props.redirect}`
+    : '/register'
+
   return (
     <div className='flex flex-col items-center justify-center'>
       <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 mt-4'>
@@ -118,7 +122,10 @@ const FormRegister = () => {
         </p>
         <p className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
           <span className='text-black'>¿No tienes una cuenta? </span>
-          <Link to='/register' className='hover:underline cursor-pointer'>
+          <Link
+            to={registerRedirect}
+            className='hover:underline cursor-pointer'
+          >
             Registrate aquí
           </Link>
         </p>

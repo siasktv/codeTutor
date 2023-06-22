@@ -20,11 +20,15 @@ const getUserByUidHandler = async (req, res) => {
   const { uid } = req.params
   try {
     const user = await getUserByUid(uid)
-    const tutor = await Tutor.findOne({ user: user._id })
-    res.status(200).json({
-      ...user._doc,
-      tutor
-    })
+    if (user) {
+      const tutor = await Tutor.findOne({ user: user._id })
+      res.status(200).json({
+        ...user._doc,
+        tutor
+      })
+    } else {
+      res.status(200).json(user)
+    }
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
