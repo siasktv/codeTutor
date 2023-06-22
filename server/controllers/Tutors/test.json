@@ -1,0 +1,60 @@
+{
+  "_id": { "$oid": "648b39ba3079d297b2892a51" },
+  "user": { "$oid": "648a5217a644d4cd59cc5884" },
+  "bio": {
+    "specialty": "Front-end Developer",
+    "description": "Test description",
+    "linkBriefcase": "https://www.testbriefcase.com"
+  },
+  "languages": [
+    {
+      "language": "Español",
+      "level": "Beginner",
+      "_id": { "$oid": "648b68aa0994d848790ddc26" }
+    },
+    {
+      "language": "Ingles",
+      "level": "Intermediate",
+      "_id": { "$oid": "648b68aa0994d848790ddc27" }
+    }
+  ],
+  "skills": [
+    { "$oid": "648b67e30994d848790ddbdd" },
+    { "$oid": "648b68660994d848790ddbff" },
+    { "$oid": "648b687e0994d848790ddc03" },
+    { "$oid": "648b68850994d848790ddc07" },
+    { "$oid": "648b689f0994d848790ddc22" }
+  ],
+  "experience": [],
+  "projects": [],
+  "rates": [
+    {
+      "name": "Mentorship",
+      "value": { "$numberInt": "80" },
+      "_id": { "$oid": "648b68aa0994d848790ddc28" }
+    },
+    {
+      "name": "Freelance",
+      "value": { "$numberInt": "1500" },
+      "_id": { "$oid": "648b68aa0994d848790ddc29" }
+    }
+  ],
+  "status": "pending",
+  "socialMedia": [
+    {
+      "name": "Instagram",
+      "link": "https://www.instagram.com/test",
+      "_id": { "$oid": "648b68aa0994d848790ddc2a" }
+    },
+    {
+      "name": "LinkedIn",
+      "link": "https://www.linkedin.com/test",
+      "_id": { "$oid": "648b68aa0994d848790ddc2b" }
+    }
+  ],
+  "offline": true,
+  "createdAt": { "$date": { "$numberLong": "1686845882824" } },
+  "updatedAt": { "$date": { "$numberLong": "1686857898132" } },
+  "__v": { "$numberInt": "0" },
+  "reviews": [""]
+}

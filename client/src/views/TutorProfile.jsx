@@ -10,8 +10,10 @@ import useUser from '../hooks/useUser'
 
 const TutorProfile = () => {
   const { id } = useParams()
-  const tutor = useSelector(state => state.tutors.tutor)
-  const error = useSelector(state => state.tutors.error)
+  const tutor = useSelector((state) => state.tutors.tutor)
+  console.log(tutor)
+
+  const error = useSelector((state) => state.tutors.error)
   const [isLoading, setIsLoading] = useState(true)
   const user = useUser()
   const navigate = useNavigate()
@@ -41,14 +43,14 @@ const TutorProfile = () => {
   return (
     <>
       {isLoading && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className="flex justify-center items-center h-screen">
           <Loader />
         </div>
       )}
       {!isLoading && (
         <>
           <NavUserNotifications user={user} />
-          <div className='bg-gray-100 flex items-start px-20 py-10 gap-2 absolute w-full h-max left-0 right-0'>
+          <div className="bg-gray-100 flex items-start px-20 py-10 gap-2 absolute w-full h-max left-0 right-0">
             {tutor.bio.specialty && (
               <>
                 {/* Tabla de información Izquierda */}

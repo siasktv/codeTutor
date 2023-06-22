@@ -12,29 +12,28 @@
 import {
   PictureTutor,
   ConexionStateTutor,
-  ReviewsTutorTotal,
   NameTutor,
   LinkGitHub,
   LinkLinkedIn,
   PriceHourPurple,
   SessionsTutor,
-  ButtonContactar
+  ButtonContactar,
 } from '../../components'
 
 import { Star } from '../../assets'
 
 const TutorInfoI = (props) => {
-  const { tutor } = props;
-  const reviewCount = tutor.reviews ? tutor.reviews.length : 0;
+  const { tutor } = props
+  const reviewCount = tutor.reviews ? tutor.reviews.length : 0
   const totalRatings = tutor.reviews
     ? tutor.reviews.reduce((total, review) => {
         if (!isNaN(review.rating)) {
-          return total + review.rating;
+          return total + review.rating
         }
-        return total;
+        return total
       }, 0)
-    : 0;
-  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
+    : 0
+  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0
 
   return (
     <div className="box-border border w-96 h-max pt-8 pb-8 bg-white border-gray-200 shadow-md rounded-lg">
@@ -57,7 +56,11 @@ const TutorInfoI = (props) => {
             {Math.round(averageRating)}
           </h2>
         </div>
-        {tutor.reviews && <ReviewsTutorTotal reviews={tutor.reviews.length} />}
+        {tutor.reviews && (
+          <h2 className="font-semibold text-gray-600">
+            {tutor.reviews.length}
+          </h2>
+        )}
       </div>
 
       {/* Apellido y nombre del tutor */}
@@ -89,6 +92,6 @@ const TutorInfoI = (props) => {
         <ButtonContactar />
       </div>
     </div>
-  );
+  )
 }
 export default TutorInfoI
