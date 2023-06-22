@@ -187,7 +187,7 @@ const tutorsSlice = createSlice({
     sortedByReview(state, action) {
       if (action.payload === 'Todos') {
         state.selectedReview = false
-        state.tutor = filterTutors(state, state.allTutors)
+        state.tutors = filterTutors(state, state.allTutors)
         return
       } else{
         state.selectedReview = parseInt(action.payload);

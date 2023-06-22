@@ -49,7 +49,6 @@ const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
           <img src={Moneda} />
           {/* Tarifa */}
           <PriceHourGray rates={tutor.mentorship} />
-          
 
           <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
             ◦
