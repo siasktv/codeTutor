@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   tutorsFetch,
   sortedByRate,
-  sortedByLanguages
+  sortedByLanguages,
+  sortedByReview
 } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
@@ -129,10 +130,6 @@ const SearchPage = () => {
     }
   }, [tutors])
 
-  const handleSortByTech = tech => {
-    dispatch(sortedByTech(tech))
-  }
-
   return (
     <div>
       <div>
@@ -142,7 +139,10 @@ const SearchPage = () => {
       <div className='bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0'>
         <SearchBarTutor />
         <div className='bg-gray-100 flex items-start px-20 py-10  w-full h-max left-0 right-0'>
-          <FilterTutor sortedByLanguages={sortedByLanguages} />
+          <FilterTutor
+            sortedByLanguages={sortedByLanguages}
+            sortedByReview={sortedByReview}
+          />
           <div className='w-full p-9 flex flex-col relative z-0'>
             {isLoading && (
               <div className='flex justify-center items-center'>
