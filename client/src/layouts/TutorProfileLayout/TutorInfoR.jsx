@@ -143,6 +143,6 @@ const TutorInfoR = (props) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 export default TutorInfoR
