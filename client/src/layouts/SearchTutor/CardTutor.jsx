@@ -91,7 +91,6 @@ const CardTutor = props => {
 
               <PriceHourGray rates={tutor.mentorship} />
               
-
               <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
                 ◦
               </span>
