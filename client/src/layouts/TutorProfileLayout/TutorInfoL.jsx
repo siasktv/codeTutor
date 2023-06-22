@@ -67,14 +67,15 @@ const TutorInfoI = (props) => {
 
       {/* Redes(GitHub y Linkedin) */}
       <div className="flex justify-center items-center pt-6 pb-6 space-x-6">
-        <LinkGitHub />
-        <LinkLinkedIn />
+        <LinkGitHub link={tutor.socialMedia[0].link} />
+
+        <LinkLinkedIn link={tutor.socialMedia[1].link} />
       </div>
 
       {/* Costos y sesiones */}
       <div className="border-t border-b flex justify-evenly items-center pt-6 pb-6 pl-4 pr-4 space-x-6">
         <div>
-          <PriceHourPurple rates={tutor.mentorship} />
+          <PriceHourPurple rates={tutor.rates[0].value} />
           <h2 className="font-semibold text-sm text-gray-700">la hora</h2>
         </div>
         <div>

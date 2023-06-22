@@ -5,7 +5,9 @@ import {
   DateUserReviewTutor
 } from '../../components'
 
-const CardReviewUser = () => {
+const CardReviewUser = (props) => {
+  const { tutor } = props;
+  console.log(tutor)
   return (
     <div>
       {/* Card opinion */}
