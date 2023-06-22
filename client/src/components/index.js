@@ -25,7 +25,6 @@ import PriceHourGray from './PriceHourGrayTutor'
 import PriceHourPurple from './PriceHourPurpleTutor'
 import ProyectNameLink from './ProyectNameLink'
 import RangeBar from './Search/RangeBar'
-import RatingTutor from './RatingTutor'
 import ReviewsTutorTotal from './ReviewsTutorTotal'
 import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
@@ -113,7 +112,6 @@ export {
   PriceHourPurple,
   ProyectNameLink,
   RangeBar,
-  RatingTutor,
   ReviewsTutorTotal,
   SessionsTutor,
   TechnicalSkillsJobTutor,
