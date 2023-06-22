@@ -4,42 +4,64 @@
 //   DescriptionUserReviewTutor,
 //   DateUserReviewTutor,
 // } from '../../components'
-
+import { useState } from 'react'
+const formatDate = (dateString) => {
+  const date = new Date(dateString)
+  const options = { month: 'long', year: 'numeric' }
+  const formattedDate = date.toLocaleDateString('es-ES', options)
+  return formattedDate.replace('de', '').trim()
+}
 const CardReviewUser = (props) => {
   const { reviews } = props
-  console.log('CardReviewUser', reviews)
+
+  const [displayedReviews, setDisplayedReviews] = useState(3)
+
+  const handleShowMoreReviews = () => {
+    setDisplayedReviews(displayedReviews + 3)
+  }
+
   return (
     <div>
-      {/* Card opinion */}
-      <div className="pb-4 flex">
-        {/* Imagen de Perfil */}
-        <img
-          src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/02/henry-cavill-2624275.jpg?tf=3840x"
-          alt="Imagen de perfil Tutor"
-          className="w-20 h-20 rounded-full object-cover transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none"
-        />
-        {/* Nombre y opinión */}
-        <div className="pl-4 flex-grow">
-          <div>
-            <h2 className="text-left font-semibold">Cavill Henry</h2>
-            <h2 className="font-semibold text-sm text-justify">
-              Deje el mundo del espectáculo para dedicarme a mi otra
-              pasión...dormir. Ah y también a programar. Mollit in laborum
-              tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint
-              culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem
-              incididunt. Deje el mundo del espectaculo para dedicarme a mi otra
-              pasión...el skate. Ah y también a programar. Mollit in laborum
-              tempor Lorem incididunt irure. Aute eu ex ad sunt. Pariatur sint
-              culpa do incididunt eiusmod eiusmod culpa. laborum tempor Lorem
-              incididunt.
-            </h2>
+      {reviews.slice(0, displayedReviews).map((review) => (
+        <div key={review._id}>
+          {/* Card opinion */}
+          <div className="pb-4 flex">
+            {/* Imagen de Perfil */}
+            <img
+              src={review.user.image}
+              alt="Imagen de perfil Tutor"
+              className="w-10 h-10 rounded-full object-cover transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none"
+            />
+            {/* Nombre y opinión */}
+            <div className="pl-4 flex-grow">
+              <div>
+                <h2 className="text-left font-semibold">
+                  {review.user.fullName}
+                </h2>
+                <h2 className="text-sm  text-[#141414B2] text-justify">
+                  {review.comment}
+                </h2>
+              </div>
+            </div>
+            {/* Fecha */}
+            <div className="pl-4 flex">
+              <p className="text-sm text-[#98A2B3] ">
+                {formatDate(review.createdAt)}
+              </p>
+            </div>
           </div>
         </div>
-        {/* Fecha */}
-        <div className="pl-4 flex">
-          <h2 className="font-semibold text-sm text-gray-600 w-16">Mayo, 15</h2>
+      ))}
+      {displayedReviews < reviews.length && (
+        <div className="flex flex-col items-center pt-6">
+          <button
+            onClick={handleShowMoreReviews}
+            className="flex flex-row items-center justify-center w-40 h-11 border border-codecolor text-codecolor rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none"
+          >
+            Ver más
+          </button>
         </div>
-      </div>
+      )}
     </div>
   )
 }

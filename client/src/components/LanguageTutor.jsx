@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-const LanguageTutor = props => {
+const LanguageTutor = (props) => {
   return (
-    <h2 className='font-semibold text-sm text-gray-600'>
-      {props.languages.map(language => (
+    <h2 className="font-semibold text-sm text-[#141414B2]">
+      {props.languages.map((language) => (
         <span key={language.language}>
           {language.language}
           {language !== props.languages[props.languages.length - 1] && ', '}
