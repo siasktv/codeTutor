@@ -3,6 +3,7 @@ import tutorsSlice from './features/tutors/tutorsSlice'
 import usersSlice from './features/users/usersSlice'
 import techesSlice from './features/teches/techesSlice'
 import locationsSlice from './features/locations/locationsSlice'
+import localUserSlice from './features/localUser/localUserSlice'
 // import usersReducer from './usersReducer'
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
     tutors: tutorsSlice,
     users: usersSlice,
     teches: techesSlice,
-    locations: locationsSlice
+    locations: locationsSlice,
+    localUser: localUserSlice
   }
 })
 

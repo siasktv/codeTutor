@@ -19,12 +19,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { useNavigate } from 'react-router-dom'
+import useUser from '../hooks/useUser'
+import NavUserSearch from '../components/NavUserSearch'
 
 const Landing = () => {
   const dispatch = useDispatch()
   const tutors = useSelector(state => state.tutors.tutors)
   const currentSearch = useSelector(state => state.tutors.currentSearch)
   const navigate = useNavigate()
+  const user = useUser()
 
   useEffect(() => {
     if (!tutors[0].bio?.specialty) {
@@ -43,7 +46,7 @@ const Landing = () => {
 
   return (
     <section>
-      <NavLogin className='z-50' />
+      <NavLogin className='z-50' user={user} />
       <div className='absolute flex-row justify-items-start  w-40 h-48 top-36 right-20 bg-white rounded-2xl border border-codecolor z-40 shadow-md shadow-gray-600'>
         <div className='absolute w-20 h-20 border-8 border-solid left-10 top-5  border-gray-200  rounded-full'></div>
         <div className='absolute w-20 h-20 border-8 border-solid left-10 top-5 border-l-transparent border-b-transparent  transform rotate-12 border-codecolor rounded-full'></div>
@@ -141,7 +144,6 @@ const Landing = () => {
                         aria-haspopup='true'
                       >
                         Buscar
-                        
                       </Link>
                     </div>
                   </div>
