@@ -84,7 +84,7 @@ const NavLogin = ({ user }) => {
                           <span className=''>Soy estudiante</span>
                         </Link>
                         <Link
-                          to='/register'
+                          to='/register?redirect=/tutor'
                           className='text-white bg-codecolor rounded-lg flex items-center py-2 my-3 text-sm font-medium justify-center text-center outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 hover:outline'
                           role='menuitem'
                           tabIndex='-1'

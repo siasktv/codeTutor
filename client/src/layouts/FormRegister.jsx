@@ -285,12 +285,6 @@ const FormRegister = ({ redirect }) => {
                 </p>
               )}
             </div>
-            <p
-              href='#'
-              className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
-            >
-              ¿Olvidaste tu contraseña?
-            </p>
             <div className='mt-8'>
               <button
                 role='button'

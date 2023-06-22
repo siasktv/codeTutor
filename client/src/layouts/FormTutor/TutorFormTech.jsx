@@ -82,10 +82,6 @@ const TutorFormTech = props => {
     }
   }, [dataForm, errorsData])
 
-  useEffect(() => {
-    console.log('dataForm', dataForm)
-  }, [dataForm])
-
   const handleYearsInput = e => {
     const years = Number(e.target.value)
     if (isNaN(years)) {

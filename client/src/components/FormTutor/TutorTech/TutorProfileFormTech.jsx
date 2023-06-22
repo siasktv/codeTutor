@@ -33,6 +33,11 @@ const TutorProfileFormTech = props => {
     })
   }
 
+  const formTeches = form.skills.map(skill => skill.tech.id)
+  const filteredTeches = technologies.filter(
+    tech => !formTeches.includes(tech._id)
+  )
+
   return (
     <>
       <CardTutorInputFields>
@@ -49,7 +54,7 @@ const TutorProfileFormTech = props => {
           <option value='default' selected hidden>
             Agregar tecnología
           </option>
-          {technologies.map((tech, index) => (
+          {filteredTeches.map((tech, index) => (
             <option
               key={index}
               value={tech._id}

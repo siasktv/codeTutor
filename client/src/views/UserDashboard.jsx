@@ -12,7 +12,7 @@ const UserDashboard = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (user === null) {
-      navigate('/login')
+      navigate('/login?redirect=/user')
     }
   }, [user])
 

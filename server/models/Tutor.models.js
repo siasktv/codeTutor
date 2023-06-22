@@ -22,7 +22,7 @@ const TutorSchema = new Schema(
       {
         language: {
           type: String,
-          enum: ['Español', 'Ingles', 'Portugues', 'Frances']
+          enum: ['Español', 'Inglés', 'Portugués', 'Francés']
         },
         level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'] }
       }
@@ -37,7 +37,8 @@ const TutorSchema = new Schema(
           type: String,
           enum: ['Mentorship', 'Freelance']
         },
-        value: { type: Number }
+        value: { type: Number },
+        promo: { type: Boolean, default: false }
       }
     ],
     bankAccount: { type: Types.ObjectId, ref: 'BankAccount' },

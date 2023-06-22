@@ -11,6 +11,7 @@ import {
   CancelarPerfilButton
 } from '../../components/'
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const TutorForm = props => {
   const {
@@ -25,7 +26,7 @@ const TutorForm = props => {
     setIsDone
   } = props
   const [isDisabled, setIsDisabled] = useState(true)
-
+  const [permantentDisabled, setPermanentDisabled] = useState(false)
   const [dataForm, setDataForm] = useState({
     avatar: form.avatar
   })
@@ -41,7 +42,84 @@ const TutorForm = props => {
 
   useEffect(() => {
     if (submit) {
-      setShowModal(true)
+      setSubmit(false)
+      setPermanentDisabled(true)
+      const experience = form.experience.map(experience => {
+        return {
+          position: experience.position,
+          company: experience.company,
+          location: experience.location,
+          startDate: experience.startDate,
+          endDate: experience.endDate,
+          currentlyWorking: experience.currentlyWorking,
+          description: experience.description,
+          technologies: experience.technologies.map(tech => tech.id)
+        }
+      })
+      const languages = form.languages.map(language => {
+        return {
+          language: language,
+          level: 'Intermediate'
+        }
+      })
+
+      const skills = form.skills.map(skill => {
+        return {
+          techName: skill.tech.id,
+          years: skill.years,
+          description: skill.experience
+        }
+      })
+
+      const projects = form.projects.map(project => {
+        return {
+          name: project.name,
+          link: project.link,
+          description: project.description,
+          techName: project.technologies.map(tech => tech.id)
+        }
+      })
+
+      const rate = {
+        hour: form.rate.hour,
+        promo: form.rate.promo
+      }
+
+      axios
+        .post('http://localhost:3001/api/tutors', {
+          fullName: form.name,
+          user: user.id,
+          avatar: form.avatar,
+          location: form.location,
+          timezone: form.zona_horaria,
+          socialMedia: [
+            {
+              name: 'linkedin',
+              link: form.social.linkedin
+            },
+            {
+              name: 'github',
+              link: form.social.github
+            }
+          ],
+          languages: languages,
+          bio: {
+            specialty: form.bio.specialty,
+            description: form.bio.description,
+            portfolio: form.bio.portfolio
+          },
+          experience: experience,
+          skills: skills,
+          projects: projects,
+          rates: rate
+        })
+        .then(res => {
+          setShowModal(true)
+        })
+        .catch(err => {
+          console.log(err)
+          setPermanentDisabled(false)
+        })
     }
   }, [submit])
 
@@ -58,6 +136,11 @@ const TutorForm = props => {
       setIsDisabled(true)
     }
   }, [isDone])
+
+  const handleRedirect = e => {
+    e.preventDefault()
+    window.location.href = '/user'
+  }
 
   return (
     <>
@@ -131,7 +214,7 @@ const TutorForm = props => {
               <CancelarPerfilButton />
               <EnviarPerfilButton
                 title='Enviar perfil'
-                isDisabled={isDisabled}
+                isDisabled={isDisabled ? true : permantentDisabled}
                 setSection={setSection}
                 setProgress={setProgress}
                 section={section}
@@ -179,10 +262,7 @@ const TutorForm = props => {
                   <button
                     type='button'
                     className='mt-3 inline-flex w-full justify-center rounded-lg bg-codecolor px-12 py-5 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto'
-                    onClick={() => {
-                      setShowModal(false)
-                      setSubmit(false)
-                    }}
+                    onClick={e => handleRedirect(e)}
                   >
                     Continuar con la plataforma
                   </button>

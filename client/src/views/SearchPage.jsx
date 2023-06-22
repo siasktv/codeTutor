@@ -114,7 +114,7 @@ const SearchPage = () => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    if (!tutors[0]?.bio?.specialty) {
+    if (!tutors.length) {
       dispatch(tutorsFetch())
     }
     dispatch(usersFetch())
