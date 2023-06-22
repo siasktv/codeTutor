@@ -3,11 +3,11 @@ import {
   PictureTutor,
   CountryTutor,
   ConexionStateTutor,
-  ReviewsTutorTotal,
+  // ReviewsTutorTotal,
   PriceHourGray,
   LanguageTutor,
   DescriptionTutor,
-  TechnicalSkillsTutor
+  TechnicalSkillsTutor,
 } from '../../components'
 
 import {
@@ -15,35 +15,34 @@ import {
   MensajeTexto,
   Moneda,
   Pais,
-  Star
+  Star,
 } from '../../assets/index'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-const CardTutor = props => {
+const CardTutor = (props) => {
   const { tutor, handleShowMessage, user } = props
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
 
-  
-  const reviewCount = tutor.reviews ? tutor.reviews.length : 0;
+  const reviewCount = tutor.reviews ? tutor.reviews.length : 0
   const totalRatings = tutor.reviews
     ? tutor.reviews.reduce((total, review) => {
         if (!isNaN(review.rating)) {
-          return total + review.rating;
+          return total + review.rating
         }
-        return total;
+        return total
       }, 0)
-    : 0;
-  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
+    : 0
+  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0
 
-  const handleShowModal = e => {
+  const handleShowModal = (e) => {
     e.preventDefault()
     setShowModal(true)
     document.body.style.overflow = 'hidden'
   }
 
-  const handleCloseModal = e => {
+  const handleCloseModal = (e) => {
     e.preventDefault()
     setShowModal(false)
     document.body.style.overflow = 'auto'
@@ -75,7 +74,9 @@ const CardTutor = props => {
                 </div>
               </div>
               {tutor.reviews && (
-                <ReviewsTutorTotal reviews={tutor.reviews.length} />
+                <h2 className="font-semibold text-gray-600">
+                  {tutor.reviews.length}
+                </h2>
               )}
             </div>
 
@@ -90,7 +91,6 @@ const CardTutor = props => {
               <img src={Moneda} />
 
               <PriceHourGray rates={tutor.mentorship} />
-              
 
               <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
                 ◦
@@ -125,7 +125,9 @@ const CardTutor = props => {
               type="button"
               title="Contactar"
               onClick={
-                user ? (event) => event.preventDefault() : (event) => handleShowModal(event)
+                user
+                  ? (event) => event.preventDefault()
+                  : (event) => handleShowModal(event)
               }
             >
               <img src={MensajeTexto} />
@@ -138,7 +140,7 @@ const CardTutor = props => {
               aria-hidden="true"
               className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto transition-all duration-300 bg-white bg-opacity-10 backdrop-blur-sm"
               onClick={(event) => {
-                event.preventDefault();
+                event.preventDefault()
               }}
             >
               <div className="relative w-full max-w-2xl max-h-full p-4 mx-auto my-10 overflow-hidden transition-all transform cursor-default md:my-0 ">
@@ -150,7 +152,7 @@ const CardTutor = props => {
                       data-modal-hide="defaultModal"
                       aria-label="Close"
                       onClick={(event) => {
-                        handleCloseModal(event);
+                        handleCloseModal(event)
                       }}
                     >
                       <svg
@@ -180,9 +182,9 @@ const CardTutor = props => {
                       type="button"
                       className="text-white bg-codecolor hover:bg-codecolordark hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        event.preventDefault();
-                        document.body.style.overflow = 'auto';
-                        navigate('/login?redirect=/search');
+                        event.preventDefault()
+                        document.body.style.overflow = 'auto'
+                        navigate('/login?redirect=/search')
                       }}
                     >
                       Iniciar sesión
@@ -192,7 +194,7 @@ const CardTutor = props => {
                       type="button"
                       className="text-white bg-red-500 hover:bg-red-700 hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        handleCloseModal(event);
+                        handleCloseModal(event)
                       }}
                     >
                       Cancelar
@@ -205,7 +207,7 @@ const CardTutor = props => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default CardTutor

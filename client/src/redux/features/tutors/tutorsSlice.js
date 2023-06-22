@@ -71,12 +71,7 @@ const initialState = {
 export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   try {
     const response = await axios.get(`${BACKEND_URL}/api/tutors`)
-<<<<<<< HEAD
-    console.log(response.data)
-    return response.data
-=======
-    return response.data.filter(tutor => tutor.status === 'approved')
->>>>>>> 995b87621f0aa34c647b169274a2fea066a2514d
+    return response.data.filter((tutor) => tutor.status === 'approved')
   } catch (error) {
     console.log(error)
   }
@@ -188,12 +183,7 @@ const tutorsSlice = createSlice({
       state.selectedRate = parseInt(action.payload)
       state.tutors = filterTutors(state, state.allTutors)
     },
-<<<<<<< HEAD
     sortedByReview(state, action) {
-      console.log(action.payload)
-=======
-    sortedByReview (state, action) {
->>>>>>> 995b87621f0aa34c647b169274a2fea066a2514d
       if (action.payload === 'Todos') {
         state.selectedReview = false
         state.tutors = filterTutors(state, state.allTutors)

@@ -25,7 +25,6 @@ import PriceHourGray from './PriceHourGrayTutor'
 import PriceHourPurple from './PriceHourPurpleTutor'
 import ProyectNameLink from './ProyectNameLink'
 import RangeBar from './Search/RangeBar'
-import ReviewsTutorTotal from './ReviewsTutorTotal'
 import SessionsTutor from './SessionsTutor'
 import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
 import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
@@ -112,7 +111,6 @@ export {
   PriceHourPurple,
   ProyectNameLink,
   RangeBar,
-  ReviewsTutorTotal,
   SessionsTutor,
   TechnicalSkillsJobTutor,
   TechnicalSkillsProyectTutor,
@@ -120,5 +118,5 @@ export {
   NavUserNotifications,
   Loader,
   MessageContainer,
-  MessageMinimized
+  MessageMinimized,
 }
