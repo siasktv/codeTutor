@@ -42,8 +42,10 @@ import settings from './settings.svg'
 import revision from './revision.svg'
 import contrate from './contrate.svg'
 import help from './help.svg'
+import Default from './default.jpg'
 
 export {
+  Default,
   videocallicon,
   collaboration,
   Duolingo,
