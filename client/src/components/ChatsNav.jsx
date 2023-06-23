@@ -127,7 +127,7 @@ export default function ChatsNav ({
     <>
       <div className='pl-3 pr-0 flex items-center'>
         <div
-          className='p-3 h-10 w-10 bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
+          className='p-2 justify-center items-center h-10 w-10 bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
           onClick={e => handleShowChat(e)}
         >
           <FontAwesomeIcon icon={faMessage} className='text-codecolor' />

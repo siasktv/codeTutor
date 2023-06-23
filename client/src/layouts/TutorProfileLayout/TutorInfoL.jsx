@@ -40,7 +40,19 @@ const TutorInfoI = (props) => {
       </div>
 
       {/* Valoraciones */}
-      <div className="flex justify-center items-center space-x-6">
+      <div className="flex flex-col justify-center items-center space-y-2">
+        <div className="flex space-x-1">
+          {Array.from({ length: Math.round(averageRating) }).map((_, index) => (
+            <img key={index} src={Star} />
+          ))}
+        </div>
+        {tutor.reviews && (
+          <h2 className="font-semibold text-gray-600">
+            {tutor.reviews.length} Reviews
+          </h2>
+        )}
+      </div>
+      {/* <div className="flex justify-center items-center space-x-6">
         <div className="flex items-center space-x-2">
           <img src={Star} />
           <h2 className="font-semibold text-lg text-codecolor">
@@ -49,10 +61,10 @@ const TutorInfoI = (props) => {
         </div>
         {tutor.reviews && (
           <h2 className="font-semibold text-gray-600">
-            {tutor.reviews.length}
+            {tutor.reviews.length} Reviews
           </h2>
         )}
-      </div>
+      </div> */}
 
       {/* Apellido y nombre del tutor */}
       <div className="pt-6 pl-4 pr-4">
@@ -83,6 +95,6 @@ const TutorInfoI = (props) => {
         <ButtonContactar />
       </div>
     </div>
-  )
+  );
 }
 export default TutorInfoI
