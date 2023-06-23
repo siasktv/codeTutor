@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 // initialState
 const initialState = {
@@ -27,7 +28,7 @@ export const fetchLocalUserChats = createAsyncThunk(
     }
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/api/conversations/${userId}`
+        `${BACKEND_URL}/api/conversations/${userId}`
       )
       return data
     } catch (error) {
