@@ -58,7 +58,6 @@ export default function ChatsNav ({
         const newUsersChat = users.filter(user => newUsers.includes(user._id))
         setNewUsersChat(newUsersChat)
         setAllNewUsersChat(newUsersChat)
-        console.log('newUsersChat', newUsersChat)
       }
     }
   }, [users, allChats])
@@ -268,7 +267,7 @@ export default function ChatsNav ({
                                           ) : (
                                             <>{chat?.lastMessage?.message}</>
                                           )
-                                        }
+                                        }{' '}
                                         -{' '}
                                         {moment(
                                           chat?.lastMessage?.createdAt
