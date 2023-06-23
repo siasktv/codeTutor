@@ -93,7 +93,6 @@ const TutorInfoR = props => {
           </div>
 
           {/* Contenedor de opiniones */}
-
           <div>
             <CardReviewUser reviews={tutor.reviews} />
           </div>
