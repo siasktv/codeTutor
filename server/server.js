@@ -272,7 +272,6 @@ io.on('connection', socket => {
 connectDB()
 server.use('/', routes)
 
-if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 serverhttp.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
