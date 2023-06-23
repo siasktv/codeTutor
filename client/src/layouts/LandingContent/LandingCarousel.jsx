@@ -5,8 +5,8 @@ import LandingSlide3 from "../../components/LandingSlides/LandingSlide3";
 
 const LandingCarousel = ({
   slides = [<LandingSlide1 />, <LandingSlide2 />, <LandingSlide3 />],
-  autoSlide = false,
-  autoSlideInterval = 8000,
+  autoSlide = true,
+  autoSlideInterval = 6000,
 }) => {
   const [curr, setCurr] = useState(0);
 
@@ -49,13 +49,13 @@ const LandingCarousel = ({
         </div>
         
 
-        <div className="absolute bottom-2 right-0 left-0 mt-5">
+        <div className="absolute bottom-4 right-0 left-0 ">
           <div className="flex items-center justify-center gap-2">
             {slides.map((_, i) => (
               <div
                 key={i}
                 className={`transition-all w-3 h-3 rounded-full bg-codecolor cursor-pointer ${
-                  curr === i ? "w-8" : "bg-opacity-50"
+                  curr === i ? "w-8" : "bg-gray-300"
                 }`}
                 style={{ backgroundColor: curr === i ? "#codecolor" : "" }}
                 onClick={() => goToSlide(i)}

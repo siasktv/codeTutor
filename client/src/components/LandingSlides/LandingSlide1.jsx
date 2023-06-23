@@ -15,15 +15,15 @@ const LandingSlide1 = () => {
                   </span>
                 </Link>
             </div>
-        <h1 className="mt-3 px-24 mb-10 text-4xl font-extrabold text-blackcodecolor ">
+        <h1 className="mt-3 px-24 mb-10 text-4xl font-semibold text-blackcodecolor ">
         En Code-Tutor encontré la ayuda que necesitaba para depurar mi código y poder deployar mi aplicación.
             
         </h1>
         <div className="flex justify-center">
             <img src={Marvin} alt="Praveen Juge" className="flex justify-center" />
         </div>
-          <p className="text-base font-medium text-[#101828]">Praveen Juge</p>
-          <p className="text-xs font-medium text-[#667085]">CEO, Birds</p>
+          <p className="text-lg font-medium text-[#101828] pt-4">Marvin McKinney</p>
+          <p className="text-md font-medium text-[#667085] pt-2">Full Stack Developer Freelance en Argentina</p>
         </div>
       </section>
     </div>

@@ -10,6 +10,7 @@ import {
 } from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
+import RestorePassword from './views/RestorePassword'
 
 function App () {
   return (
@@ -19,6 +20,7 @@ function App () {
           <Route path='/' element={<Landing />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/restore' element={<RestorePassword />} />
           <Route path='/search' element={<SearchPage />} />
           <Route path='/tutor/:id' element={<TutorProfile />} />
           <Route path='/user' element={<UserDashboard />} />

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Marvin } from "../../assets";
+import { Albert} from "../../assets";
 import IconCodeTutor from "../../assets/IconCodeTutor.svg";
 
 const LandingSlide2 = () => {
@@ -15,15 +15,15 @@ const LandingSlide2 = () => {
                   </span>
                 </Link>
             </div>
-        <h1 className="mt-3 px-24 mb-10 text-4xl font-extrabold text-blackcodecolor ">
-        En Code-Tutor encontré la ayuda que necesitaba para depurar mi código y poder deployar mi aplicación.
+        <h1 className="mt-3 px-24 mb-10 text-4xl font-semibold text-blackcodecolor ">
+        En Code-Tutor encontré un desarrolador freelance dispuesto a ayudarme a crear el sitio web de mi empresa.
             
         </h1>
         <div className="flex justify-center">
-            <img src={Marvin} alt="Praveen Juge" className="flex justify-center" />
+            <img src={Albert} alt="Praveen Juge" className="flex justify-center" />
         </div>
-          <p className="text-base font-medium text-[#101828]">Praveen Juge</p>
-          <p className="text-xs font-medium text-[#667085]">CEO, Birds</p>
+          <p className="text-lg font-medium text-[#101828] pt-4">Albert Flores</p>
+          <p className="text-md font-medium text-[#667085] pt-2">Estudiante Universidad de Toronto, Canadá</p>
         </div>
       </section>
     </div>

@@ -23,6 +23,8 @@ import LandingContent from '../layouts/LandingContent/LandingContent'
 import LandingCarousel from '../layouts/LandingContent/LandingCarousel'
 import useUser from '../hooks/useUser'
 import NavUserSearch from '../components/NavUserSearch'
+import LandingFounders from '../layouts/LandingContent/LandingFounders'
+import LandingFooter from '../layouts/LandingContent/LandingFooter'
 
 const Landing = () => {
   const dispatch = useDispatch()
@@ -53,7 +55,7 @@ const Landing = () => {
       
     
 
-      <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10'>
+      <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10 w-full'>
         <div className='flex flex-wrap items-center mx-auto max-w-7xl'>
           <div className='flex flex-col items-start text-left lg:flex-grow  lg:w-1/2 relative     '>
             <h1 className='mb-8 text-4xl font-bold pt-8 tracking-tighter  md:text-9xl lg:text-7xl'>
@@ -252,7 +254,9 @@ const Landing = () => {
 
       </div>
       <LandingContent/>
+      <LandingFounders/>
       <LandingCarousel/>
+      <LandingFooter/>
     </section>
   )
 }
