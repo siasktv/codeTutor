@@ -5,17 +5,26 @@ import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
 import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
-import { Loader } from '../components'
+import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import { Loader, ChatsNav } from '../components'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
+import 'moment/locale/es'
 
-const NavDashboard = ({ user }) => {
+const NavDashboard = ({
+  user,
+  handleShowMessage,
+  setShowMessage,
+  showMessage
+}) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showChat, setShowChat] = useState(false)
   const [showTech, setShowTech] = useState(false)
+  const localUserChats = useSelector(state => state.localUser.chats)
 
   const tutors = useSelector(state => state.tutors.tutors)
   const teches = useSelector(state => state.teches.teches)
@@ -29,6 +38,15 @@ const NavDashboard = ({ user }) => {
     dispatch(usersFetch())
     dispatch(techesFetch())
   }, [dispatch])
+
+  useEffect(() => {
+    if (showMessage) {
+      setShowChat(false)
+      setShowNotifications(false)
+      setShowProfile(false)
+      setShowTech(false)
+    }
+  }, [showMessage])
 
   const [notifications, setNotifications] = useState([
     {
@@ -146,21 +164,47 @@ const NavDashboard = ({ user }) => {
   const handleShowNotifications = () => {
     setShowNotifications(!showNotifications)
     setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleShowProfile = () => {
     setShowProfile(!showProfile)
     setShowNotifications(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleShowChat = e => {
+    if (!showChat) {
+      dispatch(fetchLocalUserChats(user.id))
+    } else {
+      dispatch(fetchLocalUserChats(null))
+    }
+    setShowChat(!showChat)
+    setShowNotifications(false)
+    setShowProfile(false)
+    if (showMessage) {
+      setShowMessage(false)
+    }
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleShowTech = () => {
     setShowTech(!showTech)
     setShowNotifications(false)
     setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleSortByTech = tech => {
     dispatch(sortedByTech(tech))
+  }
+
+  const handleSendShowMessage = (e, user) => {
+    setShowChat(false)
+    handleShowMessage(e, user)
   }
 
   return (
@@ -169,7 +213,7 @@ const NavDashboard = ({ user }) => {
         <>
           <header className='flex items-center h-20 w-full z-50'>
             <div className='flex justify-between w-full items-center'>
-              <div className='pl-8 pt-1'>
+              <div className='pl-[45%] pt-1'>
                 <div className='relative'>
                   <button
                     className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
@@ -201,13 +245,13 @@ const NavDashboard = ({ user }) => {
                       <img
                         src={user.image}
                         alt='avatar'
-                        className='w-10 h-10  rounded-full border-none cursor-pointer'
+                        className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                         onClick={handleShowProfile}
                         referrerPolicy='no-referrer'
                       ></img>
                     </div>
                     {showProfile && (
-                      <div className='absolute top-12 mt-2 mr-10 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                      <div className='absolute top-12 mt-2 mr-20 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                         <div className='flex flex-col gap-2 p-2'>
                           <div className='flex flex-col gap-2'>
                             <button
@@ -222,8 +266,18 @@ const NavDashboard = ({ user }) => {
                     )}
                   </div>
 
+                  {/* Chats */}
+                  <ChatsNav
+                    user={user}
+                    handleShowChat={handleShowChat}
+                    showChat={showChat}
+                    setShowChat={setShowChat}
+                    localUserChats={localUserChats}
+                    handleSendShowMessage={handleSendShowMessage}
+                  />
+
                   {/* Notificaciones */}
-                  <div className='px-8 flex items-center'>
+                  <div className='pr-8 pl-3 flex items-center'>
                     <div
                       className='p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
                       onClick={handleShowNotifications}
@@ -231,9 +285,9 @@ const NavDashboard = ({ user }) => {
                       <img src={notification} className=''></img>
                     </div>
                     {showNotifications && (
-                      <div className='absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                        <div className='flex flex-col gap-2 p-4 h-80'>
-                          <div className='flex justify-between items-center flex-1'>
+                      <div className='absolute top-14 mt-2 right-3  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                        <div className='flex flex-col gap-2 p-4 max-h-80'>
+                          <div className='flex justify-between items-start flex-1'>
                             <h1 className='font-bold text-xl text-codecolor'>
                               Notificaciones
                             </h1>
@@ -265,7 +319,7 @@ const NavDashboard = ({ user }) => {
                                   >
                                     <div className='flex justify-center align-middle items-center'>
                                       <img
-                                        className='w-10 h-10 rounded-full border-none mr-2'
+                                        className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                         src={notification.avatar}
                                         alt='avatar'
                                       />
@@ -301,7 +355,7 @@ const NavDashboard = ({ user }) => {
             </div>
             {showTech && (
               <div className='absolute w-full z-50 top-20  '>
-                <div className='flex justify-start'>
+                <div className='flex justify-center'>
                   <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
                     {categories.map(category => (
                       <button

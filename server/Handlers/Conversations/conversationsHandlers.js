@@ -1,6 +1,7 @@
 const createConversation = require('../../controllers/Conversations/createConversation')
 const getConversationByMembers = require('../../controllers/Conversations/getConversationByMembers')
 const getConversationsFromUserId = require('../../controllers/Conversations/getConversationsFromUid')
+const setConversationRead = require('../../controllers/Conversations/setConversationRead')
 
 const createConversationHandler = async (req, res) => {
   const { members } = req.body
@@ -35,7 +36,10 @@ const getConversationByMembersHandler = async (req, res) => {
   try {
     const conversation = await getConversationByMembers([userId, otherUserId])
     if (!conversation) {
-      const createConversationAction = await createConversation([userId, otherUserId])
+      const createConversationAction = await createConversation([
+        userId,
+        otherUserId
+      ])
       return res.status(200).json(createConversationAction)
     }
     res.status(200).json(conversation)
@@ -55,8 +59,21 @@ const getConversationsFromUserIdHandler = async (req, res) => {
   }
 }
 
+const setConversationReadHandler = async (req, res) => {
+  const { conversationId } = req.params
+  const { userId } = req.body
+
+  try {
+    const conversation = await setConversationRead(conversationId, userId)
+    res.status(200).json(conversation)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
 module.exports = {
   createConversationHandler,
   getConversationByMembersHandler,
-  getConversationsFromUserIdHandler
+  getConversationsFromUserIdHandler,
+  setConversationReadHandler
 }

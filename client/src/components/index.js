@@ -34,6 +34,7 @@ import NavUserNotifications from './NavUserNotifications'
 import Loader from './Loader'
 import MessageContainer from './MessageContainer'
 import MessageMinimized from './MessageMinimized'
+import ChatsNav from './ChatsNav'
 
 //FormTutor
 //componentes generales
@@ -119,4 +120,5 @@ export {
   Loader,
   MessageContainer,
   MessageMinimized,
+  ChatsNav
 }
