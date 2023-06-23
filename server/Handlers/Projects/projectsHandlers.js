@@ -34,7 +34,7 @@ const deleteProjectHandler = async (req, res) => {
 }
 
 const createProjectHandler = async (req, res) => {
-  const { tutor, name, link, description, techName } = req.body
+  const { tutor, name, link, end_date, description, techName } = req.body;
   if (!tutor) {
     return res.status(400).json({ error: 'Tutor is required' })
   }
@@ -55,6 +55,7 @@ const createProjectHandler = async (req, res) => {
       tutor,
       name,
       link,
+      end_date,
       description,
       techName
     })
@@ -66,7 +67,7 @@ const createProjectHandler = async (req, res) => {
 
 const updateProjectHandler = async (req, res) => {
   const { id } = req.params
-  const { tutor, name, link, description, techName } = req.body
+  const { tutor, name, link, end_date, description, techName } = req.body;
   if (!tutor) {
     return res.status(400).json({ error: 'Tutor is required' })
   }
@@ -87,6 +88,7 @@ const updateProjectHandler = async (req, res) => {
       tutor,
       name,
       link,
+      end_date,
       description,
       techName
     })

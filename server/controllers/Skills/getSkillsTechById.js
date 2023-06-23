@@ -1,4 +1,4 @@
-const SkillsTech = require('../../models/SkillsTech.models');
+const SkillsTech = require('../../models/SkillsTech.models.js');
 
 
 const getSkillsTechById = async (id) => {

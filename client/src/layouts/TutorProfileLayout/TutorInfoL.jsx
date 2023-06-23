@@ -1,14 +1,5 @@
 /* eslint-disable react/prop-types */
-// import PictureTutor from "../../components/PictureTutor";
-// import ConexionStateTutor from "../../components/ConexionStateTutor";
-// import RatingTutor from "../../components/RatingTutor";
-// import ReviewsTutorTotal from "../../components/ReviewsTutorTotal";
-// import NameTutor from "../../components/NameTutor";
-// import LinkGitHub from "../../components/LinkGitHubTutor";
-// import LinkLinkedIn from "../../components/LinkLinkedInTutor";
-// import PriceHourPurple from "../../components/PriceHourPurpleTutor";
-// import SessionsTutor from "../../components/SessionsTutor";
-// import ButtonContactar from "../../components/Buttons/ButtonTextContactarTutor";
+
 import {
   PictureTutor,
   ConexionStateTutor,
@@ -70,8 +61,9 @@ const TutorInfoI = (props) => {
 
       {/* Redes(GitHub y Linkedin) */}
       <div className="flex justify-center items-center pt-6 pb-6 space-x-6">
-        <LinkGitHub />
-        <LinkLinkedIn />
+        <LinkGitHub link={tutor.socialMedia[0].link} />
+
+        <LinkLinkedIn link={tutor.socialMedia[1].link} />
       </div>
 
       {/* Costos y sesiones */}

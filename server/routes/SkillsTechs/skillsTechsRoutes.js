@@ -6,7 +6,7 @@ const {
   deleteSkillsTechHandler,
   createSkillsTechHandler,
   updateSkillsTechHandler,
-} = require('../../Handlers/SkillsTechs/skillsTechsHandlers');
+} = require('../../Handlers/SkillsTechs/skillsTechsHandlers.js');
 
 const router = Router();
 

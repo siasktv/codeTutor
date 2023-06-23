@@ -1,10 +1,3 @@
-import {
-  ExpJobTutor,
-  CountryJobTutor,
-  CompanyJobTutor,
-  TechnicalSkillsJobTutor,
-  DescriptionJobTutor,
-} from '../../components'
 
 import { Pais, Calendario } from '../../assets'
 import { useState } from 'react'
@@ -27,7 +20,7 @@ const CardExperience = (props) => {
   return (
     <div>
       {experience.slice(0, displayedExperience).map((ex) => (
-        <div>
+        <div key={ex._id}>
           {/* Experiencias */}
           <div className="pt-6 pb-6 flex justify-between items-center space-x-6">
             <div className="flex items-cent">
@@ -88,7 +81,7 @@ const CardExperience = (props) => {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default CardExperience

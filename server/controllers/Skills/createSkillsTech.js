@@ -1,4 +1,4 @@
-const SkillsTech = require('../../models/SkillsTech.models')
+const SkillsTech = require('../../models/SkillsTech.models.js')
 const Tutors = require('../../models/Tutor.models.js');
 
 const createSkillsTech = async ({ tutor, techName, years, description }) => {

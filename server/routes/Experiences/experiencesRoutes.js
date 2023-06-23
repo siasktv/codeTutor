@@ -7,7 +7,7 @@ const {
   updatedExperienceHandler,
   getExperienceByIdHandler,
   getExperienceByTutorIdHandler
-} = require('../../Handlers/Experience/experienceHandlers')
+} = require('../../Handlers/Experience/experienceHandlers.js')
 
 router.get('/', getAllExperiencesHandler)
 router.get('/:id', getExperienceByIdHandler)

@@ -5,7 +5,6 @@ import {
   LanguageTutor,
   DescriptionTutor,
   TechnicalSkillsTutor,
-  ButtonShowMore,
   PriceHourGray,
 } from '../../components'
 import { CardReviewUser, CardExperience, CardProyects } from '../'
@@ -14,7 +13,6 @@ import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
 const TutorInfoR = (props) => {
   const { tutor } = props
-  console.log(tutor)
   const reviewCount = tutor.reviews ? tutor.reviews.length : 0
   const totalRatings = tutor.reviews
     ? tutor.reviews.reduce((total, review) => {
@@ -83,13 +81,13 @@ const TutorInfoR = (props) => {
               <img src={Star} />
               {/* Puntuación */}
               <h2 className="font-semibold text-lg text-codecolor">
-                {Math.round(averageRating)}
+                {Math.round(averageRating)}  Reviews
               </h2>
             </div>
             {/* Reviews */}
             {tutor.reviews && (
               <h2 className="font-semibold text-gray-600">
-                {tutor.reviews.length}
+                {tutor.reviews.length} Reviews
               </h2>
             )}
           </div>
@@ -100,10 +98,6 @@ const TutorInfoR = (props) => {
             <CardReviewUser reviews={tutor.reviews} />
           </div>
 
-          {/* Boton ver más opiniones */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
 
         {/* Experiencia Laboral */}
@@ -116,10 +110,6 @@ const TutorInfoR = (props) => {
           {/* Card Experiencias */}
           <CardExperience experience={tutor.experience} />
 
-          {/* Boton ver más Experiencias laborales */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
 
         {/* Experiencia en Proyectos */}
@@ -132,10 +122,6 @@ const TutorInfoR = (props) => {
           {/* Card Proyectos */}
           <CardProyects projects={tutor.projects} />
 
-          {/* Boton ver más Proyectos */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
       </div>
     </div>

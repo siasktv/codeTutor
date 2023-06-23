@@ -75,7 +75,7 @@ const CardTutor = (props) => {
               </div>
               {tutor.reviews && (
                 <h2 className="font-semibold text-gray-600">
-                  {tutor.reviews.length}
+                  {tutor.reviews.length} Reviews
                 </h2>
               )}
             </div>
@@ -140,7 +140,7 @@ const CardTutor = (props) => {
               aria-hidden="true"
               className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto transition-all duration-300 bg-white bg-opacity-10 backdrop-blur-sm"
               onClick={(event) => {
-                event.preventDefault()
+                event.preventDefault();
               }}
             >
               <div className="relative w-full max-w-2xl max-h-full p-4 mx-auto my-10 overflow-hidden transition-all transform cursor-default md:my-0 ">
@@ -152,7 +152,7 @@ const CardTutor = (props) => {
                       data-modal-hide="defaultModal"
                       aria-label="Close"
                       onClick={(event) => {
-                        handleCloseModal(event)
+                        handleCloseModal(event);
                       }}
                     >
                       <svg
@@ -182,9 +182,9 @@ const CardTutor = (props) => {
                       type="button"
                       className="text-white bg-codecolor hover:bg-codecolordark hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        event.preventDefault()
-                        document.body.style.overflow = 'auto'
-                        navigate('/login?redirect=/search')
+                        event.preventDefault();
+                        document.body.style.overflow = 'auto';
+                        navigate('/login?redirect=/search');
                       }}
                     >
                       Iniciar sesión
@@ -194,7 +194,7 @@ const CardTutor = (props) => {
                       type="button"
                       className="text-white bg-red-500 hover:bg-red-700 hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        handleCloseModal(event)
+                        handleCloseModal(event);
                       }}
                     >
                       Cancelar
@@ -207,7 +207,7 @@ const CardTutor = (props) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default CardTutor

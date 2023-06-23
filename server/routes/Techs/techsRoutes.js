@@ -7,7 +7,7 @@ const {
   deleteTechHandler,
   createTechHandler,
   updateTechHandler,
-} = require('../../Handlers/Techs/techsHandlers')
+} = require('../../Handlers/Techs/techsHandlers.js')
 
 const router = Router();
 

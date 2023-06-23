@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { FlechaFiltro, LineasFiltro } from '../../assets'
-import { sortedByLocation } from '../../redux/features/tutors/tutorsSlice'
+import { sortedByLocation } from '../../redux/features/tutors/tutorsSlice.js'
 
 import { useEffect } from 'react'
 
