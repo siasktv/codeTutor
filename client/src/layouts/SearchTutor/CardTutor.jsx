@@ -3,11 +3,11 @@ import {
   PictureTutor,
   CountryTutor,
   ConexionStateTutor,
-  ReviewsTutorTotal,
+  // ReviewsTutorTotal,
   PriceHourGray,
   LanguageTutor,
   DescriptionTutor,
-  TechnicalSkillsTutor
+  TechnicalSkillsTutor,
 } from '../../components'
 
 import {
@@ -15,35 +15,34 @@ import {
   MensajeTexto,
   Moneda,
   Pais,
-  Star
+  Star2,
 } from '../../assets/index'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-const CardTutor = props => {
+const CardTutor = (props) => {
   const { tutor, handleShowMessage, user } = props
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
 
-  
-  const reviewCount = tutor.reviews ? tutor.reviews.length : 0;
+  const reviewCount = tutor.reviews ? tutor.reviews.length : 0
   const totalRatings = tutor.reviews
     ? tutor.reviews.reduce((total, review) => {
         if (!isNaN(review.rating)) {
-          return total + review.rating;
+          return total + review.rating
         }
-        return total;
+        return total
       }, 0)
-    : 0;
-  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0;
+    : 0
+  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0
 
-  const handleShowModal = e => {
+  const handleShowModal = (e) => {
     e.preventDefault()
     setShowModal(true)
     document.body.style.overflow = 'hidden'
   }
 
-  const handleCloseModal = e => {
+  const handleCloseModal = (e) => {
     e.preventDefault()
     setShowModal(false)
     document.body.style.overflow = 'auto'
@@ -68,14 +67,19 @@ const CardTutor = props => {
               <div className="flex space-x-3">
                 <h2 className="text-2xl font-medium">{tutor.bio.specialty}</h2>
                 <div className="flex items-center space-x-2">
-                  <img src={Star} />
-                  <h2 className="font-semibold  text-codecolor">
-                    {Math.round(averageRating)}
-                  </h2>
+                  <div className="flex justify-center items-center space-x-2">
+                    {Array.from({ length: Math.round(averageRating) }).map(
+                      (_, index) => (
+                        <img key={index} src={Star2} />
+                      )
+                    )}
+                    </div>
                 </div>
               </div>
               {tutor.reviews && (
-                <ReviewsTutorTotal reviews={tutor.reviews.length} />
+                <h2 className="font-semibold text-gray-600">
+                  {tutor.reviews.length} Reviews
+                </h2>
               )}
             </div>
 
@@ -90,7 +94,6 @@ const CardTutor = props => {
               <img src={Moneda} />
 
               <PriceHourGray rates={tutor.mentorship} />
-              
 
               <span className="pl-4 pr-4 font-semibold text-sm text-gray-600">
                 ◦
@@ -125,7 +128,9 @@ const CardTutor = props => {
               type="button"
               title="Contactar"
               onClick={
-                user ? (event) => event.preventDefault() : (event) => handleShowModal(event)
+                user
+                  ? (event) => event.preventDefault()
+                  : (event) => handleShowModal(event)
               }
             >
               <img src={MensajeTexto} />

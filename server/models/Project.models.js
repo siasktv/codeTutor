@@ -15,6 +15,10 @@ const ProjectSchema = new Schema(
       type: String,
       required: true,
     },
+    end_date: {
+      type: Date,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -29,6 +33,6 @@ const ProjectSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
 module.exports = model('Project', ProjectSchema)

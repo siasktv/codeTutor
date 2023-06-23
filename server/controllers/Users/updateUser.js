@@ -1,4 +1,4 @@
-const User = require('../../models/User.models')
+const User = require('../../models/User.models.js')
 
 const updateUser = async (
   id,

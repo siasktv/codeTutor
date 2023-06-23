@@ -1,8 +1,8 @@
-const createMessage = require('../../controllers/Message/createMessage')
-const getMessagesFromConversation = require('../../controllers/Message/getMessagesFromConversation')
+const createMessage = require('../../controllers/Message/createMessage.js')
+const getMessagesFromConversation = require('../../controllers/Message/getMessagesFromConversation.js')
 
 const createMessageHandler = async (req, res) => {
-  const { conversationId, sender, message } = req.body
+  const { conversationId, sender, message, read } = req.body
   if (!conversationId) {
     return res.status(400).json({ error: 'Conversation ID is required' })
   } else if (!sender) {
@@ -11,7 +11,12 @@ const createMessageHandler = async (req, res) => {
     return res.status(400).json({ error: 'Message is required' })
   }
   try {
-    const newMessage = await createMessage(conversationId, sender, message)
+    const newMessage = await createMessage(
+      conversationId,
+      sender,
+      message,
+      read
+    )
     res.status(200).json(newMessage)
   } catch (error) {
     res.status(500).json({ error: error.message })

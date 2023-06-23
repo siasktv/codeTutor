@@ -1,8 +1,8 @@
-const createTech = require('../../controllers/Techs/createTech')
-const getTechById = require('../../controllers/Techs/getTechById')
-const getAllTech = require('../../controllers/Techs/getAllTech')
-const deleteTech = require('../../controllers/Techs/deleteTech')
-const updateTech = require('../../controllers/Techs/updateTech')
+const createTech = require('../../controllers/Techs/createTech.js')
+const getTechById = require('../../controllers/Techs/getTechById.js')
+const getAllTech = require('../../controllers/Techs/getAllTech.js')
+const deleteTech = require('../../controllers/Techs/deleteTech.js')
+const updateTech = require('../../controllers/Techs/updateTech.js')
 
 
 const getAllTechHandler = async (req, res) => {

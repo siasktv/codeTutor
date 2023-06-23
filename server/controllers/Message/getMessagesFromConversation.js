@@ -1,4 +1,4 @@
-const Message = require('../../models/Message.model')
+const Message = require('../../models/Message.model.js')
 
 const getMessagesFromConversation = async conversationId => {
   const messages = await Message.find({

@@ -49,11 +49,11 @@ const Landing = () => {
   }
 
   return (
-    <section className='overflow-x-hidden flex-1'>
-      <NavLogin className='z-50' user={user} />
-      
-      
-    
+    <section className=' flex-1'>
+      <div className='sticky top-0 z-[100] bg-white'>
+        <NavLogin user={user} />
+      </div>
+      <div className=' overflow-x-hidden'>
 
       <div className='px-0 pt-10 pb-20 mx-auto max-w-7xl sm:px-0 md:px-0 lg:px-0 lg:pt-10 w-full'>
         <div className='flex flex-wrap items-center mx-auto max-w-7xl'>
@@ -257,6 +257,8 @@ const Landing = () => {
       <LandingFounders/>
       <LandingCarousel/>
       <LandingFooter/>
+      </div>
+
     </section>
   )
 }

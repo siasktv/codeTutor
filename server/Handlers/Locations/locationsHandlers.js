@@ -1,5 +1,5 @@
-const getAllLocation = require('../../controllers/Locations/getAllLocation')
-const saveApiLocation = require('../../controllers/Locations/saveApiLocation')
+const getAllLocation = require('../../controllers/Locations/getAllLocation.js')
+const saveApiLocation = require('../../controllers/Locations/saveApiLocation.js')
 
 
 const getAllLocationHandler = async (req, res) => {
