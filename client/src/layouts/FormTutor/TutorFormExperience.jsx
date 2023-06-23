@@ -110,8 +110,8 @@ const TutorFormExperience = props => {
   return (
     <>
       {/* <NavUserNotifications /> */}
-      <section className='bg-[#FAFBFC] h-full w-full'>
-        <div className='flex flex-col pt-[33px]'>
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className="flex flex-col pt-[33px]">
           <TutorFormWelcome user={user} />
           <TutorFormProgressBar
             progress={progress}
@@ -124,35 +124,35 @@ const TutorFormExperience = props => {
           />
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className="flex justify-center mt-[33px] mx-28">
           <TutorFormDataLeft
             user={user}
             form={form}
             setDataForm={setDataForm}
             dataForm={dataForm}
           />
-          <section className='flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6'>
-            <div className='mx-[52px] my-[36px] '>
-              <div className='flex flex-row items-center mb-[50px]'>
-                <h2 className='font-inter font-bold text-[25px] text-[#05004E] text-left'>
-                  Empleo{' '}
+          <section className="flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6">
+            <div className="mx-[52px] my-[36px] ">
+              <div className="flex flex-row items-center mb-[50px]">
+                <h2 className="font-inter font-bold text-[25px] text-[#05004E] text-left">
+                  Empleo{" "}
                   {correct && (
                     <FontAwesomeIcon
                       icon={faCheckCircle}
-                      className='text-green-500 text-xl'
+                      className="text-green-500 text-xl"
                     />
                   )}
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
-                      className='text-orange-300 text-xl'
+                      className="text-orange-300 text-xl"
                     />
                   )}
                 </h2>
               </div>
 
-              <div className='flex space-x-8'>
-                <div className='block w-full'>
+              <div className="flex space-x-8">
+                <div className="block w-full">
                   <JobPosition
                     dataForm={dataForm}
                     setDataForm={setDataForm}
@@ -160,7 +160,7 @@ const TutorFormExperience = props => {
                     setErrorsData={setErrorsData}
                   />
                 </div>
-                <div className='block w-full'>
+                <div className="block w-full">
                   <JobName
                     dataForm={dataForm}
                     setDataForm={setDataForm}
@@ -179,7 +179,7 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className='flex space-x-8 mt-[50px] mb-[50px]'>
+              <div className="flex space-x-8 mt-[50px] mb-[50px]">
                 <JobDuration
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -188,11 +188,11 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className='flex space-x-6 items-center'>
+              <div className="flex space-x-6 items-center">
                 <JobCheckbox dataForm={dataForm} setDataForm={setDataForm} />
               </div>
 
-              <div className='mt-[50px] mb-[30px]'>
+              <div className="mt-[50px] mb-[30px]">
                 <JobDescription
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -201,7 +201,7 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className='mt-[50px] mb-[30px]'>
+              <div className="mt-[50px] mb-[30px]">
                 <JobTechnologies
                   technologies={technologies}
                   dataForm={dataForm}
@@ -213,10 +213,10 @@ const TutorFormExperience = props => {
             </div>
           </section>
         </section>
-        <section className='flex justify-end items-center space-x-4 mx-40 -mt-12 pt-6 pb-[64px]'>
+        <section className="flex justify-end items-center space-x-4 mx-28 pt-6 pb-8">
           <CancelarPerfilButton />
           <EnviarPerfilButton
-            title={isEdit ? 'Actualizar' : 'Guardar'}
+            title={isEdit ? "Actualizar" : "Guardar"}
             isDisabled={isDisabled}
             setSection={setSection}
             setProgress={setProgress}
@@ -233,7 +233,7 @@ const TutorFormExperience = props => {
         </section>
       </section>
     </>
-  )
+  );
 }
 
 export default TutorFormExperience

@@ -146,9 +146,9 @@ const TutorFormBio = props => {
   return (
     <>
       {/* <NavUserNotifications /> */}
-      <section className='bg-[#FAFBFC] h-full w-full'>
-        <div className='flex flex-col'>
-          <div className='flex flex-col mt-[33px]'>
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className="flex flex-col">
+          <div className="flex flex-col mt-[33px]">
             <TutorFormWelcome user={user} />
             <TutorFormProgressBar
               progress={progress}
@@ -162,94 +162,94 @@ const TutorFormBio = props => {
           </div>
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className="flex justify-center mt-[33px] mx-28">
           <TutorFormDataLeft
             user={user}
             form={form}
             dataForm={dataForm}
             setDataForm={setDataForm}
           />
-          <section className='flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6'>
-            <div className='mx-[52px] my-[36px] '>
-              <div className='flex flex-row items-center mb-[50px]'>
-                <h2 className='font-inter   font-bold text-[25px] text-[#05004E] text-left'>
-                  Biografía{' '}
+          <section className="flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6">
+            <div className="mx-[52px] my-[36px] ">
+              <div className="flex flex-row items-center mb-[50px]">
+                <h2 className="font-inter   font-bold text-[25px] text-[#05004E] text-left">
+                  Biografía{" "}
                   {correct && (
                     <FontAwesomeIcon
                       icon={faCheckCircle}
-                      className='text-green-500 text-xl'
+                      className="text-green-500 text-xl"
                     />
                   )}
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
-                      className='text-orange-300 text-xl'
+                      className="text-orange-300 text-xl"
                     />
                   )}
                 </h2>
               </div>
-              <p className='text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
+              <p className="text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left">
                 Selecciona tu especialidad como desarrollador *
               </p>
-              <div className='relative'>
+              <div className="relative">
                 <select
-                  id='inputField'
-                  className='w-full py-3 pl-4 pr-8 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                  id="inputField"
+                  className="w-full py-3 pl-4 pr-8 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none"
                   onChange={handleSpecialtySelect}
                 >
-                  <option value='default' disabled hidden selected>
+                  <option value="default" disabled hidden selected>
                     Selecciona una especialidad
                   </option>
                   <option
-                    value='Front-end Developer'
-                    selected={dataForm.specialty === 'Front-end Developer'}
+                    value="Front-end Developer"
+                    selected={dataForm.specialty === "Front-end Developer"}
                   >
                     Front End Developer
                   </option>
                   <option
-                    value='Back-end Developer'
-                    selected={dataForm.specialty === 'Back-end Developer'}
+                    value="Back-end Developer"
+                    selected={dataForm.specialty === "Back-end Developer"}
                   >
                     Back End Developer
                   </option>
                   <option
-                    value='Full Stack Developer'
-                    selected={dataForm.specialty === 'Full Stack Developer'}
+                    value="Full Stack Developer"
+                    selected={dataForm.specialty === "Full Stack Developer"}
                   >
                     Full Stack Developer
                   </option>
                   <option
-                    value='Data Base Speciality'
-                    selected={dataForm.specialty === 'Data Base Speciality'}
+                    value="Data Base Speciality"
+                    selected={dataForm.specialty === "Data Base Speciality"}
                   >
                     Database Specialist
                   </option>
                   {/* Add more options as needed */}
                 </select>
 
-                <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
                   <img src={FlechaFiltro} />
                 </div>
               </div>
               {errors.specialty && (
-                <p className='font-inter font-normal mb-[50px] text-red-500 text-left'>
+                <p className="font-inter font-normal mb-[50px] text-red-500 text-left">
                   {errors.specialty}
                 </p>
               )}
-              <p className='text-[#737791] font-inter text-base mt-[50px] mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
+              <p className="text-[#737791] font-inter text-base mt-[50px] mb-[30px] font-medium leading-[27px] tracking-normal text-left">
                 Breve biografía *
               </p>
 
               <textarea
                 className={
                   errors.description
-                    ? 'w-full rounded-lg border border-red-500 p-3 text-lg focus:outline-red-500 resize-none'
-                    : 'w-full rounded-lg border border-[#C3D3E2] p-3 text-lg resize-none'
+                    ? "w-full rounded-lg border border-red-500 p-3 text-lg focus:outline-red-500 resize-none"
+                    : "w-full rounded-lg border border-[#C3D3E2] p-3 text-lg resize-none"
                 }
-                rows='8'
-                id='message'
+                rows="8"
+                id="message"
                 maxLength={500}
-                placeholder='Escribe una breve biografía'
+                placeholder="Escribe una breve biografía"
                 onChange={handleDescriptionInput}
                 value={dataForm.description}
               ></textarea>
@@ -257,50 +257,50 @@ const TutorFormBio = props => {
               <p
                 className={
                   charCount < 50
-                    ? 'font-inter font-normal italic mb-[50px] text-red-500 text-left'
+                    ? "font-inter font-normal italic mb-[50px] text-red-500 text-left"
                     : charCount < 450
-                    ? 'font-inter font-normal mb-[50px] italic text-[#98A2B3] text-left'
+                    ? "font-inter font-normal mb-[50px] italic text-[#98A2B3] text-left"
                     : charCount >= 450 && charCount < 475
-                    ? 'font-inter font-normal mb-[50px] italic text-[#FFB800] text-left'
+                    ? "font-inter font-normal mb-[50px] italic text-[#FFB800] text-left"
                     : charCount >= 475 && charCount < 500
-                    ? 'font-inter font-normal mb-[50px] italic text-[#FF8A00] text-left'
-                    : 'font-inter font-normal mb-[50px] italic text-[#FF0000] text-left'
+                    ? "font-inter font-normal mb-[50px] italic text-[#FF8A00] text-left"
+                    : "font-inter font-normal mb-[50px] italic text-[#FF0000] text-left"
                 }
               >
                 {charCount}/500
               </p>
               {errors.description && (
-                <p className='font-inter font-normal mb-[50px] -mt-[50px] italic text-red-500 text-left'>
+                <p className="font-inter font-normal mb-[50px] -mt-[50px] italic text-red-500 text-left">
                   {errors.description}
                 </p>
               )}
-              <h2 className='text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
+              <h2 className="text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left">
                 Link del portafolio
               </h2>
               <input
-                id='portfolio'
+                id="portfolio"
                 className={
                   errors.portfolio
-                    ? 'w-full py-3 mb-[50px] px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500'
-                    : 'w-full py-3 mb-[50px] px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+                    ? "w-full py-3 mb-[50px] px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500"
+                    : "w-full py-3 mb-[50px] px-6 bg-none rounded-[8px] border border-[#C3D3E2]"
                 }
-                type='text'
-                placeholder='Portafolio Link'
+                type="text"
+                placeholder="Portafolio Link"
                 onChange={handlePortfolioInput}
                 value={dataForm.portfolio || form.bio.portfolio}
               />
               {errors.portfolio && (
-                <p className='font-inter font-normal -mt-[40px] italic text-red-500 text-left'>
+                <p className="font-inter font-normal -mt-[40px] italic text-red-500 text-left">
                   {errors.portfolio}
                 </p>
               )}
             </div>
           </section>
         </section>
-        <section className='flex justify-end items-center space-x-4 -mt-12 mx-40 pt-6 pb-[64px]'>
+        <section className="flex justify-end items-center space-x-4 mx-28 pt-6 pb-8">
           <CancelarPerfilButton />
           <EnviarPerfilButton
-            title='Guardar'
+            title="Guardar"
             isDisabled={isDisabled}
             setSection={setSection}
             setProgress={setProgress}
@@ -315,7 +315,7 @@ const TutorFormBio = props => {
         </section>
       </section>
     </>
-  )
+  );
 }
 
 export default TutorFormBio

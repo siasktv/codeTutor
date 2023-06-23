@@ -14,7 +14,7 @@ const {
   addUser,
   getUser,
   getUserBySocketId,
-  users
+  users,
 } = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
@@ -46,12 +46,12 @@ const io = new SocketServer(serverhttp, {
     origin: FRONTEND_URL,
     methods: ['GET', 'POST'],
     transports: ['websocket', 'polling'],
-    credentials: true
+    credentials: true,
   },
-  allowEIO3: true
+  allowEIO3: true,
 })
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
     const user = await getUser(receiverId)
     const sender = await getUser(senderId)
@@ -59,18 +59,18 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.socketId).emit('getMessage', {
         senderId,
-        message
+        message,
       })
       console.log('sent from ' + user?.socketId + ' to ' + sender?.socketId)
       console.log(users)
     }
   })
 
-  socket.on('addUser', async userId => {
+  socket.on('addUser', async (userId) => {
     await addUser(userId, socket.id)
     io.emit(
       'online',
-      users.filter(user => user.online === true)
+      users.filter((user) => user.online === true)
     )
     const setOnline = async () => {
       try {
@@ -83,15 +83,15 @@ io.on('connection', socket => {
     setOnline()
   })
 
-  socket.on('checkOnline', async userId => {
+  socket.on('checkOnline', async (userId) => {
     const user = await getUser(userId)
     if (user?.online === true) {
       io.to(socket.id).emit('checkOnline', {
-        online: true
+        online: true,
       })
     } else {
       io.to(socket.id).emit('checkOnline', {
-        online: false
+        online: false,
       })
     }
   })
@@ -157,7 +157,7 @@ io.on('connection', socket => {
       user.online = false
       io.emit(
         'online',
-        users.filter(user => user.online === true)
+        users.filter((user) => user.online === true)
       )
     }
     usersWithChatOpen.forEach(user => {

@@ -11,6 +11,8 @@ import useUser from '../hooks/useUser'
 const TutorProfile = () => {
   const { id } = useParams()
   const tutor = useSelector(state => state.tutors.tutor)
+  console.log(tutor)
+
   const error = useSelector(state => state.tutors.error)
   const [isLoading, setIsLoading] = useState(true)
   const user = useUser()

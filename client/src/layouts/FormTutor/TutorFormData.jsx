@@ -84,22 +84,22 @@ const TutorFormData = props => {
   return (
     <>
       {/* contenedor principal */}
-      <section className='bg-[#FAFBFC] h-full w-full'>
-        <div className='flex flex-col'>
-          <div className='flex flex-col mt-[33px]'>
+      <section className="bg-[#FAFBFC] h-full w-full">
+        <div className="flex flex-col">
+          <div className="flex flex-col mt-[33px]">
             <TutorFormWelcome user={user} />
             <TutorFormProgressBar progress={progress} isDone={isDone} />
           </div>
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className="flex justify-center mt-[33px] mx-28">
           <TutorFormDataLeft
             user={user}
             form={form}
             setDataForm={setDataForm}
             dataForm={dataForm}
           />
-          <section className='flex flex-col w-full gap-[18px] ml-6'>
+          <section className="flex flex-col w-full gap-[18px] ml-6">
             <TutorFormProfileName
               dataForm={dataForm}
               setDataForm={setDataForm}
@@ -131,10 +131,10 @@ const TutorFormData = props => {
               errorsData={errorsData}
               setErrorsData={setErrorsData}
             />
-            <section className='flex justify-end items-center space-x-4 mx-12 pb-[64px]'>
+            <section className="flex justify-end items-center space-x-4 mx-12 pt-6 pb-8">
               <CancelarPerfilButton />
               <EnviarPerfilButton
-                title='Continuar'
+                title="Continuar"
                 progress={progress}
                 isDisabled={isDisabled}
                 setSection={setSection}
@@ -151,7 +151,7 @@ const TutorFormData = props => {
         </section>
       </section>
     </>
-  )
+  );
 }
 
 export default TutorFormData

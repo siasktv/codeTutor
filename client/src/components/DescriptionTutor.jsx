@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
-const DescriptionTutor = props => {
+const DescriptionTutor = (props) => {
   return (
-    <h2 className='font-semibold text-sm text-left'>{props.description}</h2>
+    <p className="font-semibold text-[#141414B2] text-md text-left">
+      {props.description}
+    </p>
   )
 }
 export default DescriptionTutor
