@@ -15,7 +15,6 @@ const addUser = (userId, socketId, userInfo) => {
       chatOpen: null,
       notifications: []
     })
-    console.log(users)
   }
 }
 

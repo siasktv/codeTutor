@@ -3,7 +3,6 @@ const Messages = require('../../models/Message.model')
 const Tutor = require('../../models/Tutor.models')
 
 const getConversationsFromUserId = async userId => {
-  console.log('userId', userId)
   const conversations = await Conversations.find({
     members: { $in: userId }
   }).populate('members')

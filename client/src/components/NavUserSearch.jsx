@@ -126,12 +126,6 @@ const NavUserSearch = ({
   const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
   const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
 
-  // console.log('tutors', tutors)
-  // console.log('users', users)
-  // console.log('locations', locations)
-  // console.log('teches', teches)
-  // console.log('categories', categories)
-  // console.log('selectedTech', selectedTech)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!tutors[0]?.bio?.specialty) {

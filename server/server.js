@@ -62,8 +62,6 @@ io.on('connection', socket => {
         senderId,
         message
       })
-      console.log('sent from ' + user?.socketId + ' to ' + sender?.socketId)
-      console.log(users)
     }
   })
 
@@ -107,8 +105,6 @@ io.on('connection', socket => {
           isInChat: true
         })
       }
-      console.log(user.userId + ' opened chat ' + user.chatOpen)
-      console.log(users)
     }
   })
 
@@ -123,7 +119,6 @@ io.on('connection', socket => {
           isInChat: false
         })
       }
-      console.log(receiverId)
     }
   })
 
