@@ -48,7 +48,9 @@ export default function ChatsNav ({
       if (!allChats[0]?._id) {
         setNewUsersChat(users)
       } else {
-        const idsFromChats = allChats.map(chat => chat.members.map(m => m._id))
+        const idsFromChats = allChats
+          .filter(chat => chat?.lastMessage)
+          .map(chat => chat.members.map(m => m._id))
         const idsFromUsers = users.map(user => user._id)
         const ids = idsFromChats.flat()
         const idsUsers = idsFromUsers.flat()
@@ -195,7 +197,9 @@ export default function ChatsNav ({
                     {chats.length > 0 && chats[0] !== 'loading' && (
                       <>
                         {chats
-                          .filter(chat => chat.members.length > 1)
+                          .filter(
+                            chat => chat.members.length > 1 && chat?.lastMessage
+                          )
                           .map(chat => (
                             <div
                               key={chat._id}
