@@ -78,11 +78,11 @@ const TutorInfoR = (props) => {
           </div>
           <div className="pt-6 pb-6 flex justify-between items-center space-x-6">
             <div className="flex items-center space-x-2">
-              <img src={Star} />
+              {/* <img src={Star} /> */}
               {/* Puntuación */}
-              <h2 className="font-semibold text-lg text-codecolor">
-                {Math.round(averageRating)}  Reviews
-              </h2>
+              {/* <h2 className="font-semibold text-lg text-codecolor">
+                {Math.round(averageRating)}  
+              </h2> */}
             </div>
             {/* Reviews */}
             {tutor.reviews && (

@@ -81,24 +81,24 @@ const UserDashboardCards = ({ handleShowMessage }) => {
   return (
     <>
       {!isLoading && (
-        <div className='relative items-center w-full px-8 py-8'>
+        <div className="relative items-center w-full px-8 py-8">
           <>
-            <div className=' w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start '>
-              <button className='w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold'>
+            <div className=" w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
+              <button className="w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold">
                 Destacados
               </button>
-              <button className='w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold '>
+              <button className="w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold ">
                 Favoritos
               </button>
             </div>
             {tutors.length === 0 && (
-              <div className='flex justify-center items-center mt-40'>
-                <h1 className='text-2xl font-semibold'>
+              <div className="flex justify-center items-center mt-40">
+                <h1 className="text-2xl font-semibold">
                   No se encontraron programadores.
                 </h1>
               </div>
             )}
-            {currentTutors.map(tutor => (
+            {currentTutors.map((tutor) => (
               <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                 <CardTutor
                   key={tutor._id}
@@ -110,20 +110,20 @@ const UserDashboardCards = ({ handleShowMessage }) => {
             ))}
             {tutors.length > currentTutors.length && (
               <>
-                <div className='flex justify-center items-center'>
-                  <div className='flex justify-center items-center'>
+                <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center">
                     <button
                       onClick={handlePreviusPage}
                       className={
                         currentPage === 1
-                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                          ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                          : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
                       }
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
 
-                    {pages.map(number => (
+                    {pages.map((number) => (
                       <button
                         key={number}
                         onClick={() => handlePage(number)}
@@ -141,8 +141,8 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                         onClick={handleNextPage}
                         className={
                           currentPage === pageNumbers.length
-                            ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                            : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                            : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                         }
                       >
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -150,7 +150,7 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                     </>
                   </div>
                 </div>
-                <p className='text-codecolor font-bold text-md mt-3'>
+                <p className="text-codecolor font-bold text-md mt-3">
                   {pageNumbers.length} páginas en total
                 </p>
               </>
@@ -159,11 +159,11 @@ const UserDashboardCards = ({ handleShowMessage }) => {
         </div>
       )}
       {isLoading && (
-        <div className='flex justify-center items-center mt-40'>
+        <div className="flex justify-center items-center mt-40">
           <Loader />
         </div>
       )}
     </>
-  )
+  );
 }
 export default UserDashboardCards

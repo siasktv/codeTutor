@@ -15,7 +15,7 @@ import {
   MensajeTexto,
   Moneda,
   Pais,
-  Star,
+  Star2,
 } from '../../assets/index'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -67,10 +67,13 @@ const CardTutor = (props) => {
               <div className="flex space-x-3">
                 <h2 className="text-2xl font-medium">{tutor.bio.specialty}</h2>
                 <div className="flex items-center space-x-2">
-                  <img src={Star} />
-                  <h2 className="font-semibold  text-codecolor">
-                    {Math.round(averageRating)}
-                  </h2>
+                  <div className="flex justify-center items-center space-x-2">
+                    {Array.from({ length: Math.round(averageRating) }).map(
+                      (_, index) => (
+                        <img key={index} src={Star2} />
+                      )
+                    )}
+                    </div>
                 </div>
               </div>
               {tutor.reviews && (
