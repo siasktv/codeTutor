@@ -1,14 +1,5 @@
 /* eslint-disable react/prop-types */
-// import PictureTutor from "../../components/PictureTutor";
-// import ConexionStateTutor from "../../components/ConexionStateTutor";
-// import RatingTutor from "../../components/RatingTutor";
-// import ReviewsTutorTotal from "../../components/ReviewsTutorTotal";
-// import NameTutor from "../../components/NameTutor";
-// import LinkGitHub from "../../components/LinkGitHubTutor";
-// import LinkLinkedIn from "../../components/LinkLinkedInTutor";
-// import PriceHourPurple from "../../components/PriceHourPurpleTutor";
-// import SessionsTutor from "../../components/SessionsTutor";
-// import ButtonContactar from "../../components/Buttons/ButtonTextContactarTutor";
+
 import {
   PictureTutor,
   ConexionStateTutor,

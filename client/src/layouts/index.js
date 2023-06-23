@@ -1,10 +1,6 @@
 import TutorInfoL from './TutorProfileLayout/TutorInfoL'
 import TutorInfoR from './TutorProfileLayout/TutorInfoR'
-<<<<<<< HEAD
-import CardExperience from './TutorProfileLayout/CardExperience';
-=======
 import CardExperience from './TutorProfileLayout/CardExperience'
->>>>>>> fc1ecddd0b7bd740841f59d707e3d5dc708b78fd
 import CardProyects from './TutorProfileLayout/CardProyects'
 import CardReviewUser from './TutorProfileLayout/CardReviewUser'
 import CardTutor from './SearchTutor/CardTutor'
