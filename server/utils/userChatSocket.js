@@ -1,12 +1,20 @@
 let users = []
 
-const addUser = (userId, socketId) => {
+const addUser = (userId, socketId, userInfo) => {
   const findUser = users.find(user => user.userId === userId)
   if (findUser) {
+    findUser.userInfo = userInfo
     findUser.socketId = socketId
     findUser.online = true
   } else {
-    users.push({ userId, socketId, online: true, chatOpen: null })
+    users.push({
+      userId,
+      socketId,
+      userInfo,
+      online: true,
+      chatOpen: null,
+      notifications: []
+    })
     console.log(users)
   }
 }

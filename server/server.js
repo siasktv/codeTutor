@@ -14,7 +14,7 @@ const {
   addUser,
   getUser,
   getUserBySocketId,
-  users,
+  users
 } = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
@@ -23,6 +23,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const routes = require('./routes/index.js')
 const { log } = require('console')
+const { find } = require('./models/Tutor.models.js')
 const PORT = process.env.PORT || 3001
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173'
 //test
@@ -46,12 +47,12 @@ const io = new SocketServer(serverhttp, {
     origin: FRONTEND_URL,
     methods: ['GET', 'POST'],
     transports: ['websocket', 'polling'],
-    credentials: true,
+    credentials: true
   },
-  allowEIO3: true,
+  allowEIO3: true
 })
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
     const user = await getUser(receiverId)
     const sender = await getUser(senderId)
@@ -59,18 +60,18 @@ io.on('connection', (socket) => {
     if (user) {
       io.to(user.socketId).emit('getMessage', {
         senderId,
-        message,
+        message
       })
       console.log('sent from ' + user?.socketId + ' to ' + sender?.socketId)
       console.log(users)
     }
   })
 
-  socket.on('addUser', async (userId) => {
-    await addUser(userId, socket.id)
+  socket.on('addUser', async (userId, userInfo) => {
+    await addUser(userId, socket.id, userInfo)
     io.emit(
       'online',
-      users.filter((user) => user.online === true)
+      users.filter(user => user.online === true)
     )
     const setOnline = async () => {
       try {
@@ -83,15 +84,15 @@ io.on('connection', (socket) => {
     setOnline()
   })
 
-  socket.on('checkOnline', async (userId) => {
+  socket.on('checkOnline', async userId => {
     const user = await getUser(userId)
     if (user?.online === true) {
       io.to(socket.id).emit('checkOnline', {
-        online: true,
+        online: true
       })
     } else {
       io.to(socket.id).emit('checkOnline', {
-        online: false,
+        online: false
       })
     }
   })
@@ -139,6 +140,87 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('getNotifications', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      io.to(user.socketId).emit('setNotifications', {
+        notifications: user.notifications
+      })
+    }
+  })
+
+  socket.on(
+    'sendNotification',
+    async ({ userId, receiverId, notification }) => {
+      const user = await getUser(receiverId)
+      // generate a unique id for each notification
+      if (user) {
+        if (
+          notification.type === 'message' &&
+          user.notifications.find(
+            notification =>
+              notification.type === 'message' &&
+              notification.sender.id === userId &&
+              notification.isRead === false
+          )
+        ) {
+          findNotification = user.notifications.find(
+            notification =>
+              notification.type === 'message' &&
+              notification.sender.id === userId &&
+              notification.isRead === false
+          )
+          findNotification.count = findNotification.count + 1
+          findNotification.message = `${findNotification.sender.fullName} te envió ${findNotification.count} mensajes`
+          io.to(user.socketId).emit('setNotifications', {
+            notifications: user.notifications
+          })
+        } else {
+          notificationId = Math.random().toString(36).substr(2, 9)
+          if (notification.type === 'message') {
+            user.notifications = [
+              ...user.notifications,
+              {
+                ...notification,
+                message: `${notification.sender.fullName} te envió un mensaje`,
+                id: notificationId,
+                count: 1
+              }
+            ]
+          }
+          io.to(user.socketId).emit('setNotifications', {
+            notifications: user.notifications
+          })
+        }
+      }
+    }
+  )
+
+  socket.on('readAllNotifications', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.notifications = user.notifications.map(notification => {
+        notification.isRead = true
+        return notification
+      })
+      io.to(user.socketId).emit('setNotifications', {
+        notifications: user.notifications
+      })
+    }
+  })
+
+  socket.on('deleteNotification', async ({ userId, notificationId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.notifications = user.notifications.filter(
+        notification => notification.id !== notificationId
+      )
+      io.to(user.socketId).emit('setNotifications', {
+        notifications: user.notifications
+      })
+    }
+  })
+
   socket.on('disconnect', async () => {
     const user = await getUserBySocketId(socket.id)
     const usersWithChatOpen = users.filter(r => r.chatOpen === user?.chatOpen)
@@ -157,7 +239,7 @@ io.on('connection', (socket) => {
       user.online = false
       io.emit(
         'online',
-        users.filter((user) => user.online === true)
+        users.filter(user => user.online === true)
       )
     }
     usersWithChatOpen.forEach(user => {
