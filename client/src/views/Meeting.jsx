@@ -1,9 +1,12 @@
 import NavUserNotifications from "../components/NavUserNotifications";
+import useUser from "../hooks/useUser";
 
 const Meeting = () => {
+  const user = useUser();
+
   return (
     <>
-      <NavUserNotifications />
+      <NavUserNotifications user={user} />
       <div className="bg-gray-100 py-10 w-full h-full">
         {/* --------------------------Fila 1--------------------------- */}
 
