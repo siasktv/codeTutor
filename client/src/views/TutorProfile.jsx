@@ -10,9 +10,9 @@ import useUser from '../hooks/useUser'
 
 const TutorProfile = () => {
   const { id } = useParams()
-  const tutor = useSelector((state) => state.tutors.tutor)
-  
-  const error = useSelector((state) => state.tutors.error)
+  const tutor = useSelector(state => state.tutors.tutor)
+
+  const error = useSelector(state => state.tutors.error)
   const [isLoading, setIsLoading] = useState(true)
   const user = useUser()
   const navigate = useNavigate()

@@ -36,7 +36,7 @@ export default function useUser () {
 
   useEffect(() => {
     if (user) {
-      socket?.emit('addUser', user.id)
+      socket?.emit('addUser', user.id, user)
     }
   }, [socket, user])
 
