@@ -27,7 +27,7 @@ const CardReviewUser = (props) => {
             {/* Imagen de Perfil */}
             <img
               src={review.user.image}
-              alt="Imagen de perfil Tutor"
+              alt="Imagen de perfil Usuario de review"
               className="w-10 h-10 rounded-full object-cover transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none"
             />
             {/* Nombre y opinión */}
