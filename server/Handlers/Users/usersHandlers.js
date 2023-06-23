@@ -1,11 +1,11 @@
-const User = require('../../models/User.models')
-const createUser = require('../../controllers/Users/createUser')
-const deleteUser = require('../../controllers/Users/deleteUser')
-const getAllUsers = require('../../controllers/Users/getAllUsers')
-const updateUser = require('../../controllers/Users/updateUser')
-const getUserByUid = require('../../controllers/Users/getUserByUid')
-const sendEmail = require('../../utils/nodemailer')
-const Tutor = require('../../models/Tutor.models')
+const User = require('../../models/User.models.js')
+const Tutor = require('../../models/Tutor.models.js')
+const createUser = require('../../controllers/Users/createUser.js')
+const deleteUser = require('../../controllers/Users/deleteUser.js')
+const getAllUsers = require('../../controllers/Users/getAllUsers.js')
+const updateUser = require('../../controllers/Users/updateUser.js')
+const getUserByUid = require('../../controllers/Users/getUserByUid.js')
+const sendEmail = require('../../utils/nodemailer.js')
 
 const getAllUsersHandler = async (req, res) => {
   try {

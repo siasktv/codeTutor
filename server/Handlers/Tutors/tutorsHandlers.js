@@ -1,8 +1,8 @@
-const createTutor = require('../../controllers/Tutors/createTutor')
-const getTutorById = require('../../controllers/Tutors/getTutorById')
-const getAllTutors = require('../../controllers/Tutors/getAllTutors')
-const deleteTutor = require('../../controllers/Tutors/deleteTutor')
-const updateTutor = require('../../controllers/Tutors/updateTutor')
+const createTutor = require('../../controllers/Tutors/createTutor.js')
+const getTutorById = require('../../controllers/Tutors/getTutorById.js')
+const getAllTutors = require('../../controllers/Tutors/getAllTutors.js')
+const deleteTutor = require('../../controllers/Tutors/deleteTutor.js')
+const updateTutor = require('../../controllers/Tutors/updateTutor.js')
 
 const getAllTutorsHandler = async (req, res) => {
   try {

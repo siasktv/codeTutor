@@ -1,4 +1,4 @@
-const Tutor = require('../../models/Tutor.models')
+const Tutor = require('../../models/Tutor.models.js')
 
 const getAllTutors = async () => {
   const tutors = await Tutor.find()

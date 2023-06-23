@@ -1,4 +1,4 @@
-const Message = require('../../models/Message.model')
+const Message = require('../../models/Message.model.js')
 
 const createMessage = async (conversationId, sender, message) => {
   const newMessage = await Message.create({

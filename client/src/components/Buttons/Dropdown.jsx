@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortedByLocation } from '../../redux/features/tutors/tutorsSlice';
+import { sortedByLocation } from '../../redux/features/tutors/tutorsSlice.js';
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);

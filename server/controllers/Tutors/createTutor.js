@@ -1,8 +1,8 @@
-const Tutor = require('../../models/Tutor.models')
-const User = require('../../models/User.models')
-const SkillsTech = require('../../models/SkillsTech.models')
-const Experience = require('../../models/Experience.models')
-const Project = require('../../models/Project.models')
+const Tutor = require('../../models/Tutor.models.js')
+const User = require('../../models/User.models.js')
+const SkillsTech = require('../../models/SkillsTech.models.js')
+const Experience = require('../../models/Experience.models.js')
+const Project = require('../../models/Project.models.js')
 
 const createTutor = async ({
   user,

@@ -1,5 +1,5 @@
-const createMessage = require('../../controllers/Message/createMessage')
-const getMessagesFromConversation = require('../../controllers/Message/getMessagesFromConversation')
+const createMessage = require('../../controllers/Message/createMessage.js')
+const getMessagesFromConversation = require('../../controllers/Message/getMessagesFromConversation.js')
 
 const createMessageHandler = async (req, res) => {
   const { conversationId, sender, message } = req.body

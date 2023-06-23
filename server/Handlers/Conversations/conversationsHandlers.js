@@ -1,6 +1,6 @@
-const createConversation = require('../../controllers/Conversations/createConversation')
-const getConversationByMembers = require('../../controllers/Conversations/getConversationByMembers')
-const getConversationsFromUserId = require('../../controllers/Conversations/getConversationsFromUid')
+const createConversation = require('../../controllers/Conversations/createConversation.js')
+const getConversationByMembers = require('../../controllers/Conversations/getConversationByMembers.js')
+const getConversationsFromUserId = require('../../controllers/Conversations/getConversationsFromUid.js')
 
 const createConversationHandler = async (req, res) => {
   const { members } = req.body

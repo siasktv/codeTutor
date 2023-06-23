@@ -1,4 +1,4 @@
-const Conversations = require('../../models/Conversation.model')
+const Conversations = require('../../models/Conversation.model.js')
 
 const getConversationByMembers = async members => {
   const conversation = await Conversations.findOne({

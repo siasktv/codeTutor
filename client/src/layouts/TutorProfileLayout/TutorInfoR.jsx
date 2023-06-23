@@ -8,7 +8,7 @@ import {
   ButtonShowMore,
   PriceHourGray,
 } from '../../components'
-import { CardReviewUser, CardExpJob, CardProyects } from '../'
+import { CardReviewUser, CardExperience, CardProyects } from '../';
 
 import { Pais, Moneda, Mensaje, Star } from '../../assets'
 
@@ -91,7 +91,7 @@ const TutorInfoR = (props) => {
             {/* Reviews */}
             {tutor.reviews && (
               <h2 className="font-semibold text-gray-600">
-                {tutor.reviews.length}
+                {tutor.reviews.length} Reviews
               </h2>
             )}
           </div>
@@ -118,7 +118,8 @@ const TutorInfoR = (props) => {
           </div>
 
           {/* Card Experiencias */}
-          <CardExpJob />
+          <CardExperience experience={tutor.experience} />
+          
 
           {/* Boton ver más Experiencias laborales */}
           <div className="flex flex-col items-center pt-6">
