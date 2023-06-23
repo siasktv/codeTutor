@@ -43,9 +43,11 @@ import revision from './revision.svg'
 import contrate from './contrate.svg'
 import help from './help.svg'
 import Default from './default.jpg'
+import notificationSound from './notification.mp3'
 
 export {
   Default,
+  notificationSound,
   videocallicon,
   collaboration,
   Duolingo,
