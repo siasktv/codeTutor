@@ -1,8 +1,7 @@
-const ReviewsTutorTotal = (props) => {
-  console.log('soy reviews en', props)
+const ReviewsTutorTotal = props => {
   return (
     <div>
-      <h2 className="font-semibold text-gray-600">
+      <h2 className='font-semibold text-gray-600'>
         {/* {props.reviews.length} reviews */}
       </h2>
       {/* {props.reviews.map((review) => (

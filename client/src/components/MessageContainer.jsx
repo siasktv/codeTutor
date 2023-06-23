@@ -148,6 +148,21 @@ export default function MessageContainer (props) {
       message
     })
 
+    isInChat === false &&
+      socket.emit('sendNotification', {
+        userId: user.id,
+        receiverId,
+        notification: {
+          type: 'message',
+          message: `${user.fullName} te ha contactado por privado`,
+          sender: user,
+          receiver: tutor.user,
+          createdAt: Date.now(),
+          isRead: false,
+          link: null
+        }
+      })
+
     try {
       const isRead = isInChat ? true : false
       const res = await axios.post(`${BACKEND_URL}/api/message`, {
