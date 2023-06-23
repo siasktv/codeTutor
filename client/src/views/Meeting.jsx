@@ -200,59 +200,6 @@ const Meeting = () => {
               </div>
             </div>
           </div>
-
-          {/* CHAT
-          <div>
-            <div className="flex flex-col bg-white w-80 h-[647px] rounded ">
-              Barra superior chat
-              <div className="flex justify-between items-center bg-white w-full border rounded-t p-3">
-                <img
-                  src={user ? user.image : Default}
-                  src="https://user-images.githubusercontent.com/1561955/106762302-fda9de00-6635-11eb-99be-3ef744e60c0e.png"
-                  alt="avatar"
-                  className="w-10 h-10 bg-black rounded-full border-none cursor-pointer"
-                  onClick={handleShowProfile}
-                ></img>
-                <h2 className="text-gray-900 text-start font-semibold text-sm">
-                  MiduDEV
-                </h2>
-                <h2 className="font-semibold text-sm text-green-500">
-                  ◉ Online
-                </h2>
-              </div>
-
-              Contenedor de mensajes
-              <div className="w-full h-full p-3 space-y-3 overflow-y-auto">
-                <div className="bg-blue-200 border rounded-b-lg rounded-r-lg px-2 py-1">
-                  <h2 className="text-sm text-start text-purple-800">
-                    Hola soy MiduDEV, felicidades pudiste centrar un div.
-                  </h2>
-                </div>
-                <div className="bg-blue-300 border rounded-t-lg rounded-r-lg px-2 py-1">
-                  <h2 className="text-sm text-start text-gray-900">
-                    Graciass, solo me tomo 4 años pero al fin lo tengo.
-                  </h2>
-                </div>
-                <div className="bg-blue-200 border rounded-b-lg rounded-r-lg px-2 py-1">
-                  <h2 className="text-sm text-start text-purple-800">
-                    😳 uh...
-                  </h2>
-                </div>
-              </div>
-
-              Botones de chat
-              <div className="flex justify-between w-full py-3 px-3 border border-t rounded-b space-x-3">
-                <input
-                  type="text"
-                  placeholder="Escribir mensaje..."
-                  className="text-sm w-full border border-gray-500 rounded-t rounded-r px-2"
-                ></input>
-                <button className="border border-gray-500 rounded px-1">
-                  ➤
-                </button>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

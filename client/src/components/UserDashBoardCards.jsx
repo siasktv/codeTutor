@@ -8,45 +8,12 @@ import { techesFetch } from '../redux/features/teches/techesSlice'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
-import { MessageContainer, MessageMinimized, Loader } from '../components'
+import { Loader } from '../components'
 
-const UserDashboardCards = () => {
+const UserDashboardCards = ({ handleShowMessage }) => {
   const [isLoading, setIsLoading] = useState(true)
   const tutors = useSelector(state => state.tutors.tutors)
   const user = useUser()
-  const [showMessage, setShowMessage] = useState(false)
-  const [selectedTutor, setSelectedTutor] = useState(null)
-
-  const handleShowMessage = (e, tutor) => {
-    e.preventDefault()
-    if (selectedTutor === null) {
-      setSelectedTutor(tutor)
-      setShowMessage(true)
-    } else {
-      if (selectedTutor._id === tutor._id) {
-        setShowMessage(true)
-      } else {
-        setSelectedTutor(tutor)
-        setShowMessage(true)
-      }
-    }
-  }
-
-  const handleMinimizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-  }
-
-  const handleMaximizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(true)
-  }
-
-  const handleCloseMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-    setSelectedTutor(null)
-  }
 
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
@@ -114,24 +81,24 @@ const UserDashboardCards = () => {
   return (
     <>
       {!isLoading && (
-        <div className='relative items-center w-full px-8 py-8'>
+        <div className="relative items-center w-full px-8 py-8">
           <>
-            <div className=' w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start '>
-              <button className='w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold'>
+            <div className=" w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
+              <button className="w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold">
                 Destacados
               </button>
-              <button className='w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold '>
+              <button className="w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold ">
                 Favoritos
               </button>
             </div>
             {tutors.length === 0 && (
-              <div className='flex justify-center items-center mt-40'>
-                <h1 className='text-2xl font-semibold'>
+              <div className="flex justify-center items-center mt-40">
+                <h1 className="text-2xl font-semibold">
                   No se encontraron programadores.
                 </h1>
               </div>
             )}
-            {currentTutors.map(tutor => (
+            {currentTutors.map((tutor) => (
               <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                 <CardTutor
                   key={tutor._id}
@@ -143,20 +110,20 @@ const UserDashboardCards = () => {
             ))}
             {tutors.length > currentTutors.length && (
               <>
-                <div className='flex justify-center items-center'>
-                  <div className='flex justify-center items-center'>
+                <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center">
                     <button
                       onClick={handlePreviusPage}
                       className={
                         currentPage === 1
-                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                          ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                          : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
                       }
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
 
-                    {pages.map(number => (
+                    {pages.map((number) => (
                       <button
                         key={number}
                         onClick={() => handlePage(number)}
@@ -174,8 +141,8 @@ const UserDashboardCards = () => {
                         onClick={handleNextPage}
                         className={
                           currentPage === pageNumbers.length
-                            ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                            : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                            : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                         }
                       >
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -183,36 +150,20 @@ const UserDashboardCards = () => {
                     </>
                   </div>
                 </div>
-                <p className='text-codecolor font-bold text-md mt-3'>
+                <p className="text-codecolor font-bold text-md mt-3">
                   {pageNumbers.length} páginas en total
                 </p>
               </>
-            )}
-            {showMessage && selectedTutor !== null && (
-              <MessageContainer
-                tutor={selectedTutor}
-                handleMinimizeMessage={handleMinimizeMessage}
-                user={user}
-              />
-            )}
-            {user && selectedTutor !== null && !showMessage && (
-              <MessageMinimized
-                tutor={selectedTutor}
-                handleCloseMessage={handleCloseMessage}
-                handleMinimizeMessage={handleMinimizeMessage}
-                handleMaximizeMessage={handleMaximizeMessage}
-                user={user}
-              />
             )}
           </>
         </div>
       )}
       {isLoading && (
-        <div className='flex justify-center items-center mt-40'>
+        <div className="flex justify-center items-center mt-40">
           <Loader />
         </div>
       )}
     </>
-  )
+  );
 }
 export default UserDashboardCards

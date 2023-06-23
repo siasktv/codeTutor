@@ -1,8 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 // initialState
 const initialState = {
-  localUser: {}
+  localUser: {},
+  chats: ['loading']
 }
 
 // thunks
@@ -17,6 +20,23 @@ export const fetchLocalUser = createAsyncThunk(
   }
 )
 
+export const fetchLocalUserChats = createAsyncThunk(
+  'localUser/fetchLocalUserChats',
+  async userId => {
+    if (!userId) {
+      return ['loading']
+    }
+    try {
+      const { data } = await axios.get(
+        `${BACKEND_URL}/api/conversations/${userId}`
+      )
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 // slice
 const localUserSlice = createSlice({
   name: 'localUser',
@@ -25,12 +45,16 @@ const localUserSlice = createSlice({
   extraReducers: {
     [fetchLocalUser.fulfilled]: (state, action) => {
       state.localUser = action.payload
+    },
+    [fetchLocalUserChats.fulfilled]: (state, action) => {
+      state.chats = action.payload
     }
   }
 })
 
 // selectors
 export const selectLocalUser = state => state.localUser.localUser
+export const selectLocalUserChats = state => state.localUser.chats
 
 // reducer
 export default localUserSlice.reducer

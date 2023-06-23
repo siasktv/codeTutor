@@ -7,7 +7,7 @@ const {
   deleteReviewHandler,
   createReviewHandler,
   updateReviewHandler,
-} = require('../../Handlers/Reviews/reviewsHandlers')
+} = require('../../Handlers/Reviews/reviewsHandlers.js')
 
 const router = Router();
 

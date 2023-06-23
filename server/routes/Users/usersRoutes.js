@@ -6,7 +6,7 @@ const {
   getAllUsersHandler,
   updateUserHandler,
   getUserByUidHandler
-} = require('../../Handlers/Users/usersHandlers')
+} = require('../../Handlers/Users/usersHandlers.js')
 
 router.post('/', createUserHandler)
 router.delete('/:id', deleteUserHandler)

@@ -1,4 +1,4 @@
-const Tutor = require('../../models/Tutor.models')
+const Tutor = require('../../models/Tutor.models.js')
 
 const getAllTutors = async () => {
   const tutors = await Tutor.find()
@@ -29,10 +29,10 @@ const getAllTutors = async () => {
     .populate({
       path: 'reviews',
       populate: {
-        path: 'rating',
-        
+        path: 'user',
+        select: 'fullName image',
       },
-    });
+    })
 
   return tutors
 }

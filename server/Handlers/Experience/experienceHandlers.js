@@ -1,12 +1,12 @@
-const createExperience = require('../../controllers/Experience/createExperience')
-const deleteExperience = require('../../controllers/Experience/deleteExperience')
-const getAllExperiences = require('../../controllers/Experience/getAllExperiences')
-const updateExperience = require('../../controllers/Experience/updateExperience')
-const getExperienceById = require('../../controllers/Experience/getExperienceById')
-const getAllExperiencesByTutorId = require('../../controllers/Experience/getAllExperiencesByTutorId')
+const createExperience = require('../../controllers/Experience/createExperience.js')
+const deleteExperience = require('../../controllers/Experience/deleteExperience.js')
+const getAllExperiences = require('../../controllers/Experience/getAllExperiences.js')
+const updateExperience = require('../../controllers/Experience/updateExperience.js')
+const getExperienceById = require('../../controllers/Experience/getExperienceById.js')
+const getAllExperiencesByTutorId = require('../../controllers/Experience/getAllExperiencesByTutorId.js')
 
 const createExperienceHandler = async (req, res) => {
-  const { tutor, position, company, techName, location, start_date, end_date } =
+  const { tutor, position, company, techName, location, start_date, end_date, description } =
     req.body
   if (!position || position.trim().length === 0) {
     return res.status(400).json({ error: 'Position is required' })
@@ -30,7 +30,8 @@ const createExperienceHandler = async (req, res) => {
       location,
       techName,
       start_date,
-      end_date
+      end_date,
+      description
     })
     res.status(200).json(newExperience)
   } catch (error) {
