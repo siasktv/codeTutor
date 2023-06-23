@@ -6,7 +6,7 @@ const {
   createTutorHandler,
   deleteTutorHandler,
   updateTutorHandler
-} = require('../../Handlers/Tutors/tutorsHandlers')
+} = require('../../Handlers/Tutors/tutorsHandlers.js')
 
 const router = Router()
 

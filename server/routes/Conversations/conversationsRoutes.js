@@ -5,7 +5,7 @@ const {
   getConversationByMembersHandler,
   createConversationHandler,
   setConversationReadHandler
-} = require('../../Handlers/Conversations/conversationsHandlers')
+} = require('../../Handlers/Conversations/conversationsHandlers.js')
 
 router.post('/', createConversationHandler)
 router.get('/:userId', getConversationsFromUserIdHandler)

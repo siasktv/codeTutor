@@ -5,7 +5,6 @@ import {
   LanguageTutor,
   DescriptionTutor,
   TechnicalSkillsTutor,
-  ButtonShowMore,
   PriceHourGray
 } from '../../components'
 import { CardReviewUser, CardExperience, CardProyects } from '../'
@@ -79,16 +78,16 @@ const TutorInfoR = props => {
           </div>
           <div className='pt-6 pb-6 flex justify-between items-center space-x-6'>
             <div className='flex items-center space-x-2'>
-              <img src={Star} />
+              {/* <img src={Star} /> */}
               {/* Puntuación */}
-              <h2 className='font-semibold text-lg text-codecolor'>
-                {Math.round(averageRating)}
-              </h2>
+              {/* <h2 className="font-semibold text-lg text-codecolor">
+                {Math.round(averageRating)}  
+              </h2> */}
             </div>
             {/* Reviews */}
             {tutor.reviews && (
               <h2 className='font-semibold text-gray-600'>
-                {tutor.reviews.length}
+                {tutor.reviews.length} Reviews
               </h2>
             )}
           </div>
@@ -98,11 +97,6 @@ const TutorInfoR = props => {
           <div>
             <CardReviewUser reviews={tutor.reviews} />
           </div>
-
-          {/* Boton ver más opiniones */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
 
         {/* Experiencia Laboral */}
@@ -114,11 +108,6 @@ const TutorInfoR = props => {
 
           {/* Card Experiencias */}
           <CardExperience experience={tutor.experience} />
-
-          {/* Boton ver más Experiencias laborales */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
 
         {/* Experiencia en Proyectos */}
@@ -130,11 +119,6 @@ const TutorInfoR = props => {
 
           {/* Card Proyectos */}
           <CardProyects projects={tutor.projects} />
-
-          {/* Boton ver más Proyectos */}
-          {/* <div className="flex flex-col items-center pt-6">
-            <ButtonShowMore />
-          </div> */}
         </div>
       </div>
     </div>

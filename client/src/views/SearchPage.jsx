@@ -142,7 +142,7 @@ const SearchPage = () => {
 
   return (
     <div>
-      <div className='sticky top-0 z-[100] bg-white'>
+      <div className="sticky top-0 z-[100] bg-white">
         <NavUserSearch
           user={user}
           showMessage={showMessage}
@@ -151,43 +151,43 @@ const SearchPage = () => {
         />
       </div>
 
-      <div className='bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0'>
+      <div className="bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0">
         <SearchBarTutor />
-        <div className='bg-gray-100 flex items-start px-20 py-10  w-full h-max left-0 right-0'>
+        <div className="bg-gray-100 flex items-start px-20 py-10  w-full h-max left-0 right-0">
           <FilterTutor
             sortedByLanguages={sortedByLanguages}
             sortedByReview={sortedByReview}
           />
-          <div className='w-full p-9 flex flex-col relative z-0'>
+          <div className="w-full p-9 flex flex-col relative z-0">
             {isLoading && (
-              <div className='flex justify-center items-center'>
+              <div className="flex justify-center items-center">
                 <Loader />
               </div>
             )}
             {!isLoading && (
               <>
-                <div className='flex items-center justify-between'>
-                  <h2 className='pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left'>
+                <div className="flex items-center justify-between">
+                  <h2 className="pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left">
                     {tutors.length === 0
                       ? ''
                       : tutors.length === 1
                       ? '1 programador encontrado'
                       : `${tutors.length} programadores encontrados`}
                   </h2>
-                  <div className='pb-5 relative inline-block text-left'>
+                  <div className="pb-5 relative inline-block text-left">
                     <div>
                       <ButtonDropdownLocation />
                     </div>
                   </div>
                 </div>
                 {tutors.length === 0 && (
-                  <div className='flex justify-center items-center mt-40'>
-                    <h1 className='text-2xl font-semibold'>
+                  <div className="flex justify-center items-center mt-40">
+                    <h1 className="text-2xl font-semibold">
                       No se encontraron programadores.
                     </h1>
                   </div>
                 )}
-                {currentTutors.map(tutor => (
+                {currentTutors.map((tutor) => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                     <CardTutor
                       key={tutor._id}
@@ -199,20 +199,20 @@ const SearchPage = () => {
                 ))}
                 {tutors.length > currentTutors.length && (
                   <>
-                    <div className='flex justify-center items-center'>
-                      <div className='flex justify-center items-center'>
+                    <div className="flex justify-center items-center">
+                      <div className="flex justify-center items-center">
                         <button
                           onClick={handlePreviusPage}
                           className={
                             currentPage === 1
-                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                              ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                              : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
                           }
                         >
                           <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
 
-                        {pages.map(number => (
+                        {pages.map((number) => (
                           <button
                             key={number}
                             onClick={() => handlePage(number)}
@@ -230,8 +230,8 @@ const SearchPage = () => {
                             onClick={handleNextPage}
                             className={
                               currentPage === pageNumbers.length
-                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                                ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                                : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                             }
                           >
                             <FontAwesomeIcon icon={faArrowRight} />
@@ -239,7 +239,7 @@ const SearchPage = () => {
                         </>
                       </div>
                     </div>
-                    <p className='text-codecolor font-bold text-md mt-3'>
+                    <p className="text-codecolor font-bold text-md mt-3">
                       {pageNumbers.length} páginas en total
                     </p>
                   </>
@@ -266,7 +266,7 @@ const SearchPage = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default SearchPage

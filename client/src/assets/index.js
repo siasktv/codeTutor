@@ -25,6 +25,7 @@ import Moneda from './Moneda.svg'
 import Pais from './Pais.svg'
 import react from './react.svg'
 import Star from './Star.svg'
+import Star2 from './Star2.svg'
 import loaderGoogle from './loadergoogle.gif'
 import MagnifyingGlassSearch from './MagnifyingGlassSearch.svg'
 import devslanding from './devslanding.svg'
@@ -75,6 +76,7 @@ export {
   Pais,
   react,
   Star,
+  Star2,
   loaderGoogle,
   MagnifyingGlassSearch,
   devslanding,
