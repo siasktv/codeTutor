@@ -27,6 +27,7 @@ const TutorForm = props => {
   } = props
   const [isDisabled, setIsDisabled] = useState(true)
   const [permantentDisabled, setPermanentDisabled] = useState(false)
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [dataForm, setDataForm] = useState({
     avatar: form.avatar
   })
@@ -86,7 +87,7 @@ const TutorForm = props => {
       }
 
       axios
-        .post('http://localhost:3001/api/tutors', {
+        .post(`${BACKEND_URL}/api/tutors`, {
           fullName: form.name,
           user: user.id,
           avatar: form.avatar,
