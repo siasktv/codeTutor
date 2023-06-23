@@ -10,8 +10,11 @@ import {
 } from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
+import { NavUserNotifications } from './components'
+import useUser from './hooks/useUser'
 
 function App () {
+  const user = useUser()
   return (
     <div className='App'>
       <SocketContext.Provider value={socket}>
@@ -23,6 +26,10 @@ function App () {
           <Route path='/tutor/:id' element={<TutorProfile />} />
           <Route path='/user' element={<UserDashboard />} />
           <Route path='/tutor' element={<FormTutor />} />
+          <Route
+            path='/notifications'
+            element={<NavUserNotifications user={user} />}
+          />
         </Routes>
       </SocketContext.Provider>
     </div>

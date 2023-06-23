@@ -61,7 +61,7 @@ io.on('connection', socket => {
         senderId,
         message
       })
-      console.log('sent from ' + user.socketId + ' to ' + sender.socketId)
+      console.log('sent from ' + user?.socketId + ' to ' + sender?.socketId)
       console.log(users)
     }
   })
@@ -96,12 +96,59 @@ io.on('connection', socket => {
     }
   })
 
+  socket.on('openChat', async ({ conversationId, userId, receiverId }) => {
+    const user = await getUser(userId)
+    const receiver = await getUser(receiverId)
+    if (user) {
+      user.chatOpen = conversationId
+      if (receiver) {
+        io.to(receiver?.socketId).emit('checkIsInChat', {
+          isInChat: true
+        })
+      }
+      console.log(user.userId + ' opened chat ' + user.chatOpen)
+      console.log(users)
+    }
+  })
+
+  socket.on('closeChat', async ({ userId, receiverId }) => {
+    const user = await getUser(userId)
+    const receiver = await getUser(receiverId)
+
+    if (user) {
+      user.chatOpen = null
+      if (receiver) {
+        io.to(receiver?.socketId).emit('checkIsInChat', {
+          isInChat: false
+        })
+      }
+      console.log(receiverId)
+    }
+  })
+
+  socket.on('checkIsInChat', async ({ conversationId, userId }) => {
+    const user = await getUser(userId)
+    if (user?.chatOpen === conversationId) {
+      io.to(socket.id).emit('checkIsInChat', {
+        isInChat: true
+      })
+    } else {
+      io.to(socket.id).emit('checkIsInChat', {
+        isInChat: false
+      })
+    }
+  })
+
   socket.on('disconnect', async () => {
     const user = await getUserBySocketId(socket.id)
+    const usersWithChatOpen = users.filter(r => r.chatOpen === user?.chatOpen)
     if (user) {
       const setOffline = async () => {
         try {
-          await User.findByIdAndUpdate(user.userId, { offline: true })
+          await User.findByIdAndUpdate(user.userId, {
+            offline: true,
+            chatOpen: null
+          })
         } catch (err) {
           console.log(err)
         }
@@ -113,6 +160,11 @@ io.on('connection', socket => {
         users.filter(user => user.online === true)
       )
     }
+    usersWithChatOpen.forEach(user => {
+      io.to(user.socketId).emit('checkIsInChat', {
+        isInChat: false
+      })
+    })
   })
 })
 

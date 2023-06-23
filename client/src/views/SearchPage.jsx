@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   tutorsFetch,
@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
 import NavUserSearch from '../components/NavUserSearch'
+import { SocketContext } from '../socket/context'
 
 const SearchPage = () => {
   const tutors = useSelector(state => state.tutors.tutors)
@@ -35,17 +36,18 @@ const SearchPage = () => {
   const user = useUser()
   const [showMessage, setShowMessage] = useState(false)
   const [selectedTutor, setSelectedTutor] = useState(null)
+  const socket = useContext(SocketContext)
 
   const handleShowMessage = (e, tutor) => {
     e.preventDefault()
     if (selectedTutor === null) {
-      setSelectedTutor(tutor)
+      setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
       setShowMessage(true)
     } else {
       if (selectedTutor._id === tutor._id) {
         setShowMessage(true)
       } else {
-        setSelectedTutor(tutor)
+        setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
         setShowMessage(true)
       }
     }
@@ -54,6 +56,10 @@ const SearchPage = () => {
   const handleMinimizeMessage = e => {
     e.preventDefault()
     setShowMessage(false)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
   }
 
   const handleMaximizeMessage = e => {
@@ -65,6 +71,10 @@ const SearchPage = () => {
     e.preventDefault()
     setShowMessage(false)
     setSelectedTutor(null)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
   }
 
   const tutorsPerPage = 5
@@ -132,8 +142,13 @@ const SearchPage = () => {
 
   return (
     <div>
-      <div>
-        <NavUserSearch user={user} />
+      <div className='sticky top-0 z-[100] bg-white'>
+        <NavUserSearch
+          user={user}
+          showMessage={showMessage}
+          setShowMessage={setShowMessage}
+          handleShowMessage={handleShowMessage}
+        />
       </div>
 
       <div className='bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0'>

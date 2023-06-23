@@ -5,6 +5,9 @@ import io from 'socket.io-client'
 import axios from 'axios'
 import React from 'react'
 import { SocketContext, socket } from '../socket/context'
+import moment from 'moment/moment'
+import 'moment/locale/es'
+moment.locale('es')
 
 export default function MessageContainer (props) {
   const { tutor, handleMinimizeMessage, user } = props
@@ -12,6 +15,7 @@ export default function MessageContainer (props) {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [isOnline, setIsOnline] = useState(!tutor.user.offline)
+  const [isInChat, setIsInChat] = useState(false)
   const [arrivalMessage, setArrivalMessage] = useState(null)
   const [conversationId, setConversationId] = useState(null)
   const socket = useContext(SocketContext)
@@ -41,8 +45,36 @@ export default function MessageContainer (props) {
         setIsOnline(false)
       }
     })
+    socket.on('isInChat', data => {
+      if (data.isInChat === true) {
+        setIsInChat(true)
+      } else {
+        setIsInChat(false)
+      }
+    })
+    socket.on('checkIsInChat', data => {
+      if (data.isInChat === true) {
+        setIsInChat(true)
+      } else {
+        setIsInChat(false)
+      }
+    })
+
     socket.emit('checkOnline', tutor.user._id)
   }, [])
+
+  useEffect(() => {
+    if (isInChat) {
+      //update all messages to read
+      const newMessages = messages.map(message => {
+        return {
+          ...message,
+          read: true
+        }
+      })
+      setMessages(newMessages)
+    }
+  }, [isInChat])
 
   useEffect(() => {
     arrivalMessage && setMessages([...messages, arrivalMessage])
@@ -70,6 +102,12 @@ export default function MessageContainer (props) {
 
   useEffect(() => {
     if (conversationId) {
+      socket.emit('openChat', {
+        conversationId,
+        userId: user.id,
+        receiverId: tutor.user._id
+      })
+      socket.emit('checkIsInChat', { conversationId, userId: tutor.user._id })
       const getMessages = async () => {
         try {
           const res = await axios.get(
@@ -80,6 +118,19 @@ export default function MessageContainer (props) {
           console.log(err)
         }
       }
+      const setRead = async () => {
+        try {
+          const res = await axios.put(
+            `${BACKEND_URL}/api/conversations/${conversationId}`,
+            {
+              userId: tutor.user._id
+            }
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      setRead()
       getMessages()
     }
   }, [conversationId])
@@ -98,17 +149,20 @@ export default function MessageContainer (props) {
     })
 
     try {
+      const isRead = isInChat ? true : false
       const res = await axios.post(`${BACKEND_URL}/api/message`, {
         conversationId,
         sender: user.id,
-        message
+        message,
+        read: isRead
       })
       setMessages([
         ...messages,
         {
           sender: user.id,
           message,
-          createdAt: Date.now()
+          createdAt: Date.now(),
+          read: isRead
         }
       ])
       setMessage('')
@@ -138,7 +192,9 @@ export default function MessageContainer (props) {
             <h2 className='font-semibold text-xl text-green-500 ml-2'>◉</h2>
           )}
         </div>
-        <p className='text-white text-sm'>{tutor.bio.specialty}</p>
+        <p className='text-white text-sm'>
+          {tutor.bio?.specialty || 'Cliente'}
+        </p>
       </div>
       <div className='flex flex-col justify-start items-center bg-white p-2 m-0 rounded-b-md overflow-y-auto overflow-x-hidden h-[365px]'>
         {messages.map((item, index) => (
@@ -152,8 +208,14 @@ export default function MessageContainer (props) {
                   <strong className='text-blue-500'>
                     {tutor.user.fullName}
                   </strong>
-                  <div className='flex flex-col justify-center items-center text-left'>
-                    <p className='text-sm text-gray-500'>{item.message}</p>
+                  <div className='flex flex-col justify-center items-start text-left'>
+                    <p className='text-sm text-gray-500 break-words max-w-[230px]'>
+                      {item.message}
+                    </p>
+                    <p className='text-xs text-gray-500 self-start pr-2 mt-1 -mb-1'>
+                      {moment(item.createdAt).format('l')} a las{' '}
+                      {moment(item.createdAt).format('LT')} hs
+                    </p>
                   </div>
                 </div>
               </div>
@@ -164,14 +226,34 @@ export default function MessageContainer (props) {
               >
                 <div className='flex flex-col justify-center items-start bg-blue-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
                   <strong className='text-blue-500'>{user.fullName}</strong>
-                  <div className='flex flex-col justify-center items-center text-left'>
-                    <p className='text-sm text-gray-500'>{item.message}</p>
+                  <div className='flex flex-col justify-center items-start text-left'>
+                    <p className='text-sm text-gray-500 break-words max-w-[230px]'>
+                      {item.message}
+                    </p>
+                    <p className='text-xs text-gray-500 self-end pr-2 mt-1 -mr-2 -mb-1'>
+                      {moment(item.createdAt).format('l')} a las{' '}
+                      {moment(item.createdAt).format('LT')} hs
+                    </p>
                   </div>
                 </div>
               </div>
             )}
           </React.Fragment>
         ))}
+
+        {messages[messages.length - 1]?.sender === user.id && (
+          <>
+            {messages[messages.length - 1]?.read ? (
+              <p className='text-xs text-gray-500 self-end pr-2 -mt-1 -mb-1'>
+                Visto
+              </p>
+            ) : (
+              <p className='text-xs text-gray-500 self-end pr-2 -mt-1 -mb-1'>
+                Enviado
+              </p>
+            )}
+          </>
+        )}
       </div>
       <form onSubmit={handleSubmit}>
         <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md'>

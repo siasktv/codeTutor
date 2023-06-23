@@ -47,8 +47,17 @@ const TutorProfile = () => {
       )}
       {!isLoading && (
         <>
-          <NavUserNotifications user={user} />
-          <div className='bg-gray-100 flex items-start px-20 py-10 gap-2 absolute w-full h-max left-0 right-0'>
+          <div
+            className='sticky top-0 z-[100] bg-white min-h-16'
+            style={{
+              position: 'sticky !important',
+              top: '0px !important',
+              zIndex: '100 !important'
+            }}
+          >
+            <NavUserNotifications user={user} />
+          </div>
+          <div className='bg-gray-100 flex items-start px-20 py-10 gap-2 w-full h-max left-0 right-0'>
             {tutor.bio.specialty && (
               <>
                 {/* Tabla de información Izquierda */}

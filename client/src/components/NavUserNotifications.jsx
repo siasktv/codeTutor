@@ -1,17 +1,28 @@
 import notification from '../assets/notification.svg'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { SocketContext, socket } from '../socket/context'
 import { signOut } from '../firebase/client'
-import { Loader } from '../components'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faXmark, faMessage } from '@fortawesome/free-solid-svg-icons'
 import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
 import { Default } from '../assets'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import {
+  Loader,
+  MessageContainer,
+  MessageMinimized,
+  ChatsNav
+} from '../components'
 
 const NavUserNotifications = ({ user }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showChat, setShowChat] = useState(false)
+  const localUserChats = useSelector(state => state.localUser.chats)
+  const dispatch = useDispatch()
 
   const [notifications, setNotifications] = useState([
     {
@@ -136,9 +147,85 @@ const NavUserNotifications = ({ user }) => {
     setShowNotifications(false)
   }
 
+  const handleShowChat = e => {
+    if (!showChat) {
+      dispatch(fetchLocalUserChats(user.id))
+    } else {
+      dispatch(fetchLocalUserChats(null))
+    }
+    setShowChat(!showChat)
+    setShowNotifications(false)
+    setShowProfile(false)
+    if (showMessage) {
+      setShowMessage(false)
+    }
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleShowTech = () => {
+    setShowTech(!showTech)
+    setShowNotifications(false)
+    setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleSortByTech = tech => {
+    dispatch(sortedByTech(tech))
+  }
+
+  const handleSendShowMessage = (e, user) => {
+    setShowChat(false)
+    handleShowMessage(e, user)
+  }
+
+  const [showMessage, setShowMessage] = useState(false)
+  const [selectedTutor, setSelectedTutor] = useState(null)
+
+  const handleShowMessage = (e, tutor) => {
+    e.preventDefault()
+    if (selectedTutor === null) {
+      setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
+      setShowMessage(true)
+    } else {
+      if (selectedTutor._id === tutor._id) {
+        setShowMessage(true)
+      } else {
+        setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
+        setShowMessage(true)
+      }
+    }
+  }
+
+  const socket = useContext(SocketContext)
+
+  const handleMinimizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
+  }
+
+  const handleMaximizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(true)
+  }
+
+  const handleCloseMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    setSelectedTutor(null)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
+  }
+
   return (
     <>
-      <header className='flex items-center h-20 w-full z-50'>
+      <header className='flex items-center h-20 w-full'>
         <div className='flex justify-between w-full items-center'>
           <div className='pl-8 pt-2'>
             <Link to='/'>
@@ -157,12 +244,12 @@ const NavUserNotifications = ({ user }) => {
                   <img
                     src={user?.image ? user.image : Default}
                     alt='avatar'
-                    className='w-10 h-10  rounded-full border-none cursor-pointer'
+                    className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                     onClick={handleShowProfile}
                   ></img>
                 </div>
                 {showProfile && (
-                  <div className='absolute top-16 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                  <div className='absolute top-14 mr-16 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                     <div className='flex flex-col gap-2 p-2'>
                       <div className='flex flex-col gap-2'>
                         {user && (
@@ -195,10 +282,21 @@ const NavUserNotifications = ({ user }) => {
                 )}
               </div>
 
+              {/* Chats */}
+              {user && (
+                <ChatsNav
+                  user={user}
+                  handleShowChat={handleShowChat}
+                  showChat={showChat}
+                  setShowChat={setShowChat}
+                  localUserChats={localUserChats}
+                  handleSendShowMessage={handleSendShowMessage}
+                />
+              )}
               {/* Notificaciones */}
-              <div className='px-8 flex items-center'>
+              <div className='pr-8 pl-3 flex items-center relative'>
                 {user && (
-                  <>
+                  <div className='flex flex-col'>
                     <div
                       className='p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
                       onClick={handleShowNotifications}
@@ -206,9 +304,9 @@ const NavUserNotifications = ({ user }) => {
                       <img src={notification} className=''></img>
                     </div>
                     {showNotifications && (
-                      <div className='absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                        <div className='flex flex-col gap-2 p-4 h-80'>
-                          <div className='flex justify-between items-center flex-1'>
+                      <div className='absolute top-10 right-3 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                        <div className='flex flex-col gap-2 p-4 max-h-80'>
+                          <div className='flex justify-between items-start flex-1'>
                             <h1 className='font-bold text-xl text-codecolor'>
                               Notificaciones
                             </h1>
@@ -240,7 +338,7 @@ const NavUserNotifications = ({ user }) => {
                                   >
                                     <div className='flex justify-center align-middle items-center'>
                                       <img
-                                        className='w-10 h-10 rounded-full border-none mr-2'
+                                        className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                         src={notification.avatar}
                                         alt='avatar'
                                       />
@@ -270,13 +368,29 @@ const NavUserNotifications = ({ user }) => {
                         </div>
                       </div>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             </div>
           </div>
         </div>
       </header>
+      {showMessage && selectedTutor !== null && (
+        <MessageContainer
+          tutor={selectedTutor}
+          handleMinimizeMessage={handleMinimizeMessage}
+          user={user}
+        />
+      )}
+      {user && selectedTutor !== null && !showMessage && (
+        <MessageMinimized
+          tutor={selectedTutor}
+          handleCloseMessage={handleCloseMessage}
+          handleMinimizeMessage={handleMinimizeMessage}
+          handleMaximizeMessage={handleMaximizeMessage}
+          user={user}
+        />
+      )}
     </>
   )
 }
