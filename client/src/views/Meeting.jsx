@@ -4,7 +4,7 @@ const Meeting = () => {
   return (
     <>
       <NavUserNotifications />
-      <div className="bg-gray-900 py-10 w-full h-full">
+      <div className="bg-gray-100 py-10 w-full h-full">
         {/* --------------------------Fila 1--------------------------- */}
 
         <div className="flex w-full h-full space-x-8 px-10">
@@ -87,7 +87,7 @@ const Meeting = () => {
             {/* Plataformas */}
             <div className="flex justify-center bg-white w-full h-full py-6 px-5 rounded-b border-b">
               {/* Zoom */}
-              <div className="flex flex-col w-full px-4">
+              <div className="flex flex-col w-full px-4 border-r">
                 <div className="flex justify-between items-center space-x-4">
                   <h2 className="text-black font-semibold text-start">Zoom</h2>
                   <h2 className="bg-blue-100 text-blue-600 px-2 py-1 text-xs rounded">
@@ -129,7 +129,7 @@ const Meeting = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col w-full px-4 border-r">
+              <div className="flex flex-col w-full px-4">
                 {/* Google Meet */}
                 <div className="flex  bg-white w-full h-full">
                   {/* Info Google Meet */}
@@ -181,11 +181,11 @@ const Meeting = () => {
                     <h2 className="text-gray-600 text-start text-sm">
                       1- Haz clic en el botón INICIAR GOOGLE HANGOUTS a
                       continuación para ir a Google.
-                      <br/>
-                      2- Copia el enlace permanente
-                      y envíalo a tu tutor/cliente. <br/>
-                      3- ¡Haz clic en "Cancelar" y
-                      espera a que la otra parte se una a la llamada!
+                      <br />
+                      2- Copia el enlace permanente y envíalo a tu
+                      tutor/cliente. <br />
+                      3- ¡Haz clic en "Cancelar" y espera a que la otra parte se
+                      una a la llamada!
                     </h2>
                   </div>
                 </div>
