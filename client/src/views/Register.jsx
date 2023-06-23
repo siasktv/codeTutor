@@ -31,8 +31,8 @@ const Register = () => {
       {!isLoading && (
         <div className='overflow-hidden'>
           <Navlogo />
-          <div className='flex'>
-            <div className='w-6/12 mt-20'>
+          <div className='flex items-center justify-center'>
+            <div className='w-6/12 mb-[450px] ml-20'>
               <ImageSlider />
             </div>
             <div className='flex-grow flex items-center justify-center'>

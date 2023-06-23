@@ -46,7 +46,9 @@ const Landing = () => {
 
   return (
     <section>
-      <NavLogin className='z-50' user={user} />
+      <div className='sticky top-0 z-[100] bg-white'>
+        <NavLogin user={user} />
+      </div>
       <div className='absolute flex-row justify-items-start  w-40 h-48 top-36 right-20 bg-white rounded-2xl border border-codecolor z-40 shadow-md shadow-gray-600'>
         <div className='absolute w-20 h-20 border-8 border-solid left-10 top-5  border-gray-200  rounded-full'></div>
         <div className='absolute w-20 h-20 border-8 border-solid left-10 top-5 border-l-transparent border-b-transparent  transform rotate-12 border-codecolor rounded-full'></div>

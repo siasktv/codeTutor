@@ -11,13 +11,18 @@ import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
 import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
 import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
+import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
 import { Star, MensajeTexto, Default } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
-import { ButtonDropdownLocation } from '../components'
+import { ButtonDropdownLocation, ChatsNav } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
 import { Loader, MessageContainer, MessageMinimized } from '../components'
 import ReactDOM from 'react-dom'
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowLeft,
+  faArrowRight,
+  faMessage
+} from '@fortawesome/free-solid-svg-icons'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -27,11 +32,18 @@ import IconCodeTutor from '../assets/IconCodeTutor.svg'
 
 import React from 'react'
 
-const NavUserSearch = ({ user }) => {
+const NavUserSearch = ({
+  user,
+  handleShowMessage,
+  setShowMessage,
+  showMessage
+}) => {
   const navigate = useNavigate()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showTech, setShowTech] = useState(false)
+  const [showChat, setShowChat] = useState(false)
+  const localUserChats = useSelector(state => state.localUser.chats)
 
   const tutors = useSelector(state => state.tutors.tutors)
   const users = useSelector(state => state.users.users)
@@ -39,39 +51,6 @@ const NavUserSearch = ({ user }) => {
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
-  const [showMessage, setShowMessage] = useState(false)
-  const [selectedTutor, setSelectedTutor] = useState(null)
-
-  const handleShowMessage = (e, tutor) => {
-    e.preventDefault()
-    if (selectedTutor === null) {
-      setSelectedTutor(tutor)
-      setShowMessage(true)
-    } else {
-      if (selectedTutor._id === tutor._id) {
-        setShowMessage(true)
-      } else {
-        setSelectedTutor(tutor)
-        setShowMessage(true)
-      }
-    }
-  }
-
-  const handleMinimizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-  }
-
-  const handleMaximizeMessage = e => {
-    e.preventDefault()
-    setShowMessage(true)
-  }
-
-  const handleCloseMessage = e => {
-    e.preventDefault()
-    setShowMessage(false)
-    setSelectedTutor(null)
-  }
 
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
@@ -96,6 +75,15 @@ const NavUserSearch = ({ user }) => {
   const handlePage = number => {
     setCurrentPage(number)
   }
+
+  useEffect(() => {
+    if (showMessage) {
+      setShowChat(false)
+      setShowNotifications(false)
+      setShowProfile(false)
+      setShowTech(false)
+    }
+  }, [showMessage])
 
   const pagesCutCount = 21
 
@@ -277,21 +265,47 @@ const NavUserSearch = ({ user }) => {
   const handleShowNotifications = () => {
     setShowNotifications(!showNotifications)
     setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleShowProfile = () => {
     setShowProfile(!showProfile)
     setShowNotifications(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleShowChat = e => {
+    if (!showChat) {
+      dispatch(fetchLocalUserChats(user.id))
+    } else {
+      dispatch(fetchLocalUserChats(null))
+    }
+    setShowChat(!showChat)
+    setShowNotifications(false)
+    setShowProfile(false)
+    if (showMessage) {
+      setShowMessage(false)
+    }
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleShowTech = () => {
     setShowTech(!showTech)
     setShowNotifications(false)
     setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleSortByTech = tech => {
     dispatch(sortedByTech(tech))
+  }
+
+  const handleSendShowMessage = (e, user) => {
+    setShowChat(false)
+    handleShowMessage(e, user)
   }
 
   return (
@@ -338,12 +352,12 @@ const NavUserSearch = ({ user }) => {
                     <img
                       src={user ? user.image : Default}
                       alt='avatar'
-                      className='w-10 h-10  rounded-full border-none cursor-pointer'
+                      className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                       onClick={handleShowProfile}
                     ></img>
                   </div>
                   {showProfile && (
-                    <div className='absolute top-16 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                    <div className='absolute top-16 mr-20 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
                           <Link to='/user'>
@@ -364,9 +378,18 @@ const NavUserSearch = ({ user }) => {
                     </div>
                   )}
                 </div>
+                {/* Chats */}
 
+                <ChatsNav
+                  user={user}
+                  handleShowChat={handleShowChat}
+                  showChat={showChat}
+                  setShowChat={setShowChat}
+                  localUserChats={localUserChats}
+                  handleSendShowMessage={handleSendShowMessage}
+                />
                 {/* Notificaciones */}
-                <div className='px-8 flex items-center'>
+                <div className='pr-8 pl-3 flex items-center'>
                   {user && (
                     <>
                       <div
@@ -376,9 +399,9 @@ const NavUserSearch = ({ user }) => {
                         <img src={notification} className=''></img>
                       </div>
                       {showNotifications && (
-                        <div className='absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                          <div className='flex flex-col gap-2 p-4 h-80'>
-                            <div className='flex justify-between items-center flex-1'>
+                        <div className='absolute top-14 mt-2 right-3  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                          <div className='flex flex-col gap-2 p-4 max-h-80'>
+                            <div className='flex justify-between items-start flex-1'>
                               <h1 className='font-bold text-xl text-codecolor'>
                                 Notificaciones
                               </h1>
@@ -412,7 +435,7 @@ const NavUserSearch = ({ user }) => {
                                     >
                                       <div className='flex justify-center align-middle items-center'>
                                         <img
-                                          className='w-10 h-10 rounded-full border-none mr-2'
+                                          className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                           src={notification.avatar}
                                           alt='avatar'
                                         />

@@ -1,10 +1,11 @@
 const Message = require('../../models/Message.model.js')
 
-const createMessage = async (conversationId, sender, message) => {
+const createMessage = async (conversationId, sender, message, read) => {
   const newMessage = await Message.create({
     conversationId,
     sender,
-    message
+    message,
+    read
   })
 
   const newMessagePopulate = await Message.findById(newMessage._id)
