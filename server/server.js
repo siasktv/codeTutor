@@ -167,6 +167,7 @@ io.on('connection', socket => {
           )
           findNotification.count = findNotification.count + 1
           findNotification.message = `${findNotification.sender.fullName} te envió ${findNotification.count} mensajes`
+          findNotification.alerted = false
           io.to(user.socketId).emit('setNotifications', {
             notifications: user.notifications
           })
@@ -179,7 +180,8 @@ io.on('connection', socket => {
                 ...notification,
                 message: `${notification.sender.fullName} te envió un mensaje`,
                 id: notificationId,
-                count: 1
+                count: 1,
+                alerted: user.online ? false : true
               }
             ]
           }
@@ -190,6 +192,16 @@ io.on('connection', socket => {
       }
     }
   )
+
+  socket.on('setAlerted', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.notifications = user.notifications.map(notification => {
+        notification.alerted = true
+        return notification
+      })
+    }
+  })
 
   socket.on('readAllNotifications', async ({ userId }) => {
     const user = await getUser(userId)
@@ -260,7 +272,6 @@ io.on('connection', socket => {
 connectDB()
 server.use('/', routes)
 
-if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 serverhttp.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })
