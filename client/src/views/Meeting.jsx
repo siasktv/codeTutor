@@ -1,8 +1,36 @@
+import { useEffect, useState } from 'react';
 import NavUserNotifications from "../components/NavUserNotifications";
 import useUser from "../hooks/useUser";
 
 const Meeting = () => {
   const user = useUser();
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [running, setRunning] = useState(false);
+  const [timeAccumulated, setTimeAccumulated] = useState(0);
+
+    useEffect(() => {
+    let intervalId;
+
+    if (running) {
+      setStartTime(Date.now());
+      intervalId = setInterval(() => {
+        setTimeAccumulated(Date.now());
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [running]);
+  
+
+  //formato de minutos y segundos
+  const currentTime = new Date(timeAccumulated-startTime);
+  const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+  const seconds = currentTime.getSeconds().toString().padStart(2, '0');
 
   return (
     <>
@@ -45,21 +73,39 @@ const Meeting = () => {
                 Tiempo de Sesión
               </h2>
               {/* Tiempo */}
-              <div className="flex items-center  justify-between space-x-14">
+              <div
+                className="flex items-center  justify-between space-x-14"
+                id="tiempo"
+              >
                 <h3 className="text-gray-800 font-semibold text-2xl text-center">
-                  00
+                  {minutes}{' '}
+                  {/* Minutos */}
                 </h3>
                 <div className="h-full border"></div>
                 <h3 className="text-gray-800 font-semibold text-2xl text-center">
-                  00
+                  {seconds}
+                  {/* Segundos */}
                 </h3>
               </div>
               {/* Botones */}
               <div className="flex items-center justify-between space-x-11 px-4">
-                <button className="text-white bg-green-600 font-semibold text-center rounded px-4 py-2 active:scale-90 transition duration-150">
+                <button
+                  className="text-white bg-green-600 font-semibold text-center rounded px-4 py-2 active:scale-90 transition duration-150"
+                  onClick={() => {
+                    setRunning(true);
+                  }}
+                >
                   Empezar
                 </button>
-                <button className="text-white bg-red-600 font-semibold text-center rounded px-4 py-2 active:scale-90 transition duration-150">
+                <button
+                  className="text-white bg-red-600 font-semibold text-center rounded px-4 py-2 active:scale-90 transition duration-150"
+                  onClick={() => {
+                    setRunning(false);
+                    setEndTime(Date.now());
+
+                    // enviarDatos(startTime, endTime);
+                  }}
+                >
                   Terminar
                 </button>
               </div>
