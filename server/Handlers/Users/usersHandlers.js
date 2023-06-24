@@ -5,6 +5,7 @@ const getAllUsers = require('../../controllers/Users/getAllUsers')
 const updateUser = require('../../controllers/Users/updateUser')
 const getUserByUid = require('../../controllers/Users/getUserByUid')
 const sendEmail = require('../../utils/nodemailer')
+const updateTutorsFavorites = require('../../controllers/Users/updateTutorsFavorites')
 const Tutor = require('../../models/Tutor.models')
 
 const getAllUsersHandler = async (req, res) => {
@@ -24,7 +25,7 @@ const getUserByUidHandler = async (req, res) => {
       const tutor = await Tutor.findOne({ user: user._id })
       res.status(200).json({
         ...user._doc,
-        tutor
+        tutor,
       })
     } else {
       res.status(200).json(user)
@@ -54,13 +55,14 @@ const createUserHandler = async (req, res) => {
       location,
       timezone,
       role,
-      uid
+      uid,
+      favoritesTutor,
     })
 
     const userToMail = {
       fullName,
       email,
-      image
+      image,
     }
 
     await sendEmail(userToMail)
@@ -92,7 +94,7 @@ const updateUserHandler = async (req, res) => {
       image,
       location,
       timezone,
-      role
+      role,
     })
     res.status(200).json(updatedUser)
   } catch (error) {
@@ -100,10 +102,20 @@ const updateUserHandler = async (req, res) => {
   }
 }
 
+const updateTutorsFavoritesHandler = async (req, res) => {
+  const { id, tutorId } = req.params
+  try {
+    const updatedUser = await updateTutorsFavorites(id, tutorId)
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
 module.exports = {
   createUserHandler,
   deleteUserHandler,
   getAllUsersHandler,
   updateUserHandler,
-  getUserByUidHandler
+  getUserByUidHandler,
+  updateTutorsFavoritesHandler,
 }
