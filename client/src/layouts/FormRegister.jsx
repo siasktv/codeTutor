@@ -123,7 +123,7 @@ const FormRegister = ({ redirect }) => {
   return (
     <>
       <div className='flex flex-col items-center justify-center'>
-        <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 mt-4'>
+        <div className='bg-white rounded lg:w-12/12 md:w-12/12 mr-72 w-full mt-12'>
           <p
             tabIndex='0'
             className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'

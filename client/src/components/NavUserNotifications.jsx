@@ -1,134 +1,119 @@
 import notification from '../assets/notification.svg'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { signOut } from '../firebase/client'
-import { Loader } from '../components'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faXmark, faMessage } from '@fortawesome/free-solid-svg-icons'
 import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
 import { Default } from '../assets'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchLocalUserChats,
+  getNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
+import {
+  Loader,
+  MessageContainer,
+  MessageMinimized,
+  ChatsNav,
+  NotificationsNav
+} from '../components'
+import { SocketContext, socket } from '../socket/context'
+import { useEffect, useRef } from 'react'
+import { notificationSound } from '../assets'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const NavUserNotifications = ({ user }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showChat, setShowChat] = useState(false)
+  const localUserChats = useSelector(state => state.localUser.chats)
+  const dispatch = useDispatch()
+  const socket = useContext(SocketContext)
 
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(1).png?alt=media&token=7be14359-1a3d-4431-aec8-bb345f413edc.png',
-      message:
-        'Un administrador revisó tu perfil de tutor y lo aprobó. ¡Bienvenido!',
-      isRead: false,
-      link: '/search'
-    },
-    {
-      id: 2,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/lautaro.jpg?alt=media&token=6dfa6d51-76cf-40d2-a911-431cbdfa3c77.png',
-      message: 'Lauti calificó tu sesión.',
-      isRead: false,
-      link: '/tutor/648b39f63079d297b2892a88'
-    },
-    {
-      id: 3,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/bianca.png?alt=media&token=8a6c15de-c0ec-404d-9e2f-11117ea070b9.png',
-      message: 'Bianca te envió un mensaje por privado.',
-      isRead: false,
-      link: '/tutor/648b39ba3079d297b2892a51'
-    },
-    {
-      id: 4,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/nahu.png?alt=media&token=9b9064a5-1949-4f0a-821e-95d2af21cb37.png',
-      message: '¡Nahu te contrató! Revisa tu calendario.',
-      isRead: false,
-      link: '/tutor/648b39d63079d297b2892a71'
-    },
-    {
-      id: 5,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/341487366_1842984366076817_4297675981046889835_n.jpg?alt=media&token=d871ff93-7a37-4857-a1ea-9117d50214dc.png',
-      message: 'Dante te está esperando en la sala de espera.',
-      isRead: false,
-      link: '/tutor/648b39ae3079d297b2892a41'
-    },
-    {
-      id: 6,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/juan.png?alt=media&token=191046a9-57eb-4570-9062-8093a99441b6.png',
-      message:
-        'Juan abrió una disputa por la sesión del 05/05/2023 y el pago fue retenido.',
-      isRead: false,
-      link: '/tutor/648b39cc3079d297b2892a61'
-    },
-    {
-      id: 7,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/nahu.png?alt=media&token=9b9064a5-1949-4f0a-821e-95d2af21cb37.png',
-      message: '¡Nahu te contrató! Revisa tu calendario.',
-      isRead: false,
-      link: '/tutor/648b39d63079d297b2892a71'
-    },
-    {
-      id: 8,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/341487366_1842984366076817_4297675981046889835_n.jpg?alt=media&token=d871ff93-7a37-4857-a1ea-9117d50214dc.png',
-      message: 'Dante te está esperando en la sala de espera.',
-      isRead: false,
-      link: '/tutor/648b39ae3079d297b2892a41'
-    },
-    {
-      id: 9,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/juan.png?alt=media&token=191046a9-57eb-4570-9062-8093a99441b6.png',
-      message:
-        'Juan abrió una disputa por la sesión del 05/05/2023 y el pago fue retenido.',
-      isRead: false,
-      link: '/tutor/648b39cc3079d297b2892a61'
-    },
-    {
-      id: 10,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/nahu.png?alt=media&token=9b9064a5-1949-4f0a-821e-95d2af21cb37.png',
-      message: '¡Nahu te contrató! Revisa tu calendario.',
-      isRead: false,
-      link: '/tutor/648b39d63079d297b2892a71'
-    },
-    {
-      id: 11,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/341487366_1842984366076817_4297675981046889835_n.jpg?alt=media&token=d871ff93-7a37-4857-a1ea-9117d50214dc.png',
-      message: 'Dante te está esperando en la sala de espera.',
-      isRead: false,
-      link: '/tutor/648b39ae3079d297b2892a41'
-    },
-    {
-      id: 12,
-      avatar:
-        'https://firebasestorage.googleapis.com/v0/b/codetutor-9cbe1.appspot.com/o/juan.png?alt=media&token=191046a9-57eb-4570-9062-8093a99441b6.png',
-      message:
-        'Juan abrió una disputa por la sesión del 05/05/2023 y el pago fue retenido.',
-      isRead: false,
-      link: '/tutor/648b39cc3079d297b2892a61'
+  const [notifications, setNotifications] = useState([])
+
+  const audioPlayer = useRef(null)
+
+  function playNotification () {
+    audioPlayer.current.play()
+  }
+
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+
+  useEffect(() => {
+    dispatch(getNotificationsStatus())
+  }, [])
+
+  useEffect(() => {
+    if (user?.id) {
+      socket?.emit('getNotifications', { userId: user.id })
+      socket?.on('setNotifications', newnotifications => {
+        dispatch(getNotificationsStatus())
+        setNotifications(
+          newnotifications.notifications.sort(
+            (a, b) => b.createdAt - a.createdAt
+          )
+        )
+      })
+      socket?.emit('setAlerted', { userId: user.id })
     }
-  ])
+  }, [socket, user])
+
+  useEffect(() => {
+    if (
+      notifications.filter(
+        notification =>
+          notification.isRead === false && notification.alerted === false
+      ).length > 0
+    ) {
+      if (soundEnabled === true || soundEnabled === 'true') {
+        playNotification()
+      }
+      if (alertsEnabled === true || alertsEnabled === 'true') {
+        toast(notifications[0]?.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          theme: 'light',
+          // icon is the notification.sender.image
+          icon: <img src={notifications[0].sender.image} alt='notification' />
+        })
+        socket?.emit('setAlerted', {
+          userId: user.id
+        })
+      }
+    }
+  }, [notifications])
+
+  useEffect(() => {
+    if (
+      showNotifications === true &&
+      notifications.filter(notification => notification.isRead === false)
+        .length > 0
+    ) {
+      socket?.emit('readAllNotifications', { userId: user.id })
+    }
+  }, [notifications])
 
   const markAsRead = id => {
-    const newNotifications = notifications.map(notification => {
-      if (notification.id === id) {
-        notification.isRead = true
-      }
-      return notification
-    })
+    socket?.emit('deleteNotification', { userId: user.id, notificationId: id })
+    const newNotifications = notifications.filter(
+      notification => notification._id !== id
+    )
     setNotifications(newNotifications)
   }
 
   const handleShowNotifications = () => {
+    socket?.emit('readAllNotifications', { userId: user.id })
     setShowNotifications(!showNotifications)
     setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
   }
 
   const handleShowProfile = () => {
@@ -136,9 +121,96 @@ const NavUserNotifications = ({ user }) => {
     setShowNotifications(false)
   }
 
+  const handleShowChat = e => {
+    if (!showChat) {
+      dispatch(fetchLocalUserChats(user.id))
+    } else {
+      dispatch(fetchLocalUserChats(null))
+    }
+    setShowChat(!showChat)
+    setShowNotifications(false)
+    setShowProfile(false)
+    if (showMessage) {
+      setShowMessage(false)
+    }
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleShowTech = () => {
+    setShowTech(!showTech)
+    setShowNotifications(false)
+    setShowProfile(false)
+    setShowChat(false)
+    dispatch(fetchLocalUserChats(null))
+  }
+
+  const handleSortByTech = tech => {
+    dispatch(sortedByTech(tech))
+  }
+
+  const handleSendShowMessage = (e, user) => {
+    setShowChat(false)
+    handleShowMessage(e, user)
+  }
+
+  const [showMessage, setShowMessage] = useState(false)
+  const [selectedTutor, setSelectedTutor] = useState(null)
+
+  const handleShowMessage = (e, tutor) => {
+    e.preventDefault()
+    if (selectedTutor === null) {
+      setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
+      setShowMessage(true)
+    } else {
+      if (selectedTutor._id === tutor._id) {
+        setShowMessage(true)
+      } else {
+        setSelectedTutor(tutor?.user ? tutor : { _id: tutor._id, user: tutor })
+        setShowMessage(true)
+      }
+    }
+  }
+
+  const handleMinimizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
+  }
+
+  const handleMaximizeMessage = e => {
+    e.preventDefault()
+    setShowMessage(true)
+  }
+
+  const handleCloseMessage = e => {
+    e.preventDefault()
+    setShowMessage(false)
+    setSelectedTutor(null)
+    socket.emit('closeChat', {
+      userId: user.id,
+      receiverId: selectedTutor.user._id
+    })
+  }
+
   return (
     <>
-      <header className='flex items-center h-20 w-full z-50'>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        draggable
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        closeOnClick
+        rtl={false}
+        theme='light'
+      />
+      <header className='flex items-center h-20 w-full'>
+        <audio ref={audioPlayer} src={notificationSound} />
         <div className='flex justify-between w-full items-center'>
           <div className='pl-8 pt-2'>
             <Link to='/'>
@@ -157,12 +229,12 @@ const NavUserNotifications = ({ user }) => {
                   <img
                     src={user?.image ? user.image : Default}
                     alt='avatar'
-                    className='w-10 h-10  rounded-full border-none cursor-pointer'
+                    className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                     onClick={handleShowProfile}
                   ></img>
                 </div>
                 {showProfile && (
-                  <div className='absolute top-16 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                  <div className='absolute top-14 mr-16 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                     <div className='flex flex-col gap-2 p-2'>
                       <div className='flex flex-col gap-2'>
                         {user && (
@@ -195,88 +267,47 @@ const NavUserNotifications = ({ user }) => {
                 )}
               </div>
 
+              {/* Chats */}
+              {user && (
+                <ChatsNav
+                  user={user}
+                  handleShowChat={handleShowChat}
+                  showChat={showChat}
+                  setShowChat={setShowChat}
+                  localUserChats={localUserChats}
+                  handleSendShowMessage={handleSendShowMessage}
+                />
+              )}
               {/* Notificaciones */}
-              <div className='px-8 flex items-center'>
-                {user && (
-                  <>
-                    <div
-                      className='p-3 h-10 w-10  bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
-                      onClick={handleShowNotifications}
-                    >
-                      <img src={notification} className=''></img>
-                    </div>
-                    {showNotifications && (
-                      <div className='absolute top-20 mt-2 right-0  bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                        <div className='flex flex-col gap-2 p-4 h-80'>
-                          <div className='flex justify-between items-center flex-1'>
-                            <h1 className='font-bold text-xl text-codecolor'>
-                              Notificaciones
-                            </h1>
-                            <button onClick={() => setShowNotifications(false)}>
-                              <FontAwesomeIcon
-                                icon={faXmark}
-                                className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark'
-                              />
-                            </button>
-                          </div>
-                          <div className='flex flex-col overflow-y-auto max-h-480px'>
-                            {notifications.filter(
-                              notification => notification.isRead === false
-                            ).length === 0 && (
-                              <div className='flex flex-col gap-2 m-3'>
-                                <div className='flex justify-center align-middle items-center'>
-                                  <h1 className='text-black font-semibold w-72 m-3'>
-                                    No tienes notificaciones.
-                                  </h1>
-                                </div>
-                              </div>
-                            )}
-                            {notifications.map(notification => (
-                              <React.Fragment key={notification.id}>
-                                {notification.isRead === false && (
-                                  <Link
-                                    to={notification.link}
-                                    className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'
-                                  >
-                                    <div className='flex justify-center align-middle items-center'>
-                                      <img
-                                        className='w-10 h-10 rounded-full border-none mr-2'
-                                        src={notification.avatar}
-                                        alt='avatar'
-                                      />
-                                      <div className='flex flex-col w-60 text-left'>
-                                        <h2 className='text-md'>
-                                          {notification.message}{' '}
-                                        </h2>
-                                      </div>
-                                      <div className='flex justify-end ml-3'>
-                                        <FontAwesomeIcon
-                                          icon={faTrash}
-                                          className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
-                                          onClick={e => {
-                                            e.preventDefault()
-                                            markAsRead(notification.id)
-                                          }}
-                                        >
-                                          Marcar como leído
-                                        </FontAwesomeIcon>
-                                      </div>
-                                    </div>
-                                  </Link>
-                                )}
-                              </React.Fragment>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+              <NotificationsNav
+                user={user}
+                handleShowNotifications={handleShowNotifications}
+                showNotifications={showNotifications}
+                setShowNotifications={setShowNotifications}
+                notifications={notifications}
+                handleSendShowMessage={handleSendShowMessage}
+                markAsRead={markAsRead}
+              />
             </div>
           </div>
         </div>
       </header>
+      {showMessage && selectedTutor !== null && (
+        <MessageContainer
+          tutor={selectedTutor}
+          handleMinimizeMessage={handleMinimizeMessage}
+          user={user}
+        />
+      )}
+      {user && selectedTutor !== null && !showMessage && (
+        <MessageMinimized
+          tutor={selectedTutor}
+          handleCloseMessage={handleCloseMessage}
+          handleMinimizeMessage={handleMinimizeMessage}
+          handleMaximizeMessage={handleMaximizeMessage}
+          user={user}
+        />
+      )}
     </>
   )
 }

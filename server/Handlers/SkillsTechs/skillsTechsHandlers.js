@@ -1,8 +1,8 @@
-const createSkillsTech = require('../../controllers/Skills/createSkillsTech')
-const getSkillsTechById = require('../../controllers/Skills/getSkillsTechById')
-const getAllSkillsTech = require('../../controllers/Skills/getAllSkillsTech')
-const deleteSkillsTech = require('../../controllers/Skills/deleteSkillsTech')
-const updateSkillsTech = require('../../controllers/Skills/updateSkillsTech')
+const createSkillsTech = require('../../controllers/Skills/createSkillsTech.js')
+const getSkillsTechById = require('../../controllers/Skills/getSkillsTechById.js')
+const getAllSkillsTech = require('../../controllers/Skills/getAllSkillsTech.js')
+const deleteSkillsTech = require('../../controllers/Skills/deleteSkillsTech.js')
+const updateSkillsTech = require('../../controllers/Skills/updateSkillsTech.js')
 
 const getAllSkillsTechHandler = async (req, res) => {
   try {

@@ -28,7 +28,7 @@ const JobName = props => {
   return (
     <>
       <p className='text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
-        Empleo <span className='text-red-500'>*</span>
+        Companía <span className='text-red-500'>*</span>
       </p>
       <input
         className={

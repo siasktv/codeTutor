@@ -33,10 +33,10 @@ const Login = () => {
         </div>
       )}
       {!isLoading && (
-        <div className='overflow-hidden'>
+        <div className='overflow-hidden h-screen'>
           <Navlogo />
-          <div className='flex'>
-            <div className='w-6/12 mt-20'>
+          <div className='flex items-center justify-center'>
+            <div className='w-6/12 mb-96 ml-20'>
               <ImageSlider />
             </div>
             <div className='flex-grow flex items-center justify-center'>

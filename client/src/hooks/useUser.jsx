@@ -2,7 +2,10 @@ import { useState, useEffect, useContext } from 'react'
 import { onAuthStateChanged } from '../firebase/client'
 import { SocketContext } from '../socket/context'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchLocalUser } from '../redux/features/localUser/localUserSlice'
+import {
+  fetchLocalUser,
+  fetchLocalUserChats
+} from '../redux/features/localUser/localUserSlice'
 
 export const USER_STATES = {
   NOT_LOGGED: null,
@@ -26,13 +29,14 @@ export default function useUser () {
       } else {
         setUser(USER_STATES.NOT_LOGGED)
         dispatch(fetchLocalUser({}))
+        dispatch(fetchLocalUserChats(null))
       }
     })
   }, [])
 
   useEffect(() => {
     if (user) {
-      socket?.emit('addUser', user.id)
+      socket?.emit('addUser', user.id, user)
     }
   }, [socket, user])
 

@@ -6,7 +6,7 @@ const createReview = async ({ tutor, user, comment, rating }) => {
     tutor,
     user,
     comment,
-    rating,
+    rating
   })
 
   // Because this newReview object will contain the new id
@@ -15,8 +15,6 @@ const createReview = async ({ tutor, user, comment, rating }) => {
     { _id: tutor },
     { $push: { reviews: newReview._id } }
   )
-
-  console.log('result', result)
 
   return newReview
 }

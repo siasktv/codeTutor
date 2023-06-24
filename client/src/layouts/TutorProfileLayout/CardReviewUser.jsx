@@ -1,10 +1,8 @@
-// import {
-//   PictureUserReviewTutor,
-//   NameUserReviewTutor,
-//   DescriptionUserReviewTutor,
-//   DateUserReviewTutor,
-// } from '../../components'
+
+
+
 import { useState } from 'react'
+import { Star2 } from '../../assets'
 const formatDate = (dateString) => {
   const date = new Date(dateString)
   const options = { month: 'long', year: 'numeric' }
@@ -25,29 +23,40 @@ const CardReviewUser = (props) => {
       {reviews.slice(0, displayedReviews).map((review) => (
         <div key={review._id}>
           {/* Card opinion */}
-          <div className="pb-4 flex">
+          <div className="pb-4 flex w-full">
             {/* Imagen de Perfil */}
             <img
               src={review.user.image}
-              alt="Imagen de perfil Tutor"
+              alt="Imagen de perfil Usuario de review"
               className="w-10 h-10 rounded-full object-cover transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none"
             />
             {/* Nombre y opinión */}
-            <div className="pl-4 flex-grow">
+            <div className="pl-2 flex flex-col w-full">
+              <div className="pl-2 flex-grow flex items-center justify-between w-full">
+                <div className="flex justify-center items-center">
+                  <h2 className="text-left font-semibold mr-2">
+                    {review.user.fullName}
+                  </h2>
+                  <div className="flex justify-center items-center space-x-1">
+                    {Array.from({ length: Math.round(review.rating) }).map(
+                      (_, index) => (
+                        <img key={index} src={Star2} />
+                      )
+                    )}
+                  </div>
+                </div>
+                <div className="pl-2 flex">
+                  {/* Fecha */}
+                  <p className="text-sm text-[#98A2B3] ">
+                    {formatDate(review.createdAt)}
+                  </p>
+                </div>
+              </div>
               <div>
-                <h2 className="text-left font-semibold">
-                  {review.user.fullName}
-                </h2>
-                <h2 className="text-sm  text-[#141414B2] text-justify">
+                <h2 className="pl-2 text-sm  text-[#141414B2] text-justify">
                   {review.comment}
                 </h2>
               </div>
-            </div>
-            {/* Fecha */}
-            <div className="pl-4 flex">
-              <p className="text-sm text-[#98A2B3] ">
-                {formatDate(review.createdAt)}
-              </p>
             </div>
           </div>
         </div>
@@ -63,6 +72,6 @@ const CardReviewUser = (props) => {
         </div>
       )}
     </div>
-  )
+  );
 }
 export default CardReviewUser

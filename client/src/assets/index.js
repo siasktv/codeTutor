@@ -25,6 +25,7 @@ import Moneda from './Moneda.svg'
 import Pais from './Pais.svg'
 import react from './react.svg'
 import Star from './Star.svg'
+import Star2 from './Star2.svg'
 import loaderGoogle from './loadergoogle.gif'
 import MagnifyingGlassSearch from './MagnifyingGlassSearch.svg'
 import devslanding from './devslanding.svg'
@@ -43,9 +44,11 @@ import revision from './revision.svg'
 import contrate from './contrate.svg'
 import help from './help.svg'
 import Default from './default.jpg'
+import notificationSound from './notification.mp3'
 
 export {
   Default,
+  notificationSound,
   videocallicon,
   collaboration,
   Duolingo,
@@ -73,6 +76,7 @@ export {
   Pais,
   react,
   Star,
+  Star2,
   loaderGoogle,
   MagnifyingGlassSearch,
   devslanding,

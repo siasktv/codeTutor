@@ -6,8 +6,6 @@ const getAllExperiences = async () => {
     select: 'name'
   })
 
-  console.log(allExperiences)
-
   return allExperiences
 }
 

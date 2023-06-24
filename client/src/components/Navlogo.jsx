@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 const Navlogo = () => {
   return (
     <header className=''>
-      <div className='mx-auto max-w-screen-xl p-4'>
+      <div className='mx-auto p-4'>
         <div className='flex items-center justify-between gap-4 lg:gap-10'>
           <div className='flex lg:w-0 lg:flex-1'>
             <Link to='/'>

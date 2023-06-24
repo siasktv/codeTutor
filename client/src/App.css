@@ -2,6 +2,8 @@
   /* max-width: 1280px; */
   margin: 0 auto;
   text-align: center;
+  --toastify-color-progress-light: #7f56d9;
+  --toastify-text-color-light: #141414;
 }
 
 * {
@@ -73,9 +75,9 @@
 }
 .ldio-k03x9zi0p6l div {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  border: 10px solid #7f56d9;
+  width: 20px;
+  height: 20px;
+  border: 5px solid #7f56d9;
   border-top-color: transparent;
   border-radius: 50%;
 }

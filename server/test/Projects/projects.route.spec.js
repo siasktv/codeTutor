@@ -34,13 +34,14 @@ describe('Pruebas sobre la API Projects', () => {
     const newProject = {
       tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
       name: 'Test project',
+      end_date: '2023-06-12',
       link: 'https://www.testproject.com',
       description: 'This is a test project',
       techName: [
         new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-        new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-      ]
-    }
+        new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+      ],
+    };
 
     afterAll(async () => {
       await Projects.deleteMany({
@@ -71,13 +72,14 @@ describe('Pruebas sobre la API Projects', () => {
       project = await Projects.create({
         tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
+        end_date: '2023-06-12',
         link: 'https://www.testproject.com',
         description: 'This is a test project',
         techName: [
           new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-        ]
-      })
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+        ],
+      });
     })
 
     afterEach(async () => {
@@ -109,13 +111,14 @@ describe('Pruebas sobre la API Projects', () => {
       project = await Projects.create({
         tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
+        end_date: '2023-06-12',
         link: 'https://www.testproject.com',
         description: 'This is a test project',
         techName: [
           new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-        ]
-      })
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+        ],
+      });
     })
 
     afterEach(async () => {
@@ -128,13 +131,14 @@ describe('Pruebas sobre la API Projects', () => {
         .send({
           tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
           name: 'Test project updated',
+          end_date: '2023-06-12',
           link: 'https://www.testprojectupdated.com',
           description: 'This is a test project updated',
           techName: [
             new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-          ]
-        })
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+          ],
+        });
 
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('json')
@@ -147,12 +151,13 @@ describe('Pruebas sobre la API Projects', () => {
           tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
           name: 'Test project updated 2',
           link: 'https://www.testprojectupdated2.com',
+          end_date: '2023-06-14',
           description: 'This is a test project updated 2',
           techName: [
             new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-          ]
-        })
+            new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+          ],
+        });
 
       expect(response.body._id).toBeDefined()
       expect(response.body.name).toBe('Test project updated 2')
@@ -167,12 +172,13 @@ describe('Pruebas sobre la API Projects', () => {
         tutor: new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
         name: 'Test project',
         link: 'https://www.testproject.com',
+        end_date: '2023-06-15',
         description: 'This is a test project',
         techName: [
           new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
-          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d')
-        ]
-      })
+          new mongoose.Types.ObjectId('5e8b7a4d7b4b8a2c4c4e2c4d'),
+        ],
+      });
       response = await request(app)
         .delete(`/api/projects/${project._id}`)
         .send()

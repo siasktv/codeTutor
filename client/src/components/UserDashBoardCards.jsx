@@ -8,7 +8,7 @@ import { techesFetch } from '../redux/features/teches/techesSlice'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
-import { MessageContainer, MessageMinimized, Loader } from '../components'
+import { Loader } from '../components'
 import classNames from 'classnames'
 
 const Tab = ({ active, children, ...props }) => (
@@ -27,12 +27,11 @@ const Tab = ({ active, children, ...props }) => (
   </button>
 )
 
-const UserDashboardCards = ({ userMongo }) => {
+const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const [isLoading, setIsLoading] = useState(true)
   const tutors = useSelector((state) => state.tutors.tutors)
   const user = useUser()
-  const [showMessage, setShowMessage] = useState(false)
-  const [selectedTutor, setSelectedTutor] = useState(null)
+
   const [view, setView] = useState('featured')
 
   const setFeatured = () => setView('featured')
@@ -46,37 +45,6 @@ const UserDashboardCards = ({ userMongo }) => {
     if (view === 'favorites' && userMongo.favoritesTutor.length === 0)
       setView('featured')
   }, [userMongo])
-
-  const handleShowMessage = (e, tutor) => {
-    e.preventDefault()
-    if (selectedTutor === null) {
-      setSelectedTutor(tutor)
-      setShowMessage(true)
-    } else {
-      if (selectedTutor._id === tutor._id) {
-        setShowMessage(true)
-      } else {
-        setSelectedTutor(tutor)
-        setShowMessage(true)
-      }
-    }
-  }
-
-  const handleMinimizeMessage = (e) => {
-    e.preventDefault()
-    setShowMessage(false)
-  }
-
-  const handleMaximizeMessage = (e) => {
-    e.preventDefault()
-    setShowMessage(true)
-  }
-
-  const handleCloseMessage = (e) => {
-    e.preventDefault()
-    setShowMessage(false)
-    setSelectedTutor(null)
-  }
 
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
@@ -188,8 +156,8 @@ const UserDashboardCards = ({ userMongo }) => {
                       onClick={handlePreviusPage}
                       className={
                         currentPage === 1
-                          ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                          : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                          ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                          : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
                       }
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
@@ -213,8 +181,8 @@ const UserDashboardCards = ({ userMongo }) => {
                         onClick={handleNextPage}
                         className={
                           currentPage === pageNumbers.length
-                            ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                            : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                            : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
                         }
                       >
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -226,22 +194,6 @@ const UserDashboardCards = ({ userMongo }) => {
                   {pageNumbers.length} páginas en total
                 </p>
               </>
-            )}
-            {showMessage && selectedTutor !== null && (
-              <MessageContainer
-                tutor={selectedTutor}
-                handleMinimizeMessage={handleMinimizeMessage}
-                user={user}
-              />
-            )}
-            {user && selectedTutor !== null && !showMessage && (
-              <MessageMinimized
-                tutor={selectedTutor}
-                handleCloseMessage={handleCloseMessage}
-                handleMinimizeMessage={handleMinimizeMessage}
-                handleMaximizeMessage={handleMaximizeMessage}
-                user={user}
-              />
             )}
           </>
         </div>
@@ -255,9 +207,3 @@ const UserDashboardCards = ({ userMongo }) => {
   )
 }
 export default UserDashboardCards
-
-{
-  /* ((view === 'featured' && tutors.length > currentTutors.length) ||
-              (view === 'favorites' &&
-                currentTutors.length > tutorsPerPage)) && ( */
-}

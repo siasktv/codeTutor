@@ -16,6 +16,8 @@ const FormRegister = props => {
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false)
   const [formsDisabled, setFormsDisabled] = useState(false)
   const [firebaseError, setFirebaseError] = useState(null)
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const isFormValid = Object.values(errors).every(error => !error)
@@ -25,6 +27,7 @@ const FormRegister = props => {
       setIsDisabled(false)
     }
   }, [errors])
+  
 
   const validateForm = form => {
     let errors = {}
@@ -103,9 +106,32 @@ const FormRegister = props => {
     })
   }
 
+  const handleForgotPassword = () => {
+    setForgotPassword(true);
+  };
+
+  const UnhandleForgotPassword = () => {
+    setForgotPassword(false);
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
+     
+  const handleAlert = () => {
+      setShowAlert(true);
+      
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+    };
+  
+    const UnhandleAlert = () => {
+      setShowAlert(false);
+    };
+
+  
+
 
   const registerRedirect = props.redirect
     ? `/register?redirect=${props.redirect}`
@@ -113,6 +139,7 @@ const FormRegister = props => {
 
   return (
     <div className='flex flex-col items-center justify-center'>
+      {!forgotPassword && (
       <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 mt-4'>
         <p
           tabIndex='0'
@@ -202,8 +229,9 @@ const FormRegister = props => {
             )}
           </div>
           <p
-            href='#'
+            
             className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
+            onClick={handleForgotPassword}
           >
             ¿Olvidaste tu contraseña?
           </p>
@@ -276,6 +304,144 @@ const FormRegister = props => {
           )}
         </button>
       </div>
+      )}
+    {forgotPassword && (
+      <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 pt-32 mt-4 '>
+        {showAlert && (
+        <div
+        role="alert"
+        class="rounded-xl border border-gray-100 bg-white p-4  shadow-xl mb-10 transition-opacity duration-400 "
+      >
+        <div class="flex items-start gap-4">
+          <span class="text-green-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-6 w-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </span>
+      
+          <div class="flex-1">
+            <strong class="block font-medium text-gray-900"> Correo de restablecimiento enviado. </strong>
+      
+            <p class="mt-1 text-sm text-gray-700">
+              Revisa tu correo y sigue lo pasos para restablecer tu contraseña
+            </p>
+          </div>
+      
+          <button class="text-gray-500 transition hover:text-gray-600" onClick={UnhandleAlert}>
+            <span class="sr-only">Dismiss popup</span>
+      
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-6 w-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      )}
+      <p
+        tabIndex='0'
+        className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'
+      >
+        ¿Olvidaste tu contraseña?
+      </p>
+      <p className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
+        <span className='text-black'>¿No tienes una cuenta? </span>
+        <Link
+          to={registerRedirect}
+          className='hover:underline cursor-pointer'
+        >
+          Registrate aquí
+        </Link>
+      </p>
+      <form onSubmit={handleSubmit}>
+        <div className='w-full mt-4'>
+          <label
+            id='email'
+            className='text-sm font-medium leading-none text-gray-800'
+          >
+            <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+              Email
+            </p>
+          </label>
+          <input
+            aria-labelledby='email'
+            type='email'
+            className={
+              errors.email
+                ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
+                : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+            }
+            name='email'
+            onChange={handleChange}
+          />
+          {errors.email && (
+            <p className='text-red-500 text-sm font-medium leading-none text-left mt-2'>
+              {errors.email}
+            </p>
+          )}
+        </div>
+        <p
+            
+            className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
+            onClick={UnhandleForgotPassword}
+          >
+            ¿No haz olvidado tu contraseña?
+          </p>
+        <div className='mt-8'>
+          <button
+            role='button'
+            onClick={handleAlert}
+            className={
+              'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+              // !isDisabled && !formsDisabled
+              //   ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+              //   : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
+            }
+            // disabled={isDisabled || formsDisabled}
+            type='submit'
+          >
+            Recupera tu contraseña
+          </button>
+        </div>
+
+        
+          
+        {firebaseError && (
+          <p className='text-red-500 font-medium leading-none text-center mt-2 text-md'>
+            {firebaseError}
+          </p>
+        )}
+      </form>
+      <p className='text-center text-sm pt-4 text-gray-500'>¿Como se restablecerá tu contraseña?<br/>Revisa tu mail, allí llegará un correo con las instrucciones para restablecer tu contraseña.</p>
+      <div className='w-full flex items-center justify-between py-10'>
+        <hr className='w-full bg-gray-400' />
+      </div>
+
+      
+    </div>
+    
+)}
     </div>
   )
 }

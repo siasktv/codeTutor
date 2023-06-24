@@ -1,15 +1,12 @@
-import {
-  ProyectNameLink,
-  TechnicalSkillsProyectTutor,
-  DescriptionProyectTutor,
-} from '../../components'
+
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString)
-  const options = { month: 'long', year: 'numeric' }
-  const formattedDate = date.toLocaleDateString('es-ES', options)
-  return formattedDate.replace('de', '').trim()
+  const date = new Date(dateString);
+  const options = { month: 'long', year: 'numeric' };
+  const formattedDate = date.toLocaleDateString('es-ES', options);
+  return formattedDate.replace('de', '').trim();
 }
+
 
 import React, { useState } from 'react'
 
@@ -38,6 +35,11 @@ const CardProyects = (props) => {
               >
                 {project.link}
               </a>
+            </div>
+            <div className="pt-6 flex gap-4 ">
+              <p className="text-[#141414B2] font-semibold text-sm text-left">
+                Fecha de finalización: {formatDate(project.end_date)}{' '}
+              </p>
             </div>
           </div>
 
@@ -71,7 +73,7 @@ const CardProyects = (props) => {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default CardProyects

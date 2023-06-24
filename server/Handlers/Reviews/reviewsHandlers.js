@@ -1,8 +1,8 @@
-const createReview = require('../../controllers/Reviews/createReview');
-const getReviewById = require('../../controllers/Reviews/getReviewById');
-const getAllReview= require('../../controllers/Reviews/getAllReviews');
-const deleteReview = require('../../controllers/Reviews/deteteReview');
-const updateReview = require('../../controllers/Reviews/updateReview');
+const createReview = require('../../controllers/Reviews/createReview.js');
+const getReviewById = require('../../controllers/Reviews/getReviewById.js');
+const getAllReview= require('../../controllers/Reviews/getAllReviews.js');
+const deleteReview = require('../../controllers/Reviews/deteteReview.js');
+const updateReview = require('../../controllers/Reviews/updateReview.js');
 
 const getAllReviewHandler = async (req, res) => {
   try {

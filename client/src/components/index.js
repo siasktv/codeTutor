@@ -1,70 +1,64 @@
-import NavLogin from './NavLogin'
-import LandingDropdown from './LandingDropdown'
-import ButtonShowMore from './Buttons/ButtonShowMore'
-import ButtonContactar from './Buttons/ButtonTextContactarTutor'
-import AreaTutor3xl from './Area3xlTutor'
-import CoinHourTutor from './CoinHourTutor'
-import CompanyJobTutor from './CompanyJobTutor'
-import ConexionStateTutor from './ConexionStateTutor'
-import CountryJobTutor from './CountryJobTutor'
-import CountryTutor from './CountryTutor'
-import DateUserReviewTutor from './DateUserReviewTutor'
-import DescriptionJobTutor from './DescriptionJobTutor'
-import DescriptionProyectTutor from './DescriptionProyectTutor'
-import DescriptionTutor from './DescriptionTutor'
-import DescriptionUserReviewTutor from './DescriptionUserReviewTutor'
-import ExpJobTutor from './ExpJobTutor'
-import LanguageTutor from './LanguageTutor'
-import LinkGitHub from './LinkGitHubTutor'
-import LinkLinkedIn from './LinkLinkedInTutor'
-import NameTutor from './NameTutor'
-import NameUserReviewTutor from './NameUserReviewTutor'
-import PictureTutor from './PictureTutor'
-import PictureUserReviewTutor from './PictureUserReviewTutor'
-import PriceHourGray from './PriceHourGrayTutor'
-import PriceHourPurple from './PriceHourPurpleTutor'
-import ProyectNameLink from './ProyectNameLink'
-import RangeBar from './Search/RangeBar'
-import SessionsTutor from './SessionsTutor'
-import TechnicalSkillsJobTutor from './TechnicalSkillsJobTutor'
-import TechnicalSkillsProyectTutor from './TechnicalSkillsProyectTutor'
-import TechnicalSkillsTutor from './TechnicalSkillsTutor'
-import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation'
-import NavUserNotifications from './NavUserNotifications'
-import Loader from './Loader'
-import MessageContainer from './MessageContainer'
-import MessageMinimized from './MessageMinimized'
+import NavLogin from './NavLogin.jsx'
+import LandingDropdown from './LandingDropdown.jsx'
+import ButtonContactar from './Buttons/ButtonTextContactarTutor.jsx'
+import AreaTutor3xl from './Area3xlTutor.jsx'
+import CoinHourTutor from './CoinHourTutor.jsx'
+import ConexionStateTutor from './ConexionStateTutor.jsx'
+import CountryTutor from './CountryTutor.jsx'
+import DateUserReviewTutor from './DateUserReviewTutor.jsx'
+import DescriptionTutor from './DescriptionTutor.jsx'
+import DescriptionUserReviewTutor from './DescriptionUserReviewTutor.jsx'
+import LanguageTutor from './LanguageTutor.jsx'
+import LinkGitHub from './LinkGitHubTutor.jsx'
+import LinkLinkedIn from './LinkLinkedInTutor.jsx'
+import NameTutor from './NameTutor.jsx'
+import NameUserReviewTutor from './NameUserReviewTutor.jsx'
+import PictureTutor from './PictureTutor.jsx'
+import PictureUserReviewTutor from './PictureUserReviewTutor.jsx'
+import PriceHourGray from './PriceHourGrayTutor.jsx'
+import PriceHourPurple from './PriceHourPurpleTutor.jsx'
+import RangeBar from './Search/RangeBar.jsx'
+import SessionsTutor from './SessionsTutor.jsx'
+import TechnicalSkillsTutor from './TechnicalSkillsTutor.jsx'
+import ButtonDropdownLocation from './Buttons/ButtonDropdownLocation.jsx'
+import NavUserNotifications from './NavUserNotifications.jsx'
+import Loader from './Loader.jsx'
+import MessageContainer from './MessageContainer.jsx'
+import MessageMinimized from './MessageMinimized.jsx'
+import ChatsNav from './ChatsNav.jsx'
+import NotificationsNav from './NotificationsNav'
 
 //FormTutor
 //componentes generales
-import TutorFormDataLeft from './FormTutor/TutorFormDataLeft'
-import TutorFormProgressBar from './FormTutor/TutorFormProgressBar'
-import TutorFormWelcome from './FormTutor/TutorFormWelcome'
-import EnviarPerfilButton from './FormTutor/EnviarPerfilButton'
-import CancelarPerfilButton from './FormTutor/CancelarPerfilButton'
-import CardForm from './FormTutor/TutorFormGeneral/CardForm'
-import AgregarButton from './FormTutor/TutorFormGeneral/AgregarButton'
+import TutorFormDataLeft from './FormTutor/TutorFormDataLeft.jsx'
+import TutorFormProgressBar from './FormTutor/TutorFormProgressBar.jsx'
+import TutorFormWelcome from './FormTutor/TutorFormWelcome.jsx'
+import EnviarPerfilButton from './FormTutor/EnviarPerfilButton.jsx'
+import CancelarPerfilButton from './FormTutor/CancelarPerfilButton.jsx'
+import CardForm from './FormTutor/TutorFormGeneral/CardForm.jsx'
+import AgregarButton from './FormTutor/TutorFormGeneral/AgregarButton.jsx'
 
 //componentes de Data
-import TutorFormProfileLanguages from './FormTutor/TutorData/TutorFormProfileLanguages'
-import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName'
-import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia'
-import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime'
-import CardTutorData from './FormTutor/TutorData/CardTutorData'
+import TutorFormProfileLanguages from './FormTutor/TutorData/TutorFormProfileLanguages.jsx'
+import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName.jsx'
+import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia.jsx'
+import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime.jsx'
+import CardTutorData from './FormTutor/TutorData/CardTutorData.jsx'
 
 //componentes del Form General
-import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia'
-import TutorFormExperience from './FormTutor/TutorFormGeneral/TutorFormExperience'
-import TutorFormProjects from './FormTutor/TutorFormGeneral/TutorFormProjects'
-import TutorFormRate from './FormTutor/TutorFormGeneral/TutorFormRate'
-import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech'
+import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia.jsx'
+import TutorFormExperience from './FormTutor/TutorFormGeneral/TutorFormExperience.jsx'
+import TutorFormProjects from './FormTutor/TutorFormGeneral/TutorFormProjects.jsx'
+import TutorFormRate from './FormTutor/TutorFormGeneral/TutorFormRate.jsx'
+import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech.jsx'
 
 //componented del tutor tech
-import TutorProfileFormTech from './FormTutor/TutorTech/TutorProfileFormTech'
-import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields'
+import TutorProfileFormTech from './FormTutor/TutorTech/TutorProfileFormTech.jsx'
+import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields.jsx'
 
 export {
   CardTutorInputFields,
+  NotificationsNav,
   TutorProfileFormTech,
   CardTutorData,
   CardForm,
@@ -85,21 +79,15 @@ export {
   TutorFormProfileTime,
   NavLogin,
   LandingDropdown,
-  ButtonShowMore,
   ButtonContactar,
   ButtonDropdownLocation,
   AreaTutor3xl,
   CoinHourTutor,
-  CompanyJobTutor,
   ConexionStateTutor,
-  CountryJobTutor,
   CountryTutor,
   DateUserReviewTutor,
-  DescriptionJobTutor,
-  DescriptionProyectTutor,
   DescriptionTutor,
   DescriptionUserReviewTutor,
-  ExpJobTutor,
   LanguageTutor,
   LinkGitHub,
   LinkLinkedIn,
@@ -109,14 +97,12 @@ export {
   PictureUserReviewTutor,
   PriceHourGray,
   PriceHourPurple,
-  ProyectNameLink,
   RangeBar,
   SessionsTutor,
-  TechnicalSkillsJobTutor,
-  TechnicalSkillsProyectTutor,
   TechnicalSkillsTutor,
   NavUserNotifications,
   Loader,
   MessageContainer,
   MessageMinimized,
+  ChatsNav
 }
