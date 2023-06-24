@@ -9,20 +9,11 @@ import {
 } from '../../components'
 import { CardReviewUser, CardExperience, CardProyects } from '../'
 
-import { Pais, Moneda, Mensaje, Star } from '../../assets'
+import { Pais, Moneda, Mensaje } from '../../assets'
 
 const TutorInfoR = props => {
   const { tutor } = props
-  const reviewCount = tutor.reviews ? tutor.reviews.length : 0
-  const totalRatings = tutor.reviews
-    ? tutor.reviews.reduce((total, review) => {
-        if (!isNaN(review.rating)) {
-          return total + review.rating
-        }
-        return total
-      }, 0)
-    : 0
-  const averageRating = reviewCount > 0 ? totalRatings / reviewCount : 0
+  
 
   return (
     <div className='w-full pl-9 flex flex-col relative z-0'>
