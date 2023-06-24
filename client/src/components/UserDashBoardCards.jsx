@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,6 +10,7 @@ import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
 import { Loader } from '../components'
 import classNames from 'classnames'
+import { SocketContext, socket } from '../socket/context'
 
 const Tab = ({ active, children, ...props }) => (
   <button
@@ -19,7 +20,7 @@ const Tab = ({ active, children, ...props }) => (
       {
         'bg-codecolor text-white': active,
         'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200':
-          props.disabled
+          props.disabled,
       }
     )}
   >
@@ -29,14 +30,29 @@ const Tab = ({ active, children, ...props }) => (
 
 const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const tutors = useSelector(state => state.tutors.tutors)
+  const tutors = useSelector((state) => state.tutors.tutors)
   const user = useUser()
 
   const [view, setView] = useState('featured')
 
+  const [tutorFavorites, setTutorFavorites] = useState([])
+
+  useEffect(() => {
+    if (user) {
+      socket.on('setFavorites', (data) => {
+        setTutorFavorites(data.tutorFavorites)
+      })
+      socket.emit('getFavorites', { userId: user.id })
+    }
+  }, [user])
+
+  useEffect(() => {
+    console.log('FAVORITOS', tutorFavorites)
+  }, [tutorFavorites])
+
   const setFeatured = () => setView('featured')
   const setFavorites = () => setView('favorites')
-  const filterByFavs = tutor => {
+  const filterByFavs = (tutor) => {
     if (view !== 'favorites') return true
     return userMongo.favoritesTutor.find(({ _id }) => tutor._id === _id)
   }
@@ -55,10 +71,10 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const indexOfFirstFavoriteTutor = indexOfLastFavoriteTutor - tutorsPerPage
   const currentTutors = [...tutors.slice(indexOfFirstTutor, indexOfLastTutor)]
   const currentFavoriteTutors = [
-    ...userMongo.favoritesTutor.slice(
+    ...tutorFavorites.slice(
       indexOfFirstFavoriteTutor,
       indexOfLastFavoriteTutor
-    )
+    ),
   ]
   console.log(currentFavoriteTutors)
 
@@ -67,11 +83,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
     pageNumbers.push(i)
   }
-  for (
-    let i = 1;
-    i <= Math.ceil(userMongo.favoritesTutor.length / tutorsPerPage);
-    i++
-  ) {
+  for (let i = 1; i <= Math.ceil(tutorFavorites.length / tutorsPerPage); i++) {
     pageNumbersFavorites.push(i)
   }
   const handlePreviusPage = () => {
@@ -97,11 +109,11 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     }
   }
 
-  const handlePage = number => {
+  const handlePage = (number) => {
     setCurrentPage(number)
   }
 
-  const handleFavoritesPage = number => {
+  const handleFavoritesPage = (number) => {
     setCurrentFavoritesPage(number)
   }
 
@@ -117,7 +129,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     } else if (currentPage + floor >= pageNumbers.length) {
       return {
         start: pageNumbers.length - pagesCutCount + 1,
-        end: pageNumbers.length + 1
+        end: pageNumbers.length + 1,
       }
     } else {
       return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
@@ -137,12 +149,12 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     } else if (currentFavoritesPage + floor >= pageNumbersFavorites.length) {
       return {
         start: pageNumbersFavorites.length - pagesCutCount + 1,
-        end: pageNumbersFavorites.length + 1
+        end: pageNumbersFavorites.length + 1,
       }
     } else {
       return {
         start: currentFavoritesPage - ceiling + 1,
-        end: currentFavoritesPage + floor + 1
+        end: currentFavoritesPage + floor + 1,
       }
     }
   }
@@ -177,33 +189,39 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     }
   }, [tutors])
 
+  useEffect(() => {
+    if (view === 'favorites' && !tutorFavorites.length) {
+      setView('featured')
+    }
+  })
+
   return (
     <>
       {!isLoading && (
-        <div className='relative items-center w-full px-8 py-8'>
+        <div className="relative items-center w-full px-8 py-8">
           <>
-            <div className=' w-full gap-4 h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start '>
+            <div className=" w-full gap-4 h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
               <Tab onClick={setFeatured} active={view === 'featured'}>
                 Destacados
               </Tab>
               <Tab
                 onClick={setFavorites}
-                disabled={!userMongo.favoritesTutor.length}
+                disabled={!tutorFavorites.length}
                 active={view === 'favorites'}
               >
                 Favoritos
               </Tab>
             </div>
             {tutors.length === 0 && (
-              <div className='flex justify-center items-center mt-40'>
-                <h1 className='text-2xl font-semibold'>
+              <div className="flex justify-center items-center mt-40">
+                <h1 className="text-2xl font-semibold">
                   No se encontraron programadores.
                 </h1>
               </div>
             )}
             {view === 'featured' && (
               <>
-                {currentTutors.map(tutor => (
+                {currentTutors.map((tutor) => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                     <CardTutor
                       setFavorites={setFavorites}
@@ -211,6 +229,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       tutor={tutor}
                       handleShowMessage={handleShowMessage}
                       user={user}
+                      tutorFavorites={tutorFavorites}
                     />
                   </Link>
                 ))}
@@ -218,7 +237,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
             )}
             {view === 'favorites' && (
               <>
-                {currentFavoriteTutors.map(tutor => (
+                {currentFavoriteTutors.map((tutor) => (
                   <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                     <CardTutor
                       setFavorites={setFavorites}
@@ -226,6 +245,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       tutor={tutor}
                       handleShowMessage={handleShowMessage}
                       user={user}
+                      tutorFavorites={tutorFavorites}
                     />
                   </Link>
                 ))}
@@ -234,8 +254,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
 
             {view === 'featured' && tutors.length > currentTutors.length && (
               <>
-                <div className='flex justify-center items-center'>
-                  <div className='flex justify-center items-center'>
+                <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center">
                     <button
                       onClick={handlePreviusPage}
                       className={
@@ -247,7 +267,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
 
-                    {pages.map(number => (
+                    {pages.map((number) => (
                       <button
                         key={number}
                         onClick={() => handlePage(number)}
@@ -274,17 +294,16 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                     </>
                   </div>
                 </div>
-                <p className='text-codecolor font-bold text-md mt-3'>
+                <p className="text-codecolor font-bold text-md mt-3">
                   {pageNumbers.length} páginas en total
                 </p>
               </>
             )}
             {view === 'favorites' &&
-              userMongo.favoritesTutor.length >
-                currentFavoriteTutors.length && (
+              tutorFavorites.length > currentFavoriteTutors.length && (
                 <>
-                  <div className='flex justify-center items-center'>
-                    <div className='flex justify-center items-center'>
+                  <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center">
                       <button
                         onClick={handlePreviusFavoritesPage}
                         className={
@@ -296,7 +315,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                         <FontAwesomeIcon icon={faArrowLeft} />
                       </button>
 
-                      {pagesFavorites.map(number => (
+                      {pagesFavorites.map((number) => (
                         <button
                           key={number}
                           onClick={() => handleFavoritesPage(number)}
@@ -323,7 +342,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       </>
                     </div>
                   </div>
-                  <p className='text-codecolor font-bold text-md mt-3'>
+                  <p className="text-codecolor font-bold text-md mt-3">
                     {pageNumbersFavorites.length} páginas en total
                   </p>
                 </>
@@ -332,7 +351,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
         </div>
       )}
       {isLoading && (
-        <div className='flex justify-center items-center mt-40'>
+        <div className="flex justify-center items-center mt-40">
           <Loader />
         </div>
       )}
