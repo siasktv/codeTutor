@@ -4,33 +4,31 @@ import useUser from "../hooks/useUser";
 
 const Meeting = () => {
   const user = useUser();
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
   const [running, setRunning] = useState(false);
   const [timeAccumulated, setTimeAccumulated] = useState(0);
 
-    useEffect(() => {
-    let intervalId;
+  useEffect(() => {
+    let intervalId = null;
 
     if (running) {
-      setStartTime(Date.now());
       intervalId = setInterval(() => {
-        setTimeAccumulated(Date.now());
+        setTimeAccumulated((prevTime) => prevTime + 1);
       }, 1000);
-    } else {
-      clearInterval(intervalId);
     }
 
     return () => {
       clearInterval(intervalId);
     };
   }, [running]);
-  
 
-  //formato de minutos y segundos
-  const currentTime = new Date(timeAccumulated-startTime);
-  const minutes = currentTime.getMinutes().toString().padStart(2, '0');
-  const seconds = currentTime.getSeconds().toString().padStart(2, '0');
+   //formato de minutos y segundos
+  
+  const minutes = Math.floor(timeAccumulated / (1000 * 60))
+    .toString()
+    .padStart(2, '0');
+  const seconds = Math.floor((timeAccumulated % (1000 * 60)) / 1000)
+    .toString()
+    .padStart(2, '0');
 
   return (
     <>
@@ -78,13 +76,11 @@ const Meeting = () => {
                 id="tiempo"
               >
                 <h3 className="text-gray-800 font-semibold text-2xl text-center">
-                  {minutes}{' '}
-                  {/* Minutos */}
+                  {minutes} {/* Minutos */}
                 </h3>
                 <div className="h-full border"></div>
                 <h3 className="text-gray-800 font-semibold text-2xl text-center">
-                  {seconds}
-                  {/* Segundos */}
+                  {seconds} {/* Segundos */}
                 </h3>
               </div>
               {/* Botones */}
@@ -101,9 +97,7 @@ const Meeting = () => {
                   className="text-white bg-red-600 font-semibold text-center rounded px-4 py-2 active:scale-90 transition duration-150"
                   onClick={() => {
                     setRunning(false);
-                    setEndTime(Date.now());
-
-                    // enviarDatos(startTime, endTime);
+                    setTimeAccumulated(0);
                   }}
                 >
                   Terminar
