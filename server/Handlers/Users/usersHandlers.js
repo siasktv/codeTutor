@@ -9,6 +9,7 @@ const sendEmail = require('../../utils/nodemailer.js')
 const admin = require('../../utils/firebase/firebase-config')
 const sendPasswordResetEmail = require('../../utils/firebase/resetPassEmail.js')
 const actionCodeSettings = require('../../utils/firebase/actionCodeSettings.js')
+const updateTutorsFavorites = require('../../controllers/Users/updateTutorsFavorites')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -57,7 +58,8 @@ const createUserHandler = async (req, res) => {
       location,
       timezone,
       role,
-      uid
+      uid,
+      favoritesTutor
     })
 
     const userToMail = {
@@ -119,11 +121,21 @@ const resetPasswordHandler = async (req, res) => {
   }
 }
 
+const updateTutorsFavoritesHandler = async (req, res) => {
+  const { id, tutorId } = req.params
+  try {
+    const updatedUser = await updateTutorsFavorites(id, tutorId)
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
 module.exports = {
   createUserHandler,
   deleteUserHandler,
   getAllUsersHandler,
   updateUserHandler,
   getUserByUidHandler,
-  resetPasswordHandler
+  resetPasswordHandler,
+  updateTutorsFavoritesHandler
 }

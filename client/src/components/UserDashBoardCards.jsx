@@ -9,17 +9,48 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
 import { Loader } from '../components'
+import classNames from 'classnames'
 
-const UserDashboardCards = ({ handleShowMessage }) => {
+const Tab = ({ active, children, ...props }) => (
+  <button
+    {...props}
+    className={classNames(
+      'w-40 h-12 relative left-20 mt-8 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] hover:bg-codecolor hover:text-white text-codecolor',
+      {
+        'bg-codecolor text-white': active,
+        'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200':
+          props.disabled,
+      }
+    )}
+  >
+    {children}
+  </button>
+)
+
+const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const tutors = useSelector(state => state.tutors.tutors)
+  const tutors = useSelector((state) => state.tutors.tutors)
   const user = useUser()
+
+  const [view, setView] = useState('featured')
+
+  const setFeatured = () => setView('featured')
+  const setFavorites = () => setView('favorites')
+  const filterByFavs = (tutor) => {
+    if (view !== 'favorites') return true
+    return userMongo.favoritesTutor.find(({ _id }) => tutor._id === _id)
+  }
+
+  useEffect(() => {
+    if (view === 'favorites' && userMongo.favoritesTutor.length === 0)
+      setView('featured')
+  }, [userMongo])
 
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
   const indexOfLastTutor = tutorsPerPage * currentPage
   const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
-  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor)
+  const currentTutors = [...tutors.slice(indexOfFirstTutor, indexOfLastTutor)]
   const pageNumbers = []
   for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
     pageNumbers.push(i)
@@ -35,7 +66,7 @@ const UserDashboardCards = ({ handleShowMessage }) => {
     }
   }
 
-  const handlePage = number => {
+  const handlePage = (number) => {
     setCurrentPage(number)
   }
 
@@ -51,7 +82,7 @@ const UserDashboardCards = ({ handleShowMessage }) => {
     } else if (currentPage + floor >= pageNumbers.length) {
       return {
         start: pageNumbers.length - pagesCutCount + 1,
-        end: pageNumbers.length + 1
+        end: pageNumbers.length + 1,
       }
     } else {
       return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
@@ -83,13 +114,17 @@ const UserDashboardCards = ({ handleShowMessage }) => {
       {!isLoading && (
         <div className="relative items-center w-full px-8 py-8">
           <>
-            <div className=" w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
-              <button className="w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold">
+            <div className=" w-full gap-4 h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
+              <Tab onClick={setFeatured} active={view === 'featured'}>
                 Destacados
-              </button>
-              <button className="w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold ">
+              </Tab>
+              <Tab
+                onClick={setFavorites}
+                disabled={!userMongo.favoritesTutor.length}
+                active={view === 'favorites'}
+              >
                 Favoritos
-              </button>
+              </Tab>
             </div>
             {tutors.length === 0 && (
               <div className="flex justify-center items-center mt-40">
@@ -98,9 +133,10 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                 </h1>
               </div>
             )}
-            {currentTutors.map((tutor) => (
+            {currentTutors.filter(filterByFavs).map((tutor) => (
               <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
                 <CardTutor
+                  setFavorites={setFavorites}
                   key={tutor._id}
                   tutor={tutor}
                   handleShowMessage={handleShowMessage}
@@ -108,7 +144,11 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                 />
               </Link>
             ))}
-            {tutors.length > currentTutors.length && (
+
+            {((view === 'featured' && tutors.length > currentTutors.length) ||
+              (view === 'favorites' &&
+                currentTutors.filter(filterByFavs).length >=
+                  tutorsPerPage)) && (
               <>
                 <div className="flex justify-center items-center">
                   <div className="flex justify-center items-center">
@@ -164,6 +204,6 @@ const UserDashboardCards = ({ handleShowMessage }) => {
         </div>
       )}
     </>
-  );
+  )
 }
 export default UserDashboardCards
