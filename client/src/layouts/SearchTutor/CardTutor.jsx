@@ -29,14 +29,12 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 const CardTutor = (props) => {
   const dispatch = useDispatch()
-  const { tutor, handleShowMessage, user, setFavorites } = props
+  const { tutor, handleShowMessage, user, tutorFavorites } = props
   const userMongo = useSelector((state) => state.users.user)
   const socket = useContext(SocketContext)
   console.log({ user, userMongo })
 
-  const isFavoriteTutor = Boolean(
-    userMongo.favoritesTutor.find(({ _id }) => tutor._id === _id)
-  )
+  const isFavoriteTutor = tutorFavorites?.find((t) => t._id === tutor._id)
 
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
@@ -64,34 +62,22 @@ const CardTutor = (props) => {
     document.body.style.overflow = 'auto'
   }
 
-  const handleFavoritesTutors = (e) => {
+  const handleAddFavorites = (e) => {
     e.preventDefault()
     socket.emit('addTutorFavorite', {
       userId: user.id,
-      tutorId: tutor._id,
+      tutor: tutor,
     })
+  }
+
+  const handleRemoveFavorites = (e) => {
+    e.preventDefault()
     socket.emit('removeTutorFavorite', {
       userId: user.id,
-      tutorId: tutor._id,
+      tutor: tutor,
     })
   }
 
-  //add y remove function
-
-  const addTutorFavorites = async (e, userId, tutorId) => {
-    e.preventDefault()
-    try {
-      const result = await axios.put(
-        `${BACKEND_URL}/api/users/${userId}/${tutorId}`
-      )
-      console.log(result.data)
-      dispatch(userFetchById(user.uid))
-
-      return result.data
-    } catch (err) {
-      console.log(err)
-    }
-  }
   const buttonClasses = classNames(
     'bg-codecolorlighter shadow-sm border flex justify-center -mt-6 ml-12 items-center w-8 h-8 text-white rounded-full'
   )
@@ -109,7 +95,7 @@ const CardTutor = (props) => {
 
             {!isFavoriteTutor ? (
               <button
-                onClick={(e) => addTutorFavorites(e, user.id, tutor._id)}
+                onClick={(e) => handleAddFavorites(e)}
                 className={buttonClasses}
               >
                 <svg
@@ -123,7 +109,7 @@ const CardTutor = (props) => {
               </button>
             ) : (
               <button
-                onClick={() => handleFavoritesTutors()}
+                onClick={(e) => handleRemoveFavorites(e)}
                 className={buttonClasses}
               >
                 <svg

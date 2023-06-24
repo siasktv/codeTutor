@@ -232,24 +232,28 @@ io.on('connection', (socket) => {
 
   socket.on('getFavorites', async ({ userId }) => {
     const user = await getUser(userId)
-    if (user) return { tutorFavorites: user.tutorFavorites }
-  })
-
-  socket.on('addTutorFavorite', async ({ userId, tutorId }) => {
-    const user = await getUser(userId)
     if (user) {
-      user.tutorFavorites.push(tutorId)
       io.to(user.socketId).emit('setFavorites', {
         tutorFavorites: user.tutorFavorites,
       })
     }
   })
 
-  socket.on('removeTutorFavorite', async ({ userId, tutorId }) => {
+  socket.on('addTutorFavorite', async ({ userId, tutor }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.tutorFavorites.push(tutor)
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites,
+      })
+    }
+  })
+
+  socket.on('removeTutorFavorite', async ({ userId, tutor }) => {
     const user = await getUser(userId)
     if (user) {
       user.tutorFavorites = user.tutorFavorites.filter(
-        (favorite) => favorite !== tutorId
+        (favorite) => favorite._id !== tutor._id
       )
       io.to(user.socketId).emit('setFavorites', {
         tutorFavorites: user.tutorFavorites,

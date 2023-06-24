@@ -59,8 +59,6 @@ export const getNotificationsStatus = createAsyncThunk(
 export const setNotificationsStatus = createAsyncThunk(
   'localUser/setNotificationsStatus',
   ({ soundEnabled, alertsEnabled }) => {
-    console.log('soundEnabled', soundEnabled)
-    console.log('alertsEnabled', alertsEnabled)
     localStorage.setItem('soundEnabled', soundEnabled)
     localStorage.setItem('alertsEnabled', alertsEnabled)
     return { soundEnabled, alertsEnabled }

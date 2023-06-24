@@ -10,7 +10,7 @@ import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
 import { Loader } from '../components'
 import classNames from 'classnames'
-import { SocketContext, socket } from '../../socket/context'
+import { SocketContext, socket } from '../socket/context'
 
 const Tab = ({ active, children, ...props }) => (
   <button
@@ -35,6 +35,21 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
 
   const [view, setView] = useState('featured')
 
+  const [tutorFavorites, setTutorFavorites] = useState([])
+
+  useEffect(() => {
+    if (user) {
+      socket.on('setFavorites', (data) => {
+        setTutorFavorites(data.tutorFavorites)
+      })
+      socket.emit('getFavorites', { userId: user.id })
+    }
+  }, [user])
+
+  useEffect(() => {
+    console.log('FAVORITOS', tutorFavorites)
+  }, [tutorFavorites])
+
   const setFeatured = () => setView('featured')
   const setFavorites = () => setView('favorites')
   const filterByFavs = (tutor) => {
@@ -49,26 +64,57 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
 
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
+  const [currentFavoritesPage, setCurrentFavoritesPage] = useState(1)
   const indexOfLastTutor = tutorsPerPage * currentPage
+  const indexOfLastFavoriteTutor = tutorsPerPage * currentFavoritesPage
   const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
+  const indexOfFirstFavoriteTutor = indexOfLastFavoriteTutor - tutorsPerPage
   const currentTutors = [...tutors.slice(indexOfFirstTutor, indexOfLastTutor)]
+  const currentFavoriteTutors = [
+    ...tutorFavorites.slice(
+      indexOfFirstFavoriteTutor,
+      indexOfLastFavoriteTutor
+    ),
+  ]
+  console.log(currentFavoriteTutors)
+
   const pageNumbers = []
+  const pageNumbersFavorites = []
   for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
     pageNumbers.push(i)
+  }
+  for (let i = 1; i <= Math.ceil(tutorFavorites.length / tutorsPerPage); i++) {
+    pageNumbersFavorites.push(i)
   }
   const handlePreviusPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
   }
+  const handlePreviusFavoritesPage = () => {
+    if (currentFavoritesPage > 1) {
+      setCurrentFavoritesPage(currentFavoritesPage - 1)
+    }
+  }
+
   const handleNextPage = () => {
     if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1)
     }
   }
 
+  const handleNextFavoritesPage = () => {
+    if (currentFavoritesPage < pageNumbersFavorites.length) {
+      setCurrentFavoritesPage(currentFavoritesPage + 1)
+    }
+  }
+
   const handlePage = (number) => {
     setCurrentPage(number)
+  }
+
+  const handleFavoritesPage = (number) => {
+    setCurrentFavoritesPage(number)
   }
 
   const pagesCutCount = 21
@@ -89,8 +135,41 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
       return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
     }
   }
+  const getPagesCutFavorites = (
+    pageNumbersFavorites,
+    pagesCutCount,
+    currentFavoritesPage
+  ) => {
+    const ceiling = Math.ceil(pagesCutCount / 2)
+    const floor = Math.floor(pagesCutCount / 2)
+    if (pageNumbersFavorites.length < pagesCutCount) {
+      return { start: 1, end: pageNumbersFavorites.length + 1 }
+    } else if (currentFavoritesPage >= 1 && currentFavoritesPage <= ceiling) {
+      return { start: 1, end: pagesCutCount + 1 }
+    } else if (currentFavoritesPage + floor >= pageNumbersFavorites.length) {
+      return {
+        start: pageNumbersFavorites.length - pagesCutCount + 1,
+        end: pageNumbersFavorites.length + 1,
+      }
+    } else {
+      return {
+        start: currentFavoritesPage - ceiling + 1,
+        end: currentFavoritesPage + floor + 1,
+      }
+    }
+  }
+
   const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
+  const pagesCuttedFavorites = getPagesCutFavorites(
+    pageNumbersFavorites,
+    pagesCutCount,
+    currentFavoritesPage
+  )
   const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
+  const pagesFavorites = pageNumbersFavorites.slice(
+    pagesCuttedFavorites.start - 1,
+    pagesCuttedFavorites.end - 1
+  )
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -110,6 +189,12 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     }
   }, [tutors])
 
+  useEffect(() => {
+    if (view === 'favorites' && !tutorFavorites.length) {
+      setView('featured')
+    }
+  })
+
   return (
     <>
       {!isLoading && (
@@ -121,7 +206,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
               </Tab>
               <Tab
                 onClick={setFavorites}
-                disabled={!userMongo.favoritesTutor.length}
+                disabled={!tutorFavorites.length}
                 active={view === 'favorites'}
               >
                 Favoritos
@@ -134,22 +219,40 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                 </h1>
               </div>
             )}
-            {currentTutors.filter(filterByFavs).map((tutor) => (
-              <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                <CardTutor
-                  setFavorites={setFavorites}
-                  key={tutor._id}
-                  tutor={tutor}
-                  handleShowMessage={handleShowMessage}
-                  user={user}
-                />
-              </Link>
-            ))}
+            {view === 'featured' && (
+              <>
+                {currentTutors.map((tutor) => (
+                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
+                    <CardTutor
+                      setFavorites={setFavorites}
+                      key={tutor._id}
+                      tutor={tutor}
+                      handleShowMessage={handleShowMessage}
+                      user={user}
+                      tutorFavorites={tutorFavorites}
+                    />
+                  </Link>
+                ))}
+              </>
+            )}
+            {view === 'favorites' && (
+              <>
+                {currentFavoriteTutors.map((tutor) => (
+                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
+                    <CardTutor
+                      setFavorites={setFavorites}
+                      key={tutor._id}
+                      tutor={tutor}
+                      handleShowMessage={handleShowMessage}
+                      user={user}
+                      tutorFavorites={tutorFavorites}
+                    />
+                  </Link>
+                ))}
+              </>
+            )}
 
-            {((view === 'featured' && tutors.length > currentTutors.length) ||
-              (view === 'favorites' &&
-                currentTutors.filter(filterByFavs).length >=
-                  tutorsPerPage)) && (
+            {view === 'featured' && tutors.length > currentTutors.length && (
               <>
                 <div className="flex justify-center items-center">
                   <div className="flex justify-center items-center">
@@ -196,6 +299,54 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                 </p>
               </>
             )}
+            {view === 'favorites' &&
+              tutorFavorites.length > currentFavoriteTutors.length && (
+                <>
+                  <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center">
+                      <button
+                        onClick={handlePreviusFavoritesPage}
+                        className={
+                          currentFavoritesPage === 1
+                            ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                            : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                        }
+                      >
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                      </button>
+
+                      {pagesFavorites.map((number) => (
+                        <button
+                          key={number}
+                          onClick={() => handleFavoritesPage(number)}
+                          className={
+                            currentFavoritesPage === number
+                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                          }
+                        >
+                          {number}
+                        </button>
+                      ))}
+                      <>
+                        <button
+                          onClick={handleNextFavoritesPage}
+                          className={
+                            currentFavoritesPage === pageNumbersFavorites.length
+                              ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                              : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                          }
+                        >
+                          <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                      </>
+                    </div>
+                  </div>
+                  <p className="text-codecolor font-bold text-md mt-3">
+                    {pageNumbersFavorites.length} páginas en total
+                  </p>
+                </>
+              )}
           </>
         </div>
       )}
