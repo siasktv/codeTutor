@@ -18,12 +18,12 @@ import {
   Star2,
 } from '../../assets/index'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import classNames from 'classnames'
-
 import { userFetchById } from '../../redux/features/users/usersSlice'
+import { SocketContext, socket } from '../../socket/context'
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -31,6 +31,7 @@ const CardTutor = (props) => {
   const dispatch = useDispatch()
   const { tutor, handleShowMessage, user, setFavorites } = props
   const userMongo = useSelector((state) => state.users.user)
+  const socket = useContext(SocketContext)
   console.log({ user, userMongo })
 
   const isFavoriteTutor = Boolean(
@@ -62,6 +63,20 @@ const CardTutor = (props) => {
     setShowModal(false)
     document.body.style.overflow = 'auto'
   }
+
+  const handleFavoritesTutors = (e) => {
+    e.preventDefault()
+    socket.emit('addTutorFavorite', {
+      userId: user.id,
+      tutorId: tutor._id,
+    })
+    socket.emit('removeTutorFavorite', {
+      userId: user.id,
+      tutorId: tutor._id,
+    })
+  }
+
+  //add y remove function
 
   const addTutorFavorites = async (e, userId, tutorId) => {
     e.preventDefault()
@@ -108,7 +123,7 @@ const CardTutor = (props) => {
               </button>
             ) : (
               <button
-                onClick={(e) => addTutorFavorites(e, user.id, tutor._id)}
+                onClick={() => handleFavoritesTutors()}
                 className={buttonClasses}
               >
                 <svg
@@ -140,7 +155,7 @@ const CardTutor = (props) => {
                         <img key={index} src={Star2} />
                       )
                     )}
-                    </div>
+                  </div>
                 </div>
               </div>
               {tutor.reviews && (
@@ -210,7 +225,7 @@ const CardTutor = (props) => {
               aria-hidden="true"
               className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto transition-all duration-300 bg-white bg-opacity-10 backdrop-blur-sm"
               onClick={(event) => {
-                event.preventDefault();
+                event.preventDefault()
               }}
             >
               <div className="relative w-full max-w-2xl max-h-full p-4 mx-auto my-10 overflow-hidden transition-all transform cursor-default md:my-0 ">
@@ -222,7 +237,7 @@ const CardTutor = (props) => {
                       data-modal-hide="defaultModal"
                       aria-label="Close"
                       onClick={(event) => {
-                        handleCloseModal(event);
+                        handleCloseModal(event)
                       }}
                     >
                       <svg
@@ -252,9 +267,9 @@ const CardTutor = (props) => {
                       type="button"
                       className="text-white bg-codecolor hover:bg-codecolordark hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        event.preventDefault();
-                        document.body.style.overflow = 'auto';
-                        navigate('/login?redirect=/search');
+                        event.preventDefault()
+                        document.body.style.overflow = 'auto'
+                        navigate('/login?redirect=/search')
                       }}
                     >
                       Iniciar sesión
@@ -264,7 +279,7 @@ const CardTutor = (props) => {
                       type="button"
                       className="text-white bg-red-500 hover:bg-red-700 hover:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-100 ease-in-out"
                       onClick={(event) => {
-                        handleCloseModal(event);
+                        handleCloseModal(event)
                       }}
                     >
                       Cancelar
@@ -277,7 +292,7 @@ const CardTutor = (props) => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default CardTutor

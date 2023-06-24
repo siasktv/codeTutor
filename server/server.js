@@ -14,7 +14,7 @@ const {
   addUser,
   getUser,
   getUserBySocketId,
-  users
+  users,
 } = require('./utils/userChatSocket.js')
 
 const { Server: SocketServer } = require('socket.io')
@@ -47,12 +47,12 @@ const io = new SocketServer(serverhttp, {
     origin: FRONTEND_URL,
     methods: ['GET', 'POST'],
     transports: ['websocket', 'polling'],
-    credentials: true
+    credentials: true,
   },
-  allowEIO3: true
+  allowEIO3: true,
 })
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
     const user = await getUser(receiverId)
     const sender = await getUser(senderId)
@@ -60,7 +60,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.socketId).emit('getMessage', {
         senderId,
-        message
+        message,
       })
     }
   })
@@ -69,7 +69,7 @@ io.on('connection', socket => {
     await addUser(userId, socket.id, userInfo)
     io.emit(
       'online',
-      users.filter(user => user.online === true)
+      users.filter((user) => user.online === true)
     )
     const setOnline = async () => {
       try {
@@ -82,15 +82,15 @@ io.on('connection', socket => {
     setOnline()
   })
 
-  socket.on('checkOnline', async userId => {
+  socket.on('checkOnline', async (userId) => {
     const user = await getUser(userId)
     if (user?.online === true) {
       io.to(socket.id).emit('checkOnline', {
-        online: true
+        online: true,
       })
     } else {
       io.to(socket.id).emit('checkOnline', {
-        online: false
+        online: false,
       })
     }
   })
@@ -102,7 +102,7 @@ io.on('connection', socket => {
       user.chatOpen = conversationId
       if (receiver) {
         io.to(receiver?.socketId).emit('checkIsInChat', {
-          isInChat: true
+          isInChat: true,
         })
       }
     }
@@ -116,7 +116,7 @@ io.on('connection', socket => {
       user.chatOpen = null
       if (receiver) {
         io.to(receiver?.socketId).emit('checkIsInChat', {
-          isInChat: false
+          isInChat: false,
         })
       }
     }
@@ -126,11 +126,11 @@ io.on('connection', socket => {
     const user = await getUser(userId)
     if (user?.chatOpen === conversationId) {
       io.to(socket.id).emit('checkIsInChat', {
-        isInChat: true
+        isInChat: true,
       })
     } else {
       io.to(socket.id).emit('checkIsInChat', {
-        isInChat: false
+        isInChat: false,
       })
     }
   })
@@ -139,7 +139,7 @@ io.on('connection', socket => {
     const user = await getUser(userId)
     if (user) {
       io.to(user.socketId).emit('setNotifications', {
-        notifications: user.notifications
+        notifications: user.notifications,
       })
     }
   })
@@ -153,14 +153,14 @@ io.on('connection', socket => {
         if (
           notification.type === 'message' &&
           user.notifications.find(
-            notification =>
+            (notification) =>
               notification.type === 'message' &&
               notification.sender.id === userId &&
               notification.isRead === false
           )
         ) {
           findNotification = user.notifications.find(
-            notification =>
+            (notification) =>
               notification.type === 'message' &&
               notification.sender.id === userId &&
               notification.isRead === false
@@ -169,7 +169,7 @@ io.on('connection', socket => {
           findNotification.message = `${findNotification.sender.fullName} te envió ${findNotification.count} mensajes`
           findNotification.alerted = false
           io.to(user.socketId).emit('setNotifications', {
-            notifications: user.notifications
+            notifications: user.notifications,
           })
         } else {
           notificationId = Math.random().toString(36).substr(2, 9)
@@ -181,12 +181,12 @@ io.on('connection', socket => {
                 message: `${notification.sender.fullName} te envió un mensaje`,
                 id: notificationId,
                 count: 1,
-                alerted: user.online ? false : true
-              }
+                alerted: user.online ? false : true,
+              },
             ]
           }
           io.to(user.socketId).emit('setNotifications', {
-            notifications: user.notifications
+            notifications: user.notifications,
           })
         }
       }
@@ -196,7 +196,7 @@ io.on('connection', socket => {
   socket.on('setAlerted', async ({ userId }) => {
     const user = await getUser(userId)
     if (user) {
-      user.notifications = user.notifications.map(notification => {
+      user.notifications = user.notifications.map((notification) => {
         notification.alerted = true
         return notification
       })
@@ -206,12 +206,12 @@ io.on('connection', socket => {
   socket.on('readAllNotifications', async ({ userId }) => {
     const user = await getUser(userId)
     if (user) {
-      user.notifications = user.notifications.map(notification => {
+      user.notifications = user.notifications.map((notification) => {
         notification.isRead = true
         return notification
       })
       io.to(user.socketId).emit('setNotifications', {
-        notifications: user.notifications
+        notifications: user.notifications,
       })
     }
   })
@@ -220,23 +220,53 @@ io.on('connection', socket => {
     const user = await getUser(userId)
     if (user) {
       user.notifications = user.notifications.filter(
-        notification => notification.id !== notificationId
+        (notification) => notification.id !== notificationId
       )
       io.to(user.socketId).emit('setNotifications', {
-        notifications: user.notifications
+        notifications: user.notifications,
+      })
+    }
+  })
+
+  //tutorsFavorite
+
+  socket.on('getFavorites', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) return { tutorFavorites: user.tutorFavorites }
+  })
+
+  socket.on('addTutorFavorite', async ({ userId, tutorId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.tutorFavorites.push(tutorId)
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites,
+      })
+    }
+  })
+
+  socket.on('removeTutorFavorite', async ({ userId, tutorId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.tutorFavorites = user.tutorFavorites.filter(
+        (favorite) => favorite !== tutorId
+      )
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites,
       })
     }
   })
 
   socket.on('disconnect', async () => {
     const user = await getUserBySocketId(socket.id)
-    const usersWithChatOpen = users.filter(r => r.chatOpen === user?.chatOpen)
+    const usersWithChatOpen = users.filter((r) => r.chatOpen === user?.chatOpen)
     if (user) {
       const setOffline = async () => {
         try {
           await User.findByIdAndUpdate(user.userId, {
             offline: true,
-            chatOpen: null
+            chatOpen: null,
+            favoritesTutor: user.tutorFavorites,
           })
         } catch (err) {
           console.log(err)
@@ -246,28 +276,16 @@ io.on('connection', socket => {
       user.online = false
       io.emit(
         'online',
-        users.filter(user => user.online === true)
+        users.filter((user) => user.online === true)
       )
     }
-    usersWithChatOpen.forEach(user => {
+    usersWithChatOpen.forEach((user) => {
       io.to(user.socketId).emit('checkIsInChat', {
-        isInChat: false
+        isInChat: false,
       })
     })
   })
 })
-
-// const paths = {
-//   tutors: '/tutors',
-//   reviews: '/reviews',
-//   users: '/users',
-//   orders: '/orders',
-// }
-
-// server.use(paths.tutors, require('./routes/tutorsRoutes'))
-// server.use(paths.reviews, require('./routes/reviewsRoutes'))
-// server.use(paths.users, require('./routes/usersRoutes'))
-// server.use(paths.orders, require('./routes/orders'))
 
 connectDB()
 server.use('/', routes)

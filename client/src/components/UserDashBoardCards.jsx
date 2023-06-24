@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,6 +10,7 @@ import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
 import { Loader } from '../components'
 import classNames from 'classnames'
+import { SocketContext, socket } from '../../socket/context'
 
 const Tab = ({ active, children, ...props }) => (
   <button
