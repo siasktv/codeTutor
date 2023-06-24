@@ -109,3 +109,11 @@ export const loginWithGoogle = () => {
         .catch(err => console.log(err))
     })
 }
+
+export const validateOobCode = oobCode => {
+  return firebase.auth().verifyPasswordResetCode(oobCode)
+}
+
+export const resetPassword = (oobCode, newPassword) => {
+  return firebase.auth().confirmPasswordReset(oobCode, newPassword)
+}

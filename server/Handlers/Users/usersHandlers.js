@@ -1,12 +1,15 @@
-const User = require('../../models/User.models')
-const createUser = require('../../controllers/Users/createUser')
-const deleteUser = require('../../controllers/Users/deleteUser')
-const getAllUsers = require('../../controllers/Users/getAllUsers')
-const updateUser = require('../../controllers/Users/updateUser')
-const getUserByUid = require('../../controllers/Users/getUserByUid')
-const sendEmail = require('../../utils/nodemailer')
+const User = require('../../models/User.models.js')
+const Tutor = require('../../models/Tutor.models.js')
+const createUser = require('../../controllers/Users/createUser.js')
+const deleteUser = require('../../controllers/Users/deleteUser.js')
+const getAllUsers = require('../../controllers/Users/getAllUsers.js')
+const updateUser = require('../../controllers/Users/updateUser.js')
+const getUserByUid = require('../../controllers/Users/getUserByUid.js')
+const sendEmail = require('../../utils/nodemailer.js')
+const admin = require('../../utils/firebase/firebase-config')
+const sendPasswordResetEmail = require('../../utils/firebase/resetPassEmail.js')
+const actionCodeSettings = require('../../utils/firebase/actionCodeSettings.js')
 const updateTutorsFavorites = require('../../controllers/Users/updateTutorsFavorites')
-const Tutor = require('../../models/Tutor.models')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -25,7 +28,7 @@ const getUserByUidHandler = async (req, res) => {
       const tutor = await Tutor.findOne({ user: user._id })
       res.status(200).json({
         ...user._doc,
-        tutor,
+        tutor
       })
     } else {
       res.status(200).json(user)
@@ -56,13 +59,13 @@ const createUserHandler = async (req, res) => {
       timezone,
       role,
       uid,
-      favoritesTutor,
+      favoritesTutor
     })
 
     const userToMail = {
       fullName,
       email,
-      image,
+      image
     }
 
     await sendEmail(userToMail)
@@ -94,11 +97,27 @@ const updateUserHandler = async (req, res) => {
       image,
       location,
       timezone,
-      role,
+      role
     })
     res.status(200).json(updatedUser)
   } catch (error) {
     res.status(500).json({ error: error.message })
+  }
+}
+
+const resetPasswordHandler = async (req, res) => {
+  const { email } = req.body
+
+  if (!email) return res.status(400).json({ error: 'Email is required' })
+
+  try {
+    const link = await admin
+      .auth()
+      .generatePasswordResetLink(email, actionCodeSettings)
+    await sendPasswordResetEmail(email, link)
+    res.status(200).json({ message: 'Email sent' })
+  } catch (error) {
+    res.status(500).json({ code: error.code })
   }
 }
 
@@ -117,5 +136,6 @@ module.exports = {
   getAllUsersHandler,
   updateUserHandler,
   getUserByUidHandler,
-  updateTutorsFavoritesHandler,
+  resetPasswordHandler,
+  updateTutorsFavoritesHandler
 }

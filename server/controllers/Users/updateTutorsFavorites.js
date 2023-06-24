@@ -10,10 +10,8 @@ const updateTutorsFavorites = async (id, tutorId) => {
       { $pull: { favoritesTutor: tutorId } },
       { new: true }
     ).populate({
-      path: 'favoritesTutor',
+      path: 'favoritesTutor'
     })
-
-    console.log(updatedUser)
     return updatedUser
   } else {
     // Tutor not in favorites, add it
@@ -22,10 +20,8 @@ const updateTutorsFavorites = async (id, tutorId) => {
       { $push: { favoritesTutor: tutorId } },
       { new: true }
     ).populate({
-      path: 'favoritesTutor',
+      path: 'favoritesTutor'
     })
-
-    console.log(updatedUser)
     return updatedUser
   }
 }
