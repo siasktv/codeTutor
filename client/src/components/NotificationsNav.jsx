@@ -58,14 +58,12 @@ export default function NotificationsNav ({
     const newSoundEnabled =
       soundEnabled === 'true' || soundEnabled === true ? true : false
     setIsSoundEnabled(newSoundEnabled)
-    console.log('sonidos', isSoundEnabled)
   }, [soundEnabled])
 
   useEffect(() => {
     const newAlertEnabled =
       alertsEnabled === 'true' || alertsEnabled === true ? true : false
     setIsAlertEnabled(newAlertEnabled)
-    console.log('alertas', isAlertEnabled)
   }, [alertsEnabled])
 
   return (
