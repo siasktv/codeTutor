@@ -7,7 +7,8 @@ const createUser = async ({
   location,
   timezone,
   role,
-  uid
+  uid,
+  favoritesTutor,
 }) => {
   const user = User.create({
     fullName,
@@ -16,7 +17,8 @@ const createUser = async ({
     location,
     timezone,
     role,
-    uid
+    uid,
+    favoritesTutor,
   })
 
   return user

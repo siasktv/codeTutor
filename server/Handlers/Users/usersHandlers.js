@@ -6,6 +6,10 @@ const getAllUsers = require('../../controllers/Users/getAllUsers.js')
 const updateUser = require('../../controllers/Users/updateUser.js')
 const getUserByUid = require('../../controllers/Users/getUserByUid.js')
 const sendEmail = require('../../utils/nodemailer.js')
+const admin = require('../../utils/firebase/firebase-config')
+const sendPasswordResetEmail = require('../../utils/firebase/resetPassEmail.js')
+const actionCodeSettings = require('../../utils/firebase/actionCodeSettings.js')
+const updateTutorsFavorites = require('../../controllers/Users/updateTutorsFavorites')
 
 const getAllUsersHandler = async (req, res) => {
   try {
@@ -54,7 +58,8 @@ const createUserHandler = async (req, res) => {
       location,
       timezone,
       role,
-      uid
+      uid,
+      favoritesTutor
     })
 
     const userToMail = {
@@ -100,10 +105,37 @@ const updateUserHandler = async (req, res) => {
   }
 }
 
+const resetPasswordHandler = async (req, res) => {
+  const { email } = req.body
+
+  if (!email) return res.status(400).json({ error: 'Email is required' })
+
+  try {
+    const link = await admin
+      .auth()
+      .generatePasswordResetLink(email, actionCodeSettings)
+    await sendPasswordResetEmail(email, link)
+    res.status(200).json({ message: 'Email sent' })
+  } catch (error) {
+    res.status(500).json({ code: error.code })
+  }
+}
+
+const updateTutorsFavoritesHandler = async (req, res) => {
+  const { id, tutorId } = req.params
+  try {
+    const updatedUser = await updateTutorsFavorites(id, tutorId)
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
 module.exports = {
   createUserHandler,
   deleteUserHandler,
   getAllUsersHandler,
   updateUserHandler,
-  getUserByUidHandler
+  getUserByUidHandler,
+  resetPasswordHandler,
+  updateTutorsFavoritesHandler
 }

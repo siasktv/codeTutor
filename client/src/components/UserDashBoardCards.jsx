@@ -9,34 +9,100 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
 import { CardTutor } from '../layouts'
 import { Loader } from '../components'
+import classNames from 'classnames'
 
-const UserDashboardCards = ({ handleShowMessage }) => {
+const Tab = ({ active, children, ...props }) => (
+  <button
+    {...props}
+    className={classNames(
+      'w-40 h-12 relative left-20 mt-8 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] hover:bg-codecolor hover:text-white text-codecolor',
+      {
+        'bg-codecolor text-white': active,
+        'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200':
+          props.disabled
+      }
+    )}
+  >
+    {children}
+  </button>
+)
+
+const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const [isLoading, setIsLoading] = useState(true)
   const tutors = useSelector(state => state.tutors.tutors)
   const user = useUser()
 
+  const [view, setView] = useState('featured')
+
+  const setFeatured = () => setView('featured')
+  const setFavorites = () => setView('favorites')
+  const filterByFavs = tutor => {
+    if (view !== 'favorites') return true
+    return userMongo.favoritesTutor.find(({ _id }) => tutor._id === _id)
+  }
+
+  useEffect(() => {
+    if (view === 'favorites' && userMongo.favoritesTutor.length === 0)
+      setView('featured')
+  }, [userMongo])
+
   const tutorsPerPage = 5
   const [currentPage, setCurrentPage] = useState(1)
+  const [currentFavoritesPage, setCurrentFavoritesPage] = useState(1)
   const indexOfLastTutor = tutorsPerPage * currentPage
+  const indexOfLastFavoriteTutor = tutorsPerPage * currentFavoritesPage
   const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage
-  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor)
+  const indexOfFirstFavoriteTutor = indexOfLastFavoriteTutor - tutorsPerPage
+  const currentTutors = [...tutors.slice(indexOfFirstTutor, indexOfLastTutor)]
+  const currentFavoriteTutors = [
+    ...userMongo.favoritesTutor.slice(
+      indexOfFirstFavoriteTutor,
+      indexOfLastFavoriteTutor
+    )
+  ]
+  console.log(currentFavoriteTutors)
+
   const pageNumbers = []
+  const pageNumbersFavorites = []
   for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {
     pageNumbers.push(i)
+  }
+  for (
+    let i = 1;
+    i <= Math.ceil(userMongo.favoritesTutor.length / tutorsPerPage);
+    i++
+  ) {
+    pageNumbersFavorites.push(i)
   }
   const handlePreviusPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
   }
+  const handlePreviusFavoritesPage = () => {
+    if (currentFavoritesPage > 1) {
+      setCurrentFavoritesPage(currentFavoritesPage - 1)
+    }
+  }
+
   const handleNextPage = () => {
     if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1)
     }
   }
 
+  const handleNextFavoritesPage = () => {
+    if (currentFavoritesPage < pageNumbersFavorites.length) {
+      setCurrentFavoritesPage(currentFavoritesPage + 1)
+    }
+  }
+
   const handlePage = number => {
     setCurrentPage(number)
+  }
+
+  const handleFavoritesPage = number => {
+    setCurrentFavoritesPage(number)
   }
 
   const pagesCutCount = 21
@@ -57,8 +123,41 @@ const UserDashboardCards = ({ handleShowMessage }) => {
       return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
     }
   }
+  const getPagesCutFavorites = (
+    pageNumbersFavorites,
+    pagesCutCount,
+    currentFavoritesPage
+  ) => {
+    const ceiling = Math.ceil(pagesCutCount / 2)
+    const floor = Math.floor(pagesCutCount / 2)
+    if (pageNumbersFavorites.length < pagesCutCount) {
+      return { start: 1, end: pageNumbersFavorites.length + 1 }
+    } else if (currentFavoritesPage >= 1 && currentFavoritesPage <= ceiling) {
+      return { start: 1, end: pagesCutCount + 1 }
+    } else if (currentFavoritesPage + floor >= pageNumbersFavorites.length) {
+      return {
+        start: pageNumbersFavorites.length - pagesCutCount + 1,
+        end: pageNumbersFavorites.length + 1
+      }
+    } else {
+      return {
+        start: currentFavoritesPage - ceiling + 1,
+        end: currentFavoritesPage + floor + 1
+      }
+    }
+  }
+
   const pagesCutted = getPagesCut(pageNumbers, pagesCutCount, currentPage)
+  const pagesCuttedFavorites = getPagesCutFavorites(
+    pageNumbersFavorites,
+    pagesCutCount,
+    currentFavoritesPage
+  )
   const pages = pageNumbers.slice(pagesCutted.start - 1, pagesCutted.end - 1)
+  const pagesFavorites = pageNumbersFavorites.slice(
+    pagesCuttedFavorites.start - 1,
+    pagesCuttedFavorites.end - 1
+  )
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -81,37 +180,62 @@ const UserDashboardCards = ({ handleShowMessage }) => {
   return (
     <>
       {!isLoading && (
-        <div className="relative items-center w-full px-8 py-8">
+        <div className='relative items-center w-full px-8 py-8'>
           <>
-            <div className=" w-full h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start ">
-              <button className="w-40 h-12 bg-[#EDEBFA] relative left-20 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold">
+            <div className=' w-full gap-4 h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start '>
+              <Tab onClick={setFeatured} active={view === 'featured'}>
                 Destacados
-              </button>
-              <button className="w-40 h-12 bg-[#EDEBFA] relative left-28 mt-8 rounded-md rounded-b-none hover:bg-codecolor hover:text-white text-codecolor font-semibold ">
+              </Tab>
+              <Tab
+                onClick={setFavorites}
+                disabled={!userMongo.favoritesTutor.length}
+                active={view === 'favorites'}
+              >
                 Favoritos
-              </button>
+              </Tab>
             </div>
             {tutors.length === 0 && (
-              <div className="flex justify-center items-center mt-40">
-                <h1 className="text-2xl font-semibold">
+              <div className='flex justify-center items-center mt-40'>
+                <h1 className='text-2xl font-semibold'>
                   No se encontraron programadores.
                 </h1>
               </div>
             )}
-            {currentTutors.map((tutor) => (
-              <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                <CardTutor
-                  key={tutor._id}
-                  tutor={tutor}
-                  handleShowMessage={handleShowMessage}
-                  user={user}
-                />
-              </Link>
-            ))}
-            {tutors.length > currentTutors.length && (
+            {view === 'featured' && (
               <>
-                <div className="flex justify-center items-center">
-                  <div className="flex justify-center items-center">
+                {currentTutors.map(tutor => (
+                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
+                    <CardTutor
+                      setFavorites={setFavorites}
+                      key={tutor._id}
+                      tutor={tutor}
+                      handleShowMessage={handleShowMessage}
+                      user={user}
+                    />
+                  </Link>
+                ))}
+              </>
+            )}
+            {view === 'favorites' && (
+              <>
+                {currentFavoriteTutors.map(tutor => (
+                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
+                    <CardTutor
+                      setFavorites={setFavorites}
+                      key={tutor._id}
+                      tutor={tutor}
+                      handleShowMessage={handleShowMessage}
+                      user={user}
+                    />
+                  </Link>
+                ))}
+              </>
+            )}
+
+            {view === 'featured' && tutors.length > currentTutors.length && (
+              <>
+                <div className='flex justify-center items-center'>
+                  <div className='flex justify-center items-center'>
                     <button
                       onClick={handlePreviusPage}
                       className={
@@ -123,7 +247,7 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
 
-                    {pages.map((number) => (
+                    {pages.map(number => (
                       <button
                         key={number}
                         onClick={() => handlePage(number)}
@@ -150,20 +274,69 @@ const UserDashboardCards = ({ handleShowMessage }) => {
                     </>
                   </div>
                 </div>
-                <p className="text-codecolor font-bold text-md mt-3">
+                <p className='text-codecolor font-bold text-md mt-3'>
                   {pageNumbers.length} páginas en total
                 </p>
               </>
             )}
+            {view === 'favorites' &&
+              userMongo.favoritesTutor.length >
+                currentFavoriteTutors.length && (
+                <>
+                  <div className='flex justify-center items-center'>
+                    <div className='flex justify-center items-center'>
+                      <button
+                        onClick={handlePreviusFavoritesPage}
+                        className={
+                          currentFavoritesPage === 1
+                            ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
+                            : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                        }
+                      >
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                      </button>
+
+                      {pagesFavorites.map(number => (
+                        <button
+                          key={number}
+                          onClick={() => handleFavoritesPage(number)}
+                          className={
+                            currentFavoritesPage === number
+                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                          }
+                        >
+                          {number}
+                        </button>
+                      ))}
+                      <>
+                        <button
+                          onClick={handleNextFavoritesPage}
+                          className={
+                            currentFavoritesPage === pageNumbersFavorites.length
+                              ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
+                              : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                          }
+                        >
+                          <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                      </>
+                    </div>
+                  </div>
+                  <p className='text-codecolor font-bold text-md mt-3'>
+                    {pageNumbersFavorites.length} páginas en total
+                  </p>
+                </>
+              )}
           </>
         </div>
       )}
       {isLoading && (
-        <div className="flex justify-center items-center mt-40">
+        <div className='flex justify-center items-center mt-40'>
           <Loader />
         </div>
       )}
     </>
-  );
+  )
 }
 export default UserDashboardCards
