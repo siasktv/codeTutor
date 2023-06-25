@@ -24,6 +24,7 @@ const {
 } = require('./utils/userChatSocket.js')
 const Session = require('./models/Session.models.js')
 const Reviews = require('./models/Review.models.js')
+const Tutors = require('./models/Tutor.models.js')
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -493,6 +494,11 @@ io.on('connection', socket => {
           { sessionId: Number(sessionId) },
           { isReviewed: true, reviewId: Review._id }
         )
+        await Tutors.findOneAndUpdate(
+          { user: session.tutorUserId },
+          { $push: { reviews: Review._id } }
+        )
+
         session.reviewId = Review._id
       } catch (error) {
         console.log(error)

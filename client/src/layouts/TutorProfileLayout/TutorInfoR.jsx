@@ -13,7 +13,6 @@ import { Pais, Moneda, Mensaje } from '../../assets'
 
 const TutorInfoR = props => {
   const { tutor } = props
-  
 
   return (
     <div className='w-full pl-9 flex flex-col relative z-0'>
