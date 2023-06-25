@@ -5,6 +5,10 @@ import Login from './Login'
 import Register from './Register'
 import FormTutor from './FormTutor'
 import Meeting from './Meeting'
+
+//test
+import Payments from './Payments'
+
 export {
   Landing,
   SearchPage,
@@ -13,4 +17,5 @@ export {
   Register,
   FormTutor,
   Meeting,
-};
+  Payments,
+}
