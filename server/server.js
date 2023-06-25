@@ -192,7 +192,17 @@ io.on('connection', socket => {
                 alerted: user.online ? false : true
               }
             ]
+          } else {
+            user.notifications = [
+              ...user.notifications,
+              {
+                ...notification,
+                id: notificationId,
+                alerted: user.online ? false : true
+              }
+            ]
           }
+
           io.to(user.socketId).emit('setNotifications', {
             notifications: user.notifications
           })
