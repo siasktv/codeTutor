@@ -81,7 +81,13 @@ const NavUserNotifications = ({ user }) => {
           draggable: true,
           theme: 'light',
           // icon is the notification.sender.image
-          icon: <img src={notifications[0].sender.image} alt='notification' />
+          icon: (
+            <img
+              src={notifications[0].sender.image}
+              alt='notification'
+              className='rounded-full'
+            />
+          )
         })
         socket?.emit('setAlerted', {
           userId: user.id

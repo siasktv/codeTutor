@@ -70,14 +70,22 @@ const TutorInfoI = props => {
   }
 
   useEffect(() => {
-    console.log('session', session)
+    if (session && session.sessionId) {
+      socket.emit('sendNotification', {
+        userId: user.id,
+        receiverId: tutor.user._id,
+        notification: {
+          type: 'link',
+          message: `${user.fullName} ha agendado una sesión contigo`,
+          sender: user,
+          receiver: tutor.user,
+          createdAt: Date.now(),
+          isRead: false,
+          link: `/meeting/${session.sessionId}`
+        }
+      })
+    }
   }, [session])
-
-  useEffect(() => {
-    console.log('date', date)
-    console.log('minutes', minutes)
-    console.log('isDisabled', isDisabled)
-  }, [date, minutes])
 
   const handleDateChange = e => {
     if (moment(e.target.value).isBefore(moment())) {
@@ -233,10 +241,15 @@ const TutorInfoI = props => {
                 >
                   Crear sesion
                 </button>
+                {session && session?.sessionId && (
+                  <Link
+                    to={`/meeting/${session.sessionId}`}
+                    className='bg-green-600 mt-2 w-full text-center outline-none hover:bg-green-700 text-white transition-all duration-200 ease-in-out font-bold py-2 px-4 rounded items-center'
+                  >
+                    Ir a la sesion
+                  </Link>
+                )}
               </div>
-              {session && session?.sessionId && (
-                <Link to={`/meeting/${session.sessionId}`}>Ir a la sesion</Link>
-              )}
             </div>
           )}
         </>

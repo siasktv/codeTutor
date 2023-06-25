@@ -14,6 +14,8 @@ import {
   faPlay,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
+import { useSelector, useDispatch } from 'react-redux'
+import { usersFetch } from '../redux/features/users/usersSlice'
 
 const Meeting = () => {
   const { id } = useParams()
@@ -29,6 +31,12 @@ const Meeting = () => {
   const [reviewRating, setReviewRating] = useState(0)
   const socket = useContext(SocketContext)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const users = useSelector(state => state.users.allUsers)
+
+  useEffect(() => {
+    dispatch(usersFetch())
+  }, [dispatch])
 
   useEffect(() => {
     if (user && session?.id) {
@@ -36,7 +44,6 @@ const Meeting = () => {
         navigate('/')
       } else {
         setLoading(false)
-        console.log('session', session)
       }
     } else {
       if (user === null) {
@@ -117,6 +124,24 @@ const Meeting = () => {
   const handleJoin = e => {
     e.preventDefault()
     socket.emit('joinSession', { sessionId: Number(id), userId: user.id })
+    const isTutor = session?.tutorUserId === user.id
+    socket.emit('sendNotification', {
+      userId: user.id,
+      receiverId: isTutor ? session.clientUserId : session.tutorUserId,
+      notification: {
+        type: 'link',
+        message: isTutor
+          ? `El tutor ${user.fullName} se ha unido a la sesión`
+          : `El cliente ${user.fullName} se ha unido a la sesión`,
+        sender: user,
+        receiver: isTutor
+          ? users.find(u => u._id === session.clientUserId)
+          : users.find(u => u._id === session.tutorUserId),
+        createdAt: Date.now(),
+        isRead: false,
+        link: `/meeting/${id}`
+      }
+    })
   }
 
   const handlePaySession = e => {
@@ -133,6 +158,19 @@ const Meeting = () => {
     }
 
     socket.emit('paySession', { sessionId: Number(id), paymentDetails })
+    socket.emit('sendNotification', {
+      userId: user.id,
+      receiverId: session.tutorUserId,
+      notification: {
+        type: 'link',
+        message: `El cliente ${user.fullName} ha abonado la sesión`,
+        sender: user,
+        receiver: users.find(u => u._id === session.tutorUserId),
+        createdAt: Date.now(),
+        isRead: false,
+        link: `/meeting/${id}`
+      }
+    })
   }
 
   const handleStartSession = e => {
@@ -151,6 +189,19 @@ const Meeting = () => {
       endedCounterDate,
       expiredDate
     })
+    socket.emit('sendNotification', {
+      userId: user.id,
+      receiverId: session.clientUserId,
+      notification: {
+        type: 'link',
+        message: `El tutor ${user.fullName} ha iniciado la sesión`,
+        sender: user,
+        receiver: users.find(u => u._id === session.clientUserId),
+        createdAt: Date.now(),
+        isRead: false,
+        link: `/meeting/${id}`
+      }
+    })
   }
 
   useEffect(() => {
@@ -165,6 +216,23 @@ const Meeting = () => {
       rating: reviewRating
     }
     socket.emit('reviewSession', { sessionId: Number(id), review })
+    socket.emit('sendNotification', {
+      userId: user.id,
+      receiverId: session.tutorUserId,
+      notification: {
+        type: 'link',
+        message: `El cliente ${
+          user.fullName
+        } te ha valorado con ${reviewRating} ${
+          reviewRating === 1 ? 'estrella' : 'estrellas'
+        }`,
+        sender: user,
+        receiver: users.find(u => u._id === session.tutorUserId),
+        createdAt: Date.now(),
+        isRead: false,
+        link: `/tutor/${session.tutorUserId}`
+      }
+    })
   }
 
   useEffect(() => {
