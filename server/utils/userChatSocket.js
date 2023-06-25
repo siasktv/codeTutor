@@ -39,6 +39,8 @@ const addSession = session => {
   }
   // if session id does not exist, add session to sessions array
   sessions.push({ ...session, id: sessionId })
+
+  return sessionId
 }
 
 const getSession = sessionId => {

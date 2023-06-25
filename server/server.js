@@ -23,7 +23,7 @@ const {
   getSessionsFromTutor
 } = require('./utils/userChatSocket.js')
 const Session = require('./models/Session.models.js')
-const Review = require('./models/Review.models.js')
+const Reviews = require('./models/Review.models.js')
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -270,19 +270,19 @@ io.on('connection', socket => {
   })
 
   socket.on('createSession', async ({ session }) => {
-    await addSession(session)
+    const createdSession = await addSession(session)
     const user = await getUser(session.clientUserId)
-    const findSession = await getSessionId(session)
 
     if (user) {
       io.to(user.socketId).emit('createdSession', {
-        session
+        ...session,
+        sessionId: createdSession
       })
     }
     const sessionToDb = async () => {
       try {
         Session.create({
-          sessionId: findSession.sessionId,
+          sessionId: createdSession,
           tutorUserId: session.tutorUserId,
           clientUserId: session.clientUserId,
           appointmentDate: session.appointmentDate,
@@ -330,7 +330,18 @@ io.on('connection', socket => {
   socket.on('getSessionData', async ({ sessionId, userId }) => {
     const session = await getSession(sessionId)
     const user = await getUser(userId)
-    if (user) {
+    if (!session) {
+      io.to(user.socketId).emit('setSessionData', {
+        session: null
+      })
+    } else if (
+      userId !== session.clientUserId &&
+      userId !== session.tutorUserId
+    ) {
+      io.to(user.socketId).emit('setSessionData', {
+        session: null
+      })
+    } else if (user) {
       io.to(user.socketId).emit('setSessionData', {
         session
       })
@@ -356,8 +367,8 @@ io.on('connection', socket => {
 
     const sessionToDb = async () => {
       try {
-        await Session.findAndUpdate(
-          { sessionId: session.sessionId },
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
           { isPaid: true, paymentDetails: paymentDetails }
         )
       } catch (error) {
@@ -369,9 +380,13 @@ io.on('connection', socket => {
 
   socket.on('joinSession', async ({ sessionId, userId }) => {
     const session = await getSession(sessionId)
-    const user = await getUser(userId)
-    const tutor = await getUser(session.tutorUserId)
     const isTutor = session.tutorUserId === userId ? true : false
+    const user = isTutor
+      ? await getUser(session.clientUserId)
+      : await getUser(session.tutorUserId)
+    const tutor = isTutor
+      ? await getUser(session.tutorUserId)
+      : await getUser(session.clientUserId)
     isTutor ? (session.tutorHasJoined = true) : (session.clientHasJoined = true)
     if (user) {
       io.to(user.socketId).emit('setSessionData', {
@@ -385,8 +400,8 @@ io.on('connection', socket => {
     }
     const sessionToDb = async () => {
       try {
-        await Session.findAndUpdate(
-          { sessionId: session.sessionId },
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
           {
             tutorHasJoined: session.tutorHasJoined,
             clientHasJoined: session.clientHasJoined
@@ -401,12 +416,18 @@ io.on('connection', socket => {
 
   socket.on(
     'startCounter',
-    async ({ sessionId, startedCounterDate, endedCounterDate }) => {
+    async ({
+      sessionId,
+      startedCounterDate,
+      endedCounterDate,
+      expiredDate
+    }) => {
       const session = await getSession(sessionId)
       const user = await getUser(session.clientUserId)
       const tutor = await getUser(session.tutorUserId)
       session.startedCounterDate = startedCounterDate
       session.endedCounterDate = endedCounterDate
+      session.expiredDate = expiredDate
       if (user) {
         io.to(user.socketId).emit('setSessionData', {
           session
@@ -419,11 +440,12 @@ io.on('connection', socket => {
       }
       const sessionToDb = async () => {
         try {
-          await Session.findAndUpdate(
-            { sessionId: session.sessionId },
+          await Session.findOneAndUpdate(
+            { sessionId: Number(sessionId) },
             {
               startedCounterDate: session.startedCounterDate,
-              endedCounterDate: session.endedCounterDate
+              endedCounterDate: session.endedCounterDate,
+              expiredDate: session.expiredDate
             }
           )
         } catch (error) {
@@ -451,14 +473,14 @@ io.on('connection', socket => {
     }
     const sessionToDb = async () => {
       try {
-        const Review = await Review.create({
+        const Review = await Reviews.create({
           tutor: session.tutorUserId,
           user: session.clientUserId,
           comment: review.comment,
           rating: review.rating
         })
-        await Session.findAndUpdate(
-          { sessionId: session.sessionId },
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
           { isReviewed: true, reviewId: Review._id }
         )
         session.reviewId = Review._id
