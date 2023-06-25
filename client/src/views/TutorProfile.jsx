@@ -62,7 +62,7 @@ const TutorProfile = () => {
             {tutor.bio.specialty && (
               <>
                 {/* Tabla de información Izquierda */}
-                <TutorInfoL tutor={tutor} />
+                <TutorInfoL tutor={tutor} user={user} />
                 {/* Tabla de Información Derecha */}
                 <TutorInfoR tutor={tutor} />
               </>
