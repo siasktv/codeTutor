@@ -15,7 +15,7 @@ const Meeting = () => {
   const [running, setRunning] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertClosed, setAlertClosed] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     if (running) {

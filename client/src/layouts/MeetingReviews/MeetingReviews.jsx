@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star2, StarVacia } from '../../assets';
+import { Star, StarVacia } from '../../assets';
 
 
 const MeetingReviews = ({ onCloseModal }) => {
@@ -13,12 +13,13 @@ const MeetingReviews = ({ onCloseModal }) => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
-
+  
   const handleSubmit = () => {
     // Aquí puedes realizar el envío de los datos a la base de datos
     console.log('Valoración:', rating);
     console.log('Comentario:', comment);
     onCloseModal();
+    
   };
 
   return (
@@ -34,7 +35,7 @@ const MeetingReviews = ({ onCloseModal }) => {
               onClick={() => handleRatingChange(starIndex)}
             >
               <img
-                src={starIndex <= rating ? Star2 : StarVacia}
+                src={starIndex <= rating ? Star : StarVacia}
                 alt="star"
                 className="star-image"
               />
