@@ -27,6 +27,7 @@ import MessageContainer from './MessageContainer.jsx'
 import MessageMinimized from './MessageMinimized.jsx'
 import ChatsNav from './ChatsNav.jsx'
 import NotificationsNav from './NotificationsNav'
+import UpdateModal from './UserDashboard/Settings/UpdateModal.jsx'
 
 //FormTutor
 //componentes generales
@@ -104,5 +105,6 @@ export {
   Loader,
   MessageContainer,
   MessageMinimized,
-  ChatsNav
+  ChatsNav,
+  UpdateModal
 }
