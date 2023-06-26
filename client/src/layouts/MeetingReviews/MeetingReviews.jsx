@@ -26,48 +26,50 @@ const MeetingReviews = ({
   }
 
   return (
-    <div>
-      <div className='star-rating'>
+    <div >
+      <div className="star-rating m-3 ">
         {[...Array(5)].map((_, index) => {
-          const starIndex = index + 1
+          const starIndex = index + 1;
           return (
             <button
-              type='button'
+              type="button"
               key={starIndex}
-              className={starIndex <= rating ? 'on' : 'off'}
+              className={`${
+                starIndex <= rating ? 'on' : 'off'
+              } m-1 hover:transition-all hover:scale-y-150 hover:scale-x-150 hover:ease-in-out hover:duration-200`}
               onClick={() => handleRatingChange(starIndex)}
             >
               <img
                 src={starIndex <= rating ? Star : StarVacia}
-                alt='star'
-                className='star-image'
+                alt="star"
+                className="star-image"
               />
             </button>
-          )
+          );
         })}
       </div>
-      <div className='flex-col bg-gray-50 px-4 pb-12 pt-10 sm:flex sm:flex-row justify-center sm:px-6'>
-        <div>
-          <input
-            type='text'
+      <div className="flex-col pb-2 pt-4 justify-center">
+        <div className="justify-center justify-items-center mb-4">
+          <textarea
+            type="text"          
             value={comment}
             onChange={handleCommentChange}
-            placeholder='Déjanos tu opinión del tutor'
-            className='w-64 h-30 py-2 border border-gray-300 rounded px-4 text-lg '
+            placeholder="Déjanos tu opinión del tutor"
+            className="m-px w-96 h-36 py-4 border border-gray-300 rounded px-4 text-lg resize-none "
           />
         </div>
         <div>
           <button
-            type='button'
+            type="button"
             onClick={handleSubmit}
-            className='mt-3 inline-flex w-full justify-center rounded-lg bg-codecolor px-12 py-5 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto'
+            className="mt-6 inline-flex w-full justify-center rounded-lg bg-codecolor px-10 py-3 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto"
           >
             Enviar
           </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default MeetingReviews
