@@ -12,7 +12,8 @@ import {
   faSignOut
 } from '@fortawesome/free-solid-svg-icons'
 
-const UserDashboardLayout = () => {
+const UserDashboardLayout = props => {
+  const { selectedSection, setSelectedSection } = props
   return (
     <div className='flex overflow-hidden bg-white rounded-lg'>
       <div className='flex overflow-hidden'>
@@ -30,71 +31,122 @@ const UserDashboardLayout = () => {
               <nav className='flex-1 space-y-1 bg-white'>
                 <ul>
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 text-lg font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg'
+                    <button
+                      className={
+                        selectedSection === 'dashboard'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
                       white=''
-                      href='#'
+                      onClick={() => setSelectedSection('dashboard')}
                     >
                       <FontAwesomeIcon
                         icon={faChartPie}
-                        className='w-5 h-5 ml-5'
+                        className={
+                          selectedSection === 'dashboard'
+                            ? 'w-5 h-5'
+                            : 'w-5 h-5'
+                        }
                       />
-                      <span className=' pl-8'>Dashboard</span>
-                    </a>
+                      <span className=' ml-4'>Dashboard</span>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 transition duration-500 ease-in-out transform border-indigo-800 rounded-lg hover:border-indigo-800 focus:shadow-outline hover:bg-white'
-                      href='#'
+                    <button
+                      className={
+                        selectedSection === 'calendar'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
+                      onClick={() => setSelectedSection('calendar')}
                     >
-                      <FontAwesomeIcon icon={faCalendar} className='w-5 h-5' />
+                      <FontAwesomeIcon
+                        icon={faCalendar}
+                        className={
+                          selectedSection === 'calendar'
+                            ? 'w-5 h-5 '
+                            : 'w-5 h-5'
+                        }
+                      />
                       <span className='ml-4'>Calendario</span>
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 transition duration-500 ease-in-out transform border-indigo-800 rounded-lg hover:border-indigo-800 focus:shadow-outline hover:bg-white'
-                      href='#'
+                    <button
+                      className={
+                        selectedSection === 'payment'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
+                      onClick={() => setSelectedSection('payment')}
                     >
                       <FontAwesomeIcon
                         icon={faCreditCard}
-                        className='w-5 h-5'
+                        className={
+                          selectedSection === 'payment' ? 'w-5 h-5 ' : 'w-5 h-5'
+                        }
                       />
                       <span className='ml-4'>Método de pago</span>
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-base text-gray-700 transition duration-500 ease-in-out transform border-indigo-800 rounded-lg hover:border-indigo-800 focus:shadow-outline hover:bg-white'
-                      href='#'
+                    <button
+                      className={
+                        selectedSection === 'history'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
+                      onClick={() => setSelectedSection('history')}
                     >
-                      <FontAwesomeIcon icon={faChartLine} className='w-5 h-5' />
+                      <FontAwesomeIcon
+                        icon={faChartLine}
+                        className={
+                          selectedSection === 'history' ? 'w-5 h-5 ' : 'w-5 h-5'
+                        }
+                      />
                       <span className='ml-4'>Historial</span>
-                    </a>
+                    </button>
                   </li>
 
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-base text-gray-700 transition duration-500 ease-in-out transform border-indigo-800 rounded-lg hover:border-indigo-800 focus:shadow-outline hover:bg-white'
+                    <button
+                      className={
+                        selectedSection === 'settings'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
                       white=''
-                      href='#'
+                      onClick={() => setSelectedSection('settings')}
                     >
-                      <FontAwesomeIcon icon={faGear} className='w-5 h-5' />
+                      <FontAwesomeIcon
+                        icon={faGear}
+                        className={
+                          selectedSection === 'settings'
+                            ? 'w-5 h-5 '
+                            : 'w-5 h-5'
+                        }
+                      />
                       <span className='ml-4'>Ajustes</span>
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-base text-gray-700 transition duration-500 ease-in-out transform border-indigo-800 rounded-lg hover:border-indigo-800 focus:shadow-outline hover:bg-white'
+                    <button
+                      className={
+                        selectedSection === 'faqs'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                      }
                       white=''
-                      href='#'
+                      onClick={() => setSelectedSection('faqs')}
                     >
                       <FontAwesomeIcon
                         icon={faQuestionCircle}
-                        className='w-5 h-5'
+                        className={
+                          selectedSection === 'faqs' ? 'w-5 h-5 ' : 'w-5 h-5'
+                        }
                       />
                       <span className='ml-4'>FAQs</span>
-                    </a>
+                    </button>
                   </li>
                   <li>
                     <a

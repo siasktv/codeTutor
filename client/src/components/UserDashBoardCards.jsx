@@ -16,7 +16,7 @@ const Tab = ({ active, children, ...props }) => (
   <button
     {...props}
     className={classNames(
-      'w-40 h-12 relative left-20 mt-8 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] hover:bg-codecolor hover:text-white text-codecolor',
+      'w-40 h-12 relative left-2 mt-8 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] hover:bg-codecolor hover:text-white text-codecolor',
       {
         'bg-codecolor text-white': active,
         'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200':
@@ -190,9 +190,9 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   return (
     <>
       {!isLoading && (
-        <div className='relative items-center w-full px-8 py-8'>
+        <div className='relative items-center w-full px-8 pb-8'>
           <>
-            <div className=' w-full gap-4 h-20 rounded-b-none rounded-xl border border-b-0 flex justify-start '>
+            <div className=' w-full gap-2 rounded-b-none rounded-xl flex justify-start'>
               <Tab onClick={setFeatured} active={view === 'featured'}>
                 Destacados
               </Tab>
