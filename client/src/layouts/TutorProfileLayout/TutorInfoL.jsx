@@ -144,19 +144,7 @@ const TutorInfoI = props => {
           </h2>
         )}
       </div>
-      {/* <div className="flex justify-center items-center space-x-6">
-        <div className="flex items-center space-x-2">
-          <img src={Star} />
-          <h2 className="font-semibold text-lg text-codecolor">
-            {Math.round(averageRating)}
-          </h2>
-        </div>
-        {tutor.reviews && (
-          <h2 className="font-semibold text-gray-600">
-            {tutor.reviews.length} Reviews
-          </h2>
-        )}
-      </div> */}
+      
 
       {/* Apellido y nombre del tutor */}
       <div className='pt-6 pl-4 pr-4'>
