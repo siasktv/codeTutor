@@ -214,32 +214,28 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
             {view === 'featured' && (
               <>
                 {currentTutors.map(tutor => (
-                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                    <CardTutor
-                      setFavorites={setFavorites}
-                      key={tutor._id}
-                      tutor={tutor}
-                      handleShowMessage={handleShowMessage}
-                      user={user}
-                      tutorFavorites={tutorFavorites}
-                    />
-                  </Link>
+                  <CardTutor
+                    setFavorites={setFavorites}
+                    key={tutor._id}
+                    tutor={tutor}
+                    handleShowMessage={handleShowMessage}
+                    user={user}
+                    tutorFavorites={tutorFavorites}
+                  />
                 ))}
               </>
             )}
             {view === 'favorites' && (
               <>
                 {currentFavoriteTutors.map(tutor => (
-                  <Link to={`/tutor/${tutor._id}`} key={tutor._id}>
-                    <CardTutor
-                      setFavorites={setFavorites}
-                      key={tutor._id}
-                      tutor={tutor}
-                      handleShowMessage={handleShowMessage}
-                      user={user}
-                      tutorFavorites={tutorFavorites}
-                    />
-                  </Link>
+                  <CardTutor
+                    setFavorites={setFavorites}
+                    key={tutor._id}
+                    tutor={tutor}
+                    handleShowMessage={handleShowMessage}
+                    user={user}
+                    tutorFavorites={tutorFavorites}
+                  />
                 ))}
               </>
             )}
