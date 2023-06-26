@@ -56,7 +56,7 @@ const TutorProfile = () => {
               zIndex: '100 !important'
             }}
           >
-            <NavUserNotifications user={user} />
+            <NavUserNotifications user={user} id={id} />
           </div>
           <div className='bg-gray-100 flex items-start px-20 py-10 gap-2 w-full h-max left-0 right-0'>
             {tutor.bio.specialty && (
