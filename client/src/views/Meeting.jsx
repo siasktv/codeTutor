@@ -302,7 +302,7 @@ const Meeting = () => {
 
               <div>
                 {/* Contenedor con el cronómetro */}
-                <div className="flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-3">
+                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-2'>
                   {!moment(session?.appointmentDate).isBefore(moment()) ? (
                     <>
                       {timeLeftToStart.days ||
@@ -313,9 +313,9 @@ const Meeting = () => {
                           <h2 className="text-codecolor font-semibold text-lg text-center">
                             La sesión se habilitará en:
                           </h2>
-                          <div className="flex items-center justify-between space-x-7">
-                            <div className="flex flex-col items-center justify-center space-y-1">
-                              <h3 className="text-gray-800 font-semibold text-2xl text-center">
+                          <div className='flex items-center justify-between space-x-7 px-3'>
+                            <div className='flex flex-col items-center justify-center space-y-1'>
+                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.days
                                   ? timeLeftToStart.days
                                       .toString()
@@ -407,8 +407,8 @@ const Meeting = () => {
                                 )}
                               </div>
                               <div
-                                className="flex items-center justify-between space-x-14"
-                                id="tiempo"
+                                className='flex items-center space-x-8'
+                                id='tiempo'
                               >
                                 <div className="flex flex-col items-center justify-center space-y-1">
                                   <h3 className="text-gray-800 font-semibold text-2xl text-center">
