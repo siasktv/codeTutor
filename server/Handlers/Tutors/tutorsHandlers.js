@@ -88,9 +88,7 @@ const updateTutorHandler = async (req, res) => {
     socialMedia,
     offline
   } = req.body
-  if (!user) {
-    res.status(400).json({ error: 'User is required' })
-  }
+
   try {
     const updatedTutor = await updateTutor(id, {
       user,

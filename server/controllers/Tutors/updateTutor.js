@@ -38,35 +38,35 @@ const updateTutor = async (
 
   const tutorPopulate = await Tutor.findById(tutor._id)
     .populate({
-      path: 'user',
+      path: 'user'
     })
     .populate({
       path: 'skills',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
       path: 'experience',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
       path: 'projects',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
-      path: 'reviews',
+      path: 'reviews'
       // populate: {
       //   path: 'rating',
       // },
-    });
+    })
 
   return tutorPopulate
 }

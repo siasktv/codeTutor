@@ -25,7 +25,8 @@ const NavDashboard = ({
   user,
   handleShowMessage,
   setShowMessage,
-  showMessage
+  showMessage,
+  selectedSection
 }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
@@ -206,27 +207,29 @@ const NavDashboard = ({
           <header className='flex items-center h-20 w-full z-50'>
             <div className='flex justify-between w-full items-center'>
               <div className='pl-[45%] pt-1'>
-                <div className='relative'>
-                  <button
-                    className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
-                    onClick={handleShowTech}
-                  >
-                    Encuentra desarrolladores
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      aria-hidden='true'
-                      className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                {selectedSection === 'dashboard' && (
+                  <div className='relative'>
+                    <button
+                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
+                      onClick={handleShowTech}
                     >
-                      <polyline points='6 9 12 15 18 9'></polyline>
-                    </svg>
-                  </button>
-                </div>
+                      Encuentra desarrolladores
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        aria-hidden='true'
+                        className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                      >
+                        <polyline points='6 9 12 15 18 9'></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -281,7 +284,7 @@ const NavDashboard = ({
                 </div>
               </div>
             </div>
-            {showTech && (
+            {showTech && selectedSection === 'dashboard' && (
               <div className='absolute w-full z-50 top-20  '>
                 <div className='flex justify-center'>
                   <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
