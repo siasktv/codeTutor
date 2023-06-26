@@ -83,7 +83,7 @@ const TutorFormDataLeft = props => {
           />
           <FontAwesomeIcon
             icon={faEdit}
-            className='text-[25px] text-gray-200 cursor-pointer relative opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out top-[-50%] transform translate-y-[-50%]'
+            className='text-[25px] text-gray-200 text-opacity-70 cursor-pointer relative opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out top-[-50%] transform translate-y-[-50%]'
           />
         </label>
       </div>
