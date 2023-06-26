@@ -12,6 +12,7 @@ import {
   faLock,
   faCheckCircle,
   faPlay,
+  faStopwatch,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,10 +21,10 @@ import { usersFetch } from '../redux/features/users/usersSlice'
 const Meeting = () => {
   const { id } = useParams()
   const user = useUser()
-  const timeAlertInMinutes = 1
+  const timeAlertInMinutes = 3
   const [running, setRunning] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const [alertClosed, setAlertClosed] = useState(false)
+  const [alertClosed, setAlertClosed] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState(false)
@@ -236,7 +237,7 @@ const Meeting = () => {
   }
 
   useEffect(() => {
-    if (timeLeftSession.minutes === 0 && !alertClosed) {
+    if (timeLeftSession.minutes === (timeAlertInMinutes-1) && !alertClosed) {
       setShowAlert(true)
       setTimeout(() => {
         setShowAlert(false)
@@ -262,37 +263,37 @@ const Meeting = () => {
   return (
     <>
       {loading ? (
-        <div className='flex justify-center items-center h-screen'>
+        <div className="flex justify-center items-center h-screen">
           <Loader />
         </div>
       ) : (
         <>
           <NavUserNotifications user={user} />
-          <div className='bg-gray-100 py-10 w-full h-full'>
+          <div className="bg-gray-100 py-10 w-full h-full">
             {/* --------------------------Fila 1--------------------------- */}
 
-            <div className='flex w-full h-full space-x-8 px-10'>
+            <div className="flex w-full h-full space-x-8 px-10">
               {/* Contenedor de 3 los pasos */}
-              <div className='flex flex-col justify-center bg-codecolor w-full h-full rounded px-10 py-8'>
-                <h1 className='text-white font-semibold text-lg text-start'>
+              <div className="flex flex-col justify-center bg-codecolor w-full h-full rounded px-10 py-8">
+                <h1 className="text-white font-semibold text-lg text-start">
                   Como empezar
                 </h1>
-                <div className='flex justify-between space-x-4 pt-2 pb-4'>
-                  <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>1</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                <div className="flex justify-between space-x-4 pt-2 pb-4">
+                  <div className="flex space-x-2 items-center">
+                    <h2 className="text-white text-5xl font-semibold">1</h2>
+                    <h2 className="text-white text-sm font-semibold">
                       Prepara audio y video. Recomendamos usar Zoom.
                     </h2>
                   </div>
-                  <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>2</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                  <div className="flex space-x-2 items-center">
+                    <h2 className="text-white text-5xl font-semibold">2</h2>
+                    <h2 className="text-white text-sm font-semibold">
                       Prepara lo que necesites comunicarle a tu tutor.
                     </h2>
                   </div>
-                  <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>3</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                  <div className="flex space-x-2 items-center">
+                    <h2 className="text-white text-5xl font-semibold">3</h2>
+                    <h2 className="text-white text-sm font-semibold">
                       Inicia la sesión y monitorea el tiempo de sesión.
                     </h2>
                   </div>
@@ -301,7 +302,7 @@ const Meeting = () => {
 
               <div>
                 {/* Contenedor con el cronómetro */}
-                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-3'>
+                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-2'>
                   {!moment(session?.appointmentDate).isBefore(moment()) ? (
                     <>
                       {timeLeftToStart.days ||
@@ -309,10 +310,10 @@ const Meeting = () => {
                       timeLeftToStart.minutes ||
                       timeLeftToStart.seconds ? (
                         <>
-                          <h2 className='text-codecolor font-semibold text-lg text-center'>
+                          <h2 className="text-codecolor font-semibold text-lg text-center">
                             La sesión se habilitará en:
                           </h2>
-                          <div className='flex items-center justify-between space-x-7'>
+                          <div className='flex items-center justify-between space-x-7 px-3'>
                             <div className='flex flex-col items-center justify-center space-y-1'>
                               <h3 className='text-gray-800 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.days
@@ -321,43 +322,43 @@ const Meeting = () => {
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className="text-gray-800 font-semibold text-sm text-center">
                                 días
                               </p>
                             </div>
-                            <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                            <div className="flex flex-col items-center justify-center space-y-1">
+                              <h3 className="text-gray-800 font-semibold text-2xl text-center">
                                 {timeLeftToStart.hours
                                   ? timeLeftToStart.hours
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className="text-gray-800 font-semibold text-sm text-center">
                                 horas
                               </p>
                             </div>
-                            <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                            <div className="flex flex-col items-center justify-center space-y-1">
+                              <h3 className="text-gray-800 font-semibold text-2xl text-center">
                                 {timeLeftToStart.minutes
                                   ? timeLeftToStart.minutes
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className="text-gray-800 font-semibold text-sm text-center">
                                 minutos
                               </p>
                             </div>
-                            <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                            <div className="flex flex-col items-center justify-center space-y-1">
+                              <h3 className="text-gray-800 font-semibold text-2xl text-center">
                                 {timeLeftToStart.seconds
                                   ? timeLeftToStart.seconds
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className="text-gray-800 font-semibold text-sm text-center">
                                 segundos
                               </p>
                             </div>
@@ -382,27 +383,35 @@ const Meeting = () => {
                             <Loader />
                           ) : (
                             <>
-                              <h2 className='text-codecolor font-semibold text-lg text-center'>
+                              <h2 className="text-codecolor font-semibold text-lg text-center">
                                 Tiempo de Sesión
                               </h2>
                               {/* Tiempo */}
-                              <div className='relative'>
+                              <div className="relative">
                                 {showAlert && (
-                                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center'>
-                                    <div className='bg-purple-700 rounded p-20 '>
-                                      <p className='text-white text-2xl'>
-                                        La sesión acabará muy pronto
+                                  <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center">
+                                    <div className="border-purple-200 bg-codecolor rounded p-20 ">
+                                      <p className=" flex-col text-white text-2xl">
+                                        La sesión acabará en{' '}
+                                        {timeAlertInMinutes} minutos !!!   
+                                        <FontAwesomeIcon
+                                          icon={faStopwatch}
+                                          size='2xl'
+                                          beat
+                                          style={{ color: '#f9fafa' }}
+                                          className='pl-2 mr-2'
+                                        />
                                       </p>
                                     </div>
                                   </div>
                                 )}
                               </div>
                               <div
-                                className='flex items-center justify-between space-x-14'
+                                className='flex items-center space-x-8'
                                 id='tiempo'
                               >
-                                <div className='flex flex-col items-center justify-center space-y-1'>
-                                  <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                                <div className="flex flex-col items-center justify-center space-y-1">
+                                  <h3 className="text-gray-800 font-semibold text-2xl text-center">
                                     {running ? (
                                       <>
                                         {timeLeftSession.minutes
@@ -422,13 +431,13 @@ const Meeting = () => {
                                     )}
                                     {/* Minutos */}
                                   </h3>
-                                  <p className='text-gray-800 font-semibold text-sm text-center'>
+                                  <p className="text-gray-800 font-semibold text-sm text-center">
                                     minutos
                                   </p>
                                 </div>
-                                <div className='h-full border'></div>
-                                <div className='flex flex-col items-center justify-center space-y-1'>
-                                  <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                                <div className="h-full border"></div>
+                                <div className="flex flex-col items-center justify-center space-y-1">
+                                  <h3 className="text-gray-800 font-semibold text-2xl text-center">
                                     {timeLeftSession.seconds
                                       ? timeLeftSession.seconds
                                           .toString()
@@ -436,7 +445,7 @@ const Meeting = () => {
                                       : '00'}{' '}
                                     {/* Segundos */}
                                   </h3>
-                                  <p className='text-gray-800 font-semibold text-sm text-center'>
+                                  <p className="text-gray-800 font-semibold text-sm text-center">
                                     segundos
                                   </p>
                                 </div>
@@ -448,8 +457,8 @@ const Meeting = () => {
                                   moment()
                                 ) ? (
                                   <>
-                                    <div className='flex items-center justify-center space-x-11 px-4 w-64'>
-                                      <p className='text-red-500 text-sm font-semibold text-center'>
+                                    <div className="flex items-center justify-center space-x-11 px-4 w-64">
+                                      <p className="text-red-500 text-sm font-semibold text-center">
                                         La sesión ha finalizado. Si necesitan
                                         más tiempo pueden agendar una nueva.
                                       </p>
@@ -459,21 +468,21 @@ const Meeting = () => {
                                   <>
                                     {session.tutorUserId === user.id && (
                                       <>
-                                        <div className='flex items-center justify-center space-x-11 px-4 w-64'>
+                                        <div className="flex items-center justify-center space-x-11 px-4 w-64">
                                           {session.isPaid ? (
                                             <>
                                               {session?.clientHasJoined ? (
                                                 <>
                                                   {!session?.startedCounterDate && (
                                                     <div
-                                                      onClick={e =>
+                                                      onClick={(e) =>
                                                         handleStartSession(e)
                                                       }
                                                     >
-                                                      <button className='text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150'>
+                                                      <button className="text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150">
                                                         <FontAwesomeIcon
                                                           icon={faPlay}
-                                                          className='mr-2'
+                                                          className="mr-2"
                                                         />
                                                         Empezar Sesión
                                                       </button>
@@ -482,7 +491,7 @@ const Meeting = () => {
                                                 </>
                                               ) : (
                                                 <>
-                                                  <p className='text-codecolor font-semibold text-sm text-center'>
+                                                  <p className="text-codecolor font-semibold text-sm text-center">
                                                     Esperando a que el cliente
                                                     esté listo
                                                   </p>
@@ -493,19 +502,19 @@ const Meeting = () => {
                                             <>
                                               {!session?.tutorHasJoined ? (
                                                 <div
-                                                  onClick={e => handleJoin(e)}
+                                                  onClick={(e) => handleJoin(e)}
                                                 >
-                                                  <button className='text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150'>
+                                                  <button className="text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150">
                                                     Confirmar asistencia
                                                     <FontAwesomeIcon
                                                       icon={faCheckCircle}
-                                                      className='ml-2'
+                                                      className="ml-2"
                                                     />
                                                   </button>
                                                 </div>
                                               ) : (
                                                 <>
-                                                  <p className='text-codecolor font-semibold text-sm text-center'>
+                                                  <p className="text-codecolor font-semibold text-sm text-center">
                                                     Esperando a que el cliente
                                                     abone la sesión
                                                   </p>
@@ -518,25 +527,25 @@ const Meeting = () => {
                                     )}
                                     {session.clientUserId === user.id && (
                                       <>
-                                        <div className='flex items-center justify-center space-x-11 px-4 w-64'>
+                                        <div className="flex items-center justify-center space-x-11 px-4 w-64">
                                           {session.isPaid ? (
                                             <>
                                               {!session?.clientHasJoined ? (
                                                 <div
-                                                  onClick={e => handleJoin(e)}
+                                                  onClick={(e) => handleJoin(e)}
                                                 >
-                                                  <button className='text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150'>
+                                                  <button className="text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150">
                                                     Confirmar asistencia
                                                     <FontAwesomeIcon
                                                       icon={faCheckCircle}
-                                                      className='ml-2'
+                                                      className="ml-2"
                                                     />
                                                   </button>
                                                 </div>
                                               ) : (
                                                 <>
                                                   {!session?.startedCounterDate && (
-                                                    <p className='text-codecolor font-semibold text-sm text-center'>
+                                                    <p className="text-codecolor font-semibold text-sm text-center">
                                                       Esperando a que el tutor
                                                       inicié la sesión
                                                     </p>
@@ -548,22 +557,22 @@ const Meeting = () => {
                                             <>
                                               {!session?.tutorHasJoined ? (
                                                 <>
-                                                  <p className='text-codecolor font-semibold text-sm text-center'>
+                                                  <p className="text-codecolor font-semibold text-sm text-center">
                                                     Esperando a que el tutor
                                                     confirme la sesión
                                                   </p>
                                                 </>
                                               ) : (
                                                 <div
-                                                  onClick={e =>
+                                                  onClick={(e) =>
                                                     handlePaySession(e)
                                                   }
                                                 >
-                                                  <button className='text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150'>
+                                                  <button className="text-white bg-green-600 font-semibold text-center rounded px-3 py-3 active:scale-90 text-sm transition duration-150">
                                                     Pagar sesión y desbloquear
                                                     <FontAwesomeIcon
                                                       icon={faLock}
-                                                      className='ml-2'
+                                                      className="ml-2"
                                                     />
                                                   </button>
                                                 </div>
@@ -581,8 +590,8 @@ const Meeting = () => {
                         </>
                       ) : (
                         <>
-                          <div className='flex items-center justify-center space-x-11 px-4 w-64'>
-                            <p className='text-red-500 font-semibold text-center'>
+                          <div className="flex items-center justify-center space-x-11 px-4 w-64">
+                            <p className="text-red-500 font-semibold text-center">
                               La sesión ha expirado. Si desean continuar, pueden
                               agendar una nueva.
                             </p>
@@ -594,8 +603,8 @@ const Meeting = () => {
                 </div>
                 {/* Renderiza el componente StarRating y pasa la función handleCloseModal como prop */}
                 {showModal && (
-                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center'>
-                    <div className='bg-white rounded-lg p-8 mx-4 sm:mx-auto max-w-md'>
+                  <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg p-8 mx-4 sm:mx-auto max-w-md">
                       <MeetingReviews
                         onCloseModal={handleCloseModal}
                         setReviewComment={setReviewComment}
@@ -610,44 +619,44 @@ const Meeting = () => {
 
             {/* --------------------------Fila 2--------------------------- */}
 
-            <div className='flex w-full space-x-8 px-10 py-8'>
+            <div className="flex w-full space-x-8 px-10 py-8">
               {/* Plataformas videollamada+Otras  */}
-              <div className='flex flex-col justify-center bg-white w-full h-full rounded'>
+              <div className="flex flex-col justify-center border-gray-300 bg-white w-full h-full rounded">
                 {/* Barra de Opciones */}
-                <div className='flex w-full justify-between px-10 py-5 border-b'>
-                  <a href='https://vscode.dev/' target='_blank'>
-                    <button className='text-black font-semibold text-center active:scale-90 transition duration-150'>
+                <div className="flex w-full justify-between px-10 py-5 border-b">
+                  <a href="https://vscode.dev/" target="_blank">
+                    <button className="text-black font-semibold text-center active:scale-90 transition duration-150">
                       Editor de código
                     </button>
                   </a>
                   {/* <h2 className="text-black font-semibold text-center">
                 Audio/Vídeo
               </h2> */}
-                  <button className='text-black font-semibold text-center active:scale-90 transition duration-150'>
+                  <button className="text-black font-semibold text-center active:scale-90 transition duration-150">
                     FAQs
                   </button>
                 </div>
 
                 {/* Plataformas */}
-                <div className='flex justify-center bg-white w-full h-full py-6 px-5 rounded-b border-b'>
+                <div className="flex justify-center bg-white w-full h-full py-6 px-5 rounded-b border-b">
                   {/* Zoom */}
-                  <div className='flex flex-col w-full px-4 border-r'>
-                    <div className='flex justify-between items-center space-x-4'>
-                      <h2 className='text-black font-semibold text-start'>
+                  <div className="flex flex-col w-full px-4 border-r">
+                    <div className="flex justify-between items-center space-x-4">
+                      <h2 className="text-black font-semibold text-start">
                         Zoom
                       </h2>
-                      <h2 className='bg-blue-100 text-blue-600 px-2 py-1 text-xs rounded'>
+                      <h2 className="bg-blue-100 text-blue-600 px-2 py-1 text-xs rounded">
                         RECOMENDADO
                       </h2>
                     </div>
-                    <h2 className='text-start mt-2'>
+                    <h2 className="text-start mt-2">
                       Admite videollamadas, uso compartido de pantalla y control
                       remoto.
                     </h2>
-                    <h2 className='text-start text-sm mt-4'>
+                    <h2 className="text-start text-sm mt-4">
                       Si no tienes Zoom instalado, sigue los siguientes pasos:
                     </h2>
-                    <h2 className='text-gray-600 text-start text-sm'>
+                    <h2 className="text-gray-600 text-start text-sm">
                       1 - Haz clic en el botón que se encuentra debajo para ir
                       al sitio web de Zoom y descargarlo.
                       <br />
@@ -655,10 +664,10 @@ const Meeting = () => {
                       <br />3 -Te unirás automáticamente a la sala de reuniones
                       después de que se complete la instalación.
                     </h2>
-                    <h2 className='text-start text-sm mt-4'>
+                    <h2 className="text-start text-sm mt-4">
                       Si Zoom ya está instalado:
                     </h2>
-                    <h2 className='text-gray-600 text-start text-sm'>
+                    <h2 className="text-gray-600 text-start text-sm">
                       1 - Haz clic en el botón que se encuentra debajo para ir
                       al sitio web de Zoom.
                       <br />
@@ -667,29 +676,29 @@ const Meeting = () => {
                     </h2>
                     <div>
                       {/* Botón Zoom */}
-                      <a href='https://zoom.us/es/download' target='_blank'>
-                        <button className='hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded px-10 py-1 text-blue-600 mt-6 active:scale-90 transition duration-150'>
+                      <a href="https://zoom.us/es/download" target="_blank">
+                        <button className="hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded px-10 py-1 text-blue-600 mt-6 active:scale-90 transition duration-150">
                           Zoom
                         </button>
                       </a>
                     </div>
                   </div>
 
-                  <div className='flex flex-col w-full px-4'>
+                  <div className="flex flex-col w-full px-4">
                     {/* Google Meet */}
-                    <div className='flex  bg-white w-full h-full'>
+                    <div className="flex  bg-white w-full h-full">
                       {/* Info Google Meet */}
                       <div>
-                        <h2 className='text-black font-semibold text-start'>
+                        <h2 className="text-black font-semibold text-start">
                           Google Meet
                         </h2>
-                        <h2 className='text-start mt-2'>
+                        <h2 className="text-start mt-2">
                           Admite videollamadas y uso compartido de pantalla.
                         </h2>
-                        <h2 className='text-start text-sm mt-4'>
+                        <h2 className="text-start text-sm mt-4">
                           No requiere de instalación:
                         </h2>
-                        <h2 className='text-gray-600 text-start text-sm'>
+                        <h2 className="text-gray-600 text-start text-sm">
                           1 - Haz clic en el botón que se encuentra debajo para
                           ir al sitio web de Meet.
                           <br />
@@ -702,29 +711,29 @@ const Meeting = () => {
                     </div>
                     <div>
                       {/* Botón Meet */}
-                      <a href='https://meet.google.com/' target='_blank'>
-                        <button className='border border-green-600 rounded px-10 py-1 text-green-600 mt-6 active:scale-90 transition duration-150 hover:bg-green-600 hover:text-white font-semibold'>
+                      <a href="https://meet.google.com/" target="_blank">
+                        <button className="border border-green-600 rounded px-10 py-1 text-green-600 mt-6 active:scale-90 transition duration-150 hover:bg-green-600 hover:text-white font-semibold">
                           Meet
                         </button>
                       </a>
                     </div>
                   </div>
 
-                  <div className='flex flex-col w-full border-l px-4'>
+                  <div className="flex flex-col w-full border-l px-4">
                     {/* Google Hangouts */}
-                    <div className='flex  bg-white w-full h-full'>
+                    <div className="flex  bg-white w-full h-full">
                       {/* Info Google Hangouts */}
                       <div>
-                        <h2 className='text-black font-semibold text-start'>
+                        <h2 className="text-black font-semibold text-start">
                           Google Hangouts
                         </h2>
-                        <h2 className='text-start mt-2'>
+                        <h2 className="text-start mt-2">
                           Admite videollamadas y uso compartido de pantalla.
                         </h2>
-                        <h2 className='text-start text-sm mt-4'>
+                        <h2 className="text-start text-sm mt-4">
                           No requiere de instalación:
                         </h2>
-                        <h2 className='text-gray-600 text-start text-sm'>
+                        <h2 className="text-gray-600 text-start text-sm">
                           1- Haz clic en el botón INICIAR GOOGLE HANGOUTS a
                           continuación para ir a Google.
                           <br />
@@ -737,8 +746,8 @@ const Meeting = () => {
                     </div>
                     <div>
                       {/* Botón Hangouts */}
-                      <a href='https://hangouts.google.com/' target='_blank'>
-                        <button className='border hover:bg-green-700 hover:text-white font-semibold border-green-700 rounded px-8 py-1 text-green-700 mt-6 active:scale-90 transition duration-150'>
+                      <a href="https://hangouts.google.com/" target="_blank">
+                        <button className="border hover:bg-green-700 hover:text-white font-semibold border-green-700 rounded px-8 py-1 text-green-700 mt-6 active:scale-90 transition duration-150">
                           Hangouts
                         </button>
                       </a>
@@ -751,7 +760,7 @@ const Meeting = () => {
         </>
       )}
     </>
-  )
+  );
 }
 
 export default Meeting
