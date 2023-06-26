@@ -25,9 +25,11 @@ const FAQs = () => {
               FAQs - Preguntas frecuentes
             </h1>
             <div className=" space-x-1">
+                {/* Pregunta para ser aprobada y sumada a las FAQs */}
               <button className="px-2 py-1 bg-violet-100 border rounded text-codecolor text-sm font-semibold active:scale-90 transition duration-150 select-none">
                 Nueva pregunta
               </button>
+              {/* Espacio para dar una opinion constructiva sobre code-tutor */}
               <button className="px-2 py-1 bg-violet-100 border rounded text-codecolor text-sm font-semibold active:scale-90 transition duration-150 select-none">
                 Dar mi opinión
               </button>
@@ -75,10 +77,10 @@ const FAQs = () => {
               />
             </div>
             <h3 id="respuesta2" className="text-sm hidden">
-              ► Mayor accesibilidad: Code-Tutor te permite acceder a una amplia
-              cantidad de programadores en línea, lo que te brinda una mayor
-              posibilidad de encontrar un tutor adecuado para tus necesidades,
-              sin importar tu ubicación geográfica.
+              {/* <br />► Mayor accesibilidad: Code-Tutor te permite acceder a una
+              amplia cantidad de programadores en línea, lo que te brinda una
+              mayor posibilidad de encontrar un tutor adecuado para tus
+              necesidades, sin importar tu ubicación geográfica.
               <br />► Filtrado personalizado: Puedes utilizar los filtros de
               búsqueda de Code-Tutor para encontrar un tutor que se ajuste a tus
               criterios específicos, como país de origen, idioma, calificación
@@ -173,6 +175,27 @@ const FAQs = () => {
               adicionales, como videollamadas, compartición de pantalla y chat
               en tiempo real, que mejoran la experiencia de tutoría y facilitan
               la interacción entre el tutor y el usuario.
+              <br />► Amplia disponibilidad: Code-Tutor ofrece una amplia
+              variedad de tutores de programación disponibles en diferentes
+              zonas horarias. Esto significa que puedes encontrar un tutor
+              adecuado independientemente de tu ubicación geográfica y tener
+              acceso a sesiones de tutoría incluso en horarios no
+              convencionales. */}
+              Las ventajas de utilizar la plataforma Code-Tutor en comparación
+              con buscar un tutor de programación de forma tradicional son:
+              mayor accesibilidad a una amplia cantidad de programadores en
+              línea, filtrado personalizado para encontrar el tutor ideal,
+              información detallada del tutor en los perfiles, reviews y
+              testimonios de otros usuarios, facilidad de contacto y
+              contratación, flexibilidad horaria, tarifas competitivas,
+              comunidad y networking con otros profesionales, mayor comodidad y
+              ahorro de tiempo al acceder a tutores desde cualquier lugar,
+              actualización constante de habilidades, seguridad y
+              confidencialidad de los datos, pagos seguros, oportunidad de
+              encontrar un tutor especializado, chat incorporado para
+              comunicarse directamente, control del tiempo de sesión,
+              recordatorios de tiempo, uso de salas en plataformas conocidas y
+              amplia disponibilidad de tutores en diferentes zonas horarias.
             </h3>
           </div>
 
@@ -1609,11 +1632,12 @@ const FAQs = () => {
               el usuario puedan comunicarse correctamente. Esto puede implicar
               una breve prueba de audio y video para confirmar que ambos pueden
               verse y escucharse claramente. <br />
-              4- Uso de plataformas de comunicación estándar: Code-Tutor recomienda
-              el uso de plataformas de comunicación comunes y confiables, como
-              Zoom, Google Meet o Google Hangouts. Estas plataformas suelen ser
-              ampliamente compatibles y ofrecen funciones sólidas para facilitar
-              la comunicación y colaboración durante las sesiones en línea.
+              4- Uso de plataformas de comunicación estándar: Code-Tutor
+              recomienda el uso de plataformas de comunicación comunes y
+              confiables, como Zoom, Google Meet o Google Hangouts. Estas
+              plataformas suelen ser ampliamente compatibles y ofrecen funciones
+              sólidas para facilitar la comunicación y colaboración durante las
+              sesiones en línea.
             </h3>
           </div>
         </div>
