@@ -25,7 +25,7 @@ import { notificationSound } from '../assets'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const NavUserNotifications = ({ user }) => {
+const NavUserNotifications = ({ user, id }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showChat, setShowChat] = useState(false)
@@ -260,7 +260,7 @@ const NavUserNotifications = ({ user }) => {
                         )}
                         {!user && (
                           <>
-                            <Link to='/login'>
+                            <Link to={`/login?redirect=/tutor/${id}`}>
                               <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Iniciar sesión
                               </button>

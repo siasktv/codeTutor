@@ -346,7 +346,7 @@ const NavUserSearch = ({
                     <div className='absolute top-16 mr-20 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
-                          <Link to='/user'>
+                          <Link to='/login?redirect=/search'>
                             <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                               {user ? 'Ir a mi perfil' : 'Iniciar sesión'}
                             </button>
