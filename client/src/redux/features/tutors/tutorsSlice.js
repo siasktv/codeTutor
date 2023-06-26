@@ -58,6 +58,22 @@ const initialState = {
     socialMedia: [],
     status: '',
     sessions: []
+    // datasession {
+    //   price,
+    //   date,
+    //   duration,
+    //   nacionalidadcliente,
+    //   ispaid,
+    //   nameclient,
+    //   emailclient,
+    //   iduserclient
+    // }
+    // allSessions: [
+    // {
+    //   earnings,
+    //   totalminutes
+    // }
+    // ]
   },
   locations: [],
   location: '',
