@@ -25,9 +25,11 @@ const FAQs = () => {
               FAQs - Preguntas frecuentes
             </h1>
             <div className=" space-x-1">
+                {/* Pregunta para ser aprobada y sumada a las FAQs */}
               <button className="px-2 py-1 bg-violet-100 border rounded text-codecolor text-sm font-semibold active:scale-90 transition duration-150 select-none">
                 Nueva pregunta
               </button>
+              {/* Espacio para dar una opinion constructiva sobre code-tutor */}
               <button className="px-2 py-1 bg-violet-100 border rounded text-codecolor text-sm font-semibold active:scale-90 transition duration-150 select-none">
                 Dar mi opinión
               </button>
