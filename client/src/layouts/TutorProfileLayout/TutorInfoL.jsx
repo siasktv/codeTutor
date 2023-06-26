@@ -165,7 +165,7 @@ const TutorInfoI = props => {
         </div>
         <div>
           <h2 className='font-semibold text-codecolor'>
-            {tutor.sessions.length}
+            {tutor.sessions?.length}
           </h2>
           <h2 className='font-semibold text-sm text-gray-700'>sesiones</h2>
         </div>
