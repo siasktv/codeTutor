@@ -85,6 +85,7 @@ const UserDashboard = () => {
                   showMessage={showMessage}
                   setShowMessage={setShowMessage}
                   handleShowMessage={handleShowMessage}
+                  selectedSection={selectedSection}
                 />
               </div>
               <div className='flex flex-col bg-[#FAFBFC] ml-60'>
