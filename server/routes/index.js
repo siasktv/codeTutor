@@ -10,6 +10,7 @@ const messageRoutes = require('./Message/messageRoutes.js')
 const conversationsRoutes = require('./Conversations/conversationsRoutes.js')
 const reviews = require('./Reviews/reviewsRoutes.js')
 const sessionRoutes = require('./Session/sessionRoutes.js')
+const faqsRoutes = require('./Faqs/faqsRoutes.js')
 
 const router = Router()
 
@@ -24,5 +25,6 @@ router.use('/api/message', messageRoutes)
 router.use('/api/conversations', conversationsRoutes)
 router.use('/api/reviews', reviews)
 router.use('/api/session', sessionRoutes)
+router.use('/api/faqs', faqsRoutes)
 
 module.exports = router

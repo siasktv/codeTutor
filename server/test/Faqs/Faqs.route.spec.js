@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const app = require('../../server');
 require('dotenv').config();
 
-const Faqs = require('../../models/Faqs.models');
+const Faqs = require('../../models/Faqs.models.js');
 
 describe('Pruebas sobre la API Faqs', () => {
   beforeAll(async () => {
@@ -32,10 +32,9 @@ describe('Pruebas sobre la API Faqs', () => {
 
   describe('POST/api/faqs', () => {
     const newFaqs = {
-      tutor: new mongoose.Types.ObjectId(),
-      techName: new mongoose.Types.ObjectId(),
-      years: 1,
-      description: 'This is a test Faqs',
+      user: new mongoose.Types.ObjectId(),
+      question: 'This is a test Faqs',
+      sugessted: true,
     };
     const wrongFaqs = { nombre: 'Test Faqs' };
 
@@ -68,10 +67,9 @@ describe('Pruebas sobre la API Faqs', () => {
     let faqs;
     beforeEach(async () => {
       faqs = await Faqs.create({
-        tutor: new mongoose.Types.ObjectId(),
-        techName: new mongoose.Types.ObjectId(),
-        years: 7,
-        description: 'This is a test Faqs',
+        user: new mongoose.Types.ObjectId(),
+        question: 'This is a test Faqs',
+        sugessted: true,
       });
     });
 
@@ -95,10 +93,9 @@ describe('Pruebas sobre la API Faqs', () => {
     let faqs;
     beforeEach(async () => {
       faqs = await Faqs.create({
-        tutor: new mongoose.Types.ObjectId(),
-        techName: new mongoose.Types.ObjectId(),
-        years: 6,
-        description: 'This is a test Faqs',
+        user: new mongoose.Types.ObjectId(),
+        question: 'This is a test Faqs',
+        sugessted: true,
       });
     });
 
@@ -110,10 +107,9 @@ describe('Pruebas sobre la API Faqs', () => {
       const response = await request(app)
         .put(`/api/faqs/${faqs._id}`)
         .send({
-          tutor: new mongoose.Types.ObjectId(),
-          techName: new mongoose.Types.ObjectId(),
-          years: 2,
-          description: 'This is a test update Faqs',
+          user: new mongoose.Types.ObjectId(),
+          question: 'This is a test update Faqs',
+          sugessted: true,
         });
 
       expect(response.status).toBe(200);
@@ -124,14 +120,13 @@ describe('Pruebas sobre la API Faqs', () => {
       const response = await request(app)
         .put(`/api/faqs/${faqs._id}`)
         .send({
-          tutor: new mongoose.Types.ObjectId(),
-          techName: new mongoose.Types.ObjectId(),
-          years: 3,
-          description: 'This is a test update 2 Faqs',
+          user: new mongoose.Types.ObjectId(),
+          question: 'This is a test update 2 Faqs',
+          sugessted: false,
         });
 
       expect(response.body._id).toBeDefined();
-      expect(response.body.description).toBe(
+      expect(response.body.question).toBe(
         'This is a test update 2 Faqs'
       );
     });
@@ -142,10 +137,9 @@ describe('Pruebas sobre la API Faqs', () => {
     let response;
     beforeEach(async () => {
       faqs = await Faqs.create({
-        tutor: new mongoose.Types.ObjectId(),
-        techName: new mongoose.Types.ObjectId(),
-        years: 5,
-        description: 'This is a test delete Faqs',
+        user: new mongoose.Types.ObjectId(),
+        question: 'This is a test delete a Faqs',
+        sugessted: true,
       });
       response = await request(app)
         .delete(`/api/faqs/${faqs._id}`)
@@ -160,7 +154,7 @@ describe('Pruebas sobre la API Faqs', () => {
     it('Borra correctamente', async () => {
       expect(response.body._id).toBeDefined();
 
-      const foundFaqs = await Faqs.findById(skillsTech._id);
+      const foundFaqs = await Faqs.findById(faqs._id);
       expect(foundFaqs).toBeNull();
     });
   });
