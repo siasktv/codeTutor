@@ -9,6 +9,7 @@ require('./models/Experience.models.js')
 require('./models/Rates.models.js')
 require('./models/SkillsTech.models.js')
 require('./models/User.models.js')
+require('./models/Faqs.models.js')
 const User = require('./models/User.models')
 const {
   addUser,
