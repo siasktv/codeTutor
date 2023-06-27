@@ -9,6 +9,7 @@ import {
   FormTutor,
   Meeting,
   Payments,
+  FAQs,
 } from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/tutor" element={<FormTutor />} />
             <Route path="/meeting/:id" element={<Meeting />} />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/FAQs" element={<FAQs />} />
           </Routes>
         </SocketContext.Provider>
       </Elements>

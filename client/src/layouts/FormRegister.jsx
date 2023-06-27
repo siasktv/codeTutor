@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { loginWithGoogle, signUp } from '../firebase/client'
 import { loaderGoogle } from '../assets'
 import { Link } from 'react-router-dom'
+import { LoaderMini } from '../components'
+import {
+  faCheckCircle,
+  faRocket,
+  faSpinner
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const FormRegister = ({ redirect }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -18,6 +25,9 @@ const FormRegister = ({ redirect }) => {
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false)
   const [formsDisabled, setFormsDisabled] = useState(false)
   const [firebaseError, setFirebaseError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [redirecting, setRedirecting] = useState(false)
 
   useEffect(() => {
     const isFormValid = Object.values(errors).every(error => !error)
@@ -83,22 +93,29 @@ const FormRegister = ({ redirect }) => {
       return alert('Por favor, corrija los errores antes de continuar')
     } else if (form.email && form.password && form.fullName) {
       setIsDisabled(true)
+      setIsSubmitting(true)
       setFormsDisabled(true)
       setFirebaseError(null)
-      signUp(form.email, form.password, form.fullName).catch(err => {
-        setIsDisabled(false)
-        setFormsDisabled(false)
-        if (err.code === 'auth/email-already-in-use') {
-          setFirebaseError('El correo electrónico ya está en uso')
-        } else if (err.code === 'auth/invalid-email') {
-          setFirebaseError('El correo electrónico no es válido')
-        } else if (err.code === 'auth/weak-password') {
-          setFirebaseError('La contraseña debe tener al menos 6 caracteres')
-        } else {
-          console.log(err)
-          setFirebaseError('Hubo un error al crear la cuenta')
-        }
-      })
+      signUp(form.email, form.password, form.fullName)
+        .then(() => {
+          setIsSubmitting(false)
+          setSuccess(true)
+        })
+        .catch(err => {
+          setIsDisabled(false)
+          setIsSubmitting(false)
+          setFormsDisabled(false)
+          if (err.code === 'auth/email-already-in-use') {
+            setFirebaseError('El correo electrónico ya está en uso')
+          } else if (err.code === 'auth/invalid-email') {
+            setFirebaseError('El correo electrónico no es válido')
+          } else if (err.code === 'auth/weak-password') {
+            setFirebaseError('La contraseña debe tener al menos 6 caracteres')
+          } else {
+            console.log(err)
+            setFirebaseError('Hubo un error al crear la cuenta')
+          }
+        })
     }
   }
 
@@ -117,6 +134,15 @@ const FormRegister = ({ redirect }) => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        setSuccess(false)
+        setRedirecting(true)
+      }, 1000)
+    }
+  }, [success])
 
   const loginRedirect = redirect ? `/login?redirect=${redirect}` : '/login'
 
@@ -289,14 +315,29 @@ const FormRegister = ({ redirect }) => {
               <button
                 role='button'
                 className={
-                  !isDisabled && !formsDisabled
-                    ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
+                  !isSubmitting && !success && !redirecting
+                    ? !isDisabled && !formsDisabled
+                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
+                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-l py-6 w-full cursor-not-allowed'
                 }
                 disabled={isDisabled || formsDisabled}
                 type='submit'
               >
-                Crea tu cuenta
+                {isSubmitting ? (
+                  <LoaderMini />
+                ) : success ? (
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                ) : redirecting ? (
+                  <>
+                    <span className='flex items-center justify-center'>
+                      <span className='mr-1'>Redireccionando</span>
+                      <LoaderMini />
+                    </span>
+                  </>
+                ) : (
+                  'Crea tu cuenta'
+                )}
               </button>
             </div>
             {firebaseError && (

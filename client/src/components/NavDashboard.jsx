@@ -9,7 +9,7 @@ import {
   fetchLocalUserChats,
   getNotificationsStatus
 } from '../redux/features/localUser/localUserSlice'
-import { Loader, ChatsNav, NotificationsNav } from '../components'
+import { Loader, ChatsNav, NotificationsNav, LogoutModal } from '../components'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -25,7 +25,8 @@ const NavDashboard = ({
   user,
   handleShowMessage,
   setShowMessage,
-  showMessage
+  showMessage,
+  selectedSection
 }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
@@ -206,27 +207,29 @@ const NavDashboard = ({
           <header className='flex items-center h-20 w-full z-50'>
             <div className='flex justify-between w-full items-center'>
               <div className='pl-[45%] pt-1'>
-                <div className='relative'>
-                  <button
-                    className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
-                    onClick={handleShowTech}
-                  >
-                    Encuentra desarrolladores
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      aria-hidden='true'
-                      className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                {selectedSection === 'dashboard' && (
+                  <div className='relative'>
+                    <button
+                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
+                      onClick={handleShowTech}
                     >
-                      <polyline points='6 9 12 15 18 9'></polyline>
-                    </svg>
-                  </button>
-                </div>
+                      Encuentra desarrolladores
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        aria-hidden='true'
+                        className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                      >
+                        <polyline points='6 9 12 15 18 9'></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -237,25 +240,10 @@ const NavDashboard = ({
                       <img
                         src={user.image}
                         alt='avatar'
-                        className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
-                        onClick={handleShowProfile}
+                        className='w-10 h-10  rounded-full border-none object-cover'
                         referrerPolicy='no-referrer'
                       ></img>
                     </div>
-                    {showProfile && (
-                      <div className='absolute top-12 mt-2 mr-20 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                        <div className='flex flex-col gap-2 p-2'>
-                          <div className='flex flex-col gap-2'>
-                            <button
-                              className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 text-md hover:outline text-center'
-                              onClick={signOut}
-                            >
-                              Cerrar sesión
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
                   {/* Chats */}
@@ -281,7 +269,7 @@ const NavDashboard = ({
                 </div>
               </div>
             </div>
-            {showTech && (
+            {showTech && selectedSection === 'dashboard' && (
               <div className='absolute w-full z-50 top-20  '>
                 <div className='flex justify-center'>
                   <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>

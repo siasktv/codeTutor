@@ -12,6 +12,7 @@ import {
   faLock,
   faCheckCircle,
   faPlay,
+  faStopwatch,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,7 +21,7 @@ import { usersFetch } from '../redux/features/users/usersSlice'
 const Meeting = () => {
   const { id } = useParams()
   const user = useUser()
-  const timeAlertInMinutes = 1
+  const timeAlertInMinutes = 3
   const [running, setRunning] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertClosed, setAlertClosed] = useState(false)
@@ -233,10 +234,16 @@ const Meeting = () => {
         link: `/tutor/${session.tutorUserId}`
       }
     })
+    setShowModal(false)
   }
 
   useEffect(() => {
-    if (timeLeftSession.minutes === 0 && !alertClosed) {
+    // show alert if 3 minutes left
+    if (
+      moment().valueOf() >
+        session?.endedCounterDate - moment.duration(timeAlertInMinutes, 'm') &&
+      !alertClosed
+    ) {
       setShowAlert(true)
       setTimeout(() => {
         setShowAlert(false)
@@ -301,7 +308,7 @@ const Meeting = () => {
 
               <div>
                 {/* Contenedor con el cronómetro */}
-                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-3'>
+                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-2'>
                   {!moment(session?.appointmentDate).isBefore(moment()) ? (
                     <>
                       {timeLeftToStart.days ||
@@ -312,7 +319,7 @@ const Meeting = () => {
                           <h2 className='text-codecolor font-semibold text-lg text-center'>
                             La sesión se habilitará en:
                           </h2>
-                          <div className='flex items-center justify-between space-x-7'>
+                          <div className='flex items-center justify-between space-x-7 px-3'>
                             <div className='flex flex-col items-center justify-center space-y-1'>
                               <h3 className='text-gray-800 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.days
@@ -389,16 +396,24 @@ const Meeting = () => {
                               <div className='relative'>
                                 {showAlert && (
                                   <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center'>
-                                    <div className='bg-purple-700 rounded p-20 '>
-                                      <p className='text-white text-2xl'>
-                                        La sesión acabará muy pronto
+                                    <div className='border-purple-200 bg-codecolor rounded p-20 '>
+                                      <p className=' flex-col text-white text-2xl'>
+                                        La sesión acabará en{' '}
+                                        {timeAlertInMinutes} minutos !!!
+                                        <FontAwesomeIcon
+                                          icon={faStopwatch}
+                                          size='2xl'
+                                          beat
+                                          style={{ color: '#f9fafa' }}
+                                          className='pl-2 mr-2'
+                                        />
                                       </p>
                                     </div>
                                   </div>
                                 )}
                               </div>
                               <div
-                                className='flex items-center justify-between space-x-14'
+                                className='flex items-center space-x-8'
                                 id='tiempo'
                               >
                                 <div className='flex flex-col items-center justify-center space-y-1'>
@@ -594,7 +609,7 @@ const Meeting = () => {
                 </div>
                 {/* Renderiza el componente StarRating y pasa la función handleCloseModal como prop */}
                 {showModal && (
-                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center'>
+                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
                     <div className='bg-white rounded-lg p-8 mx-4 sm:mx-auto max-w-md'>
                       <MeetingReviews
                         onCloseModal={handleCloseModal}
@@ -612,7 +627,7 @@ const Meeting = () => {
 
             <div className='flex w-full space-x-8 px-10 py-8'>
               {/* Plataformas videollamada+Otras  */}
-              <div className='flex flex-col justify-center bg-white w-full h-full rounded'>
+              <div className='flex flex-col justify-center border-gray-300 bg-white w-full h-full rounded'>
                 {/* Barra de Opciones */}
                 <div className='flex w-full justify-between px-10 py-5 border-b'>
                   <a href='https://vscode.dev/' target='_blank'>

@@ -27,6 +27,7 @@ import MessageContainer from './MessageContainer.jsx'
 import MessageMinimized from './MessageMinimized.jsx'
 import ChatsNav from './ChatsNav.jsx'
 import NotificationsNav from './NotificationsNav'
+import UpdateModal from './UserDashboard/Settings/UpdateModal.jsx'
 
 //FormTutor
 //componentes generales
@@ -56,7 +57,13 @@ import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech.jsx'
 import TutorProfileFormTech from './FormTutor/TutorTech/TutorProfileFormTech.jsx'
 import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields.jsx'
 
+import LoaderMini from './LoaderMini.jsx'
+
+import LogoutModal from './LogoutModal.jsx'
+
 export {
+  LogoutModal,
+  LoaderMini,
   CardTutorInputFields,
   NotificationsNav,
   TutorProfileFormTech,
@@ -104,5 +111,6 @@ export {
   Loader,
   MessageContainer,
   MessageMinimized,
-  ChatsNav
+  ChatsNav,
+  UpdateModal
 }

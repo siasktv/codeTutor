@@ -7,6 +7,8 @@ const CardForm = props => {
 
   const handleAdd = () => {
     setSection(next)
+    // scroll to top
+    window.scrollTo(0, 0)
   }
 
   return (

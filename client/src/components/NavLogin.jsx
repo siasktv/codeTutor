@@ -15,7 +15,8 @@ import {
   MessageContainer,
   MessageMinimized,
   ChatsNav,
-  NotificationsNav
+  NotificationsNav,
+  LogoutModal
 } from '../components'
 import { SocketContext, socket } from '../socket/context'
 import { notificationSound } from '../assets'
@@ -161,6 +162,7 @@ const NavLogin = ({ user }) => {
 
   const [showMessage, setShowMessage] = useState(false)
   const [selectedTutor, setSelectedTutor] = useState(null)
+  const [showModalLogout, setShowModalLogout] = useState(false)
 
   const handleShowMessage = (e, tutor) => {
     e.preventDefault()
@@ -312,6 +314,7 @@ const NavLogin = ({ user }) => {
                           alt='avatar'
                           className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                           onClick={handleShowProfile}
+                          referrerPolicy='no-referrer'
                         ></img>
                       </div>
                       {showProfile && (
@@ -326,7 +329,7 @@ const NavLogin = ({ user }) => {
                               {user && (
                                 <button
                                   className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
-                                  onClick={signOut}
+                                  onClick={() => setShowModalLogout(true)}
                                 >
                                   Cerrar sesión
                                 </button>
@@ -403,6 +406,9 @@ const NavLogin = ({ user }) => {
           handleMaximizeMessage={handleMaximizeMessage}
           user={user}
         />
+      )}
+      {showModalLogout && (
+        <LogoutModal setShowModalLogout={setShowModalLogout} />
       )}
     </>
   )
