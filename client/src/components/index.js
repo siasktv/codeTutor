@@ -59,7 +59,10 @@ import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields.jsx
 
 import LoaderMini from './LoaderMini.jsx'
 
+import LogoutModal from './LogoutModal.jsx'
+
 export {
+  LogoutModal,
   LoaderMini,
   CardTutorInputFields,
   NotificationsNav,

@@ -24,14 +24,16 @@ import { useEffect, useRef } from 'react'
 import { notificationSound } from '../assets'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { LogoutModal } from '../components'
 
-const NavUserNotifications = ({ user, id }) => {
+const NavUserNotifications = ({ user, id, redirect }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showChat, setShowChat] = useState(false)
   const localUserChats = useSelector(state => state.localUser.chats)
   const dispatch = useDispatch()
   const socket = useContext(SocketContext)
+  const [showModalLogout, setShowModalLogout] = useState(false)
 
   const [notifications, setNotifications] = useState([])
 
@@ -253,7 +255,7 @@ const NavUserNotifications = ({ user, id }) => {
                             </Link>
                             <button
                               className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
-                              onClick={signOut}
+                              onClick={() => setShowModalLogout(true)}
                             >
                               Cerrar sesión
                             </button>
@@ -261,7 +263,7 @@ const NavUserNotifications = ({ user, id }) => {
                         )}
                         {!user && (
                           <>
-                            <Link to={`/login?redirect=/tutor/${id}`}>
+                            <Link to={`/login?redirect=${redirect}`}>
                               <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Iniciar sesión
                               </button>
@@ -314,6 +316,9 @@ const NavUserNotifications = ({ user, id }) => {
           handleMaximizeMessage={handleMaximizeMessage}
           user={user}
         />
+      )}
+      {showModalLogout && (
+        <LogoutModal setShowModalLogout={setShowModalLogout} />
       )}
     </>
   )

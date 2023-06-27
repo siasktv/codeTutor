@@ -18,6 +18,7 @@ import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import {
   ButtonDropdownLocation,
   ChatsNav,
+  LogoutModal,
   NotificationsNav
 } from '../components'
 import Dropdown from '../components/Buttons/Dropdown'
@@ -54,6 +55,7 @@ const NavUserSearch = ({
   const [showChat, setShowChat] = useState(false)
   const localUserChats = useSelector(state => state.localUser.chats)
   const [notifications, setNotifications] = useState([])
+  const [showModalLogout, setShowModalLogout] = useState(false)
 
   const tutors = useSelector(state => state.tutors.tutors)
   const users = useSelector(state => state.users.users)
@@ -355,7 +357,7 @@ const NavUserSearch = ({
                           {user && (
                             <button
                               className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
-                              onClick={signOut}
+                              onClick={() => setShowModalLogout(true)}
                             >
                               Cerrar sesión
                             </button>
@@ -425,6 +427,9 @@ const NavUserSearch = ({
                   </div>
                 </div>
               </div>
+            )}
+            {showModalLogout && (
+              <LogoutModal setShowModalLogout={setShowModalLogout} />
             )}
           </div>
         </header>
