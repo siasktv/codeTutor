@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userFetchById } from '../redux/features/users/usersSlice'
 import { MessageContainer, MessageMinimized, Loader } from '../components'
 import { SocketContext, socket } from '../socket/context'
+import { Settings } from '../layouts'
 
 const UserDashboard = () => {
   const user = useUser()
@@ -20,6 +21,23 @@ const UserDashboard = () => {
   const [selectedTutor, setSelectedTutor] = useState(null)
   const socket = useContext(SocketContext)
   const [selectedSection, setSelectedSection] = useState('dashboard')
+  const sectionFromUrl = location.search.split('section=')[1]
+
+  useEffect(() => {
+    if (sectionFromUrl) {
+      setSelectedSection(sectionFromUrl)
+    }
+  }, [sectionFromUrl])
+
+  useEffect(() => {
+    if (selectedSection !== 'dashboard') {
+      // add query param to url
+      navigate(`/user?section=${selectedSection}`)
+    } else {
+      // remove query param from url
+      navigate('/user')
+    }
+  }, [selectedSection])
 
   const handleShowMessage = (e, tutor) => {
     e.preventDefault()
@@ -85,6 +103,7 @@ const UserDashboard = () => {
                   showMessage={showMessage}
                   setShowMessage={setShowMessage}
                   handleShowMessage={handleShowMessage}
+                  selectedSection={selectedSection}
                 />
               </div>
               <div className='flex flex-col bg-[#FAFBFC] ml-60'>
@@ -113,8 +132,8 @@ const UserDashboard = () => {
                   </div>
                 )}
                 {selectedSection === 'settings' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Ajustes</h1>
+                  <div className='flex justify-center items-center px-8'>
+                    <Settings user={user} />
                   </div>
                 )}
                 {selectedSection === 'faqs' && (
