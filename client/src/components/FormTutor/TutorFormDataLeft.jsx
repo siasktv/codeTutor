@@ -80,6 +80,7 @@ const TutorFormDataLeft = props => {
             className='rounded-full w-[145px] h-[145px] group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer object-cover'
             src={dataForm?.avatar || avatar}
             alt='user'
+            referrerPolicy='no-referrer'
           />
           <FontAwesomeIcon
             icon={faEdit}

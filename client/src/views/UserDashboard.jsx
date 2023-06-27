@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userFetchById } from '../redux/features/users/usersSlice'
 import { MessageContainer, MessageMinimized, Loader } from '../components'
 import { SocketContext, socket } from '../socket/context'
-import { Settings } from '../layouts'
+import { FAQs, Settings } from '../layouts'
 
 const UserDashboard = () => {
   const user = useUser()
@@ -137,8 +137,8 @@ const UserDashboard = () => {
                   </div>
                 )}
                 {selectedSection === 'faqs' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>FAQ's</h1>
+                  <div className='flex justify-center items-center'>
+                    <FAQs user={user} />
                   </div>
                 )}
               </div>

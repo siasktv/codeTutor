@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { signOut } from '../../firebase/client'
 import IconCodeTutor from '../../assets/IconCodeTutor.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,9 +10,12 @@ import {
   faQuestionCircle,
   faSignOut
 } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
+import { LogoutModal } from '../../components'
 
 const UserDashboardLayout = props => {
   const { selectedSection, setSelectedSection } = props
+  const [showModalLogout, setShowModalLogout] = useState(false)
   return (
     <div className='flex overflow-hidden bg-white rounded-lg'>
       <div className='flex overflow-hidden'>
@@ -152,7 +154,7 @@ const UserDashboardLayout = props => {
                     <a
                       className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-red-500 hover:border-red-500 transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
                       white=''
-                      onClick={signOut}
+                      onClick={setShowModalLogout}
                     >
                       <FontAwesomeIcon icon={faSignOut} className='w-5 h-5' />
                       <span className='ml-4'>Salir</span>
@@ -161,6 +163,9 @@ const UserDashboardLayout = props => {
                 </ul>
               </nav>
             </div>
+            {showModalLogout && (
+              <LogoutModal setShowModalLogout={setShowModalLogout} />
+            )}
           </div>
         </div>
       </div>

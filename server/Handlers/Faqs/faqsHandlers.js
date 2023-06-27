@@ -4,8 +4,6 @@ const getFaqsById = require('../../controllers/Faqs/getFaqsById.js')
 const deleteFaqs = require('../../controllers/Faqs/deleteFaqs.js')
 const updateFaqs = require('../../controllers/Faqs/updateFaqs.js')
 
-
-
 const getAllFaqsHandler = async (req, res) => {
   try {
     const faqs = await getAllFaqs()
@@ -26,7 +24,7 @@ const getFaqsByIdHandler = async (req, res) => {
 }
 
 const createFaqsHandler = async (req, res) => {
-  const { user, question, sugessted } = req.body;
+  const { user, question, sugessted } = req.body
   if (!question || question.trim().length === 0) {
     return res.status(400).json({ error: 'question is required' })
   }
@@ -35,8 +33,8 @@ const createFaqsHandler = async (req, res) => {
     const newFaqs = await createFaqs({
       user,
       question,
-      sugessted,
-    });
+      sugessted
+    })
     res.status(200).json(newFaqs)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -45,7 +43,7 @@ const createFaqsHandler = async (req, res) => {
 
 const updateFaqsHandler = async (req, res) => {
   const { id } = req.params
-  const { user, question, sugessted } = req.body;
+  const { user, question, sugessted } = req.body
   if (!question || question.trim().length === 0) {
     return res.status(400).json({ error: 'question is required' })
   }
@@ -54,7 +52,7 @@ const updateFaqsHandler = async (req, res) => {
     const updatedFaqs = await updateFaqs(id, {
       user,
       question,
-      sugessted,
+      sugessted
     })
     res.status(200).json(updatedFaqs)
   } catch (error) {
@@ -77,5 +75,5 @@ module.exports = {
   getFaqsByIdHandler,
   createFaqsHandler,
   updateFaqsHandler,
-  deleteFaqsHandler,
+  deleteFaqsHandler
 }

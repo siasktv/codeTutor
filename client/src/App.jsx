@@ -19,23 +19,23 @@ import useUser from './hooks/useUser'
 function App () {
   const user = useUser()
   return (
-    <div className="App">
+    <div className='App'>
       <SocketContext.Provider value={socket}>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/restore" element={<RestorePassword />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/tutor/:id" element={<TutorProfile />} />
-          <Route path="/user" element={<UserDashboard />} />
-          <Route path="/tutor" element={<FormTutor />} />
-          <Route path="/meeting/:id" element={<Meeting />} />
-          <Route path="/FAQs" element={<FAQs />} />
+          <Route path='/' element={<Landing />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/restore' element={<RestorePassword />} />
+          <Route path='/search' element={<SearchPage />} />
+          <Route path='/tutor/:id' element={<TutorProfile />} />
+          <Route path='/user' element={<UserDashboard />} />
+          <Route path='/tutor' element={<FormTutor />} />
+          <Route path='/meeting/:id' element={<Meeting />} />
+          <Route path='/FAQs' element={<FAQs />} />
         </Routes>
       </SocketContext.Provider>
     </div>
-  );
+  )
 }
 
 export default App

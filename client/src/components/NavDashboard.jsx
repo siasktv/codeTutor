@@ -9,7 +9,7 @@ import {
   fetchLocalUserChats,
   getNotificationsStatus
 } from '../redux/features/localUser/localUserSlice'
-import { Loader, ChatsNav, NotificationsNav } from '../components'
+import { Loader, ChatsNav, NotificationsNav, LogoutModal } from '../components'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -240,25 +240,10 @@ const NavDashboard = ({
                       <img
                         src={user.image}
                         alt='avatar'
-                        className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
-                        onClick={handleShowProfile}
+                        className='w-10 h-10  rounded-full border-none object-cover'
                         referrerPolicy='no-referrer'
                       ></img>
                     </div>
-                    {showProfile && (
-                      <div className='absolute top-12 mt-2 mr-20 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                        <div className='flex flex-col gap-2 p-2'>
-                          <div className='flex flex-col gap-2'>
-                            <button
-                              className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 text-md hover:outline text-center'
-                              onClick={signOut}
-                            >
-                              Cerrar sesión
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
                   {/* Chats */}

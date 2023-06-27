@@ -1,7 +1,4 @@
-import NavUserNotifications from '../components/NavUserNotifications'
-import useUser from '../hooks/useUser'
-import { FlechaFiltro } from '../assets'
-import faqslist from '../utils/faqslist'
+import faqslist from '../../../utils/faqslist'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronDown,
@@ -10,11 +7,10 @@ import {
   faSearch
 } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react'
-import FaqModal from '../components/FaqModal'
+import FaqModal from '../../../components/FaqModal'
 
-const FAQs = () => {
-  // Datos Usuario Navbar
-  const user = useUser()
+export default function FAQs (props) {
+  const { user } = props
   const [showModal, setShowModal] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
 
@@ -76,9 +72,7 @@ const FAQs = () => {
 
   return (
     <>
-      <NavUserNotifications user={user} redirect={'/faqs'} />
-      {/* Contenedor principal */}
-      <div className='bg-gray-100 flex flex-col items-center px-10 py-10 gap-2 w-full h-full'>
+      <div className='bg-gray-100 flex flex-col items-center px-10 py-10 top-0 gap-2 w-full'>
         {/* Contenedor secundario de bordes redondeados */}
         <h1 className='font-bold text-3xl mb-4'>FAQs - Preguntas frecuentes</h1>
         <div className='relative w-full'>
@@ -167,4 +161,3 @@ const FAQs = () => {
     </>
   )
 }
-export default FAQs
