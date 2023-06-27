@@ -14,6 +14,7 @@ import { SocketContext, socket } from './socket/context'
 import RestorePassword from './views/RestorePassword'
 import { NavUserNotifications } from './components'
 import useUser from './hooks/useUser'
+import AdminDashboard from './views/AdminDashboard';
 
 function App () {
   const user = useUser()
@@ -30,6 +31,7 @@ function App () {
           <Route path="/user" element={<UserDashboard />} />
           <Route path="/tutor" element={<FormTutor />} />
           <Route path="/meeting" element={<Meeting />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
         </Routes>
       </SocketContext.Provider>
     </div>
