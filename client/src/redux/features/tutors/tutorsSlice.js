@@ -72,7 +72,16 @@ const initialState = {
 export const tutorsFetch = createAsyncThunk('tutors/tutorsFetch', async () => {
   try {
     const response = await axios.get(`${BACKEND_URL}/api/tutors`)
-    return response.data.filter(tutor => tutor.status === 'approved')
+    return response.data
+      .filter(tutor => tutor.status === 'approved')
+      .sort(
+        // sort by the average rating of the tutor
+        (a, b) =>
+          b.reviews.reduce((acc, review) => acc + review.rating, 0) /
+            b.reviews.length -
+          a.reviews.reduce((acc, review) => acc + review.rating, 0) /
+            a.reviews.length
+      )
   } catch (error) {
     console.log(error)
   }

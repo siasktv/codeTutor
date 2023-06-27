@@ -5,34 +5,33 @@ const ProjectSchema = new Schema(
   {
     tutor: {
       type: Types.ObjectId,
-      ref: 'Tutor',
+      ref: 'Tutor'
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     link: {
       type: String,
-      required: true,
+      required: true
     },
     end_date: {
-      type: Date,
-      required: true,
+      type: Date
     },
     description: {
       type: String,
-      required: true,
+      required: true
     },
     techName: [
       {
         type: Types.ObjectId,
-        ref: 'Tech',
-      },
-    ],
+        ref: 'Tech'
+      }
+    ]
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
 module.exports = model('Project', ProjectSchema)

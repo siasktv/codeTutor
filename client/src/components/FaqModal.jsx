@@ -116,7 +116,7 @@ export default function FaqModal (props) {
                     </div>
                   )}
                   <textarea
-                    className='w-full h-36 border border-gray-300 rounded-md resize-none focus:ring-codecolor focus:border-codecolor px-3 py-2'
+                    className='w-full h-36 border border-gray-300 rounded-md resize-none  focus:border-codecolor px-3 py-2'
                     placeholder={
                       selectedOption === 'question'
                         ? 'Escribe tu pregunta aquí'
@@ -141,7 +141,7 @@ export default function FaqModal (props) {
           <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
             <button
               type='button'
-              className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor sm:ml-3 sm:w-20 sm:text-sm'
+              className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:ml-3 sm:w-20 sm:text-sm'
               onClick={() => setShowModal(false)}
             >
               Cancelar
@@ -151,7 +151,7 @@ export default function FaqModal (props) {
               className={
                 isDisabled
                   ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
-                  : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
+                  : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
               }
               onClick={handleSubmit}
               type='submit'

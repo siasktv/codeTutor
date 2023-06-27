@@ -2,9 +2,11 @@ import React from 'react'
 import { resetPassword, validateOobCode } from '../firebase/client'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Loader } from '../components'
+import { Loader, LoaderMini } from '../components'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function useQuery () {
   const location = useLocation()
@@ -29,7 +31,7 @@ const RestorePasswordForm = () => {
   const [firebaseError, setFirebaseError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-
+  const [success, setSuccess] = useState(false)
   useEffect(() => {
     const isFormValid = Object.values(errors).every(error => !error)
     if (!isFormValid || isSubmitting) {
@@ -82,8 +84,8 @@ const RestorePasswordForm = () => {
     resetPassword(oobCode, form.password)
       .then(() => {
         setIsSubmitting(false)
+        setSuccess(true)
         setIsDisabled(true)
-        setShowAlert(true)
       })
       .catch(err => {
         setIsSubmitting(false)
@@ -98,6 +100,15 @@ const RestorePasswordForm = () => {
         }
       })
   }
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        setSuccess(false)
+        setShowAlert(true)
+      }, 1000)
+    }
+  }, [success])
 
   useEffect(() => {
     if (oobCode) {
@@ -254,14 +265,22 @@ const RestorePasswordForm = () => {
                 <button
                   role='button'
                   className={
-                    isDisabled
-                      ? ' cursor-default text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
-                      : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                    !isSubmitting && !success
+                      ? isDisabled
+                        ? ' cursor-default text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
+                        : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                      : 'cursor-default text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
                   }
                   type='submit'
                   disabled={isDisabled}
                 >
-                  Restablece tu contraseña
+                  {isSubmitting ? (
+                    <LoaderMini />
+                  ) : success ? (
+                    <FontAwesomeIcon icon={faCheckCircle} />
+                  ) : (
+                    'Restablece tu contraseña'
+                  )}
                 </button>
               </div>
               {firebaseError && (

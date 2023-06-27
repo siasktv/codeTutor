@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Star, StarVacia } from '../../assets'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const MeetingReviews = ({
   onCloseModal,
@@ -10,11 +12,21 @@ const MeetingReviews = ({
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [charCount, setCharCount] = useState(0)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [success, setSuccess] = useState(false)
 
   const handleRatingChange = index => {
     setReviewRating(index)
     setRating(index)
   }
+
+  useEffect(() => {
+    if (rating > 0) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [rating])
 
   const handleCommentChange = e => {
     const { value } = e.target
@@ -29,8 +41,12 @@ const MeetingReviews = ({
   }
 
   const handleSubmit = () => {
-    handleReviewSession()
-    onCloseModal()
+    setSuccess(true)
+    setIsDisabled(true)
+    setTimeout(() => {
+      handleReviewSession()
+      onCloseModal()
+    }, 500)
   }
 
   return (
@@ -44,13 +60,14 @@ const MeetingReviews = ({
               key={starIndex}
               className={`${
                 starIndex <= rating ? 'on' : 'off'
-              } m-1 hover:transition-all hover:scale-y-150 hover:scale-x-150 hover:ease-in-out hover:duration-200`}
+              } m-1 hover:transition-all hover:ease-in-out hover:duration-200 text-2xl hover:scale-125`}
               onClick={() => handleRatingChange(starIndex)}
             >
-              <img
-                src={starIndex <= rating ? Star : StarVacia}
-                alt='star'
-                className='star-image'
+              <FontAwesomeIcon
+                icon={faStar}
+                className={
+                  starIndex <= rating ? 'text-codecolor' : 'text-gray-400'
+                }
               />
             </button>
           )
@@ -73,9 +90,23 @@ const MeetingReviews = ({
           <button
             type='button'
             onClick={handleSubmit}
-            className='mt-6 inline-flex w-full justify-center rounded-lg bg-codecolor px-10 py-3 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto'
+            disabled={isDisabled}
+            className={
+              !success
+                ? isDisabled
+                  ? 'mt-6 inline-flex h-12 justify-center rounded-lg bg-gray-300 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300  sm:mt-0'
+                  : 'mt-6 inline-flex h-12 justify-center rounded-lg bg-codecolor text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0'
+                : 'mt-6 inline-flex h-12 justify-center rounded-lg bg-codecolor text-md font-semibold text-white shadow-sm cursor-default sm:mt-0'
+            }
           >
-            Enviar
+            {success ? (
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                className='text-md self-center px-14'
+              />
+            ) : (
+              <span className='self-center px-[42px]'> Enviar </span>
+            )}
           </button>
         </div>
       </div>
