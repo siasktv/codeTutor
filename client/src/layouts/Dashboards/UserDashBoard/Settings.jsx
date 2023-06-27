@@ -101,7 +101,7 @@ export default function Settings (props) {
   }, [successUpload])
 
   return (
-    <div className='flex flex-col items-center w-[580px]'>
+    <div className='flex flex-col items-center min-w-[580px]'>
       <h1 className='text-4xl font-bold text-center my-8'>
         Ajustes de usuario
       </h1>
@@ -159,7 +159,7 @@ export default function Settings (props) {
               Email: <span className=' text-md font-normal'>{email}</span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('email')}
             >
               Cambiar email
@@ -175,7 +175,7 @@ export default function Settings (props) {
               Nombre: <span className=' text-md font-normal'>{name}</span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('name')}
             >
               Cambiar nombre
@@ -194,7 +194,7 @@ export default function Settings (props) {
               </span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('location')}
             >
               Cambiar ubicación
@@ -239,7 +239,7 @@ export default function Settings (props) {
                 ) : (
                   <Link
                     to='/tutor'
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                   >
                     Convertirme en tutor
                   </Link>
@@ -249,14 +249,14 @@ export default function Settings (props) {
               <>
                 {tutorStatus === 'approved' ? (
                   <button
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                     onClick={() => handleSetSelectedField('disabletutor')}
                   >
                     Darme de baja
                   </button>
                 ) : (
                   <button
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                     onClick={() => handleSetSelectedField('enabletutor')}
                   >
                     Reactivar perfil de tutor
@@ -285,7 +285,7 @@ export default function Settings (props) {
             </div>
 
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('password')}
             >
               Cambiar contraseña
