@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { loaderGoogle } from '../assets'
 import { signIn, loginWithGoogle } from '../firebase/client'
 import axios from 'axios'
+import { LoaderMini } from '../components'
 
 const FormRegister = props => {
   const [showPassword, setShowPassword] = useState(false)
@@ -28,6 +29,7 @@ const FormRegister = props => {
   const [forgotPassword, setForgotPassword] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [isSubmiting, setIsSubmiting] = useState(false)
+  const [isSubmitingLogin, setIsSubmitingLogin] = useState(false)
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
@@ -115,11 +117,13 @@ const FormRegister = props => {
       return alert('Por favor, corrija los errores antes de continuar')
     } else if (form.email && form.password) {
       setIsDisabled(true)
+      setIsSubmitingLogin(true)
       setFormsDisabled(true)
       setFirebaseError(null)
       signIn(form.email, form.password).catch(err => {
         setIsDisabled(false)
         setFormsDisabled(false)
+        setIsSubmitingLogin(false)
         if (err.code === 'auth/wrong-password') {
           setFirebaseError('La contraseña es incorrecta')
         } else if (err.code === 'auth/user-not-found') {
@@ -327,7 +331,7 @@ const FormRegister = props => {
                 disabled={isDisabled || formsDisabled}
                 type='submit'
               >
-                Iniciar Sesión
+                {isSubmitingLogin ? <LoaderMini /> : 'Iniciar Sesión'}
               </button>
             </div>
             {firebaseError && (

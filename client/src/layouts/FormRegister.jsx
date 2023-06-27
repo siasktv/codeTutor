@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { loginWithGoogle, signUp } from '../firebase/client'
 import { loaderGoogle } from '../assets'
 import { Link } from 'react-router-dom'
+import { LoaderMini } from '../components'
 
 const FormRegister = ({ redirect }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -18,6 +19,7 @@ const FormRegister = ({ redirect }) => {
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false)
   const [formsDisabled, setFormsDisabled] = useState(false)
   const [firebaseError, setFirebaseError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const isFormValid = Object.values(errors).every(error => !error)
@@ -83,10 +85,12 @@ const FormRegister = ({ redirect }) => {
       return alert('Por favor, corrija los errores antes de continuar')
     } else if (form.email && form.password && form.fullName) {
       setIsDisabled(true)
+      setIsSubmitting(true)
       setFormsDisabled(true)
       setFirebaseError(null)
       signUp(form.email, form.password, form.fullName).catch(err => {
         setIsDisabled(false)
+        setIsSubmitting(false)
         setFormsDisabled(false)
         if (err.code === 'auth/email-already-in-use') {
           setFirebaseError('El correo electrónico ya está en uso')
@@ -296,7 +300,7 @@ const FormRegister = ({ redirect }) => {
                 disabled={isDisabled || formsDisabled}
                 type='submit'
               >
-                Crea tu cuenta
+                {isSubmitting ? <LoaderMini /> : 'Crea tu cuenta'}
               </button>
             </div>
             {firebaseError && (
