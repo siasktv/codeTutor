@@ -24,7 +24,7 @@ const Meeting = () => {
   const timeAlertInMinutes = 3
   const [running, setRunning] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const [alertClosed, setAlertClosed] = useState(true)
+  const [alertClosed, setAlertClosed] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState(false)
@@ -234,10 +234,16 @@ const Meeting = () => {
         link: `/tutor/${session.tutorUserId}`
       }
     })
+    setShowModal(false)
   }
 
   useEffect(() => {
-    if (timeLeftSession.minutes === timeAlertInMinutes - 1 && !alertClosed) {
+    // show alert if 3 minutes left
+    if (
+      moment().valueOf() >
+        session?.endedCounterDate - moment.duration(timeAlertInMinutes, 'm') &&
+      !alertClosed
+    ) {
       setShowAlert(true)
       setTimeout(() => {
         setShowAlert(false)
