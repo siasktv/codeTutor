@@ -10,12 +10,30 @@ export default function FaqModal (props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [charCount, setCharCount] = useState(0)
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   const [text, setText] = useState('')
 
   const handleSubmit = async e => {
     e.preventDefault()
     setIsSubmitting(true)
+    try {
+      const res = await axios.post(`${BACKEND_URL}/api/faqs`, {
+        user: user?.id || null,
+        question: text,
+        sugessted: selectedOption === 'question' ? false : true
+      })
+      if (res.status === 200) {
+        setIsSubmitting(false)
+        setSuccess(true)
+        setTimeout(() => {
+          setShowModal(false)
+        }, 1000)
+      }
+    } catch (err) {
+      setIsSubmitting(false)
+      console.log(err)
+    }
   }
 
   const handleInput = e => {
@@ -141,7 +159,7 @@ export default function FaqModal (props) {
               {isSubmitting ? (
                 <LoaderMini />
               ) : success ? (
-                <FontAwesomeIcon icon={faCheckCircle} />
+                <FontAwesomeIcon icon={faCheckCircle} className='self-center' />
               ) : (
                 'Enviar'
               )}

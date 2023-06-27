@@ -76,7 +76,7 @@ const FAQs = () => {
 
   return (
     <>
-      <NavUserNotifications user={user} />
+      <NavUserNotifications user={user} redirect={'/faqs'} />
       {/* Contenedor principal */}
       <div className='bg-gray-100 flex flex-col items-center px-10 py-10 gap-2 w-full h-full'>
         {/* Contenedor secundario de bordes redondeados */}
@@ -97,7 +97,7 @@ const FAQs = () => {
         <div className='w-1/2 p-4 text-left bg-white border border-gray-200 shadow-md rounded-lg space-y-2'>
           {/* Título */}
           <div className='flex justify-end items-center pb-1'>
-            <div className=' space-x-1'>
+            <div className=' space-x-2'>
               {/* Pregunta para ser aprobada y sumada a las FAQs */}
               <button
                 className='px-2 py-1 bg-violet-100 border rounded text-codecolor text-md hover:bg-codecolor hover:text-white font-semibold active:scale-90 transition duration-200 select-none'
@@ -149,6 +149,11 @@ const FAQs = () => {
                 </div>
               )
             })}
+            {faqs.length === 0 && (
+              <div className='text-lg text-gray-900 text-center py-10'>
+                No se encontraron resultados.
+              </div>
+            )}
           </div>
         </div>
         {showModal && (
