@@ -116,7 +116,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-level'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='junior'
@@ -133,7 +133,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-level'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='semiSenior'
@@ -150,7 +150,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-level'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='senior'
@@ -167,7 +167,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-level'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='senior+'
@@ -191,7 +191,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-review'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='star5'
@@ -208,7 +208,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-review'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='star4'
@@ -225,7 +225,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-review'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='star3'
@@ -242,7 +242,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-review'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='star2'
@@ -259,7 +259,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-review'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='star1'
@@ -283,7 +283,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-language'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='espanol'
@@ -300,7 +300,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-language'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='ingles'
@@ -317,7 +317,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-language'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='portugues'
@@ -334,7 +334,7 @@ const SearchPage = () => {
                       type='radio'
                       value=''
                       name='list-language'
-                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 focus:ring-purple-500'
+                      className='w-4 h-4 text-codecolor bg-gray-100 border-gray-300 '
                     />
                     <label
                       htmlFor='aleman'
@@ -359,7 +359,7 @@ const SearchPage = () => {
                     id='dropdown-menu-button'
                     aria-haspopup='true'
                     aria-expanded='false'
-                    className='inline-flex justify-center items-center pb-4 pt-4 pr-2 w-full rounded border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor'
+                    className='inline-flex justify-center items-center pb-4 pt-4 pr-2 w-full rounded border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  '
                   >
                     <svg
                       className='-ml-1 mr-2 h-5 w-5'
