@@ -40,10 +40,13 @@ const TutorForm = props => {
 
   const [submit, setSubmit] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     if (submit) {
       setSubmit(false)
+      setIsSubmitting(true)
       setPermanentDisabled(true)
       const experience = form.experience.map(experience => {
         return {
@@ -115,14 +118,25 @@ const TutorForm = props => {
           rates: rate
         })
         .then(res => {
-          setShowModal(true)
+          setIsSubmitting(false)
+          setSuccess(true)
         })
         .catch(err => {
           console.log(err)
+          setIsSubmitting(false)
           setPermanentDisabled(false)
         })
     }
   }, [submit])
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        setSuccess(false)
+        setShowModal(true)
+      }, 1000)
+    }
+  }, [success])
 
   useEffect(() => {
     if (
@@ -224,6 +238,8 @@ const TutorForm = props => {
                 progress={progress}
                 isDone={isDone}
                 setSubmit={setSubmit}
+                success={success}
+                isSubmitting={isSubmitting}
               />
             </section>
           </section>
