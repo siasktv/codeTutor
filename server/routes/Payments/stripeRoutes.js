@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router()
-const stripeHandler = require('../../Handlers/Stripe/stripeHandler')
+const createPaymentIntent = require('../../Handlers/Payments/paymentsHandler')
 
-router.post('/create-checkout-session', stripeHandler)
+router.post('/create-checkout-session', createPaymentIntent)
 
 module.exports = router

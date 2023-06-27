@@ -1,40 +1,67 @@
 import { PaymentElement } from '@stripe/react-stripe-js'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
-const Payments = () => {
-  const user = useSelector((state) => state.users.user)
-  const tutor = useSelector((state) => state.tutors.tutor)
+const handleForm = async (event) => {
+  event.preventDefault()
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/api/stripe/create-checkout-session`
+    )
+    console.log(response)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      const { data } = await axios.post(
-        `${BACKEND_URL}/api/stripe/create-checkout-session`,
-        {
-          amount: 1000,
-          cartItems: [
-            // Array of items to test
-            { id: 1, name: 'Item 1', price: 10 },
-            { id: 2, name: 'Item 2', price: 20 },
-          ],
-        }
-      )
-      console.log(data)
-      if (data.url) {
-        window.location.href = data.url
-      }
-    } catch (err) {
-      console.log(err.message)
-    }
+    window.location.href = response.data.url
+  } catch (error) {
+    console.log(error.response.data)
+    console.log(error.message)
   }
-
-  return (
-    <>
-      <button onClick={handleSubmit}>Checkout</button>
-    </>
-  )
 }
 
-export default Payments
+const ProductDisplay = () => (
+  <section>
+    <div className="product">
+      <img
+        src="https://i.imgur.com/EHyR2nP.png"
+        alt="The cover of Stubborn Attachments"
+      />
+      <div className="description">
+        <h3>Stubborn Attachments</h3>
+        <h5>$20.00</h5>
+      </div>
+    </div>
+    <form>
+      <button onClick={handleForm} type="submit">
+        Checkout
+      </button>
+    </form>
+  </section>
+)
+
+const Message = ({ message }) => (
+  <section>
+    <p>{message}</p>
+  </section>
+)
+
+export default function Payments() {
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search)
+
+    if (query.get('success')) {
+      setMessage('Order placed! You will receive an email confirmation.')
+    }
+
+    if (query.get('canceled')) {
+      setMessage(
+        "Order canceled -- continue to shop around and checkout when you're ready."
+      )
+    }
+  }, [])
+
+  return message ? <Message message={message} /> : <ProductDisplay />
+}
