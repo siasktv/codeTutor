@@ -109,3 +109,32 @@ export const loginWithGoogle = () => {
         .catch(err => console.log(err))
     })
 }
+
+export const validateOobCode = oobCode => {
+  return firebase.auth().verifyPasswordResetCode(oobCode)
+}
+
+export const resetPassword = (oobCode, newPassword) => {
+  return firebase.auth().confirmPasswordReset(oobCode, newPassword)
+}
+
+export const updatePassword = (previusPassword, newPassword) => {
+  const user = firebase.auth().currentUser
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email,
+    previusPassword
+  )
+  return user.reauthenticateWithCredential(credential).then(() => {
+    return user.updatePassword(newPassword)
+  })
+}
+export const updateEmail = (previusPassword, newEmail) => {
+  const user = firebase.auth().currentUser
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email,
+    previusPassword
+  )
+  return user.reauthenticateWithCredential(credential).then(() => {
+    return user.updateEmail(newEmail)
+  })
+}

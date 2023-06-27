@@ -6,7 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faMessage, faTrash } from '@fortawesome/free-solid-svg-icons'
 import notification from '../assets/notification.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import {
+  fetchLocalUserChats,
+  getNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
 import {
   Loader,
   MessageContainer,
@@ -16,6 +19,9 @@ import {
 } from '../components'
 import { SocketContext, socket } from '../socket/context'
 import { notificationSound } from '../assets'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import moment from 'moment'
 
 const NavLogin = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -33,23 +39,58 @@ const NavLogin = ({ user }) => {
 
   const [notifications, setNotifications] = useState([])
 
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+
+  useEffect(() => {
+    dispatch(getNotificationsStatus())
+  }, [])
+
   useEffect(() => {
     if (user?.id) {
       socket?.emit('getNotifications', { userId: user.id })
-      socket?.on('setNotifications', notifications => {
+      socket?.on('setNotifications', newnotifications => {
+        dispatch(getNotificationsStatus())
         setNotifications(
-          notifications.notifications.sort((a, b) => b.createdAt - a.createdAt)
+          newnotifications.notifications.sort(
+            (a, b) => b.createdAt - a.createdAt
+          )
         )
       })
+      socket?.emit('setAlerted', { userId: user.id })
     }
   }, [socket, user])
 
   useEffect(() => {
     if (
-      notifications.filter(notification => notification.isRead === false)
-        .length > 0
+      notifications.filter(
+        notification =>
+          notification.isRead === false && notification.alerted === false
+      ).length > 0
     ) {
-      playNotification()
+      if (soundEnabled === true || soundEnabled === 'true') {
+        playNotification()
+      }
+      if (alertsEnabled === true || alertsEnabled === 'true') {
+        toast(notifications[0]?.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          theme: 'light',
+          // icon is the notification.sender.image
+          icon: (
+            <img
+              src={notifications[0].sender.image}
+              alt='notification'
+              className='rounded-full'
+            />
+          )
+        })
+        socket?.emit('setAlerted', {
+          userId: user.id
+        })
+      }
     }
   }, [notifications])
 
@@ -180,6 +221,18 @@ const NavLogin = ({ user }) => {
 
   return (
     <>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        draggable
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        closeOnClick
+        rtl={false}
+        theme='light'
+      />
       <header className=''>
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='mx-auto py-4'>

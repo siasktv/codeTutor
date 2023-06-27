@@ -5,7 +5,10 @@ import { tutorsFetch } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
 import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
-import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import {
+  fetchLocalUserChats,
+  getNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
 import { Loader, ChatsNav, NotificationsNav } from '../components'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
@@ -15,12 +18,15 @@ import React from 'react'
 import 'moment/locale/es'
 import { SocketContext, socket } from '../socket/context'
 import { notificationSound } from '../assets'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const NavDashboard = ({
   user,
   handleShowMessage,
   setShowMessage,
-  showMessage
+  showMessage,
+  selectedSection
 }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
@@ -60,25 +66,60 @@ const NavDashboard = ({
     audioPlayer.current.play()
   }
 
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+
   useEffect(() => {
-    if (
-      notifications.filter(notification => notification.isRead === false)
-        .length > 0
-    ) {
-      playNotification()
-    }
-  }, [notifications])
+    dispatch(getNotificationsStatus())
+  }, [])
 
   useEffect(() => {
     if (user?.id) {
       socket?.emit('getNotifications', { userId: user.id })
-      socket?.on('setNotifications', notifications => {
+      socket?.on('setNotifications', newnotifications => {
+        dispatch(getNotificationsStatus())
         setNotifications(
-          notifications.notifications.sort((a, b) => b.createdAt - a.createdAt)
+          newnotifications.notifications.sort(
+            (a, b) => b.createdAt - a.createdAt
+          )
         )
       })
+      socket?.emit('setAlerted', { userId: user.id })
     }
   }, [socket, user])
+
+  useEffect(() => {
+    if (
+      notifications.filter(
+        notification =>
+          notification.isRead === false && notification.alerted === false
+      ).length > 0
+    ) {
+      if (soundEnabled === true || soundEnabled === 'true') {
+        playNotification()
+      }
+      if (alertsEnabled === true || alertsEnabled === 'true') {
+        toast(notifications[0]?.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          theme: 'light',
+          // icon is the notification.sender.image
+          icon: (
+            <img
+              src={notifications[0].sender.image}
+              alt='notification'
+              className='rounded-full'
+            />
+          )
+        })
+        socket?.emit('setAlerted', {
+          userId: user.id
+        })
+      }
+    }
+  }, [notifications])
 
   useEffect(() => {
     if (
@@ -149,31 +190,46 @@ const NavDashboard = ({
     <>
       {user && (
         <>
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            draggable
+            pauseOnHover={false}
+            pauseOnFocusLoss={false}
+            closeOnClick
+            rtl={false}
+            theme='light'
+          />
+
           <audio ref={audioPlayer} src={notificationSound} />
           <header className='flex items-center h-20 w-full z-50'>
             <div className='flex justify-between w-full items-center'>
               <div className='pl-[45%] pt-1'>
-                <div className='relative'>
-                  <button
-                    className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
-                    onClick={handleShowTech}
-                  >
-                    Encuentra desarrolladores
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      aria-hidden='true'
-                      className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                {selectedSection === 'dashboard' && (
+                  <div className='relative'>
+                    <button
+                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
+                      onClick={handleShowTech}
                     >
-                      <polyline points='6 9 12 15 18 9'></polyline>
-                    </svg>
-                  </button>
-                </div>
+                      Encuentra desarrolladores
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        aria-hidden='true'
+                        className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                      >
+                        <polyline points='6 9 12 15 18 9'></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -228,7 +284,7 @@ const NavDashboard = ({
                 </div>
               </div>
             </div>
-            {showTech && (
+            {showTech && selectedSection === 'dashboard' && (
               <div className='absolute w-full z-50 top-20  '>
                 <div className='flex justify-center'>
                   <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>

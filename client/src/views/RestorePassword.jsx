@@ -42,7 +42,7 @@ const RestorePassword = () => {
             </div>
             <div className='flex-grow flex items-center justify-center'>
               <div className='w-11/12'>
-                <RestorePasswordForm  />
+                <RestorePasswordForm />
               </div>
             </div>
           </div>

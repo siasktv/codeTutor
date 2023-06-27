@@ -1,7 +1,21 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faXmark,
+  faTrash,
+  faVolumeUp,
+  faVolumeMute,
+  faBell,
+  faBellSlash
+} from '@fortawesome/free-solid-svg-icons'
 import notification from '../assets/notification.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  getNotificationsStatus,
+  setNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function NotificationsNav ({
   notifications,
@@ -12,6 +26,47 @@ export default function NotificationsNav ({
   handleSendShowMessage,
   markAsRead
 }) {
+  const dispatch = useDispatch()
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+  const [isSoundEnabled, setIsSoundEnabled] = useState(soundEnabled)
+  const [isAlertEnabled, setIsAlertEnabled] = useState(alertsEnabled)
+
+  useEffect(() => {
+    dispatch(getNotificationsStatus())
+  }, [])
+
+  const handleSound = () => {
+    setIsSoundEnabled(!isSoundEnabled)
+    dispatch(
+      setNotificationsStatus({
+        soundEnabled: !isSoundEnabled,
+        alertsEnabled: isAlertEnabled
+      })
+    )
+  }
+
+  const handleAlert = () => {
+    setIsAlertEnabled(!isAlertEnabled)
+    dispatch(
+      setNotificationsStatus({
+        soundEnabled: isSoundEnabled,
+        alertsEnabled: !isAlertEnabled
+      })
+    )
+  }
+
+  useEffect(() => {
+    const newSoundEnabled =
+      soundEnabled === 'true' || soundEnabled === true ? true : false
+    setIsSoundEnabled(newSoundEnabled)
+  }, [soundEnabled])
+
+  useEffect(() => {
+    const newAlertEnabled =
+      alertsEnabled === 'true' || alertsEnabled === true ? true : false
+    setIsAlertEnabled(newAlertEnabled)
+  }, [alertsEnabled])
+
   return (
     <div className='pr-8 pl-3 flex items-center relative'>
       {user && (
@@ -35,12 +90,29 @@ export default function NotificationsNav ({
             <div className='absolute top-10 right-3 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
               <div className='flex flex-col gap-2 p-4 max-h-80'>
                 <div className='flex justify-between items-start flex-1'>
-                  <h1 className='font-bold text-xl text-codecolor'>
-                    Notificaciones
-                  </h1>
+                  <div className='flex flex-row items-center'>
+                    <h1 className='font-bold text-xl text-codecolor'>
+                      Notificaciones
+                    </h1>
+                    <FontAwesomeIcon
+                      icon={
+                        isSoundEnabled === true || isSoundEnabled === 'true'
+                          ? faVolumeUp
+                          : faVolumeMute
+                      }
+                      onClick={() => handleSound()}
+                      className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark ml-3 mt-1 cursor-pointer'
+                    />
+                    <FontAwesomeIcon
+                      icon={isAlertEnabled ? faBell : faBellSlash}
+                      onClick={() => handleAlert()}
+                      className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark ml-3 mt-1 cursor-pointer'
+                    />
+                  </div>
                   <button onClick={() => setShowNotifications(false)}>
                     <FontAwesomeIcon
                       icon={faXmark}
+                      onClick={() => setShowNotifications(false)}
                       className='text-codecolor active:scale-90 transition duration-150 hover:text-codecolordark'
                     />
                   </button>

@@ -14,8 +14,17 @@ const {
   addUser,
   getUser,
   getUserBySocketId,
-  users
+  users,
+  sessions,
+  addSession,
+  getSession,
+  getAllSessions,
+  getSessionsFromClient,
+  getSessionsFromTutor
 } = require('./utils/userChatSocket.js')
+const Session = require('./models/Session.models.js')
+const Reviews = require('./models/Review.models.js')
+const Tutors = require('./models/Tutor.models.js')
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -167,6 +176,7 @@ io.on('connection', socket => {
           )
           findNotification.count = findNotification.count + 1
           findNotification.message = `${findNotification.sender.fullName} te envió ${findNotification.count} mensajes`
+          findNotification.alerted = false
           io.to(user.socketId).emit('setNotifications', {
             notifications: user.notifications
           })
@@ -179,10 +189,21 @@ io.on('connection', socket => {
                 ...notification,
                 message: `${notification.sender.fullName} te envió un mensaje`,
                 id: notificationId,
-                count: 1
+                count: 1,
+                alerted: user.online ? false : true
+              }
+            ]
+          } else {
+            user.notifications = [
+              ...user.notifications,
+              {
+                ...notification,
+                id: notificationId,
+                alerted: user.online ? false : true
               }
             ]
           }
+
           io.to(user.socketId).emit('setNotifications', {
             notifications: user.notifications
           })
@@ -190,6 +211,16 @@ io.on('connection', socket => {
       }
     }
   )
+
+  socket.on('setAlerted', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.notifications = user.notifications.map(notification => {
+        notification.alerted = true
+        return notification
+      })
+    }
+  })
 
   socket.on('readAllNotifications', async ({ userId }) => {
     const user = await getUser(userId)
@@ -216,6 +247,266 @@ io.on('connection', socket => {
     }
   })
 
+  //tutorsFavorite
+
+  socket.on('getFavorites', async ({ userId }) => {
+    const user = await getUser(userId)
+    if (user) {
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites
+      })
+    }
+  })
+
+  socket.on('addTutorFavorite', async ({ userId, tutor }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.tutorFavorites.push(tutor)
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites
+      })
+    }
+  })
+
+  socket.on('removeTutorFavorite', async ({ userId, tutor }) => {
+    const user = await getUser(userId)
+    if (user) {
+      user.tutorFavorites = user.tutorFavorites.filter(
+        favorite => favorite._id !== tutor._id
+      )
+      io.to(user.socketId).emit('setFavorites', {
+        tutorFavorites: user.tutorFavorites
+      })
+    }
+  })
+
+  socket.on('createSession', async ({ session }) => {
+    const createdSession = await addSession(session)
+    const user = await getUser(session.clientUserId)
+
+    if (user) {
+      io.to(user.socketId).emit('createdSession', {
+        ...session,
+        sessionId: createdSession
+      })
+    }
+    const sessionToDb = async () => {
+      try {
+        Session.create({
+          sessionId: createdSession,
+          tutorUserId: session.tutorUserId,
+          clientUserId: session.clientUserId,
+          appointmentDate: session.appointmentDate,
+          minutes: session.minutes,
+          price: session.price,
+          expiredDate: session.expiredDate
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    sessionToDb()
+  })
+
+  socket.on('getSessionsFromClient', async ({ userId }) => {
+    const sessions = await getSessionsFromClient(userId)
+    const user = await getUser(userId)
+    if (user) {
+      io.to(user.socketId).emit('setSessions', {
+        sessions
+      })
+    }
+  })
+
+  socket.on('getSessionsFromTutor', async ({ userId }) => {
+    const sessions = await getSessionsFromTutor(userId)
+    const user = await getUser(userId)
+    if (user) {
+      io.to(user.socketId).emit('setSessions', {
+        sessions
+      })
+    }
+  })
+
+  socket.on('getAllSessions', async ({ userId }) => {
+    const sessions = await getAllSessions()
+    const user = await getUser(userId)
+    if (user) {
+      io.to(user.socketId).emit('setAllSessions', {
+        sessions
+      })
+    }
+  })
+
+  socket.on('getSessionData', async ({ sessionId, userId }) => {
+    const session = await getSession(sessionId)
+    const user = await getUser(userId)
+    if (!session) {
+      io.to(user.socketId).emit('setSessionData', {
+        session: null
+      })
+    } else if (
+      userId !== session.clientUserId &&
+      userId !== session.tutorUserId
+    ) {
+      io.to(user.socketId).emit('setSessionData', {
+        session: null
+      })
+    } else if (user) {
+      io.to(user.socketId).emit('setSessionData', {
+        session
+      })
+    }
+  })
+
+  socket.on('paySession', async ({ sessionId, paymentDetails }) => {
+    const session = await getSession(sessionId)
+    const user = await getUser(session.clientUserId)
+    const tutor = await getUser(session.tutorUserId)
+    session.paymentDetails = paymentDetails
+    session.isPaid = true
+    if (user) {
+      io.to(user.socketId).emit('setSessionData', {
+        session
+      })
+    }
+    if (tutor) {
+      io.to(tutor.socketId).emit('setSessionData', {
+        session
+      })
+    }
+
+    const sessionToDb = async () => {
+      try {
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
+          { isPaid: true, paymentDetails: paymentDetails }
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    sessionToDb()
+  })
+
+  socket.on('joinSession', async ({ sessionId, userId }) => {
+    const session = await getSession(sessionId)
+    const isTutor = session.tutorUserId === userId ? true : false
+    const user = isTutor
+      ? await getUser(session.clientUserId)
+      : await getUser(session.tutorUserId)
+    const tutor = isTutor
+      ? await getUser(session.tutorUserId)
+      : await getUser(session.clientUserId)
+    isTutor ? (session.tutorHasJoined = true) : (session.clientHasJoined = true)
+    if (user) {
+      io.to(user.socketId).emit('setSessionData', {
+        session
+      })
+    }
+    if (tutor) {
+      io.to(tutor.socketId).emit('setSessionData', {
+        session
+      })
+    }
+    const sessionToDb = async () => {
+      try {
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
+          {
+            tutorHasJoined: session.tutorHasJoined,
+            clientHasJoined: session.clientHasJoined
+          }
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    sessionToDb()
+  })
+
+  socket.on(
+    'startCounter',
+    async ({
+      sessionId,
+      startedCounterDate,
+      endedCounterDate,
+      expiredDate
+    }) => {
+      const session = await getSession(sessionId)
+      const user = await getUser(session.clientUserId)
+      const tutor = await getUser(session.tutorUserId)
+      session.startedCounterDate = startedCounterDate
+      session.endedCounterDate = endedCounterDate
+      session.expiredDate = expiredDate
+      if (user) {
+        io.to(user.socketId).emit('setSessionData', {
+          session
+        })
+      }
+      if (tutor) {
+        io.to(tutor.socketId).emit('setSessionData', {
+          session
+        })
+      }
+      const sessionToDb = async () => {
+        try {
+          await Session.findOneAndUpdate(
+            { sessionId: Number(sessionId) },
+            {
+              startedCounterDate: session.startedCounterDate,
+              endedCounterDate: session.endedCounterDate,
+              expiredDate: session.expiredDate
+            }
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      sessionToDb()
+    }
+  )
+
+  socket.on('reviewSession', async ({ sessionId, review }) => {
+    const session = await getSession(sessionId)
+    const user = await getUser(session.clientUserId)
+    const tutor = await getUser(session.tutorUserId)
+    session.isReviewed = true
+    if (user) {
+      io.to(user.socketId).emit('setSessionData', {
+        session
+      })
+    }
+    if (tutor) {
+      io.to(tutor.socketId).emit('setSessionData', {
+        session
+      })
+    }
+    const sessionToDb = async () => {
+      try {
+        const Review = await Reviews.create({
+          tutor: session.tutorUserId,
+          user: session.clientUserId,
+          comment: review.comment,
+          rating: review.rating
+        })
+        await Session.findOneAndUpdate(
+          { sessionId: Number(sessionId) },
+          { isReviewed: true, reviewId: Review._id }
+        )
+        await Tutors.findOneAndUpdate(
+          { user: session.tutorUserId },
+          { $push: { reviews: Review._id } }
+        )
+
+        session.reviewId = Review._id
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    sessionToDb()
+  })
+
   socket.on('disconnect', async () => {
     const user = await getUserBySocketId(socket.id)
     const usersWithChatOpen = users.filter(r => r.chatOpen === user?.chatOpen)
@@ -224,7 +515,8 @@ io.on('connection', socket => {
         try {
           await User.findByIdAndUpdate(user.userId, {
             offline: true,
-            chatOpen: null
+            chatOpen: null,
+            favoritesTutor: user.tutorFavorites
           })
         } catch (err) {
           console.log(err)
@@ -245,22 +537,9 @@ io.on('connection', socket => {
   })
 })
 
-// const paths = {
-//   tutors: '/tutors',
-//   reviews: '/reviews',
-//   users: '/users',
-//   orders: '/orders',
-// }
-
-// server.use(paths.tutors, require('./routes/tutorsRoutes'))
-// server.use(paths.reviews, require('./routes/reviewsRoutes'))
-// server.use(paths.users, require('./routes/usersRoutes'))
-// server.use(paths.orders, require('./routes/orders'))
-
 connectDB()
 server.use('/', routes)
 
-if (process.env.NODE_ENV === 'production') PORT = process.env.PORT
 serverhttp.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`)
 })

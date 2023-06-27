@@ -9,7 +9,10 @@ import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
 import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
 import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
-import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import {
+  fetchLocalUserChats,
+  getNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
 import { Star, MensajeTexto, Default } from '../assets'
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import {
@@ -35,6 +38,8 @@ import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
 import { SocketContext, socket } from '../socket/context'
 import { notificationSound } from '../assets'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const NavUserSearch = ({
   user,
@@ -56,6 +61,7 @@ const NavUserSearch = ({
   const categories = useSelector(state => state.teches.categories)
   const selectedTech = useSelector(state => state.tutors.selectedTech)
   const [isLoading, setIsLoading] = useState(true)
+  const socket = useContext(SocketContext)
 
   const audioPlayer = useRef(null)
 
@@ -63,12 +69,58 @@ const NavUserSearch = ({
     audioPlayer.current.play()
   }
 
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+
+  useEffect(() => {
+    dispatch(getNotificationsStatus())
+  }, [])
+
+  useEffect(() => {
+    if (user?.id) {
+      socket?.emit('getNotifications', { userId: user.id })
+      socket?.on('setNotifications', newnotifications => {
+        dispatch(getNotificationsStatus())
+        setNotifications(
+          newnotifications.notifications.sort(
+            (a, b) => b.createdAt - a.createdAt
+          )
+        )
+      })
+      socket?.emit('setAlerted', { userId: user.id })
+    }
+  }, [socket, user])
+
   useEffect(() => {
     if (
-      notifications.filter(notification => notification.isRead === false)
-        .length > 0
+      notifications.filter(
+        notification =>
+          notification.isRead === false && notification.alerted === false
+      ).length > 0
     ) {
-      playNotification()
+      if (soundEnabled === true || soundEnabled === 'true') {
+        playNotification()
+      }
+      if (alertsEnabled === true || alertsEnabled === 'true') {
+        toast(notifications[0]?.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          theme: 'light',
+          // icon is the notification.sender.image
+          icon: (
+            <img
+              src={notifications[0].sender.image}
+              alt='notification'
+              className='rounded-full'
+            />
+          )
+        })
+        socket?.emit('setAlerted', {
+          userId: user.id
+        })
+      }
     }
   }, [notifications])
 
@@ -163,19 +215,6 @@ const NavUserSearch = ({
   //   }
   // }, [])
 
-  const socket = useContext(SocketContext)
-
-  useEffect(() => {
-    if (user?.id) {
-      socket?.emit('getNotifications', { userId: user.id })
-      socket?.on('setNotifications', notifications => {
-        setNotifications(
-          notifications.notifications.sort((a, b) => b.createdAt - a.createdAt)
-        )
-      })
-    }
-  }, [socket, user])
-
   useEffect(() => {
     if (
       showNotifications === true &&
@@ -244,6 +283,19 @@ const NavUserSearch = ({
   return (
     <>
       <>
+        <ToastContainer
+          position='top-right'
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          draggable
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          closeOnClick
+          rtl={false}
+          theme='light'
+        />
+
         <audio ref={audioPlayer} src={notificationSound} />
         <header className='flex items-center h-20 w-full z-50'>
           <div className='flex justify-between w-full items-center'>
@@ -294,7 +346,7 @@ const NavUserSearch = ({
                     <div className='absolute top-16 mr-20 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
-                          <Link to='/user'>
+                          <Link to='/login?redirect=/search'>
                             <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                               {user ? 'Ir a mi perfil' : 'Iniciar sesión'}
                             </button>

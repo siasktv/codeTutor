@@ -8,7 +8,8 @@ import {
   Register,
   FormTutor,
   Meeting,
-} from "./views";
+  FAQs
+} from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
 import RestorePassword from './views/RestorePassword'
@@ -25,12 +26,13 @@ function App () {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/restore' element={<RestorePassword />} />
+          <Route path="/restore" element={<RestorePassword />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/tutor/:id" element={<TutorProfile />} />
           <Route path="/user" element={<UserDashboard />} />
           <Route path="/tutor" element={<FormTutor />} />
-          <Route path="/meeting" element={<Meeting />} />
+          <Route path="/meeting/:id" element={<Meeting />} />
+          <Route path="/FAQs" element={<FAQs />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
         </Routes>
       </SocketContext.Provider>

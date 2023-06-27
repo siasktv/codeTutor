@@ -8,7 +8,10 @@ import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
 import { Default } from '../assets'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchLocalUserChats } from '../redux/features/localUser/localUserSlice'
+import {
+  fetchLocalUserChats,
+  getNotificationsStatus
+} from '../redux/features/localUser/localUserSlice'
 import {
   Loader,
   MessageContainer,
@@ -19,8 +22,10 @@ import {
 import { SocketContext, socket } from '../socket/context'
 import { useEffect, useRef } from 'react'
 import { notificationSound } from '../assets'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const NavUserNotifications = ({ user }) => {
+const NavUserNotifications = ({ user, id }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showChat, setShowChat] = useState(false)
@@ -36,25 +41,60 @@ const NavUserNotifications = ({ user }) => {
     audioPlayer.current.play()
   }
 
+  const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
+
   useEffect(() => {
-    if (
-      notifications.filter(notification => notification.isRead === false)
-        .length > 0
-    ) {
-      playNotification()
-    }
-  }, [notifications])
+    dispatch(getNotificationsStatus())
+  }, [])
 
   useEffect(() => {
     if (user?.id) {
       socket?.emit('getNotifications', { userId: user.id })
-      socket?.on('setNotifications', notifications => {
+      socket?.on('setNotifications', newnotifications => {
+        dispatch(getNotificationsStatus())
         setNotifications(
-          notifications.notifications.sort((a, b) => b.createdAt - a.createdAt)
+          newnotifications.notifications.sort(
+            (a, b) => b.createdAt - a.createdAt
+          )
         )
       })
+      socket?.emit('setAlerted', { userId: user.id })
     }
   }, [socket, user])
+
+  useEffect(() => {
+    if (
+      notifications.filter(
+        notification =>
+          notification.isRead === false && notification.alerted === false
+      ).length > 0
+    ) {
+      if (soundEnabled === true || soundEnabled === 'true') {
+        playNotification()
+      }
+      if (alertsEnabled === true || alertsEnabled === 'true') {
+        toast(notifications[0]?.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          theme: 'light',
+          // icon is the notification.sender.image
+          icon: (
+            <img
+              src={notifications[0].sender.image}
+              alt='notification'
+              className='rounded-full'
+            />
+          )
+        })
+        socket?.emit('setAlerted', {
+          userId: user.id
+        })
+      }
+    }
+  }, [notifications])
 
   useEffect(() => {
     if (
@@ -163,6 +203,18 @@ const NavUserNotifications = ({ user }) => {
 
   return (
     <>
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        draggable
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        closeOnClick
+        rtl={false}
+        theme='light'
+      />
       <header className='flex items-center h-20 w-full'>
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='flex justify-between w-full items-center'>
@@ -208,7 +260,7 @@ const NavUserNotifications = ({ user }) => {
                         )}
                         {!user && (
                           <>
-                            <Link to='/login'>
+                            <Link to={`/login?redirect=/tutor/${id}`}>
                               <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Iniciar sesión
                               </button>
