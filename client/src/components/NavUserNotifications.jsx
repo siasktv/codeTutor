@@ -237,6 +237,7 @@ const NavUserNotifications = ({ user, id }) => {
                     alt='avatar'
                     className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                     onClick={handleShowProfile}
+                    referrerPolicy='no-referrer'
                   ></img>
                 </div>
                 {showProfile && (

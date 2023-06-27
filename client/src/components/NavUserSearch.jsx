@@ -340,13 +340,14 @@ const NavUserSearch = ({
                       alt='avatar'
                       className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                       onClick={handleShowProfile}
+                      referrerPolicy='no-referrer'
                     ></img>
                   </div>
                   {showProfile && (
                     <div className='absolute top-16 mr-20 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
-                          <Link to='/login?redirect=/search'>
+                          <Link to={user ? `/user` : '/login?redirect=/search'}>
                             <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                               {user ? 'Ir a mi perfil' : 'Iniciar sesión'}
                             </button>
