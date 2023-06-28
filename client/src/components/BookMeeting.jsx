@@ -408,7 +408,7 @@ export default function BookMeeting (props) {
             name='duration'
             value={selectedDuration}
             onChange={handleSelectDuration}
-            className=' mt-3 border border-gray-800 w-[250px] bg-white rounded-md p-1 cursor-pointer text-center'
+            className=' mt-2 border border-gray-800 w-[250px] bg-white rounded-md p-1 cursor-pointer text-center'
           >
             <option disabled hidden selected={selectedDuration === null}>
               Duración
@@ -426,7 +426,7 @@ export default function BookMeeting (props) {
           name='timepicker'
           value={selectedTime}
           onChange={handleSelectTime}
-          className='mt-3 border border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center'
+          className='mt-2 border border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center'
         >
           <option disabled hidden selected={selectedTime === null}>
             Horario de inicio
@@ -444,7 +444,7 @@ export default function BookMeeting (props) {
       {selectedDate && selectedDuration && selectedTime && (
         <>
           <button
-            className='bg-codecolor rounded-md text-white w-[250px] py-2 mt-3 hover:bg-codecolordark transition duration-300 ease-in-out font-semibold'
+            className='bg-codecolor rounded-md text-white w-[250px] py-2 mt-2 hover:bg-codecolordark transition duration-300 ease-in-out font-semibold'
             onClick={() => {
               setShowBookingModal(true)
             }}
