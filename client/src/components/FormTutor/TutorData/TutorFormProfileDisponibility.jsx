@@ -139,6 +139,10 @@ export default function TutorFormProfileDisponibility (props) {
   return (
     <>
       <CardTutorData title='Seleccionar disponibilidad' correct={correct}>
+        <p className='text-sm text-gray-500 text-left -mt-6 mb-4'>
+          Selecciona los horarios por cada dia de la semana en los que estás
+          disponible para dar tutorías.
+        </p>
         <div className='flex space-x-8'>
           <div className='block w-full'>
             <div className='flex flex-row justify-between'>
