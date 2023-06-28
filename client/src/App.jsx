@@ -8,7 +8,8 @@ import {
   Register,
   FormTutor,
   Meeting,
-  FAQs
+  FAQs,
+  NotFound
 } from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
@@ -112,6 +113,7 @@ function App () {
     <div className='App'>
       <SocketContext.Provider value={socket}>
         <Routes>
+          <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Landing />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
