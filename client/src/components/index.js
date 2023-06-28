@@ -45,6 +45,7 @@ import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName.jsx
 import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia.jsx'
 import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime.jsx'
 import CardTutorData from './FormTutor/TutorData/CardTutorData.jsx'
+import TutorFormProfileDisponibility from './FormTutor/TutorData/TutorFormProfileDisponibility.jsx'
 
 //componentes del Form General
 import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia.jsx'
@@ -61,7 +62,11 @@ import LoaderMini from './LoaderMini.jsx'
 
 import LogoutModal from './LogoutModal.jsx'
 
+import BookMeeting from './BookMeeting.jsx'
+
 export {
+  TutorFormProfileDisponibility,
+  BookMeeting,
   LogoutModal,
   LoaderMini,
   CardTutorInputFields,

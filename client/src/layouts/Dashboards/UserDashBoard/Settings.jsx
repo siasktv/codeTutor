@@ -188,9 +188,16 @@ export default function Settings (props) {
                 icon={faLocationDot}
                 className='mr-2 text-codecolor'
               />
-              Ubicación :{' '}
+              Ubicación:{' '}
               <span className=' text-md font-normal'>
-                {location} ({timezone})
+                {location ? (
+                  <>
+                    {' '}
+                    {location} ({timezone})
+                  </>
+                ) : (
+                  'No especificada'
+                )}
               </span>
             </p>
             <button

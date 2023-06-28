@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userFetchById } from '../redux/features/users/usersSlice'
 import { MessageContainer, MessageMinimized, Loader } from '../components'
 import { SocketContext, socket } from '../socket/context'
-import { FAQs, Settings } from '../layouts'
+import { FAQs, Settings, Calendar } from '../layouts'
 
 const UserDashboard = () => {
   const user = useUser()
@@ -117,8 +117,8 @@ const UserDashboard = () => {
                   </>
                 )}
                 {selectedSection === 'calendar' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Calendario</h1>
+                  <div className='flex justify-center items-center px-10'>
+                    <Calendar user={user} />
                   </div>
                 )}
                 {selectedSection === 'payment' && (
