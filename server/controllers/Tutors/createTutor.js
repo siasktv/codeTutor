@@ -16,7 +16,8 @@ const createTutor = async ({
   skills,
   projects,
   rates,
-  fullName
+  fullName,
+  disponibility
 }) => {
   const userUpdate = await User.findByIdAndUpdate(
     user,
@@ -45,7 +46,37 @@ const createTutor = async ({
         promo: rates.promo === 'true' || rates.promo === true ? true : false
       }
     ],
-    status: 'pending'
+    status: 'pending',
+    disponibility: [
+      {
+        day: 0,
+        hours: disponibility.sunday
+      },
+      {
+        day: 1,
+        hours: disponibility.monday
+      },
+      {
+        day: 2,
+        hours: disponibility.tuesday
+      },
+      {
+        day: 3,
+        hours: disponibility.wednesday
+      },
+      {
+        day: 4,
+        hours: disponibility.thursday
+      },
+      {
+        day: 5,
+        hours: disponibility.friday
+      },
+      {
+        day: 6,
+        hours: disponibility.saturday
+      }
+    ]
   })
 
   // create skills, experience and projects and then push to tutor
