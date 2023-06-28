@@ -24,6 +24,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import { userFetchById } from '../../redux/features/users/usersSlice'
 import { SocketContext, socket } from '../../socket/context'
+import { faPercentage } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -129,7 +131,18 @@ const CardTutor = props => {
           {/* Información del tutor */}
           <Link to={`/tutor/${tutor._id}`} className='p-2 w-3/4 h-1/2'>
             <div className='flex justify-between items-center'>
-              <h2 className='font-semibold'>{tutor.user.fullName}</h2>
+              <div className='flex flex-row items-center'>
+                <h2 className='font-semibold'>{tutor.user.fullName}</h2>
+                {tutor.rates.find(rate => rate.name === 'Mentorship').promo && (
+                  <FontAwesomeIcon
+                    icon={faPercentage}
+                    width='8'
+                    height='8'
+                    className='text-orange-700 ml-1 cursor-default bg-orange-200 rounded-full px-1'
+                    title='Este tutor ofrece los primeros 15 minutos gratis para la primera sesión de nuevos usuarios.'
+                  />
+                )}
+              </div>
               <ConexionStateTutor offline={tutor.user.offline} tutor={tutor} />
             </div>
 
