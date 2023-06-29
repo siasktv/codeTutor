@@ -15,6 +15,8 @@ import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
 import RestorePassword from './views/RestorePassword'
 import useUser from './hooks/useUser'
+import AdminDashboard from './views/AdminDashboard';
+import TutorDashboard from './views/TutorDashboard'
 import { L10n } from '@syncfusion/ej2-base'
 import { registerLicense } from '@syncfusion/ej2-base'
 const LICENSE_KEY = import.meta.env.VITE_SYNCFUSION_LICENSE_KEY
@@ -124,6 +126,8 @@ function App() {
           <Route path="/tutor" element={<FormTutor />} />
           <Route path="/meeting/:id" element={<Meeting />} />
           <Route path="/FAQs" element={<FAQs />} />
+          <Route path="/tutordashboard" element={<TutorDashboard />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
         </Routes>
       </SocketContext.Provider>
     </div>
