@@ -45,6 +45,7 @@ const UserSchema = new Schema(
       required: true,
     },
     favoritesTutor: [{ type: Schema.Types.ObjectId, ref: 'Tutor' }],
+    payments: [{ type: Schema.Types.ObjectId, ref: 'Payment' }],
   },
   {
     timestamps: true,

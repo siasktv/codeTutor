@@ -16,5 +16,5 @@ export {
   FormTutor,
   Meeting,
   FAQs,
-  NotFound
+  NotFound,
 }
