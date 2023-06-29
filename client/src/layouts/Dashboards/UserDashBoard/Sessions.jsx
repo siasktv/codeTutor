@@ -53,14 +53,14 @@ export default function Sessions (props) {
     if (sessions) {
       const previousSessions = sessions.filter(session => {
         return (
-          moment(session.appointmentDate).format('DD-MM-YYYY H') <
-          moment().format('DD-MM-YYYY H')
+          moment(session.appointmentDate).format('DD-MM-YYYY HH:mm:ss') <
+          moment().format('DD-MM-YYYY HH:mm:ss')
         )
       })
       const upcomingSessions = sessions.filter(session => {
         return (
-          moment(session.appointmentDate).format('DD-MM-YYYY H') >=
-          moment().format('DD-MM-YYYY H')
+          moment(session.appointmentDate).format('DD-MM-YYYY HH:mm:ss') >=
+          moment().format('DD-MM-YYYY HH:mm:ss')
         )
       })
       setPreviousSessions(previousSessions)
@@ -98,8 +98,9 @@ export default function Sessions (props) {
                 {
                   sessions.filter(
                     session =>
-                      moment(session.endedCounterDate).format('DD-MM-YYYY H') <
-                      moment().format('DD-MM-YYYY H')
+                      moment(session.endedCounterDate).format(
+                        'DD-MM-YYYY HH:mm:ss'
+                      ) < moment().format('DD-MM-YYYY HH:mm:ss')
                   ).length
                 }
               </p>
@@ -117,8 +118,8 @@ export default function Sessions (props) {
                         session =>
                           session.startedCounterDate &&
                           moment(session.endedCounterDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) >= moment().format('DD-MM-YYYY HH:mm:ss')
                       ).length
                     }
                   </p>
@@ -132,8 +133,8 @@ export default function Sessions (props) {
                       sessions.filter(
                         session =>
                           moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) >= moment().format('DD-MM-YYYY HH:mm:ss')
                       ).length
                     }
                   </p>
@@ -147,8 +148,9 @@ export default function Sessions (props) {
                       sessions.filter(
                         session =>
                           !session.startedCounterDate &&
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H')
+                          moment(session.expiredDate).format(
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) < moment().format('DD-MM-YYYY HH:mm:ss')
                       ).length
                     }
                   </p>
@@ -169,8 +171,9 @@ export default function Sessions (props) {
                   .filter(
                     session =>
                       session.startedCounterDate &&
-                      moment(session.endedCounterDate).format('DD-MM-YYYY H') <
-                        moment().format('DD-MM-YYYY H')
+                      moment(session.endedCounterDate).format(
+                        'DD-MM-YYYY HH:mm:ss'
+                      ) < moment().format('DD-MM-YYYY HH:mm:ss')
                   )
                   .reduce((acc, session) => {
                     return acc + session.minutes
@@ -190,8 +193,8 @@ export default function Sessions (props) {
                         session =>
                           session.startedCounterDate &&
                           moment(session.endedCounterDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) >= moment().format('DD-MM-YYYY HH:mm:ss')
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -207,8 +210,8 @@ export default function Sessions (props) {
                       .filter(
                         session =>
                           moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) >= moment().format('DD-MM-YYYY HH:mm:ss')
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -224,8 +227,9 @@ export default function Sessions (props) {
                       .filter(
                         session =>
                           !session.startedCounterDate &&
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H')
+                          moment(session.expiredDate).format(
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) < moment().format('DD-MM-YYYY HH:mm:ss')
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -262,11 +266,12 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          moment(session.expiredDate).format('DD-MM-YYYY H') >
-                            moment().format('DD-MM-YYYY H') &&
+                          moment(session.expiredDate).format(
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) > moment().format('DD-MM-YYYY HH:mm:ss') &&
                           moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) <= moment().format('DD-MM-YYYY H') &&
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) <= moment().format('DD-MM-YYYY HH:mm:ss') &&
                           !session.isPaid
                       )
                       .map(session => session.price)
@@ -283,8 +288,9 @@ export default function Sessions (props) {
                       .filter(
                         session =>
                           moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) > moment().format('DD-MM-YYYY H') && !session.isPaid
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) > moment().format('DD-MM-YYYY HH:mm:ss') &&
+                          !session.isPaid
                       )
                       .map(session => session.price)
                       .reduce((acc, price) => acc + price, 0)}
@@ -299,8 +305,10 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H') && !session.isPaid
+                          moment(session.expiredDate).format(
+                            'DD-MM-YYYY HH:mm:ss'
+                          ) < moment().format('DD-MM-YYYY HH:mm:ss') &&
+                          !session.isPaid
                       )
                       .map(session => session.price)
                       .reduce((acc, price) => acc + price, 0)}
