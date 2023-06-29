@@ -11,6 +11,8 @@ const paymentsSchema = new Schema(
     payment_status: { type: String, required: true },
 
     paymentData: { type: Object, required: true },
+
+    // recipeURL: { type: String },
   },
   {
     timestamps: true,
