@@ -154,6 +154,7 @@ const Meeting = () => {
     const paymentDetails = {
       amount: session.price,
       sessionId: session.id,
+      userId: user.id,
       description: `Sesión de ${session.minutes} minutos con ${
         users.find((u) => u._id === session.tutorUserId).fullName
       }`,

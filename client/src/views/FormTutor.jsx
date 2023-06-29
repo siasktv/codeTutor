@@ -42,6 +42,15 @@ export default function FormTutor () {
     rate: {
       hour: 0,
       promo: null
+    },
+    disponibility: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: []
     }
   })
   const [section, setSection] = useState(null)

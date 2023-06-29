@@ -115,7 +115,8 @@ const TutorForm = props => {
           experience: experience,
           skills: skills,
           projects: projects,
-          rates: rate
+          rates: rate,
+          disponibility: form.disponibility
         })
         .then(res => {
           setIsSubmitting(false)

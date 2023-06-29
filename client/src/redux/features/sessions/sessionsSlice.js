@@ -79,7 +79,51 @@ const initialState = {
   allSessionsDataByClient: {
     earnings: 0,
     totalMinutes: 0
-  }
+  },
+  completeSessionsByTutor: [
+    {
+      sessionId: 0,
+      tutorUserId: '',
+      clientUserId: '',
+      appointmentDate: 0,
+      minutes: 0,
+      price: 0,
+      isPaid: null,
+      paymentDetails: {},
+      clientHasJoined: null,
+      tutorHasJoined: null,
+      startedCounterDate: null,
+      endedCounterDate: null,
+      expiredDate: null,
+      isCancelled: null,
+      isRefunded: null,
+      isReviewed: null,
+      reviewId: null,
+      isDisputed: null
+    }
+  ],
+  completeSessionsByClient: [
+    {
+      sessionId: 0,
+      tutorUserId: '',
+      clientUserId: '',
+      appointmentDate: 0,
+      minutes: 0,
+      price: 0,
+      isPaid: null,
+      paymentDetails: {},
+      clientHasJoined: null,
+      tutorHasJoined: null,
+      startedCounterDate: null,
+      endedCounterDate: null,
+      expiredDate: null,
+      isCancelled: null,
+      isRefunded: null,
+      isReviewed: null,
+      reviewId: null,
+      isDisputed: null
+    }
+  ]
 }
 
 //async actions
@@ -198,6 +242,36 @@ export const fetchAllSessionsDataByClient = createAsyncThunk(
   }
 )
 
+export const fetchCompleteSessionsByTutor = createAsyncThunk(
+  'sessions/fetchCompleteSessionsByTutor',
+  async id => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/session/`)
+      const sessions = response.data.filter(
+        session => session.tutorUserId._id === id
+      )
+      return sessions
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
+export const fetchCompleteSessionsByClient = createAsyncThunk(
+  'sessions/fetchCompleteSessionsByClient',
+  async id => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/session/`)
+      const sessions = response.data.filter(
+        session => session.clientUserId._id === id
+      )
+      return sessions
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 const sessionsSlice = createSlice({
   name: 'sessions',
   initialState,
@@ -285,6 +359,54 @@ const sessionsSlice = createSlice({
     },
     [fetchAllSessionsDataByClient.fulfilled]: (state, action) => {
       state.allSessionsDataByClient = action.payload
+    },
+    [fetchCompleteSessionsByTutor.fulfilled]: (state, action) => {
+      state.completeSessionsByTutor = action.payload.map(session => {
+        return {
+          sessionId: session.sessionId,
+          tutorUserId: session.tutorUserId,
+          clientUserId: session.clientUserId,
+          appointmentDate: session.appointmentDate,
+          minutes: session.minutes,
+          price: session.price,
+          isPaid: session.isPaid,
+          paymentDetails: session.paymentDetails,
+          clientHasJoined: session.clientHasJoined,
+          tutorHasJoined: session.tutorHasJoined,
+          startedCounterDate: session.startedCounterDate,
+          endedCounterDate: session.endedCounterDate,
+          expiredDate: session.expiredDate,
+          isCancelled: session.isCancelled,
+          isRefunded: session.isRefunded,
+          isReviewed: session.isReviewed,
+          reviewId: session.reviewId,
+          isDisputed: session.isDisputed
+        }
+      })
+    },
+    [fetchCompleteSessionsByClient.fulfilled]: (state, action) => {
+      state.completeSessionsByClient = action.payload.map(session => {
+        return {
+          sessionId: session.sessionId,
+          tutorUserId: session.tutorUserId,
+          clientUserId: session.clientUserId,
+          appointmentDate: session.appointmentDate,
+          minutes: session.minutes,
+          price: session.price,
+          isPaid: session.isPaid,
+          paymentDetails: session.paymentDetails,
+          clientHasJoined: session.clientHasJoined,
+          tutorHasJoined: session.tutorHasJoined,
+          startedCounterDate: session.startedCounterDate,
+          endedCounterDate: session.endedCounterDate,
+          expiredDate: session.expiredDate,
+          isCancelled: session.isCancelled,
+          isRefunded: session.isRefunded,
+          isReviewed: session.isReviewed,
+          reviewId: session.reviewId,
+          isDisputed: session.isDisputed
+        }
+      })
     }
   }
 })
