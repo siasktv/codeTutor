@@ -28,6 +28,7 @@ import MessageMinimized from './MessageMinimized.jsx'
 import ChatsNav from './ChatsNav.jsx'
 import NotificationsNav from './NotificationsNav'
 import UpdateModal from './UserDashboard/Settings/UpdateModal.jsx'
+import PaymentModal from './UserDashboard/Sessions/PaymentModal.jsx'
 
 //FormTutor
 //componentes generales
@@ -65,6 +66,7 @@ import LogoutModal from './LogoutModal.jsx'
 import BookMeeting from './BookMeeting.jsx'
 
 export {
+  PaymentModal,
   TutorFormProfileDisponibility,
   BookMeeting,
   LogoutModal,
