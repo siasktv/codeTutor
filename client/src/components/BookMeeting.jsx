@@ -270,7 +270,7 @@ export default function BookMeeting (props) {
       `${selectedDate} ${selectedTime}`,
       'MM/DD/YYYY HH'
     ).valueOf()
-    const price = getPrice(selectedDuration) * 100
+    const price = getPrice(selectedDuration)
     const minutes = Number(selectedDuration)
     const session = {
       tutorUserId: tutor.user._id,

@@ -240,6 +240,7 @@ const Meeting = () => {
   useEffect(() => {
     // show alert if 3 minutes left
     if (
+      session?.endedCounterDate &&
       moment().valueOf() >
         session?.endedCounterDate - moment.duration(timeAlertInMinutes, 'm') &&
       !alertClosed
@@ -253,6 +254,7 @@ const Meeting = () => {
     if (
       session?.clientUserId === user?.id &&
       session?.isReviewed !== true &&
+      session?.endedCounterDate &&
       moment().valueOf() > session?.endedCounterDate &&
       !moment(session?.expiredDate).isBefore(moment())
     ) {

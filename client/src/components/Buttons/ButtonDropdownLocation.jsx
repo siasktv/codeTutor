@@ -56,7 +56,7 @@ const ButtonDropdownLocation = () => {
         aria-labelledby='dropdown-menu-button'
         tabIndex='-1'
       >
-        <div className='py-1' role='none'>
+        <div className='py-1 max-h-96 overflow-auto' role='none'>
           {/*Inicio map */}
           <button
             role='menuitem'
