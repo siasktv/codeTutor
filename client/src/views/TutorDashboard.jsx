@@ -5,14 +5,14 @@ import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MessageContainer, MessageMinimized, Loader } from '../components'
 import { SocketContext, socket } from '../socket/context'
-import AdminDashboardGraphbyMonth from '../components/AdminDashboardGraphbyMonth'
-import AdminDashboardGraphbyYear from '../components/AdminDashboardGraphbyYear'
-import AdminMetric from '../components/AdminMetric'
-import AdminMetricStatic from '../components/AdminMetricStatic'
-import TabListAdmin from '../components/TabListAdmin'
+import TutorMetric from '../components/TutorMetric'
+import TutorDashboardGraphbyMonth from '../components/TutorDashboardGraphbyMonth'
+import TutorDashboardGraphbyYear from '../components/TutorDashboardGraphbyYear'
+import TabListTutor from '../components/TabListTutor'
 import { Settings } from '../layouts'
 
-const AdminDashboard = () => {
+
+const TutorDashboard = () => {
   const user = useUser()
   const navigate = useNavigate()
   const [showMessage, setShowMessage] = useState(false)
@@ -30,10 +30,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (selectedSection !== 'dashboard') {
       // add query param to url
-      navigate(`/admindashboard?section=${selectedSection}`)
+      navigate(`/tutordashboard?section=${selectedSection}`)
     } else {
       // remove query param from url
-      navigate('/admindashboard')
+      navigate('/tutordashboard')
     }
   }, [selectedSection])
 
@@ -91,9 +91,7 @@ const AdminDashboard = () => {
             <div className='fixed top-0 z-[100]'>
               <UserDashboardLayout 
               selectedSection={selectedSection}
-              setSelectedSection={setSelectedSection}
-              />
-              
+              setSelectedSection={setSelectedSection} />
             </div>
             <div className='flex flex-col justify-center w-full h-full left-0 right-0'>
               <div className='sticky top-0 z-50 bg-white'>
@@ -107,12 +105,11 @@ const AdminDashboard = () => {
               <div className='flex flex-col bg-[#FAFBFC] ml-60'>
               {selectedSection === 'dashboard' && (
                   <>
-                <AdminMetricStatic/>
-                <AdminMetric/>
-                <TabListAdmin/>
-                </> 
-                )}
-                {selectedSection === 'calendar' && (
+                <TutorMetric/>
+                <TabListTutor/>
+                </>
+              )}
+              {selectedSection === 'calendar' && (
                   <div className='flex justify-center items-center mt-96'>
                     <h1 className='text-4xl font-bold'>Calendario</h1>
                   </div>
@@ -167,4 +164,4 @@ const AdminDashboard = () => {
   )
 }
 
-export default AdminDashboard
+export default TutorDashboard
