@@ -9,7 +9,6 @@ import {
   FormTutor,
   Meeting,
   FAQs,
-  Payments,
   NotFound,
 } from './views'
 import UserDashboard from './views/UserDashboard'
@@ -107,14 +106,6 @@ L10n.load({
     },
   },
 })
-
-//stripe
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-
-const stripePromise = loadStripe(
-  'pk_test_51NMaUGDN7UYcr2v7LNIElBT2HpcY849dutlAzq7VDqLgjhKOZY95Dlohz4T8rJkfY0euqOeg2IFVGSRB1JUFtRJN00fjPJMtlh'
-)
 
 function App() {
   const user = useUser()
