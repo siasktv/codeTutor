@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faWarning } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchLocations } from '../../../redux/features/locations/locationsSlice'
+import { LoaderMini } from '../../../components'
 
 export default function UpdateModal (props) {
   const {
@@ -409,8 +410,8 @@ export default function UpdateModal (props) {
                         id='name'
                         className={
                           errors.name
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
                         }
                         placeholder='Nombre completo'
                         value={formData.name}
@@ -431,8 +432,8 @@ export default function UpdateModal (props) {
                         id='email'
                         className={
                           errors.email
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
                         }
                         placeholder='Correo electrónico'
                         value={formData.email}
@@ -449,8 +450,8 @@ export default function UpdateModal (props) {
                         id='previousPassword'
                         className={
                           errors.previousPassword
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
                         }
                         placeholder='Ingresa tu contraseña'
                         value={formData.previousPassword}
@@ -473,8 +474,8 @@ export default function UpdateModal (props) {
                         autoComplete='location'
                         className={
                           errors.location
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
                         }
                         value={selectedLocation}
                         onChange={e => handleSelectLocation(e)}
@@ -495,8 +496,8 @@ export default function UpdateModal (props) {
                           autoComplete='timezone'
                           className={
                             errors.timezone
-                              ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                              : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                              ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
+                              : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
                           }
                           value={selectedTimezone}
                           onChange={e => setSelectedTimezone(e.target.value)}
@@ -525,8 +526,8 @@ export default function UpdateModal (props) {
                         id='previousPassword'
                         className={
                           errors.previousPassword
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
                         }
                         placeholder='Contraseña actual'
                         value={formData.previousPassword}
@@ -545,8 +546,8 @@ export default function UpdateModal (props) {
                         id='password'
                         className={
                           errors.password
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
                         }
                         placeholder='Nueva contraseña'
                         value={formData.password}
@@ -563,8 +564,8 @@ export default function UpdateModal (props) {
                         id='confirmPassword'
                         className={
                           errors.confirmPassword
-                            ? 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm focus:ring-codecolor focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
                         }
                         placeholder='Confirmar contraseña'
                         value={formData.confirmPassword}
@@ -715,7 +716,7 @@ export default function UpdateModal (props) {
           <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
             <button
               type='button'
-              className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor sm:ml-3 sm:w-20 sm:text-sm'
+              className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:ml-3 sm:w-20 sm:text-sm'
               onClick={() => setShowModal(false)}
             >
               Cancelar
@@ -725,17 +726,13 @@ export default function UpdateModal (props) {
               className={
                 isDisabled
                   ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
-                  : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
+                  : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
               }
               onClick={handleSubmit}
               type='submit'
             >
               {isSubmitting ? (
-                <div className='loadingio-spinner-rolling-gfh6sgud2a'>
-                  <div className='ldio-a2ldude9jzv'>
-                    <div></div>
-                  </div>
-                </div>
+                <LoaderMini />
               ) : success ? (
                 <FontAwesomeIcon icon={faCheckCircle} className='self-center' />
               ) : selectedField === 'disabletutor' ? (

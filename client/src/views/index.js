@@ -6,6 +6,7 @@ import Register from './Register'
 import FormTutor from './FormTutor'
 import Meeting from './Meeting'
 import FAQs from './FAQs'
+import NotFound from './NotFound'
 export {
   Landing,
   SearchPage,
@@ -15,4 +16,5 @@ export {
   FormTutor,
   Meeting,
   FAQs,
-};
+  NotFound,
+}

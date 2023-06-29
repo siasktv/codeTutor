@@ -1,0 +1,136 @@
+@import '../node_modules/@syncfusion/ej2-base/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-react-schedule/styles/tailwind.css';
+@import '../node_modules/@syncfusion/ej2-react-calendars/styles/tailwind.css';
+
+.e-input-group .e-input-group-icon:last-child,
+.e-input-group.e-control-wrapper .e-input-group-icon:last-child {
+  color: rgb(127 86 217);
+}
+
+.customclass .e-input-group .e-input-group-icon:last-child:hover,
+.e-input-group.e-control-wrapper .e-input-group-icon:last-child:hover {
+  color: rgb(127 86 217);
+}
+/* apply on focus */
+.e-date-wrapper span.e-input-group-icon.e-date-icon.e-icons.e-active {
+  color: rgb(127 86 217);
+}
+
+.e-input-group:not(.e-success):not(.e-warning):not(.e-error),
+.e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error) {
+  border-color: rgb(127 86 217);
+  font-size: 16px;
+}
+.e-input-group.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-input-group.e-control-wrapper.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  input:not([disabled]),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  input:not([disabled]),
+.e-float-input.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  textarea:not([disabled]),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  textarea:not([disabled]) {
+  border-color: rgb(127 86 217);
+}
+
+.e-schedule .e-schedule-toolbar .e-active-view .e-tbar-btn-text,
+.e-schedule .e-schedule-toolbar .e-active-view .e-icons {
+  color: rgb(127 86 217) !important;
+}
+
+.e-schedule .e-vertical-view .e-header-cells.e-current-day {
+  color: rgb(127 86 217) !important;
+}
+
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-subject-wrap
+  .e-subject {
+  background: rgba(127, 86, 217, 0.3) !important;
+  border-left: 6px solid rgb(127 86 217) !important;
+}
+
+.e-btn.e-flat.e-primary:disabled,
+.e-btn.e-flat.e-primary.e-disabled,
+.e-css.e-btn.e-flat.e-primary:disabled,
+.e-css.e-btn.e-flat.e-primary.e-disabled {
+  background-color: white;
+  border-color: #e5e7eb;
+}
+
+.e-schedule .e-month-view .e-appointment {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-bigger .e-more-popup-wrapper .e-appointment,
+.e-more-popup-wrapper .e-appointment {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-schedule .e-agenda-view .e-appointment {
+  border-left: 3px solid rgb(127 86 217) !important;
+}
+
+.e-schedule .e-month-view .e-current-date .e-date-header,
+.e-schedule .e-month-agenda-view .e-current-date .e-date-header {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-schedule .e-vertical-view .e-current-timeline {
+  border-top: 1px solid rgb(127 86 217) !important;
+}
+
+.e-schedule .e-vertical-view .e-clone-time-indicator,
+.e-schedule .e-vertical-view .e-current-time {
+  color: rgb(127 86 217) !important;
+}
+
+.e-calendar .e-content td:hover span.e-day,
+.e-calendar .e-content td:focus span.e-day,
+.e-bigger.e-small .e-calendar .e-content td:hover span.e-day,
+.e-bigger.e-small .e-calendar .e-content td:focus span.e-day {
+  border: 2px solid;
+  border-color: rgb(127 86 217);
+}
+
+.e-calendar .e-content span.e-day,
+.e-calendar .e-content span.e-day,
+.e-bigger.e-small .e-calendar .e-content span.e-day,
+.e-bigger.e-small .e-calendar .e-content span.e-day {
+  border: 2px solid transparent;
+}
+
+.e-calendar .e-content td.e-selected span.e-day,
+.e-calendar .e-content td.e-selected span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-selected span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-selected span.e-day {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-calendar .e-btn.e-today.e-flat.e-primary,
+.e-calendar .e-css.e-btn.e-today.e-flat.e-primary {
+  background-color: rgb(127 86 217) !important;
+}
+
+.e-calendar .e-content e- .logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}

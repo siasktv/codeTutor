@@ -17,6 +17,7 @@ const createTutor = async ({
   projects,
   rates,
   fullName,
+  disponibility
 }) => {
   const userUpdate = await User.findByIdAndUpdate(
     user,
@@ -24,7 +25,7 @@ const createTutor = async ({
       image: avatar,
       location,
       timezone,
-      fullName,
+      fullName
     },
     { new: true }
   )
@@ -34,7 +35,7 @@ const createTutor = async ({
     bio: {
       specialty: bio.specialty,
       description: bio.description,
-      linkBriefcase: bio.portfolio,
+      linkBriefcase: bio.portfolio
     },
     languages,
     socialMedia,
@@ -42,27 +43,57 @@ const createTutor = async ({
       {
         name: 'Mentorship',
         value: rates.hour,
-        promo: rates.promo === 'true' || rates.promo === true ? true : false,
-      },
+        promo: rates.promo === 'true' || rates.promo === true ? true : false
+      }
     ],
     status: 'pending',
+    disponibility: [
+      {
+        day: 0,
+        hours: disponibility.sunday
+      },
+      {
+        day: 1,
+        hours: disponibility.monday
+      },
+      {
+        day: 2,
+        hours: disponibility.tuesday
+      },
+      {
+        day: 3,
+        hours: disponibility.wednesday
+      },
+      {
+        day: 4,
+        hours: disponibility.thursday
+      },
+      {
+        day: 5,
+        hours: disponibility.friday
+      },
+      {
+        day: 6,
+        hours: disponibility.saturday
+      }
+    ]
   })
 
   // create skills, experience and projects and then push to tutor
   const skillsTech = await Promise.all(
-    skills.map(async (skill) => {
+    skills.map(async skill => {
       const newSkill = await SkillsTech.create({
         tutor: tutor._id,
         techName: skill.techName,
         years: skill.years,
-        description: skill.description,
+        description: skill.description
       })
       return newSkill._id
     })
   )
 
   const experienceCreate = await Promise.all(
-    experience.map(async (exp) => {
+    experience.map(async exp => {
       const newExp = await Experience.create({
         tutor: tutor._id,
         position: exp.position,
@@ -75,20 +106,20 @@ const createTutor = async ({
             ? true
             : false,
         description: exp.description,
-        techName: exp.techName,
+        techName: exp.techName
       })
       return newExp._id
     })
   )
 
   const projectsCreate = await Promise.all(
-    projects.map(async (project) => {
+    projects.map(async project => {
       const newProject = await Project.create({
         tutor: tutor._id,
         name: project.name,
         description: project.description,
         link: project.link,
-        techName: project.techName,
+        techName: project.techName
       })
       return newProject._id
     })
@@ -99,38 +130,38 @@ const createTutor = async ({
     {
       skills: skillsTech,
       experience: experienceCreate,
-      projects: projectsCreate,
+      projects: projectsCreate
     },
     { new: true }
   )
 
   const tutorPopulate = await Tutor.findById(tutor._id)
     .populate({
-      path: 'user',
+      path: 'user'
     })
     .populate({
       path: 'skills',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
       path: 'experience',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
       path: 'projects',
       populate: {
         path: 'techName',
-        select: 'name',
-      },
+        select: 'name'
+      }
     })
     .populate({
-      path: 'reviews',
+      path: 'reviews'
       // populate: {
       //   path: 'rating',
       // },

@@ -28,6 +28,7 @@ import MessageMinimized from './MessageMinimized.jsx'
 import ChatsNav from './ChatsNav.jsx'
 import NotificationsNav from './NotificationsNav'
 import UpdateModal from './UserDashboard/Settings/UpdateModal.jsx'
+import PaymentModal from './UserDashboard/Sessions/PaymentModal.jsx'
 
 //FormTutor
 //componentes generales
@@ -45,6 +46,7 @@ import TutorFormProfileName from './FormTutor/TutorData/TutorFormProfileName.jsx
 import TutorFormProfileSocialMedia from './FormTutor/TutorData/TutorFormProfileSocialMedia.jsx'
 import TutorFormProfileTime from './FormTutor/TutorData/TutorFormProfileTime.jsx'
 import CardTutorData from './FormTutor/TutorData/CardTutorData.jsx'
+import TutorFormProfileDisponibility from './FormTutor/TutorData/TutorFormProfileDisponibility.jsx'
 
 //componentes del Form General
 import TutorFormBiografia from './FormTutor/TutorFormGeneral/TutorFormBiografia.jsx'
@@ -57,7 +59,18 @@ import TutorFormTech from './FormTutor/TutorFormGeneral/TutorFormTech.jsx'
 import TutorProfileFormTech from './FormTutor/TutorTech/TutorProfileFormTech.jsx'
 import CardTutorInputFields from './FormTutor/TutorTech/CardTutorInputFields.jsx'
 
+import LoaderMini from './LoaderMini.jsx'
+
+import LogoutModal from './LogoutModal.jsx'
+
+import BookMeeting from './BookMeeting.jsx'
+
 export {
+  PaymentModal,
+  TutorFormProfileDisponibility,
+  BookMeeting,
+  LogoutModal,
+  LoaderMini,
   CardTutorInputFields,
   NotificationsNav,
   TutorProfileFormTech,

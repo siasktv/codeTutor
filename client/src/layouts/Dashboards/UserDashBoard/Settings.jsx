@@ -6,14 +6,17 @@ import {
   faGraduationCap,
   faLocationDot,
   faLock,
-  faUser
+  faUser,
+  faCheck,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import { uploadImage } from '../../../firebase/client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { UpdateModal } from '../../../components'
 import { Link } from 'react-router-dom'
+import { LoaderMini } from '../../../components'
 
 export default function Settings (props) {
   const { user } = props
@@ -28,6 +31,8 @@ export default function Settings (props) {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
   const [selectedField, setSelectedField] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
+  const [successUpload, setSuccessUpload] = useState(false)
 
   const handleUploadImage = async e => {
     const file = e.target.files[0]
@@ -51,6 +56,7 @@ export default function Settings (props) {
       return
     }
     try {
+      setIsUploading(true)
       const task = uploadImage(file)
       task.on(
         'state_changed',
@@ -61,6 +67,7 @@ export default function Settings (props) {
         error => {
           // if there is an error, console.log it
           console.log(error)
+          setIsUploading(false)
         },
         () => {
           // when the image is uploaded, get the url and set it to imageURL and input.image
@@ -69,10 +76,13 @@ export default function Settings (props) {
               image: url
             })
             setAvatar(url)
+            setIsUploading(false)
+            setSuccessUpload(true)
           })
         }
       )
     } catch (error) {
+      setIsUploading(false)
       console.log(error)
     }
   }
@@ -82,8 +92,16 @@ export default function Settings (props) {
     setShowModal(true)
   }
 
+  useEffect(() => {
+    if (successUpload) {
+      setTimeout(() => {
+        setSuccessUpload(false)
+      }, 1000)
+    }
+  }, [successUpload])
+
   return (
-    <div className='flex flex-col items-center w-[580px]'>
+    <div className='flex flex-col items-center min-w-[580px]'>
       <h1 className='text-4xl font-bold text-center my-8'>
         Ajustes de usuario
       </h1>
@@ -100,13 +118,32 @@ export default function Settings (props) {
             <img
               src={avatar}
               alt='user'
-              className='w-[145px] h-[145px] rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+              className={
+                isUploading || successUpload
+                  ? 'w-[145px] h-[145px] rounded-full object-cover filter brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+                  : 'w-[145px] h-[145px] rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+              }
               referrerPolicy='no-referrer'
             />
-            <FontAwesomeIcon
-              icon={faEdit}
-              className='text-[25px] text-gray-200 text-opacity-70 cursor-pointer relative opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out top-[-50%] transform translate-y-[-50%]'
-            />
+            {!isUploading && !successUpload && (
+              <FontAwesomeIcon
+                icon={faEdit}
+                className='text-[25px] text-gray-200 text-opacity-70 cursor-pointer relative opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out top-[-50%] transform translate-y-[-50%]'
+              />
+            )}
+            {isUploading && (
+              <div className='relative top-[-50%] transform translate-y-[-50%]'>
+                <LoaderMini />
+              </div>
+            )}
+            {successUpload && (
+              <div className='relative top-[-50%] transform translate-y-[-50%]'>
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className='text-white text-2xl'
+                />
+              </div>
+            )}
           </label>
         </div>
         {errorImage && (
@@ -122,7 +159,7 @@ export default function Settings (props) {
               Email: <span className=' text-md font-normal'>{email}</span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('email')}
             >
               Cambiar email
@@ -138,7 +175,7 @@ export default function Settings (props) {
               Nombre: <span className=' text-md font-normal'>{name}</span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('name')}
             >
               Cambiar nombre
@@ -151,13 +188,20 @@ export default function Settings (props) {
                 icon={faLocationDot}
                 className='mr-2 text-codecolor'
               />
-              Ubicación :{' '}
+              Ubicación:{' '}
               <span className=' text-md font-normal'>
-                {location} ({timezone})
+                {location ? (
+                  <>
+                    {' '}
+                    {location} ({timezone})
+                  </>
+                ) : (
+                  'No especificada'
+                )}
               </span>
             </p>
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('location')}
             >
               Cambiar ubicación
@@ -202,7 +246,7 @@ export default function Settings (props) {
                 ) : (
                   <Link
                     to='/tutor'
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                   >
                     Convertirme en tutor
                   </Link>
@@ -212,14 +256,14 @@ export default function Settings (props) {
               <>
                 {tutorStatus === 'approved' ? (
                   <button
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                     onClick={() => handleSetSelectedField('disabletutor')}
                   >
                     Darme de baja
                   </button>
                 ) : (
                   <button
-                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+                    className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
                     onClick={() => handleSetSelectedField('enabletutor')}
                   >
                     Reactivar perfil de tutor
@@ -248,7 +292,7 @@ export default function Settings (props) {
             </div>
 
             <button
-              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold hover:bg-codecolordark transition-all ease-in-out duration-200 ml-2'
               onClick={() => handleSetSelectedField('password')}
             >
               Cambiar contraseña

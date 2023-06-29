@@ -472,7 +472,7 @@ export default SearchPage
 //                   <div className="pb-5 relative inline-block text-left">
 //                     <button
 //                       onClick={handleDarkMode}
-//                       className={`items-center pb-4 pt-4 pr-2 w-full rounded border border-gray-300 shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-codecolor" ${
+//                       className={`items-center pb-4 pt-4 pr-2 w-full rounded border border-gray-300 shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  " ${
 //                         darkMode ? "bg-gray-600 text-white" : "bg-white"
 //                       }`}
 //                     >

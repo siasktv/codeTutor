@@ -58,8 +58,7 @@ const createUserHandler = async (req, res) => {
       location,
       timezone,
       role,
-      uid,
-      favoritesTutor
+      uid
     })
 
     const userToMail = {

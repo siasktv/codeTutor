@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import { loaderGoogle } from '../assets'
 import { signIn, loginWithGoogle } from '../firebase/client'
 import axios from 'axios'
+import { LoaderMini } from '../components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const FormRegister = props => {
   const [showPassword, setShowPassword] = useState(false)
@@ -28,6 +31,11 @@ const FormRegister = props => {
   const [forgotPassword, setForgotPassword] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [isSubmiting, setIsSubmiting] = useState(false)
+  const [isSubmitingLogin, setIsSubmitingLogin] = useState(false)
+  const [isSubmitingReset, setIsSubmitingReset] = useState(false)
+  const [successLogin, setSuccessLogin] = useState(false)
+  const [successReset, setSuccessReset] = useState(false)
+  const [redirecting, setRedirecting] = useState(false)
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
   useEffect(() => {
@@ -115,25 +123,34 @@ const FormRegister = props => {
       return alert('Por favor, corrija los errores antes de continuar')
     } else if (form.email && form.password) {
       setIsDisabled(true)
+      setIsSubmitingLogin(true)
       setFormsDisabled(true)
       setFirebaseError(null)
-      signIn(form.email, form.password).catch(err => {
-        setIsDisabled(false)
-        setFormsDisabled(false)
-        if (err.code === 'auth/wrong-password') {
-          setFirebaseError('La contraseña es incorrecta')
-        } else if (err.code === 'auth/user-not-found') {
-          setFirebaseError(
-            'No se ha encontrado ninguna cuenta con este correo electrónico'
-          )
-        } else if (err.code === 'auth/too-many-requests') {
-          setFirebaseError(
-            'Has enviado demasiadas solicitudes en muy poco tiempo. Por favor, inténtelo de nuevo más tarde'
-          )
-        } else {
-          setFirebaseError('Ha ocurrido un error, por favor inténtelo de nuevo')
-        }
-      })
+      signIn(form.email, form.password)
+        .then(() => {
+          setSuccessLogin(true)
+          setIsSubmitingLogin(false)
+        })
+        .catch(err => {
+          setIsDisabled(false)
+          setFormsDisabled(false)
+          setIsSubmitingLogin(false)
+          if (err.code === 'auth/wrong-password') {
+            setFirebaseError('La contraseña es incorrecta')
+          } else if (err.code === 'auth/user-not-found') {
+            setFirebaseError(
+              'No se ha encontrado ninguna cuenta con este correo electrónico'
+            )
+          } else if (err.code === 'auth/too-many-requests') {
+            setFirebaseError(
+              'Has enviado demasiadas solicitudes en muy poco tiempo. Por favor, inténtelo de nuevo más tarde'
+            )
+          } else {
+            setFirebaseError(
+              'Ha ocurrido un error, por favor inténtelo de nuevo'
+            )
+          }
+        })
     }
   }
 
@@ -150,11 +167,14 @@ const FormRegister = props => {
     } else if (formReset.email) {
       setIsSubmiting(true)
       setIsDisabledReset(true)
+      setIsSubmitingReset(true)
       setFirebaseErrorReset(null)
       try {
         await axios.post(`${BACKEND_URL}/api/users/resetpassword`, {
           email: formReset.email
         })
+        setSuccessReset(true)
+        setIsSubmitingReset(false)
         setIsSubmiting(false)
         setFormReset({
           email: ''
@@ -162,8 +182,8 @@ const FormRegister = props => {
         setErrorsReset({
           email: ''
         })
-        handleAlert()
       } catch (err) {
+        setIsSubmitingReset(false)
         setIsDisabledReset(false)
         setIsSubmiting(false)
         if (err.response.data.code === 'auth/email-not-found') {
@@ -218,6 +238,26 @@ const FormRegister = props => {
   const registerRedirect = props.redirect
     ? `/register?redirect=${props.redirect}`
     : '/register'
+
+  useEffect(() => {
+    if (successLogin) {
+      setTimeout(() => {
+        setSuccessLogin(false)
+        setRedirecting(true)
+      }, 1000)
+    }
+  }, [successLogin])
+
+  useEffect(() => {
+    if (successReset) {
+      setTimeout(() => {
+        setSuccessReset(false)
+        setIsDisabledReset(true)
+        setIsDisabled(true)
+        handleAlert()
+      }, 1000)
+    }
+  }, [successReset])
 
   return (
     <div className='flex flex-col items-center justify-center'>
@@ -320,14 +360,27 @@ const FormRegister = props => {
               <button
                 role='button'
                 className={
-                  !isDisabled && !formsDisabled
-                    ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
+                  !isSubmitingLogin && !successLogin && !redirecting
+                    ? !isDisabled && !formsDisabled
+                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
+                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full cursor-not-allowed'
                 }
                 disabled={isDisabled || formsDisabled}
                 type='submit'
               >
-                Iniciar Sesión
+                {isSubmitingLogin ? (
+                  <LoaderMini />
+                ) : successLogin ? (
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                ) : redirecting ? (
+                  <span className='flex items-center justify-center'>
+                    <span className='mr-1'>Redireccionando</span>
+                    <LoaderMini />
+                  </span>
+                ) : (
+                  'Iniciar sesión'
+                )}
               </button>
             </div>
             {firebaseError && (
@@ -484,14 +537,22 @@ const FormRegister = props => {
                 role='button'
                 onClick={handleResetPassword}
                 className={
-                  isDisabledReset
-                    ? 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
-                    : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                  !isSubmitingReset && !successReset
+                    ? isDisabledReset
+                      ? 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
+                      : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
                 }
                 disabled={isDisabledReset}
                 type='submit'
               >
-                Recupera tu contraseña
+                {isSubmitingReset ? (
+                  <LoaderMini />
+                ) : successReset ? (
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                ) : (
+                  'Recupera tu contraseña'
+                )}
               </button>
             </div>
 

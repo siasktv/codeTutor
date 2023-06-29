@@ -15,13 +15,15 @@ import {
   MessageContainer,
   MessageMinimized,
   ChatsNav,
-  NotificationsNav
+  NotificationsNav,
+  LogoutModal
 } from '../components'
 import { SocketContext, socket } from '../socket/context'
 import { notificationSound } from '../assets'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import moment from 'moment'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const NavLogin = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -161,6 +163,7 @@ const NavLogin = ({ user }) => {
 
   const [showMessage, setShowMessage] = useState(false)
   const [selectedTutor, setSelectedTutor] = useState(null)
+  const [showModalLogout, setShowModalLogout] = useState(false)
 
   const handleShowMessage = (e, tutor) => {
     e.preventDefault()
@@ -237,7 +240,7 @@ const NavLogin = ({ user }) => {
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='mx-auto py-4'>
           <div className='flex items-center justify-between gap-4 lg:gap-10'>
-            <div className='flex lg:w-0 lg:flex-1'>
+            <div className='flex lg:w-0 lg:flex-1 items-center'>
               <Link to='/'>
                 <span className='inline-block h-10 w-52 pl-5'>
                   <div className='flex'>
@@ -248,7 +251,14 @@ const NavLogin = ({ user }) => {
                 </span>
               </Link>
             </div>
-
+            <Link to='/search'>
+              <div className='flex'>
+                <p className='font-semibold text-lg ml-4 mb-1 text-codecolor hover:text-codecolordark cursor-pointer'>
+                  Explorar tutores{' '}
+                  <FontAwesomeIcon icon={faSearch} className='ml-1 text-sm' />
+                </p>
+              </div>
+            </Link>
             <div className='hidden flex-1 items-center justify-end gap-4 sm:flex'>
               {!user && (
                 <div className='pr-5'>
@@ -312,6 +322,7 @@ const NavLogin = ({ user }) => {
                           alt='avatar'
                           className='w-10 h-10  rounded-full border-none cursor-pointer object-cover'
                           onClick={handleShowProfile}
+                          referrerPolicy='no-referrer'
                         ></img>
                       </div>
                       {showProfile && (
@@ -326,7 +337,7 @@ const NavLogin = ({ user }) => {
                               {user && (
                                 <button
                                   className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
-                                  onClick={signOut}
+                                  onClick={() => setShowModalLogout(true)}
                                 >
                                   Cerrar sesión
                                 </button>
@@ -361,7 +372,6 @@ const NavLogin = ({ user }) => {
                 </>
               )}
             </div>
-
             <div className='lg:hidden'>
               <button
                 className='rounded-lg bg-gray-100 p-2 text-gray-600'
@@ -403,6 +413,9 @@ const NavLogin = ({ user }) => {
           handleMaximizeMessage={handleMaximizeMessage}
           user={user}
         />
+      )}
+      {showModalLogout && (
+        <LogoutModal setShowModalLogout={setShowModalLogout} />
       )}
     </>
   )

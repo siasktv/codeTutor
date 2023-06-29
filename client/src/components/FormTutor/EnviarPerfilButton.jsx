@@ -1,3 +1,7 @@
+import LoaderMini from '../LoaderMini'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+
 const EnviarPerfilButton = props => {
   const {
     title,
@@ -13,7 +17,9 @@ const EnviarPerfilButton = props => {
     isDone,
     isEdit,
     editIndex,
-    setSubmit
+    setSubmit,
+    success,
+    isSubmitting
   } = props
 
   const isDoneCount = Object.values(isDone).filter(value => value === true)
@@ -182,11 +188,23 @@ const EnviarPerfilButton = props => {
   }
   return (
     <button
-      className='inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-codecolor focus:outline-none focus:ring active:text-codecolor disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-default disabled:border-gray-400 disabled:opacity-50'
+      className={
+        isSubmitting || success
+          ? 'inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white focus:outline-none cursor-default w-44 h-[46px]'
+          : 'inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-codecolor focus:outline-none active:text-codecolor disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-default disabled:border-gray-400 disabled:opacity-50 w-44 h-[46px]'
+      }
       disabled={isDisabled}
       onClick={handleClick}
     >
-      {title}
+      {section === 'form' ? (
+        <>
+          {isSubmitting && <LoaderMini />}
+          {success && <FontAwesomeIcon icon={faCheckCircle} className='mr-2' />}
+          {!isSubmitting && !success && <>{title}</>}
+        </>
+      ) : (
+        <>{title}</>
+      )}
     </button>
   )
 }
