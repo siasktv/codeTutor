@@ -94,24 +94,6 @@ const UserDashboardLayout = props => {
                       <span className='ml-4'>Mis sesiones</span>
                     </button>
                   </li>
-                  <li>
-                    <button
-                      className={
-                        selectedSection === 'history'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
-                      }
-                      onClick={() => setSelectedSection('history')}
-                    >
-                      <FontAwesomeIcon
-                        icon={faChartLine}
-                        className={
-                          selectedSection === 'history' ? 'w-5 h-5 ' : 'w-5 h-5'
-                        }
-                      />
-                      <span className='ml-4'>Historial</span>
-                    </button>
-                  </li>
 
                   <li>
                     <button

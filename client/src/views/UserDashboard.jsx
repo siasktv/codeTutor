@@ -25,7 +25,17 @@ const UserDashboard = () => {
 
   useEffect(() => {
     if (sectionFromUrl) {
-      setSelectedSection(sectionFromUrl)
+      if (
+        sectionFromUrl !== 'dashboard' &&
+        sectionFromUrl !== 'calendar' &&
+        sectionFromUrl !== 'sessions' &&
+        sectionFromUrl !== 'settings' &&
+        sectionFromUrl !== 'faqs'
+      ) {
+        return
+      } else {
+        setSelectedSection(sectionFromUrl)
+      }
     }
   }, [sectionFromUrl])
 
@@ -124,11 +134,6 @@ const UserDashboard = () => {
                 {selectedSection === 'sessions' && (
                   <div className='flex justify-center items-center px-8'>
                     <Sessions user={user} />
-                  </div>
-                )}
-                {selectedSection === 'history' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Historial</h1>
                   </div>
                 )}
                 {selectedSection === 'settings' && (
