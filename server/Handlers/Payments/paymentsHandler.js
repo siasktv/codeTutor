@@ -47,7 +47,7 @@ const createPaymentIntent = async (req, res) => {
 }
 
 //crear Payment
-const createPayment = async (customer, data) => {
+const createPayment = async (customer, data, paymentIntent) => {
   console.log('userId:', customer.metadata.userId)
   const newPayment = new Payment({
     userId: customer.metadata.userId,
@@ -55,7 +55,10 @@ const createPayment = async (customer, data) => {
     paymentIntentId: data.payment_intent,
     total: data.amount_total,
     payment_status: data.status,
-    paymentData: data,
+    paymentData: {
+      ...data,
+      paymentIntent: paymentIntent,
+    },
   })
   try {
     const savedPayment = await newPayment.save()
@@ -106,7 +109,7 @@ const handleWebhookEvent = async (request, response) => {
     stripe.customers
       .retrieve(data.customer)
       .then((customer) => {
-        createPayment(customer, data)
+        createPayment(customer, data, paymentIntent)
       })
       .catch((err) => {
         console.log(err)
