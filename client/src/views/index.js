@@ -10,6 +10,7 @@ import Meeting from './Meeting'
 import Payments from './Payments'
 
 import FAQs from './FAQs'
+import NotFound from './NotFound'
 export {
   Landing,
   SearchPage,
@@ -20,4 +21,8 @@ export {
   Meeting,
   Payments,
   FAQs,
+<<<<<<< HEAD
+=======
+  NotFound
+>>>>>>> e71d5a607dd84cf387ab0142c6499eb73f017092
 }

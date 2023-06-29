@@ -8,8 +8,9 @@ import {
   Register,
   FormTutor,
   Meeting,
-  Payments,
   FAQs,
+  Payments,
+  NotFound,
 } from './views'
 import UserDashboard from './views/UserDashboard'
 import { SocketContext, socket } from './socket/context'
@@ -23,7 +24,7 @@ registerLicense(LICENSE_KEY)
 L10n.load({
   es: {
     grid: {
-      EmptyRecord: 'No hay registros para mostrar'
+      EmptyRecord: 'No hay registros para mostrar',
     },
     pager: {
       currentPageInfo: '{0} de {1} páginas',
@@ -33,10 +34,10 @@ L10n.load({
       nextPageTooltip: 'Ir a la página siguiente',
       previousPageTooltip: 'Ir a la página anterior',
       nextPagerTooltip: 'Ir al siguiente paginador',
-      previousPagerTooltip: 'Ir al paginador anterior'
+      previousPagerTooltip: 'Ir al paginador anterior',
     },
     calendar: {
-      today: 'Hoy'
+      today: 'Hoy',
     },
     datepicker: {
       today: 'Hoy',
@@ -47,28 +48,28 @@ L10n.load({
       doneButtonText: 'Aceptar',
       nextMonth: 'Mes siguiente',
       previousMonth: 'Mes anterior',
-      emptyDay: 'Día vacío'
+      emptyDay: 'Día vacío',
       // tslint:disable-next-line:max-line-length
     },
     timepicker: {
-      placeholder: 'Seleccionar hora'
+      placeholder: 'Seleccionar hora',
     },
     datetimepicker: {
       today: 'Hoy',
       placeholder: 'Seleccionar fecha y hora',
-      timePlaceholder: 'Seleccionar hora'
+      timePlaceholder: 'Seleccionar hora',
     },
     daterangepicker: {
-      placeholder: 'Seleccionar rango de fechas'
+      placeholder: 'Seleccionar rango de fechas',
     },
     multiselect: {
       noRecordsTemplate: 'No hay registros para mostrar',
       actionFailureTemplate: 'No hay registros para mostrar',
-      overflowCountTemplate: '+${count} más...'
+      overflowCountTemplate: '+${count} más...',
     },
     input: {
       incrementTitle: 'Incrementar',
-      decrementTitle: 'Decrementar'
+      decrementTitle: 'Decrementar',
     },
     schedule: {
       day: 'Día',
@@ -102,9 +103,9 @@ L10n.load({
       addTitle: 'Agregar título',
       moreDetails: 'Más detalles',
       save: 'Guardar',
-      editContent: '¿Desea editar solo este evento o toda la serie?'
-    }
-  }
+      editContent: '¿Desea editar solo este evento o toda la serie?',
+    },
+  },
 })
 
 //stripe
@@ -119,23 +120,21 @@ function App() {
   const user = useUser()
   return (
     <div className="App">
-      <Elements stripe={stripePromise}>
-        <SocketContext.Provider value={socket}>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/restore" element={<RestorePassword />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/tutor/:id" element={<TutorProfile />} />
-            <Route path="/user" element={<UserDashboard />} />
-            <Route path="/tutor" element={<FormTutor />} />
-            <Route path="/meeting/:id" element={<Meeting />} />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/FAQs" element={<FAQs />} />
-          </Routes>
-        </SocketContext.Provider>
-      </Elements>
+      <SocketContext.Provider value={socket}>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/restore" element={<RestorePassword />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/tutor/:id" element={<TutorProfile />} />
+          <Route path="/user" element={<UserDashboard />} />
+          <Route path="/tutor" element={<FormTutor />} />
+          <Route path="/meeting/:id" element={<Meeting />} />
+          <Route path="/FAQs" element={<FAQs />} />
+        </Routes>
+      </SocketContext.Provider>
     </div>
   )
 }

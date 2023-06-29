@@ -5,6 +5,7 @@ import {
   faCalendar,
   faChartLine,
   faChartPie,
+  faClockRotateLeft,
   faCreditCard,
   faGear,
   faQuestionCircle,
@@ -76,19 +77,21 @@ const UserDashboardLayout = props => {
                   <li>
                     <button
                       className={
-                        selectedSection === 'payment'
+                        selectedSection === 'sessions'
                           ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
                           : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
                       }
-                      onClick={() => setSelectedSection('payment')}
+                      onClick={() => setSelectedSection('sessions')}
                     >
                       <FontAwesomeIcon
-                        icon={faCreditCard}
+                        icon={faClockRotateLeft}
                         className={
-                          selectedSection === 'payment' ? 'w-5 h-5 ' : 'w-5 h-5'
+                          selectedSection === 'sessions'
+                            ? 'w-5 h-5 '
+                            : 'w-5 h-5'
                         }
                       />
-                      <span className='ml-4'>Método de pago</span>
+                      <span className='ml-4'>Mis sesiones</span>
                     </button>
                   </li>
                   <li>

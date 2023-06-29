@@ -16,6 +16,7 @@ import TutorFormProject from './FormTutor/TutorFormProject'
 import Settings from './Dashboards/UserDashBoard/Settings'
 import FAQs from './Dashboards/UserDashBoard/FAQs'
 import Calendar from './Dashboards/UserDashBoard/Calendar'
+import Sessions from './Dashboards/UserDashBoard/Sessions'
 
 export {
   TutorFormRate,
@@ -35,5 +36,6 @@ export {
   TutorFormProject,
   Settings,
   FAQs,
-  Calendar
+  Calendar,
+  Sessions
 }
