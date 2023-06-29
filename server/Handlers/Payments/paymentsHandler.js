@@ -7,11 +7,11 @@ const createPaymentIntent = async (req, res) => {
   console.log(req.body)
   const customer = await stripe.customers.create({
     metadata: {
-      userId: req.body.userId,
-    },
+      userId: req.body.userId
+    }
   })
 
-  console.log(customer)
+  // console.log(customer)
 
   try {
     const paymentDetails = req.body
@@ -26,17 +26,21 @@ const createPaymentIntent = async (req, res) => {
             unit_amount: paymentDetails.amount * 100,
             product_data: {
               name: 'Session',
-              description: paymentDetails.description,
-            },
+              description: paymentDetails.description
+            }
           },
-          quantity: 1,
-        },
+          quantity: 1
+        }
       ],
       customer: customer.id,
       mode: 'payment',
       success_url: `${FRONTEND_URL}/meeting/${paymentDetails.sessionId}`,
       //pasarle
       cancel_url: `${FRONTEND_URL}`,
+      payment_method_types: ['card'],
+      invoice_creation: {
+        enabled: true
+      }
     })
 
     console.log(session)
@@ -55,11 +59,11 @@ const createPayment = async (customer, data) => {
     paymentIntentId: data.payment_intent,
     total: data.amount_total,
     payment_status: data.status,
-    paymentData: data,
+    paymentData: data
   })
   try {
     const savedPayment = await newPayment.save()
-    console.log('Processed Payment:', savedPayment)
+    // console.log('Processed Payment:', savedPayment)
   } catch (err) {
     console.log(err)
   }
@@ -98,17 +102,25 @@ const handleWebhookEvent = async (request, response) => {
     const paymentIntent = await stripe.paymentIntents.retrieve(
       data.payment_intent,
       {
-        expand: ['payment_method'],
+        expand: ['payment_method']
       }
     )
 
     console.log('PaymentIntent:', paymentIntent)
+
+    const invoice = await stripe.invoices.retrieve(paymentIntent.invoice, {
+      expand: ['payment_intent']
+    })
+
+    const receiptUrl = invoice.hosted_invoice_url
+
+    console.log('Invoice:', receiptUrl)
     stripe.customers
       .retrieve(data.customer)
-      .then((customer) => {
+      .then(customer => {
         createPayment(customer, data)
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err)
       })
   }
