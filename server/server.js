@@ -260,6 +260,7 @@ io.on('connection', socket => {
   })
 
   socket.on('addTutorFavorite', async ({ userId, tutor }) => {
+    console.log('tutor', tutor)
     const user = await getUser(userId)
     if (user) {
       user.tutorFavorites.push(tutor)
@@ -267,6 +268,25 @@ io.on('connection', socket => {
         tutorFavorites: user.tutorFavorites
       })
     }
+    const saveInDb = async () => {
+      try {
+        const user = await User.findOne({
+          _id: userId
+        })
+        const exists = user.favoritesTutor.find(
+          favorite => favorite._id === tutor._id
+        )
+        if (!exists) {
+          await User.updateOne(
+            { _id: userId },
+            { $push: { favoritesTutor: tutor._id } }
+          )
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    saveInDb()
   })
 
   socket.on('removeTutorFavorite', async ({ userId, tutor }) => {
@@ -279,6 +299,25 @@ io.on('connection', socket => {
         tutorFavorites: user.tutorFavorites
       })
     }
+    const saveInDb = async () => {
+      try {
+        const user = await User.findOne({
+          _id: userId
+        })
+        const exists = user.favoritesTutor.find(
+          favorite => favorite._id === tutor._id
+        )
+        if (exists) {
+          await User.updateOne(
+            { _id: userId },
+            { $pull: { favoritesTutor: tutor._id } }
+          )
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    saveInDb()
   })
 
   socket.on('createSession', async ({ session }) => {
@@ -516,8 +555,7 @@ io.on('connection', socket => {
         try {
           await User.findByIdAndUpdate(user.userId, {
             offline: true,
-            chatOpen: null,
-            favoritesTutor: user.tutorFavorites
+            chatOpen: null
           })
         } catch (err) {
           console.log(err)
@@ -538,10 +576,40 @@ io.on('connection', socket => {
   })
 })
 
+const getSessions = async () => {
+  await Session.find({}).then(found => {
+    found.forEach(ses => {
+      sessions.push({
+        id: ses.sessionId,
+        tutorUserId: String(ses.tutorUserId._id),
+        clientUserId: String(ses.clientUserId._id),
+        appointmentDate: ses.appointmentDate,
+        minutes: ses.minutes,
+        price: ses.price,
+        expiredDate: ses.expiredDate,
+        isPaid: ses.isPaid,
+        paymentDetails: ses.paymentDetails,
+        clientHasJoined: ses.clientHasJoined,
+        tutorHasJoined: ses.tutorHasJoined,
+        startedCounterDate: ses.startedCounterDate,
+        endedCounterDate: ses.endedCounterDate,
+        expiredDate: ses.expiredDate,
+        isCancelled: ses.isCancelled,
+        isRefunded: ses.isRefunded,
+        isReviewed: ses.isReviewed,
+        reviewId: ses.reviewId,
+        isDisputed: ses.isDisputed
+      })
+    })
+  })
+  console.log('Sessions successfully loaded')
+}
+
 connectDB()
+getSessions()
 server.use('/', routes)
 
-serverhttp.listen(PORT, () => {
+serverhttp.listen(PORT, async () => {
   console.log(`server listening on port ${PORT}`)
 })
 
