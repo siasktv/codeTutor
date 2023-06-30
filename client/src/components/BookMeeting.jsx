@@ -22,9 +22,7 @@ export default function BookMeeting (props) {
   const { tutor, user } = props
   const dispatch = useDispatch()
   const socket = useContext(SocketContext)
-  const [selectedDate, setSelectedDate] = useState(
-    moment().format('MM/DD/YYYY')
-  )
+  const [selectedDate, setSelectedDate] = useState(null)
   const [disabledDates, setDisabledDates] = useState([])
   const [scheduledDates, setScheduledDates] = useState([])
   const [preFormattedScheduledDates, setPreFormattedScheduledDates] = useState(
