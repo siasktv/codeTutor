@@ -38,7 +38,7 @@ const addSession = session => {
     return addSession(session)
   }
   // if session id does not exist, add session to sessions array
-  sessions.push({ ...session, id: sessionId })
+  sessions.push({ ...session, id: sessionId, paymentAlert: false })
 
   return sessionId
 }

@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom'
 import { LoaderMini } from '../../../components'
 
 export default function Settings (props) {
-  const { user } = props
+  const { user, setShowTutorDashboard } = props
 
   const [avatar, setAvatar] = useState(user?.image)
   const [email, setEmail] = useState(user?.email)
@@ -33,6 +33,14 @@ export default function Settings (props) {
   const [showModal, setShowModal] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [successUpload, setSuccessUpload] = useState(false)
+
+  useEffect(() => {
+    if (tutorStatus === 'approved') {
+      setShowTutorDashboard(true)
+    } else {
+      setShowTutorDashboard(false)
+    }
+  }, [tutorStatus])
 
   const handleUploadImage = async e => {
     const file = e.target.files[0]

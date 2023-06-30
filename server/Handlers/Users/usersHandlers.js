@@ -25,7 +25,7 @@ const getUserByUidHandler = async (req, res) => {
   try {
     const user = await getUserByUid(uid)
     if (user) {
-      const tutor = await Tutor.findOne({ user: user._id })
+      const tutor = await Tutor.findOne({ user: user._id }).populate('user')
       res.status(200).json({
         ...user._doc,
         tutor

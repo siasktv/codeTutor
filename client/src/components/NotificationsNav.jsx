@@ -127,82 +127,87 @@ export default function NotificationsNav ({
                       </div>
                     </div>
                   )}
-                  {notifications.map(notification => (
-                    <React.Fragment key={notification.id}>
-                      {notification.type === 'link' && (
-                        <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
-                          <div className='flex justify-center align-middle items-center'>
-                            <Link
-                              to={notification.link}
-                              className='flex flex-row items-center'
-                            >
-                              <img
-                                className='w-10 h-10 rounded-full border-none mr-2 object-cover'
-                                src={notification.sender.image}
-                                alt='avatar'
-                              />
-                              <div className='flex flex-col w-60 text-left'>
-                                <h2 className='text-md'>
-                                  {notification.message}{' '}
-                                </h2>
-                              </div>
-                            </Link>
-                            <div className='flex justify-end ml-3'>
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
-                                onClick={e => {
-                                  e.preventDefault()
-                                  markAsRead(notification.id)
-                                }}
+                  {notifications
+                    // sort by date
+                    .sort((a, b) => {
+                      return new Date(b.createdAt) - new Date(a.createdAt)
+                    })
+                    .map(notification => (
+                      <React.Fragment key={notification.id}>
+                        {notification.type === 'link' && (
+                          <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
+                            <div className='flex justify-center align-middle items-center'>
+                              <Link
+                                to={notification.link}
+                                className='flex flex-row items-center'
                               >
-                                Marcar como leído
-                              </FontAwesomeIcon>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {notification.type === 'message' && (
-                        <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
-                          <div className=' flex justify-center align-middle items-center'>
-                            <div
-                              className='flex flex-row items-center'
-                              onClick={e => {
-                                handleSendShowMessage(e, {
-                                  ...notification.sender,
-                                  _id: notification.sender.id
-                                })
-                                setShowNotifications(false)
-                              }}
-                            >
-                              <img
-                                className='w-10 h-10 rounded-full border-none mr-2 object-cover'
-                                src={notification.sender.image}
-                                alt='avatar'
-                              />
-                              <div className='flex flex-col w-60 text-left'>
-                                <h2 className='text-md'>
-                                  {notification.message}{' '}
-                                </h2>
+                                <img
+                                  className='w-10 h-10 rounded-full border-none mr-2 object-cover'
+                                  src={notification.sender.image}
+                                  alt='avatar'
+                                />
+                                <div className='flex flex-col w-60 text-left'>
+                                  <h2 className='text-md'>
+                                    {notification.message}{' '}
+                                  </h2>
+                                </div>
+                              </Link>
+                              <div className='flex justify-end ml-3'>
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
+                                  onClick={e => {
+                                    e.preventDefault()
+                                    markAsRead(notification.id)
+                                  }}
+                                >
+                                  Marcar como leído
+                                </FontAwesomeIcon>
                               </div>
                             </div>
-                            <div className='flex justify-end ml-3'>
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
+                          </div>
+                        )}
+                        {notification.type === 'message' && (
+                          <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
+                            <div className=' flex justify-center align-middle items-center'>
+                              <div
+                                className='flex flex-row items-center'
                                 onClick={e => {
-                                  e.preventDefault()
-                                  markAsRead(notification.id)
+                                  handleSendShowMessage(e, {
+                                    ...notification.sender,
+                                    _id: notification.sender.id
+                                  })
+                                  setShowNotifications(false)
                                 }}
                               >
-                                Marcar como leído
-                              </FontAwesomeIcon>
+                                <img
+                                  className='w-10 h-10 rounded-full border-none mr-2 object-cover'
+                                  src={notification.sender.image}
+                                  alt='avatar'
+                                />
+                                <div className='flex flex-col w-60 text-left'>
+                                  <h2 className='text-md'>
+                                    {notification.message}{' '}
+                                  </h2>
+                                </div>
+                              </div>
+                              <div className='flex justify-end ml-3'>
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  className='text-codecolor font-bold active:scale-90 transition duration-150 cursor-pointer hover:text-codecolordark'
+                                  onClick={e => {
+                                    e.preventDefault()
+                                    markAsRead(notification.id)
+                                  }}
+                                >
+                                  Marcar como leído
+                                </FontAwesomeIcon>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </React.Fragment>
-                  ))}
+                        )}
+                      </React.Fragment>
+                    ))}
                 </div>
               </div>
             </div>

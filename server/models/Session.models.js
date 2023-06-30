@@ -4,83 +4,91 @@ const SessionSchema = new Schema(
   {
     sessionId: {
       type: Number,
-      required: true,
+      required: true
     },
     tutorUserId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: true
     },
     clientUserId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: true
     },
     appointmentDate: {
       type: Number,
-      required: true,
+      required: true
     },
     minutes: {
       type: Number,
-      required: true,
+      required: true
     },
     price: {
       type: Number,
-      required: true,
+      required: true
     },
     isPaid: {
       type: Boolean,
-      default: false,
+      default: false
     },
     paymentDetails: {
       type: Object,
-      default: null,
+      default: null
     },
     //referencia del pago
     clientHasJoined: {
       type: Boolean,
-      default: false,
+      default: false
     },
     tutorHasJoined: {
       type: Boolean,
-      default: false,
+      default: false
     },
     startedCounterDate: {
       type: Number,
-      default: null,
+      default: null
     },
     endedCounterDate: {
       type: Number,
-      default: null,
+      default: null
     },
     expiredDate: {
       type: Number,
-      required: true,
+      required: true
     },
     isCancelled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isRefunded: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isReviewed: {
       type: Boolean,
-      default: false,
+      default: false
     },
     reviewId: {
       type: Schema.Types.ObjectId,
       ref: 'Reviews',
-      default: null,
+      default: null
     },
     isDisputed: {
       type: Boolean,
-      default: false,
+      default: false
     },
+    paymentAlert: {
+      type: Boolean,
+      default: false
+    },
+    sentPaymentToTutor: {
+      type: Boolean,
+      default: false
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 

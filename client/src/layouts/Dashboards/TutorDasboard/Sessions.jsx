@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCompleteSessionsByClient } from '../../../redux/features/sessions/sessionsSlice'
-import { tutorsFetch } from '../../../redux/features/tutors/tutorsSlice'
+import { fetchCompleteSessionsByTutor } from '../../../redux/features/sessions/sessionsSlice'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,45 +8,37 @@ import {
   faCalendar,
   faCheckCircle,
   faClock,
-  faDollar,
-  faDollarSign,
   faLink,
   faMoneyBill,
-  faPlus,
-  faPlusCircle,
   faTriangleExclamation,
   faVideo
 } from '@fortawesome/free-solid-svg-icons'
-import { Loader, PaymentModal } from '../../../components'
+import { Loader } from '../../../components'
 
 export default function Sessions (props) {
   const { user } = props
   const dispatch = useDispatch()
-  const sessions = useSelector(state => state.sessions.completeSessionsByClient)
-  const tutors = useSelector(state => state.tutors.allTutors)
+  const sessions = useSelector(state => state.sessions.completeSessionsByTutor)
 
   useEffect(() => {
-    dispatch(fetchCompleteSessionsByClient(user.id))
-    dispatch(tutorsFetch())
+    dispatch(fetchCompleteSessionsByTutor(user.id))
   }, [])
 
   const [selectedSection, setSelectedSection] = useState('upcoming')
   const [previousSessions, setPreviousSessions] = useState(['loading'])
   const [upcomingSessions, setUpcomingSessions] = useState(['loading'])
-  const [paymentModal, setPaymentModal] = useState(false)
   const [finishedLoading, setFinishedLoading] = useState(false)
 
   useEffect(() => {
     if (
       upcomingSessions[0] !== 'loading' &&
-      previousSessions[0] !== 'loading' &&
-      tutors
+      previousSessions[0] !== 'loading'
     ) {
       setTimeout(() => {
         setFinishedLoading(true)
       }, 1000)
     }
-  }, [upcomingSessions, previousSessions, tutors])
+  }, [upcomingSessions, previousSessions])
 
   useEffect(() => {
     if (sessions) {
@@ -70,13 +61,6 @@ export default function Sessions (props) {
       )
     }
   }, [sessions])
-
-  const [paymentData, setPaymentData] = useState(null)
-
-  const showPaymentModal = session => {
-    setPaymentData(session)
-    setPaymentModal(true)
-  }
 
   return (
     <div className='flex flex-col w-full items center justify-center'>
@@ -226,7 +210,7 @@ export default function Sessions (props) {
                 className='text-green-700 p-3 rounded-md bg-green-200'
               />
               <p className='text-[#05004E] text-center font-semibold mt-2 text-lg'>
-                Pagos
+                Ingresos
               </p>
               <p className='text-gray-400 text-center font-semibold text-4xl'>
                 USD $
@@ -236,7 +220,7 @@ export default function Sessions (props) {
                   .reduce((acc, price) => acc + price, 0)}
               </p>
               <p className='text-[#05004E] text-center font-semibold text-sm'>
-                completados
+                confirmados
               </p>
               <div className='flex flex-col items-center justify-between w-[80%] px-5 mt-5'>
                 <div className='flex flex-row justify-between w-full'>
@@ -321,7 +305,7 @@ export default function Sessions (props) {
                     <thead>
                       <tr className='text-black'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
-                        <th className='py-2 pt-4 px-4'>Tutor</th>
+                        <th className='py-2 pt-4 px-4'>Cliente</th>
                         <th className='py-2 pt-4 px-4'>Duración</th>
                         <th className='py-2 pt-4 px-4'>Precio</th>
                         <th className='py-2 pt-4 px-4'>Estado de pago</th>
@@ -339,17 +323,7 @@ export default function Sessions (props) {
                             :00 hs
                           </td>
                           <td className='py-2 pb-4 px-4'>
-                            <a
-                              href={`/tutor/${
-                                tutors.find(
-                                  t => t.user._id === session.tutorUserId._id
-                                )?._id
-                              }`}
-                              target='_blank'
-                              className='text-codecolor hover:text-codecolordark transition-all duration-200'
-                            >
-                              {session.tutorUserId.fullName}
-                            </a>
+                            {session.clientUserId.fullName}
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.minutes} minutos
@@ -365,13 +339,6 @@ export default function Sessions (props) {
                                   className='mr-1.5 mb-[1.01px] text-xs'
                                 />
                                 Pagada
-                                <FontAwesomeIcon
-                                  icon={faPlus}
-                                  className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
-                                  onClick={() => {
-                                    showPaymentModal(session)
-                                  }}
-                                />
                               </span>
                             ) : (
                               <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
@@ -463,7 +430,7 @@ export default function Sessions (props) {
                     <thead>
                       <tr className='text-black'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
-                        <th className='py-2 pt-4 px-4'>Tutor</th>
+                        <th className='py-2 pt-4 px-4'>Cliente</th>
                         <th className='py-2 pt-4 px-4'>Duración</th>
                         <th className='py-2 pt-4 px-4'>Precio</th>
                         <th className='py-2 pt-4 px-4'>Estado de pago</th>
@@ -481,17 +448,7 @@ export default function Sessions (props) {
                             :00 hs
                           </td>
                           <td className='py-2 pb-4 px-4'>
-                            <a
-                              href={`/tutor/${
-                                tutors.find(
-                                  t => t.user._id === session.tutorUserId._id
-                                )?._id
-                              }`}
-                              target='_blank'
-                              className='text-codecolor hover:text-codecolordark transition-all duration-200'
-                            >
-                              {session.tutorUserId.fullName}
-                            </a>
+                            {session.clientUserId.fullName}
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.minutes} minutos
@@ -507,13 +464,6 @@ export default function Sessions (props) {
                                   className='mr-1.5 mb-[1.01px] text-xs'
                                 />
                                 Pagada
-                                <FontAwesomeIcon
-                                  icon={faPlus}
-                                  className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
-                                  onClick={() => {
-                                    showPaymentModal(session)
-                                  }}
-                                />
                               </span>
                             ) : (
                               <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
@@ -599,12 +549,9 @@ export default function Sessions (props) {
           )}
         </>
       ) : (
-        <div className='flex flex-col mt-72 w-full items-center justify-center'>
+        <div className='flex flex-col pt-72 w-full items-center justify-center'>
           <Loader />
         </div>
-      )}
-      {paymentModal && (
-        <PaymentModal session={paymentData} setPaymentModal={setPaymentModal} />
       )}
     </div>
   )

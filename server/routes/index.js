@@ -13,6 +13,7 @@ const stripe = require('./Payments/stripeRoutes.js')
 const sessionRoutes = require('./Session/sessionRoutes.js')
 const faqsRoutes = require('./Faqs/faqsRoutes.js')
 const newsletterRoutes = require('./Newsletter/newsletterRoutes.js')
+const cashoutsRoutes = require('./Cashouts/cashoutsRoutes.js')
 
 const router = Router()
 
@@ -30,5 +31,6 @@ router.use('/api/stripe', stripe)
 router.use('/api/session', sessionRoutes)
 router.use('/api/faqs', faqsRoutes)
 router.use('/api/newsletter', newsletterRoutes)
+router.use('/api/cashouts', cashoutsRoutes)
 
 module.exports = router
