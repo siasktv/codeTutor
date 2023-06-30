@@ -8,7 +8,6 @@ const createCashout = async (
   status,
   sessionsPaid
 ) => {
-  console.log(userId, amount, paymentDetails, tutorId, status, sessionsPaid)
   const newCashout = await Cashouts.create({
     userId,
     amount,

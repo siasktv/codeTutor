@@ -54,8 +54,6 @@ const TutorMetric = props => {
       sessionsByDay[dayKey].push(session)
     })
 
-  // console.log(sessionsByDay['2023-06-26'])
-
   const currentMonth = new Date().getMonth() + 1
   const previousMonth = currentMonth === 1 ? 12 : currentMonth - 1
 

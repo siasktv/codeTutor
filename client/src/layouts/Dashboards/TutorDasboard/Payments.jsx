@@ -155,10 +155,6 @@ export default function Payments (props) {
 
   const [selectedPaymentDetails, setSelectedPaymentDetails] = useState(null)
 
-  useEffect(() => {
-    console.log(selectedPaymentDetails)
-  }, [selectedPaymentDetails])
-
   const handleShowModalPayment = payment => {
     setSelectedPaymentDetails(payment)
     setShowModal('details')

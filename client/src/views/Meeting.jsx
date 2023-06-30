@@ -150,7 +150,6 @@ const Meeting = () => {
   const handlePaySession = async e => {
     //pase
     e.preventDefault()
-    console.log(session)
     const paymentDetails = {
       amount: session.price,
       sessionId: session.id,

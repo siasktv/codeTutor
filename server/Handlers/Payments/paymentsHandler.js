@@ -6,7 +6,6 @@ const User = require('../../models/User.models')
 const Session = require('../../models/Session.models')
 
 const createPaymentIntent = async (req, res) => {
-  // console.log(req.body)
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
@@ -14,12 +13,8 @@ const createPaymentIntent = async (req, res) => {
     }
   })
 
-  // console.log(customer)
-
   try {
     const paymentDetails = req.body
-
-    // console.log(paymentDetails)
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -68,7 +63,6 @@ const createPayment = async (customer, data, paymentIntent, receiptUrl) => {
   })
   try {
     const savedPayment = await newPayment.save()
-    // console.log('Processed Payment:', savedPayment)
   } catch (err) {
     console.log(err)
   }
@@ -102,9 +96,7 @@ const handleWebhookEvent = async (request, response) => {
     try {
       const payload = JSON.stringify(request.rawBody)
       event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
-      // console.log('Webhook Verified')
     } catch (err) {
-      // console.log(`Webhook Error : ${err.message} `)
       response.status(400).send(`Webhook Error: ${err.message}`)
       return
     }
@@ -121,15 +113,12 @@ const handleWebhookEvent = async (request, response) => {
       }
     )
 
-    // console.log('PaymentIntent:', paymentIntent)
-
     const invoice = await stripe.invoices.retrieve(paymentIntent.invoice, {
       expand: ['payment_intent']
     })
 
     const receiptUrl = invoice.hosted_invoice_url
 
-    // console.log('Invoice:', receiptUrl)
     stripe.customers
       .retrieve(data.customer)
       .then(async customer => {
@@ -137,7 +126,6 @@ const handleWebhookEvent = async (request, response) => {
         const session = await getSession(customer.metadata.sessionId)
         const user = await getUser(session.clientUserId)
         const tutor = await getUser(session.tutorUserId)
-        // console.log('User:', user)
         session.paymentDetails = {
           date: data.created,
           amount: data.amount_total,
