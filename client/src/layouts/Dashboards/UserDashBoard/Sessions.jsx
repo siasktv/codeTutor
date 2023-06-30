@@ -80,9 +80,9 @@ export default function Sessions (props) {
 
   return (
     <div className='flex flex-col w-full items center justify-center'>
-      <h1 className='text-4xl font-bold'>Mis sesiones</h1>
       {finishedLoading === true ? (
         <>
+          <h1 className='text-4xl font-bold'>Mis sesiones</h1>
           <div className='flex flex-row w-full justify-between space-x-3 items-center'>
             <div className='flex flex-col shadow-md shadow-codecolorlighter mt-5 w-full rounded-md h-72 items-center justify-center border'>
               <FontAwesomeIcon
@@ -599,7 +599,7 @@ export default function Sessions (props) {
           )}
         </>
       ) : (
-        <div className='flex flex-col mt-5 w-full items-center justify-center'>
+        <div className='flex flex-col mt-72 w-full items-center justify-center'>
           <Loader />
         </div>
       )}

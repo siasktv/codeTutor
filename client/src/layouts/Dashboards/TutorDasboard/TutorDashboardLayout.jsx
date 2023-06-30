@@ -7,10 +7,12 @@ import {
   faChartPie,
   faClockRotateLeft,
   faCreditCard,
+  faExternalLinkAlt,
   faGear,
   faHome,
   faQuestionCircle,
   faSignOut,
+  faUser,
   faWallet
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
@@ -39,8 +41,8 @@ const TutorDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'dashboard'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('dashboard')}
@@ -60,8 +62,8 @@ const TutorDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'calendar'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
                       }
                       onClick={() => setSelectedSection('calendar')}
                     >
@@ -80,8 +82,8 @@ const TutorDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'sessions'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
                       }
                       onClick={() => setSelectedSection('sessions')}
                     >
@@ -100,8 +102,8 @@ const TutorDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'payments'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('payments')}
@@ -122,8 +124,8 @@ const TutorDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'settings'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center border border-transparent hover:border-codecolor w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('settings')}
@@ -139,6 +141,22 @@ const TutorDashboardLayout = props => {
                       <span className='ml-4'>Ajustes</span>
                     </button>
                   </li>
+                  <li>
+                    <Link
+                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                      to='/user'
+                    >
+                      <FontAwesomeIcon icon={faUser} className='w-5 h-5' />
+                      <span className='ml-4'>
+                        Panel de usuario
+                        <FontAwesomeIcon
+                          icon={faExternalLinkAlt}
+                          className='w-3 h-3 ml-2'
+                        />
+                      </span>
+                    </Link>
+                  </li>
+
                   <li>
                     <Link
                       className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'

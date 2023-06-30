@@ -22,6 +22,9 @@ const UserDashboard = () => {
   const socket = useContext(SocketContext)
   const [selectedSection, setSelectedSection] = useState('dashboard')
   const sectionFromUrl = location.search.split('section=')[1]
+  const [showTutorDashboard, setShowTutorDashboard] = useState(
+    user?.role === 'Tutor' && user?.tutor?.status === 'approved' ? true : false
+  )
 
   useEffect(() => {
     if (sectionFromUrl) {
@@ -92,7 +95,13 @@ const UserDashboard = () => {
     if (user === null) {
       navigate('/login?redirect=/user')
     }
-    if (user) dispatch(userFetchById(user.uid))
+    if (user)
+      dispatch(userFetchById(user.uid)) &&
+        setShowTutorDashboard(
+          user?.role === 'Tutor' && user?.tutor?.status === 'approved'
+            ? true
+            : false
+        )
   }, [user])
 
   return (
@@ -104,6 +113,7 @@ const UserDashboard = () => {
               <UserDashboardLayout
                 selectedSection={selectedSection}
                 setSelectedSection={setSelectedSection}
+                showTutorDashboard={showTutorDashboard}
               />
             </div>
             <div className='flex flex-col justify-center w-full h-full left-0 right-0'>
@@ -138,7 +148,10 @@ const UserDashboard = () => {
                 )}
                 {selectedSection === 'settings' && (
                   <div className='flex justify-center items-center px-8'>
-                    <Settings user={user} />
+                    <Settings
+                      user={user}
+                      setShowTutorDashboard={setShowTutorDashboard}
+                    />
                   </div>
                 )}
                 {selectedSection === 'faqs' && (

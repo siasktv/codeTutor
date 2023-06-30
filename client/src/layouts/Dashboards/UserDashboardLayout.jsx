@@ -7,7 +7,9 @@ import {
   faChartPie,
   faClockRotateLeft,
   faCreditCard,
+  faExternalLinkAlt,
   faGear,
+  faGraduationCap,
   faHome,
   faQuestionCircle,
   faSignOut
@@ -16,8 +18,9 @@ import { useState } from 'react'
 import { LogoutModal } from '../../components'
 
 const UserDashboardLayout = props => {
-  const { selectedSection, setSelectedSection } = props
+  const { selectedSection, setSelectedSection, showTutorDashboard } = props
   const [showModalLogout, setShowModalLogout] = useState(false)
+
   return (
     <div className='flex overflow-hidden bg-white rounded-lg'>
       <div className='flex overflow-hidden'>
@@ -38,8 +41,8 @@ const UserDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'dashboard'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg hover:border-codecolor border border-transparent'
                       }
                       white=''
                       onClick={() => setSelectedSection('dashboard')}
@@ -59,8 +62,8 @@ const UserDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'calendar'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg hover:border-codecolor border border-transparent'
                       }
                       onClick={() => setSelectedSection('calendar')}
                     >
@@ -79,8 +82,8 @@ const UserDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'sessions'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg hover:border-codecolor border border-transparent'
                       }
                       onClick={() => setSelectedSection('sessions')}
                     >
@@ -100,8 +103,8 @@ const UserDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'settings'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg hover:border-codecolor border border-transparent'
                       }
                       white=''
                       onClick={() => setSelectedSection('settings')}
@@ -121,8 +124,8 @@ const UserDashboardLayout = props => {
                     <button
                       className={
                         selectedSection === 'faqs'
-                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-500 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-500 ease-in-out transform bg-white rounded-lg'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8  text-gray-700 transition duration-200 hover:border-codecolor border border-transparent ease-in-out transform bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('faqs')}
@@ -136,6 +139,26 @@ const UserDashboardLayout = props => {
                       <span className='ml-4'>FAQs</span>
                     </button>
                   </li>
+                  {showTutorDashboard && (
+                    <li>
+                      <Link
+                        className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                        to='/tutordashboard'
+                      >
+                        <FontAwesomeIcon
+                          icon={faGraduationCap}
+                          className='w-5 h-5'
+                        />
+                        <span className='ml-4'>
+                          Panel de tutor
+                          <FontAwesomeIcon
+                            icon={faExternalLinkAlt}
+                            className='w-3 h-3 ml-2'
+                          />
+                        </span>
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <Link
                       className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
