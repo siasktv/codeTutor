@@ -380,7 +380,9 @@ const sessionsSlice = createSlice({
           isRefunded: session.isRefunded,
           isReviewed: session.isReviewed,
           reviewId: session.reviewId,
-          isDisputed: session.isDisputed
+          isDisputed: session.isDisputed,
+          sentPaymentToTutor: session.sentPaymentToTutor,
+          paymentToTutorDetails: session.paymentToTutorDetails
         }
       })
     },
@@ -404,7 +406,9 @@ const sessionsSlice = createSlice({
           isRefunded: session.isRefunded,
           isReviewed: session.isReviewed,
           reviewId: session.reviewId,
-          isDisputed: session.isDisputed
+          isDisputed: session.isDisputed,
+          sentPaymentToTutor: session.sentPaymentToTutor,
+          paymentToTutorDetails: session.paymentToTutorDetails
         }
       })
     }
