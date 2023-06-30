@@ -8,6 +8,7 @@ import {
   faClockRotateLeft,
   faCreditCard,
   faGear,
+  faHome,
   faQuestionCircle,
   faSignOut
 } from '@fortawesome/free-solid-svg-icons'
@@ -136,13 +137,22 @@ const UserDashboardLayout = props => {
                     </button>
                   </li>
                   <li>
+                    <Link
+                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                      to='/'
+                    >
+                      <FontAwesomeIcon icon={faHome} className='w-5 h-5' />
+                      <span className='ml-4'>Volver al inicio</span>
+                    </Link>
+                  </li>
+                  <li>
                     <a
                       className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-red-500 hover:border-red-500 transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
                       white=''
                       onClick={setShowModalLogout}
                     >
                       <FontAwesomeIcon icon={faSignOut} className='w-5 h-5' />
-                      <span className='ml-4'>Salir</span>
+                      <span className='ml-4'>Cerrar sesión</span>
                     </a>
                   </li>
                 </ul>
