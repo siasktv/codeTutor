@@ -308,7 +308,6 @@ io.on('connection', socket => {
                   notificationTo
                 ]
                 await userToDb.save()
-                console.log(userToDb.notifications)
               } catch (err) {
                 console.log(err)
               }
@@ -439,7 +438,6 @@ io.on('connection', socket => {
   })
 
   socket.on('addTutorFavorite', async ({ userId, tutor }) => {
-    console.log('tutor', tutor)
     const user = await getUser(userId)
     if (user) {
       user.tutorFavorites.push(tutor)
