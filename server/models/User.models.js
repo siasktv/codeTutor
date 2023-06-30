@@ -48,7 +48,16 @@ const UserSchema = new Schema(
     payments: [{ type: Schema.Types.ObjectId, ref: 'Payment' }],
     notifications: [
       {
-        type: Object
+        message: { type: String },
+        count: { type: Number },
+        alerted: { type: Boolean, default: false },
+        sender: { type: Schema.Types.ObjectId, ref: 'User' },
+        receiver: { type: Schema.Types.ObjectId, ref: 'User' },
+        createdAt: { type: Date, default: Date.now },
+        isRead: { type: Boolean, default: false },
+        type: { type: String },
+        link: { type: String },
+        id: { type: String }
       }
     ]
   },
