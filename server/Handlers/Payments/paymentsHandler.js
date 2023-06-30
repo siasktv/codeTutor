@@ -53,8 +53,7 @@ const createPaymentIntent = async (req, res) => {
 }
 
 //crear Payment
-const createPayment = async (customer, data, paymentIntent) => {
-  console.log('userId:', customer.metadata.userId)
+const createPayment = async (customer, data, paymentIntent, receiptUrl) => {
   const newPayment = new Payment({
     userId: customer.metadata.userId,
     customerId: data.customer,
@@ -64,7 +63,8 @@ const createPayment = async (customer, data, paymentIntent) => {
     paymentData: {
       ...data,
       paymentIntent: paymentIntent
-    }
+    },
+    receiptUrl: receiptUrl
   })
   try {
     const savedPayment = await newPayment.save()
@@ -133,7 +133,7 @@ const handleWebhookEvent = async (request, response) => {
     stripe.customers
       .retrieve(data.customer)
       .then(async customer => {
-        createPayment(customer, data, paymentIntent)
+        createPayment(customer, data, paymentIntent, receiptUrl)
         const session = await getSession(customer.metadata.sessionId)
         const user = await getUser(session.clientUserId)
         const tutor = await getUser(session.tutorUserId)

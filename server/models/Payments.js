@@ -12,10 +12,10 @@ const paymentsSchema = new Schema(
 
     paymentData: { type: Object, required: true },
 
-    // recipeURL: { type: String },
+    receiptUrl: { type: String }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 
