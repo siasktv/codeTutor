@@ -81,6 +81,10 @@ const SessionSchema = new Schema(
     paymentAlert: {
       type: Boolean,
       default: false
+    },
+    sentPaymentToTutor: {
+      type: Boolean,
+      default: false
     }
   },
   {
