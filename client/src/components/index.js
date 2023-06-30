@@ -65,8 +65,13 @@ import LogoutModal from './LogoutModal.jsx'
 
 import BookMeeting from './BookMeeting.jsx'
 
+//componentes del TutorDashboard
+import Biography from './TutorDashboard/Biography.jsx'
+import Skills from './TutorDashboard/Skills.jsx'
+
 export {
   PaymentModal,
+  Biography,
   TutorFormProfileDisponibility,
   BookMeeting,
   LogoutModal,
@@ -119,5 +124,6 @@ export {
   MessageContainer,
   MessageMinimized,
   ChatsNav,
-  UpdateModal
+  UpdateModal,
+  Skills,
 }

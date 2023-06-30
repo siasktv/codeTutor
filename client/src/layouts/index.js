@@ -17,6 +17,7 @@ import Settings from './Dashboards/UserDashBoard/Settings'
 import FAQs from './Dashboards/UserDashBoard/FAQs'
 import Calendar from './Dashboards/UserDashBoard/Calendar'
 import Sessions from './Dashboards/UserDashBoard/Sessions'
+import SettingsTutor from './Dashboards/TutorDashBoard/SettingsTutor'
 
 export {
   TutorFormRate,
@@ -37,5 +38,6 @@ export {
   Settings,
   FAQs,
   Calendar,
-  Sessions
+  Sessions,
+  SettingsTutor,
 }
