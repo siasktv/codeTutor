@@ -114,6 +114,7 @@ const UserDashboard = () => {
                 selectedSection={selectedSection}
                 setSelectedSection={setSelectedSection}
                 showTutorDashboard={showTutorDashboard}
+                user={user}
               />
             </div>
             <div className='flex flex-col justify-center w-full h-full left-0 right-0'>

@@ -21,7 +21,8 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: ''
+      status: '',
+      bankAccount: {}
     }
   ],
   allTutors: [
@@ -40,7 +41,8 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: ''
+      status: '',
+      bankAccount: {}
     }
   ],
   tutor: {
@@ -57,7 +59,8 @@ const initialState = {
     skills: [],
     socialMedia: [],
     status: '',
-    sessions: []
+    sessions: [],
+    bankAccount: {}
   },
   locations: [],
   location: '',

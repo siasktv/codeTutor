@@ -65,7 +65,10 @@ import LogoutModal from './LogoutModal.jsx'
 
 import BookMeeting from './BookMeeting.jsx'
 
+import ModalBankTutor from './ModalBankTutor.jsx'
+
 export {
+  ModalBankTutor,
   PaymentModal,
   TutorFormProfileDisponibility,
   BookMeeting,

@@ -120,7 +120,7 @@ export default function Payments (props) {
       const availableFinal = available.filter(payment => {
         const releaseDate = getReleaseDate(payment)
         const today = moment().format('MMMM DD YYYY')
-        if (today < releaseDate) {
+        if (moment(today).isBefore(releaseDate)) {
           return payment
         }
       })
@@ -130,7 +130,7 @@ export default function Payments (props) {
       const inTransit = available.filter(payment => {
         const releaseDate = getReleaseDate(payment)
         const today = moment().format('MMMM DD YYYY')
-        if (today >= releaseDate) {
+        if (moment(today).isSameOrAfter(releaseDate)) {
           return payment
         }
       })
@@ -192,12 +192,15 @@ export default function Payments (props) {
                       </h1>
                       <h1 className='text-2xl font-bold mt-3 text-gray-400'>
                         USD${' '}
-                        {(frozenPayments.reduce(
-                          (acc, payment) => acc + payment.paymentDetails.amount,
-                          0
-                        ) /
-                          100) *
-                          0.9}
+                        {(
+                          (frozenPayments.reduce(
+                            (acc, payment) =>
+                              acc + payment.paymentDetails.amount,
+                            0
+                          ) /
+                            100) *
+                          0.9
+                        ).toFixed(2)}
                       </h1>
                     </div>
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
@@ -215,12 +218,15 @@ export default function Payments (props) {
                       </h1>
                       <h1 className='text-2xl font-bold mt-3 text-gray-400'>
                         USD${' '}
-                        {(availablePayments.reduce(
-                          (acc, payment) => acc + payment.paymentDetails.amount,
-                          0
-                        ) /
-                          100) *
-                          0.9}
+                        {(
+                          (availablePayments.reduce(
+                            (acc, payment) =>
+                              acc + payment.paymentDetails.amount,
+                            0
+                          ) /
+                            100) *
+                          0.9
+                        ).toFixed(2)}
                       </h1>
                     </div>
                   </div>
@@ -254,12 +260,15 @@ export default function Payments (props) {
                       </h1>
                       <h1 className='text-2xl font-bold mt-3 text-gray-400'>
                         USD${' '}
-                        {(inTransitPayments.reduce(
-                          (acc, payment) => acc + payment.paymentDetails.amount,
-                          0
-                        ) /
-                          100) *
-                          0.9}
+                        {(
+                          (inTransitPayments.reduce(
+                            (acc, payment) =>
+                              acc + payment.paymentDetails.amount,
+                            0
+                          ) /
+                            100) *
+                          0.9
+                        ).toFixed(2)}
                       </h1>
                     </div>
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
@@ -277,10 +286,13 @@ export default function Payments (props) {
                       </h1>
                       <h1 className='text-2xl font-bold mt-3 text-gray-400'>
                         USD${' '}
-                        {sentPayments.reduce(
-                          (acc, payment) => acc + payment.paymentDetails.amount,
-                          0
-                        )}
+                        {sentPayments
+                          .reduce(
+                            (acc, payment) =>
+                              acc + Number(payment.paymentDetails.amount),
+                            0
+                          )
+                          .toFixed(2)}
                       </h1>
                     </div>
                   </div>
@@ -313,7 +325,11 @@ export default function Payments (props) {
                               {moment
                                 .unix(payment.paymentDetails.date)
                                 .format('DD/MM/YYYY HH:mm')}{' '}
-                              hs - USD$ {payment.paymentDetails.amount / 100}
+                              hs - USD${' '}
+                              {(
+                                (payment.paymentDetails.amount / 100) *
+                                0.9
+                              ).toFixed(2)}
                             </li>
                           </>
                         ))}
@@ -465,7 +481,7 @@ export default function Payments (props) {
                 </span>
                 {/* modal content */}
                 <div
-                  className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+                  className='inline-block align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full max-h-[800px]'
                   role='dialog'
                   aria-modal='true'
                   aria-labelledby='modal-headline'
@@ -711,10 +727,12 @@ export default function Payments (props) {
                                     </td>
                                     <td className='py-1'>
                                       $USD{' '}
-                                      {selectedPaymentDetails.sessionsPaid.reduce(
-                                        (a, b) => a + b.price,
-                                        0
-                                      ) * 0.9}{' '}
+                                      {(
+                                        selectedPaymentDetails.sessionsPaid.reduce(
+                                          (a, b) => a + b.price,
+                                          0
+                                        ) * 0.9
+                                      ).toFixed(2)}{' '}
                                     </td>
                                   </tr>
                                 </tbody>

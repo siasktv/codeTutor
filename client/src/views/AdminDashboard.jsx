@@ -10,7 +10,8 @@ import AdminDashboardGraphbyYear from '../components/AdminDashboardGraphbyYear'
 import AdminMetric from '../components/AdminMetric'
 import AdminMetricStatic from '../components/AdminMetricStatic'
 import TabListAdmin from '../components/TabListAdmin'
-import { Settings } from '../layouts'
+import { AdminPayments, AdminSessions, Settings } from '../layouts'
+import AdminDashboardLayout from '../layouts/Dashboards/AdminDashboard/AdminDashboardLayout'
 
 const AdminDashboard = () => {
   const user = useUser()
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
   const socket = useContext(SocketContext)
   const [selectedSection, setSelectedSection] = useState('dashboard')
   const sectionFromUrl = location.search.split('section=')[1]
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (sectionFromUrl) {
@@ -30,13 +32,12 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (selectedSection !== 'dashboard') {
       // add query param to url
-      navigate(`/admindashboard?section=${selectedSection}`)
+      navigate(`/admin?section=${selectedSection}`)
     } else {
       // remove query param from url
-      navigate('/admindashboard')
+      navigate('/admin')
     }
   }, [selectedSection])
-
 
   const handleShowMessage = (e, tutor) => {
     e.preventDefault()
@@ -83,17 +84,24 @@ const AdminDashboard = () => {
     }
   }, [user])
 
+  useEffect(() => {
+    if (user && user.admin === false) {
+      navigate('/user')
+    } else if (user && user.admin === true) {
+      setIsLoading(false)
+    }
+  }, [user])
+
   return (
     <>
-      {user && (
+      {user && !isLoading && (
         <div className=''>
           <div className='flex'>
             <div className='fixed top-0 z-[100]'>
-              <UserDashboardLayout 
-              selectedSection={selectedSection}
-              setSelectedSection={setSelectedSection}
+              <AdminDashboardLayout
+                selectedSection={selectedSection}
+                setSelectedSection={setSelectedSection}
               />
-              
             </div>
             <div className='flex flex-col justify-center w-full h-full left-0 right-0'>
               <div className='sticky top-0 z-50 bg-white'>
@@ -105,36 +113,21 @@ const AdminDashboard = () => {
                 />
               </div>
               <div className='flex flex-col bg-[#FAFBFC] ml-60'>
-              {selectedSection === 'dashboard' && (
+                {selectedSection === 'dashboard' && (
                   <>
-                <AdminMetricStatic/>
-                <AdminMetric/>
-                <TabListAdmin/>
-                </> 
+                    <AdminMetricStatic />
+                    <AdminMetric />
+                    <TabListAdmin />
+                  </>
                 )}
-                {selectedSection === 'calendar' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Calendario</h1>
+                {selectedSection === 'sessions' && (
+                  <div className='flex justify-center items-center mt-8'>
+                    <AdminSessions user={user} />
                   </div>
                 )}
-                {selectedSection === 'payment' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Metodos de pago</h1>
-                  </div>
-                )}
-                {selectedSection === 'history' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>Historial</h1>
-                  </div>
-                )}
-                {selectedSection === 'settings' && (
-                  <div className='flex justify-center items-center px-8'>
-                    <Settings user={user} />
-                  </div>
-                )}
-                {selectedSection === 'faqs' && (
-                  <div className='flex justify-center items-center mt-96'>
-                    <h1 className='text-4xl font-bold'>FAQ's</h1>
+                {selectedSection === 'payments' && (
+                  <div className='flex justify-center items-center mt-8'>
+                    <AdminPayments user={user} />
                   </div>
                 )}
               </div>
@@ -158,7 +151,7 @@ const AdminDashboard = () => {
           )}
         </div>
       )}
-      {!user && (
+      {!user && isLoading && (
         <div className='flex justify-center items-center h-screen'>
           <Loader />
         </div>

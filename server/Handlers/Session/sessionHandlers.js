@@ -41,7 +41,8 @@ const createSessionHandler = async (req, res) => {
     appointmentDate,
     minutes,
     price,
-    expiredDate
+    expiredDate,
+    meetLink
   } = req.body
   if (
     !sessionId ||
@@ -62,7 +63,8 @@ const createSessionHandler = async (req, res) => {
       appointmentDate,
       minutes,
       price,
-      expiredDate
+      expiredDate,
+      meetLink
     )
     res.status(200).json(session)
   } catch (error) {

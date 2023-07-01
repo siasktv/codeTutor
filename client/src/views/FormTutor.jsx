@@ -79,7 +79,7 @@ export default function FormTutor () {
           setShowModal('rejected')
           setSection(null)
         } else if (user.tutor.status === 'approved') {
-          navigate('/user')
+          navigate('/tutordashboard')
         }
       } else {
         setSection('data')

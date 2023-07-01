@@ -26,6 +26,7 @@ const {
 const Session = require('./models/Session.models.js')
 const Reviews = require('./models/Review.models.js')
 const Tutors = require('./models/Tutor.models.js')
+const Meeting = require('google-meet-api').meet
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -36,6 +37,10 @@ const { log } = require('console')
 const { find } = require('./models/Tutor.models.js')
 const PORT = process.env.PORT || 3001
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173'
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN
+const moment = require('moment')
 
 //test
 server.use(cors())
@@ -498,13 +503,25 @@ io.on('connection', socket => {
   })
 
   socket.on('createSession', async ({ session }) => {
-    const createdSession = await addSession(session)
+    const meetLink = await Meeting({
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      refreshToken: GOOGLE_REFRESH_TOKEN,
+      date: moment(session.appointmentDate).format('YYYY-MM-DD'),
+      time: moment(session.appointmentDate).format('HH:mm:ss'),
+      summary: `Sesion entre ${session.tutorUserId} y ${session.clientUserId}`,
+      location: 'location',
+      description: `Sesion entre ${session.tutorUserId} y ${session.clientUserId}`
+    })
+
+    const createdSession = await addSession(session, meetLink)
     const user = await getUser(session.clientUserId)
 
     if (user) {
       io.to(user.socketId).emit('createdSession', {
         ...session,
-        sessionId: createdSession
+        sessionId: createdSession,
+        meetLink: meetLink
       })
     }
     const sessionToDb = async () => {
@@ -516,7 +533,8 @@ io.on('connection', socket => {
           appointmentDate: session.appointmentDate,
           minutes: session.minutes,
           price: session.price,
-          expiredDate: session.expiredDate
+          expiredDate: session.expiredDate,
+          meetLink: meetLink
         })
       } catch (error) {
         console.log(error)

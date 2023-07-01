@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCompleteSessionsByTutor } from '../../../redux/features/sessions/sessionsSlice'
+import { fetchCompleteSessions } from '../../../redux/features/sessions/sessionsSlice'
+import { tutorsFetch } from '../../../redux/features/tutors/tutorsSlice'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,37 +9,45 @@ import {
   faCalendar,
   faCheckCircle,
   faClock,
+  faDollar,
+  faDollarSign,
   faLink,
   faMoneyBill,
+  faPlus,
+  faPlusCircle,
   faTriangleExclamation,
   faVideo
 } from '@fortawesome/free-solid-svg-icons'
-import { Loader } from '../../../components'
+import { Loader, PaymentModal } from '../../../components'
 
 export default function Sessions (props) {
   const { user } = props
   const dispatch = useDispatch()
-  const sessions = useSelector(state => state.sessions.completeSessionsByTutor)
+  const sessions = useSelector(state => state.sessions.allCompleteSessions)
+  const tutors = useSelector(state => state.tutors.allTutors)
 
   useEffect(() => {
-    dispatch(fetchCompleteSessionsByTutor(user.id))
+    dispatch(fetchCompleteSessions())
+    dispatch(tutorsFetch())
   }, [])
 
   const [selectedSection, setSelectedSection] = useState('upcoming')
   const [previousSessions, setPreviousSessions] = useState(['loading'])
   const [upcomingSessions, setUpcomingSessions] = useState(['loading'])
+  const [paymentModal, setPaymentModal] = useState(false)
   const [finishedLoading, setFinishedLoading] = useState(false)
 
   useEffect(() => {
     if (
       upcomingSessions[0] !== 'loading' &&
-      previousSessions[0] !== 'loading'
+      previousSessions[0] !== 'loading' &&
+      tutors
     ) {
       setTimeout(() => {
         setFinishedLoading(true)
       }, 1000)
     }
-  }, [upcomingSessions, previousSessions])
+  }, [upcomingSessions, previousSessions, tutors])
 
   useEffect(() => {
     if (sessions) {
@@ -62,11 +71,18 @@ export default function Sessions (props) {
     }
   }, [sessions])
 
+  const [paymentData, setPaymentData] = useState(null)
+
+  const showPaymentModal = session => {
+    setPaymentData(session)
+    setPaymentModal(true)
+  }
+
   return (
     <div className='flex flex-col w-full items center justify-center'>
       {finishedLoading === true ? (
         <>
-          <h1 className='text-4xl font-bold'>Mis sesiones</h1>
+          <h1 className='text-4xl font-bold'>Sesiones</h1>
           <div className='flex flex-row w-full justify-between space-x-3 items-center'>
             <div className='flex flex-col shadow-md shadow-codecolorlighter mt-5 w-full rounded-md h-72 items-center justify-center border'>
               <FontAwesomeIcon
@@ -98,8 +114,13 @@ export default function Sessions (props) {
                     {
                       sessions.filter(
                         session =>
-                          session.startedCounterDate &&
-                          session.endedCounterDate >= moment().valueOf()
+                          (moment(session.appointmentDate).isSameOrBefore(
+                            moment()
+                          ) &&
+                            !session.endedCounterDate &&
+                            session.expiredDate >= moment().valueOf()) ||
+                          (session.startedCounterDate &&
+                            session.endedCounterDate >= moment().valueOf())
                       ).length
                     }
                   </p>
@@ -164,8 +185,13 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          session.startedCounterDate &&
-                          session.endedCounterDate >= moment().valueOf()
+                          (moment(session.appointmentDate).isSameOrBefore(
+                            moment()
+                          ) &&
+                            !session.endedCounterDate &&
+                            session.expiredDate >= moment().valueOf()) ||
+                          (session.startedCounterDate &&
+                            session.endedCounterDate >= moment().valueOf())
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -210,7 +236,7 @@ export default function Sessions (props) {
                 className='text-green-700 p-3 rounded-md bg-green-200'
               />
               <p className='text-[#05004E] text-center font-semibold mt-2 text-lg'>
-                Ingresos
+                Pagos
               </p>
               <p className='text-gray-400 text-center font-semibold text-4xl'>
                 USD $
@@ -220,7 +246,7 @@ export default function Sessions (props) {
                   .reduce((acc, price) => acc + price, 0)}
               </p>
               <p className='text-[#05004E] text-center font-semibold text-sm'>
-                confirmados
+                completados
               </p>
               <div className='flex flex-col items-center justify-between w-[80%] px-5 mt-5'>
                 <div className='flex flex-row justify-between w-full'>
@@ -305,12 +331,12 @@ export default function Sessions (props) {
                     <thead>
                       <tr className='text-black'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
+                        <th className='py-2 pt-4 px-4'>Tutor</th>
                         <th className='py-2 pt-4 px-4'>Cliente</th>
                         <th className='py-2 pt-4 px-4'>Duración</th>
                         <th className='py-2 pt-4 px-4'>Precio</th>
                         <th className='py-2 pt-4 px-4'>Estado de pago</th>
                         <th className='py-2 pt-4 px-4'>Estado de la sesión</th>
-                        <th className='py-2 pt-4 px-4'>Enlace</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -321,6 +347,19 @@ export default function Sessions (props) {
                               'DD/MM/YYYY HH'
                             )}
                             :00 hs
+                          </td>
+                          <td className='py-2 pb-4 px-4'>
+                            <a
+                              href={`/tutor/${
+                                tutors.find(
+                                  t => t.user._id === session.tutorUserId._id
+                                )?._id
+                              }`}
+                              target='_blank'
+                              className='text-codecolor hover:text-codecolordark transition-all duration-200'
+                            >
+                              {session.tutorUserId.fullName}
+                            </a>
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.clientUserId.fullName}
@@ -339,6 +378,13 @@ export default function Sessions (props) {
                                   className='mr-1.5 mb-[1.01px] text-xs'
                                 />
                                 Pagada
+                                <FontAwesomeIcon
+                                  icon={faPlus}
+                                  className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
+                                  onClick={() => {
+                                    showPaymentModal(session)
+                                  }}
+                                />
                               </span>
                             ) : (
                               <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
@@ -390,22 +436,6 @@ export default function Sessions (props) {
                                 />
                                 Agendada
                               </span>
-                            )}
-                          </td>
-                          <td className='py-2 pb-4 px-4'>
-                            {moment(session.expiredDate).isBefore(moment()) ? (
-                              <span className='text-red-500'>Expirado</span>
-                            ) : (
-                              <a
-                                href={`/meeting/${session.sessionId}`}
-                                target='_blank'
-                                className='bg-codecolor text-white items-center justify-center px-5 py-1 rounded-md transition-all duration-200 hover:bg-codecolordark'
-                              >
-                                <FontAwesomeIcon
-                                  icon={faLink}
-                                  className='self-center text-md'
-                                />
-                              </a>
                             )}
                           </td>
                         </tr>
@@ -430,12 +460,12 @@ export default function Sessions (props) {
                     <thead>
                       <tr className='text-black'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
+                        <th className='py-2 pt-4 px-4'>Tutor</th>
                         <th className='py-2 pt-4 px-4'>Cliente</th>
                         <th className='py-2 pt-4 px-4'>Duración</th>
                         <th className='py-2 pt-4 px-4'>Precio</th>
                         <th className='py-2 pt-4 px-4'>Estado de pago</th>
                         <th className='py-2 pt-4 px-4'>Estado de la sesión</th>
-                        <th className='py-2 pt-4 px-4'>Enlace</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -446,6 +476,19 @@ export default function Sessions (props) {
                               'DD/MM/YYYY HH'
                             )}
                             :00 hs
+                          </td>
+                          <td className='py-2 pb-4 px-4'>
+                            <a
+                              href={`/tutor/${
+                                tutors.find(
+                                  t => t.user._id === session.tutorUserId._id
+                                )?._id
+                              }`}
+                              target='_blank'
+                              className='text-codecolor hover:text-codecolordark transition-all duration-200'
+                            >
+                              {session.tutorUserId.fullName}
+                            </a>
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.clientUserId.fullName}
@@ -464,6 +507,13 @@ export default function Sessions (props) {
                                   className='mr-1.5 mb-[1.01px] text-xs'
                                 />
                                 Pagada
+                                <FontAwesomeIcon
+                                  icon={faPlus}
+                                  className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
+                                  onClick={() => {
+                                    showPaymentModal(session)
+                                  }}
+                                />
                               </span>
                             ) : (
                               <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
@@ -517,22 +567,6 @@ export default function Sessions (props) {
                               </span>
                             )}
                           </td>
-                          <td className='py-2 pb-4 px-4'>
-                            {moment(session.expiredDate).isBefore(moment()) ? (
-                              <span className='text-red-500'>Expirado</span>
-                            ) : (
-                              <a
-                                href={`/meeting/${session.sessionId}`}
-                                target='_blank'
-                                className='bg-codecolor text-white items-center justify-center px-5 py-1 rounded-md transition-all duration-200 hover:bg-codecolordark'
-                              >
-                                <FontAwesomeIcon
-                                  icon={faLink}
-                                  className='self-center text-md'
-                                />
-                              </a>
-                            )}
-                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -549,9 +583,12 @@ export default function Sessions (props) {
           )}
         </>
       ) : (
-        <div className='flex flex-col pt-72 w-full items-center justify-center'>
+        <div className='flex flex-col mt-72 w-full items-center justify-center'>
           <Loader />
         </div>
+      )}
+      {paymentModal && (
+        <PaymentModal session={paymentData} setPaymentModal={setPaymentModal} />
       )}
     </div>
   )

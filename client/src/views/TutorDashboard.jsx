@@ -1,5 +1,5 @@
 import NavDashboard from '../components/NavDashboard'
-import TutorDashboardLayout from '../layouts/Dashboards/TutorDasboard/TutorDashboardLayout'
+import TutorDashboardLayout from '../layouts/Dashboards/TutorDashboard/TutorDashboardLayout'
 import useUser from '../hooks/useUser'
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'

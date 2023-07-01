@@ -67,7 +67,16 @@ const TutorSchema = new Schema(
           }
         ]
       }
-    ]
+    ],
+    bankAccount: {
+      accountNumber: { type: String },
+      accountHolder: { type: String },
+      bankName: { type: String },
+      branchCode: { type: String },
+      accountType: {
+        type: String
+      }
+    }
   },
   {
     timestamps: true

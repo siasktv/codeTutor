@@ -12,13 +12,15 @@ import {
   faGraduationCap,
   faHome,
   faQuestionCircle,
-  faSignOut
+  faSignOut,
+  faUserCog
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { LogoutModal } from '../../components'
 
 const UserDashboardLayout = props => {
-  const { selectedSection, setSelectedSection, showTutorDashboard } = props
+  const { selectedSection, setSelectedSection, showTutorDashboard, user } =
+    props
   const [showModalLogout, setShowModalLogout] = useState(false)
 
   return (
@@ -151,6 +153,23 @@ const UserDashboardLayout = props => {
                         />
                         <span className='ml-4'>
                           Panel de tutor
+                          <FontAwesomeIcon
+                            icon={faExternalLinkAlt}
+                            className='w-3 h-3 ml-2'
+                          />
+                        </span>
+                      </Link>
+                    </li>
+                  )}
+                  {user.admin && (
+                    <li>
+                      <Link
+                        className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                        to='/admin'
+                      >
+                        <FontAwesomeIcon icon={faUserCog} className='w-5 h-5' />
+                        <span className='ml-4'>
+                          Panel de administrador
                           <FontAwesomeIcon
                             icon={faExternalLinkAlt}
                             className='w-3 h-3 ml-2'
