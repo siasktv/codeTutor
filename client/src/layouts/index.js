@@ -16,9 +16,15 @@ import TutorFormProject from './FormTutor/TutorFormProject'
 import Settings from './Dashboards/UserDashBoard/Settings'
 import FAQs from './Dashboards/UserDashBoard/FAQs'
 import Calendar from './Dashboards/UserDashBoard/Calendar'
+import CalendarTutor from './Dashboards/TutorDasboard/Calendar'
 import Sessions from './Dashboards/UserDashBoard/Sessions'
+import SessionsTutor from './Dashboards/TutorDasboard/Sessions'
+import Payments from './Dashboards/TutorDasboard/Payments'
 
 export {
+  Payments,
+  SessionsTutor,
+  CalendarTutor,
   TutorFormRate,
   TutorInfoL,
   TutorInfoR,

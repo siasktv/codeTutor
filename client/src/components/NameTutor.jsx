@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPercentage } from '@fortawesome/free-solid-svg-icons'
 
 const NameTutor = props => {
-  console.log(props)
   return (
     <div className='flex flex-row items-center justify-center'>
       <h2 className='text-2xl font-medium'>{props.fullName}</h2>

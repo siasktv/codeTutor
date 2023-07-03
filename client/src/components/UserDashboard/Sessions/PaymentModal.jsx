@@ -51,11 +51,15 @@ export default function PaymentModal ({ session, setPaymentModal }) {
                 </h3>
                 <div className='mt-5 space-y-3'>
                   <p className='text-md text-gray-500'>
-                    <span className='font-bold'>Fecha:</span> 29/06/2023
-                    18:00:00 hs
+                    <span className='font-bold'>Fecha:</span>{' '}
+                    {moment
+                      .unix(session.paymentDetails.date)
+                      .format('DD/MM/YYYY HH:mm:ss')}{' '}
+                    hs
                   </p>
                   <p className='text-md text-gray-500'>
-                    <span className='font-bold'>Monto:</span> USD $ 30,72
+                    <span className='font-bold'>Monto:</span> USD${' '}
+                    {session.paymentDetails.amount / 100}
                   </p>
                   <p className='text-md text-gray-500'>
                     <span className='font-bold'>Estado:</span>
@@ -74,8 +78,18 @@ export default function PaymentModal ({ session, setPaymentModal }) {
                         icon={faCreditCard}
                         className='mr-1 text-xs'
                       />
-                      Visa terminada en 4242
+                      {session.paymentDetails.card.brand
+                        .charAt(0)
+                        .toUpperCase() +
+                        session.paymentDetails.card.brand.slice(1)}{' '}
+                      terminada en {session.paymentDetails.card.last4}
                     </span>
+                  </p>
+                  <p className='text-md text-gray-500'>
+                    <span className='font-bold'>Tipo de tarjeta:</span>{' '}
+                    {session.paymentDetails.card.type === 'credit'
+                      ? 'Crédito'
+                      : 'Débito'}
                   </p>
                   <p className='text-md text-gray-500'>
                     <span className='font-bold'>Comprobante:</span>
@@ -85,7 +99,7 @@ export default function PaymentModal ({ session, setPaymentModal }) {
                         className='mr-1 text-xs'
                       />
                       <a
-                        href='https://www.google.com.ar'
+                        href={session.paymentDetails.receiptUrl}
                         target='_blank'
                         rel='noreferrer'
                       >

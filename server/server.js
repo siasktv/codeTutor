@@ -182,6 +182,66 @@ io.on('connection', socket => {
           io.to(user.socketId).emit('setNotifications', {
             notifications: user.notifications
           })
+          const NotificationToDb = async () => {
+            try {
+              const userToDb = await User.findOne({ _id: receiverId }).populate(
+                {
+                  path: 'notifications',
+                  populate: {
+                    path: 'sender',
+                    select: '_id'
+                  }
+                }
+              )
+              const notificationExistsTo = userToDb.notifications.filter(
+                notification =>
+                  notification.type === 'message' &&
+                  String(notification.sender._id) === userId &&
+                  notification.isRead === false
+              )[0]
+              if (notificationExistsTo) {
+                await User.findOneAndUpdate(
+                  {
+                    _id: receiverId,
+                    'notifications.isRead': false,
+                    'notifications.type': 'message'
+                  },
+                  {
+                    $inc: {
+                      'notifications.$.count': 1
+                    },
+                    $set: {
+                      'notifications.$.message': `${
+                        notification.sender.fullName
+                      } te envió ${notificationExistsTo.count + 1} mensajes`,
+                      'notifications.$.alerted': false
+                    }
+                  }
+                )
+              } else {
+                const notificationTo = {
+                  message: `${notification.sender.fullName} te envió un mensaje`,
+                  count: 1,
+                  alerted: user.online ? false : true,
+                  type: notification.type,
+                  sender: userId,
+                  receiver: receiverId,
+                  id: Math.random().toString(36).substr(2, 9),
+                  isRead: notification.isRead,
+                  createdAt: notification.createdAt,
+                  link: notification.link
+                }
+                userToDb.notifications = [
+                  ...userToDb.notifications,
+                  notificationTo
+                ]
+                await userToDb.save()
+              }
+            } catch (err) {
+              console.log(err)
+            }
+          }
+          NotificationToDb()
         } else {
           notificationId = Math.random().toString(36).substr(2, 9)
           if (notification.type === 'message') {
@@ -195,6 +255,31 @@ io.on('connection', socket => {
                 alerted: user.online ? false : true
               }
             ]
+            const NotificationToDb = async () => {
+              try {
+                const userToDb = await User.findOne({ _id: receiverId })
+                const notificationTo = {
+                  message: `${notification.sender.fullName} te envió un mensaje`,
+                  count: 1,
+                  alerted: user.online ? false : true,
+                  type: notification.type,
+                  sender: userId,
+                  receiver: receiverId,
+                  id: notificationId,
+                  isRead: notification.isRead,
+                  createdAt: notification.createdAt,
+                  link: notification.link
+                }
+                userToDb.notifications = [
+                  ...userToDb.notifications,
+                  notificationTo
+                ]
+                await userToDb.save()
+              } catch (err) {
+                console.log(err)
+              }
+            }
+            NotificationToDb()
           } else {
             user.notifications = [
               ...user.notifications,
@@ -204,6 +289,30 @@ io.on('connection', socket => {
                 alerted: user.online ? false : true
               }
             ]
+            const NotificationToDb = async () => {
+              try {
+                const userToDb = await User.findOne({ _id: receiverId })
+                const notificationTo = {
+                  id: notificationId,
+                  alerted: user.online ? false : true,
+                  type: notification.type,
+                  sender: userId,
+                  receiver: receiverId,
+                  isRead: notification.isRead,
+                  createdAt: notification.createdAt,
+                  message: notification.message,
+                  link: notification.link
+                }
+                userToDb.notifications = [
+                  ...userToDb.notifications,
+                  notificationTo
+                ]
+                await userToDb.save()
+              } catch (err) {
+                console.log(err)
+              }
+            }
+            NotificationToDb()
           }
 
           io.to(user.socketId).emit('setNotifications', {
@@ -221,6 +330,29 @@ io.on('connection', socket => {
         notification.alerted = true
         return notification
       })
+      const NotificationToDb = async () => {
+        try {
+          const userToDb = await User.findOne({ _id: userId })
+          const userNotifications = userToDb.notifications.map(notification => {
+            notification.alerted = true
+            return notification
+          })
+
+          await User.findOneAndUpdate(
+            {
+              _id: userId
+            },
+            {
+              $set: {
+                notifications: userNotifications
+              }
+            }
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      NotificationToDb()
     }
   })
 
@@ -234,6 +366,29 @@ io.on('connection', socket => {
       io.to(user.socketId).emit('setNotifications', {
         notifications: user.notifications
       })
+      const NotificationToDb = async () => {
+        try {
+          const userToDb = await User.findOne({ _id: userId })
+          const userNotifications = userToDb.notifications.map(notification => {
+            notification.isRead = true
+            return notification
+          })
+
+          await User.findOneAndUpdate(
+            {
+              _id: userId
+            },
+            {
+              $set: {
+                notifications: userNotifications
+              }
+            }
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      NotificationToDb()
     }
   })
 
@@ -246,6 +401,28 @@ io.on('connection', socket => {
       io.to(user.socketId).emit('setNotifications', {
         notifications: user.notifications
       })
+      const NotificationToDb = async () => {
+        try {
+          const userToDb = await User.findOne({ _id: userId })
+          const userNotifications = userToDb.notifications.filter(
+            notification => notification.id !== notificationId
+          )
+
+          await User.findOneAndUpdate(
+            {
+              _id: userId
+            },
+            {
+              $set: {
+                notifications: userNotifications
+              }
+            }
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      NotificationToDb()
     }
   })
 
@@ -261,7 +438,6 @@ io.on('connection', socket => {
   })
 
   socket.on('addTutorFavorite', async ({ userId, tutor }) => {
-    console.log('tutor', tutor)
     const user = await getUser(userId)
     if (user) {
       user.tutorFavorites.push(tutor)
@@ -400,34 +576,24 @@ io.on('connection', socket => {
     }
   })
 
-  socket.on('paySession', async ({ sessionId, paymentDetails }) => {
+  socket.on('dismissPayment', async ({ sessionId }) => {
     const session = await getSession(sessionId)
-    const user = await getUser(session.clientUserId)
-    const tutor = await getUser(session.tutorUserId)
-    session.paymentDetails = paymentDetails
-    session.isPaid = true
-    if (user) {
-      io.to(user.socketId).emit('setSessionData', {
-        session
-      })
-    }
-    if (tutor) {
-      io.to(tutor.socketId).emit('setSessionData', {
-        session
-      })
-    }
-
-    const sessionToDb = async () => {
+    session.paymentAlert = true
+    const updateDb = async () => {
       try {
         await Session.findOneAndUpdate(
           { sessionId: Number(sessionId) },
-          { isPaid: true, paymentDetails: paymentDetails }
+          {
+            $set: {
+              paymentAlert: true
+            }
+          }
         )
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        console.log(err)
       }
     }
-    sessionToDb()
+    updateDb()
   })
 
   socket.on('joinSession', async ({ sessionId, userId }) => {
@@ -548,6 +714,10 @@ io.on('connection', socket => {
     sessionToDb()
   })
 
+  socket.on('connect_error', err => {
+    console.log(`connect_error due to ${err.message}`)
+  })
+
   socket.on('disconnect', async () => {
     const user = await getUserBySocketId(socket.id)
     const usersWithChatOpen = users.filter(r => r.chatOpen === user?.chatOpen)
@@ -606,10 +776,51 @@ const getSessions = async () => {
   console.log('Sessions successfully loaded')
 }
 
-connectDB()
-getSessions()
-server.use('/', routes)
+const getUsers = async () => {
+  await User.find({})
+    .populate({
+      path: 'notifications',
+      populate: {
+        path: 'sender',
+        select: 'fullName image'
+      }
+    })
+    .populate({
+      path: 'notifications',
+      populate: {
+        path: 'receiver',
+        select: 'fullName image'
+      }
+    })
+    .then(found => {
+      found.forEach(user => {
+        users.push({
+          userId: String(user._id),
+          socketId: null,
+          userInfo: {
+            id: String(user._id),
+            ...user
+          },
+          online: false,
+          chatOpen: null,
+          notifications: [...user.notifications],
+          tutorFavorites: []
+        })
+      })
+    })
+  console.log('Users successfully loaded')
+}
 
+server.use((req, res, next) => {
+  req.io = io
+  req.users = users
+  req.sessions = sessions
+  next()
+})
+server.use('/', routes)
+connectDB()
+getUsers()
+getSessions()
 serverhttp.listen(PORT, async () => {
   console.log(`server listening on port ${PORT}`)
 })
