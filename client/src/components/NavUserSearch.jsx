@@ -459,7 +459,7 @@ const NavUserSearch = ({
                         <>
                           <Link
                             to='/login?redirect=/search'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-0'
@@ -468,7 +468,7 @@ const NavUserSearch = ({
                           </Link>
                           <Link
                             to='/register?redirect=/search'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-0'
@@ -477,7 +477,7 @@ const NavUserSearch = ({
                           </Link>
                           <Link
                             to='/register?redirect=/tutor'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
                             tabIndex='-1'
                             id='menu-item-1'
                           >
@@ -491,13 +491,13 @@ const NavUserSearch = ({
                         <>
                           <Link
                             to='/user'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:text-gray-200 dark:bg-gray-800 bg-white'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:text-gray-200 dark:bg-gray-800 bg-white'
                             tabIndex='-1'
                           >
                             Ir a mi perfil
                           </Link>
                           <button
-                            className='text-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
+                            className='text-red-500 p-2 dark:hover:bg-red-500 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-1'

@@ -42,7 +42,7 @@ const SearchBarTutor = () => {
                 placeholder='Buscar'
                 onChange={handleSearch}
                 value={currentSearch}
-                className='p-2 pl-10 pr-10 dark:rounded-r-none dark:bg-gray-900 dark:text-gray-200 dark:border-gray-600 dark:outline-none text-sm box-border flex flex-row items-center w-full h-10 bg-white border border-gray-200 rounded-l text-black'
+                className='p-2 pl-10 pr-10 rounded-r-none dark:bg-gray-900 dark:text-gray-200 dark:border-gray-600 dark:outline-none text-sm box-border flex flex-row items-center w-full h-10 bg-white border border-gray-200 rounded-l text-black'
               />
             </div>
           </form>

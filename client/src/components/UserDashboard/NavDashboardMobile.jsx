@@ -341,7 +341,7 @@ const NavDashboardMobile = ({
                             className={
                               selectedSection === 'dashboard'
                                 ? 'text-white p-2 bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full'
-                                : 'text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                : 'text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                             }
                             tabIndex='-1'
                             onClick={() => {
@@ -355,7 +355,7 @@ const NavDashboardMobile = ({
                             className={
                               selectedSection === 'calendar'
                                 ? 'text-white p-2 bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full'
-                                : 'text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                : 'text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                             }
                             tabIndex='-1'
                             onClick={() => {
@@ -369,7 +369,7 @@ const NavDashboardMobile = ({
                             className={
                               selectedSection === 'sessions'
                                 ? 'text-white p-2 bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full'
-                                : 'text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                : 'text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                             }
                             tabIndex='-1'
                             onClick={() => {
@@ -383,7 +383,7 @@ const NavDashboardMobile = ({
                             className={
                               selectedSection === 'settings'
                                 ? 'text-white p-2 bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full'
-                                : 'text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                : 'text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                             }
                             tabIndex='-1'
                             onClick={() => {
@@ -396,7 +396,7 @@ const NavDashboardMobile = ({
                           {showTutorDashboard && (
                             <Link
                               className='
-                                    text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                    text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                               tabIndex='-1'
                               to='/tutordashboard'
                               onClick={() => {
@@ -409,7 +409,7 @@ const NavDashboardMobile = ({
                           {user.admin && (
                             <Link
                               className='
-                                    text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                    text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                               tabIndex='-1'
                               to='/admin'
                               onClick={() => {
@@ -421,7 +421,7 @@ const NavDashboardMobile = ({
                           )}
                           <Link
                             className='
-                                    text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
+                                    text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 dark:text-gray-200 bg-white'
                             tabIndex='-1'
                             to='/'
                             onClick={() => {
@@ -431,7 +431,7 @@ const NavDashboardMobile = ({
                             Volver al inicio
                           </Link>
                           <button
-                            className='text-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
+                            className='text-red-500 dark:hover:bg-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-1'
