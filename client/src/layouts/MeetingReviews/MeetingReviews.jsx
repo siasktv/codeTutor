@@ -50,7 +50,7 @@ const MeetingReviews = ({
   }
 
   return (
-    <div>
+    <div className='max-lg:w-full'>
       <div className='star-rating m-3 '>
         {[...Array(5)].map((_, index) => {
           const starIndex = index + 1
@@ -66,21 +66,23 @@ const MeetingReviews = ({
               <FontAwesomeIcon
                 icon={faStar}
                 className={
-                  starIndex <= rating ? 'text-codecolor' : 'text-gray-400'
+                  starIndex <= rating
+                    ? 'text-codecolor'
+                    : 'text-gray-400 dark:text-gray-600'
                 }
               />
             </button>
           )
         })}
       </div>
-      <div className='flex-col pb-2 pt-4 justify-center'>
-        <div className='justify-center justify-items-center mb-4'>
+      <div className='flex-col pb-2 pt-4 justify-center max-lg:w-full'>
+        <div className='justify-center justify-items-center mb-4 max-lg:w-full'>
           <textarea
             type='text'
             value={comment}
             onChange={e => handleCommentChange(e)}
             placeholder='Déjanos tu opinión del tutor'
-            className='m-px w-96 h-36 py-4 border border-gray-300 rounded px-4 text-lg resize-none '
+            className='m-px lg:w-96 lg:h-36 h-52 w-full py-4 border border-gray-300 rounded px-4 text-lg resize-none dark:text-gray-200 dark:bg-gray-900 dark:border-none dark:outline-none'
           />
           <div className='flex justify-end'>
             <p className='text-gray-400'>{charCount}/500</p>
@@ -94,8 +96,8 @@ const MeetingReviews = ({
             className={
               !success
                 ? isDisabled
-                  ? 'mt-6 inline-flex h-12 justify-center rounded-lg bg-gray-300 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300  sm:mt-0'
-                  : 'mt-6 inline-flex h-12 justify-center rounded-lg bg-codecolor text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0'
+                  ? 'mt-6 inline-flex h-12 justify-center rounded-lg bg-gray-300 text-md font-semibold dark:bg-gray-700 text-white shadow-sm ring-1 ring-inset ring-gray-300  sm:mt-0 dark:border-none dark:ring-0'
+                  : 'mt-6 inline-flex h-12 justify-center rounded-lg bg-codecolor text-md font-semibold dark:ring-0 text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0'
                 : 'mt-6 inline-flex h-12 justify-center rounded-lg bg-codecolor text-md font-semibold text-white shadow-sm cursor-default sm:mt-0'
             }
           >

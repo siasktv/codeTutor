@@ -148,9 +148,9 @@ const TutorFormTech = props => {
 
   return (
     <>
-      <section className="bg-[#FAFBFC] h-full w-full">
-        <div className="flex flex-col">
-          <div className="flex flex-col mt-[33px]">
+      <section className='bg-[#FFFFFF] min-h-screen dark:bg-gray-900 h-full w-full'>
+        <div className='flex flex-col'>
+          <div className='flex flex-col lg:mt-[33px]'>
             <TutorFormWelcome user={user} />
             <TutorFormProgressBar
               progress={progress}
@@ -164,28 +164,29 @@ const TutorFormTech = props => {
           </div>
         </div>
 
-        <section className="flex justify-center mt-[33px] mx-28">
+        <section className='flex justify-center lg:mt-[33px] lg:mx-28'>
           <TutorFormDataLeft
             user={user}
             form={form}
             setDataForm={setDataForm}
             dataForm={dataForm}
           />
-          <section className="flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6">
-            <div className="mx-[52px] my-[36px] ">
-              <div className="flex flex-col w-full">
-                <h2 className="font-inter  font-bold text-[25px] text-[#05004E] text-left">
-                  Habilidades Técnicas{" "}
+          <section className='flex flex-col bg-white dark:bg-gray-900 rounded-[8px] border w-full border-[#1414140D] gap-[18px] lg:ml-6'>
+            <div className='lg:mx-[52px] m-2 lg:my-[36px] '>
+              <div className='flex flex-col w-full'>
+                <h2 className='font-inter font-bold text-[25px] dark:text-gray-200 text-[#05004E] text-left'>
+                  Habilidades Técnicas{' '}
                   {correct && (
                     <FontAwesomeIcon
                       icon={faCheckCircle}
-                      className="text-green-500 text-xl"
+                      className='text-green-500 text-xl'
                     />
                   )}
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
-                      className="text-orange-300 text-xl"
+                      className='text-orange-300 text-xl'
+                      title='Completa todos los campos'
                     />
                   )}
                 </h2>
@@ -198,61 +199,61 @@ const TutorFormTech = props => {
                   setErrorsData={setErrorsData}
                   technologies={technologies}
                 />
-                <div className="flex flex-col gap-6 mt-16">
-                  <p className="font-inter text-lg  text-left text-[#737791]">
-                    Años de experiencia con la tecnología{" "}
-                    <span className="text-red-500">*</span>
+                <div className='flex flex-col gap-6 lg:mt-16 mt-4'>
+                  <p className='font-inter text-lg dark:text-gray-400  text-left text-[#737791]'>
+                    Años de experiencia con la tecnología{' '}
+                    <span className='text-red-500'>*</span>
                   </p>
                   <input
                     className={
                       errorsData.years
-                        ? "w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 outline-red-500"
-                        : "w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500"
+                        ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 outline-red-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                        : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
                     }
-                    type="Number"
+                    type='Number'
                     value={dataForm.years}
                     onChange={handleYearsInput}
                   />
                   {errorsData.years && (
-                    <p className="font-inter font-normal italic text-red-500 text-left -mt-4">
+                    <p className='font-inter font-normal italic text-red-500 text-left -mt-4'>
                       {errorsData.years}
                     </p>
                   )}
                 </div>
-                <div className="flex flex-col gap-6 mt-16">
-                  <p className="font-inter text-lg  text-left text-[#737791]">
-                    Experiencia con la tecnología{" "}
-                    <span className="text-red-500">*</span>
+                <div className='flex flex-col lg:gap-6 gap-2 mt-4 lg:mt-16'>
+                  <p className='font-inter text-lg  text-left dark:text-gray-400 text-[#737791]'>
+                    Experiencia con la tecnología{' '}
+                    <span className='text-red-500'>*</span>
                   </p>
-                  <div className="flex flex-col">
+                  <div className='flex flex-col'>
                     <textarea
                       className={
                         errorsData.experience
-                          ? "w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 outline-red-500 resize-none"
-                          : "w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 resize-none"
+                          ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 outline-red-500 resize-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                          : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 resize-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
                       }
                       rows={8}
-                      placeholder="Escribe una breve descripción..."
+                      placeholder='Escribe una breve descripción...'
                       value={dataForm.experience}
                       onChange={handleExperienceInput}
                     />
                     <p
                       className={
                         charCount < 1
-                          ? "font-inter font-normal italic mb-[50px] text-red-500 text-left"
+                          ? 'font-inter font-normal italic mb-2 lg:mb-[50px] text-red-500 text-left'
                           : charCount < 450
-                          ? "font-inter font-normal mb-[50px] italic text-[#98A2B3] text-left"
+                          ? 'font-inter font-normal mb-2 lg:mb-[50px] italic text-[#98A2B3] text-left'
                           : charCount >= 450 && charCount < 475
-                          ? "font-inter font-normal mb-[50px] italic text-[#FFB800] text-left"
+                          ? 'font-inter font-normal mb-2 lg:mb-[50px] italic text-[#FFB800] text-left'
                           : charCount >= 475 && charCount < 500
-                          ? "font-inter font-normal mb-[50px] italic text-[#FF8A00] text-left"
-                          : "font-inter font-normal mb-[50px] italic text-[#FF0000] text-left"
+                          ? 'font-inter font-normal mb-2 lg:mb-[50px] italic text-[#FF8A00] text-left'
+                          : 'font-inter font-normal mb-2 lg:mb-[50px] italic text-[#FF0000] text-left'
                       }
                     >
                       {charCount}/500
                     </p>
                     {errorsData.experience && (
-                      <p className="font-inter font-normal italic text-red-500 text-left -mt-12">
+                      <p className='font-inter font-normal italic text-red-500 text-left lg:-mt-12 -mt-2 mb-2'>
                         {errorsData.experience}
                       </p>
                     )}
@@ -262,10 +263,10 @@ const TutorFormTech = props => {
             </div>
           </section>
         </section>
-        <section className="flex justify-end items-center space-x-4 mx-28 pt-6 pb-8">
+        <section className='flex justify-end items-center space-x-2 lg:space-x-4 mx-2 lg:mx-28 dark:lg:mx-[165px] lg:pt-6 lg:pb-8 max-lg:py-2'>
           <CancelarPerfilButton />
           <EnviarPerfilButton
-            title={isEdit ? "Actualizar" : "Guardar"}
+            title={isEdit ? 'Actualizar' : 'Guardar'}
             isDisabled={isDisabled}
             setSection={setSection}
             setProgress={setProgress}
@@ -282,7 +283,7 @@ const TutorFormTech = props => {
         </section>
       </section>
     </>
-  );
+  )
 }
 
 export default TutorFormTech

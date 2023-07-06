@@ -26,14 +26,14 @@ const JobLocation = props => {
   }
   return (
     <>
-      <p className='text-[#737791] font-inter text-base mt-[50px] mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
+      <p className='text-[#737791] dark:text-gray-400 font-inter text-base mt-4 lg:mt-[50px] mb-2 lg:mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
         Ubicación <span className='text-red-500'>*</span>
       </p>
       <input
         className={
           errorsData.location
-            ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500'
-            : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+            ? 'w-full py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none border border-red-500 focus:outline-red-500'
+            : 'w-full py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none border border-[#C3D3E2]'
         }
         name='location'
         type='text'

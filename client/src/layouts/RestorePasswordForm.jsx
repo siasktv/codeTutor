@@ -151,17 +151,17 @@ const RestorePasswordForm = () => {
     <>
       {isLoading && (
         <div className='flex flex-col items-center justify-center'>
-          <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 pt-36'>
+          <div className='bg-white dark:bg-gray-800 rounded lg:w-12/12 md:w-12/12 w-full p-10 pt-36'>
             <Loader />
           </div>
         </div>
       )}
       {!isLoading && !error && (
-        <div className='flex flex-col items-center justify-center'>
-          <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 pt-36'>
+        <div className='flex flex-col items-center justify-center p-5 lg:p-10'>
+          <div className='bg-white dark:bg-gray-800 rounded lg:w-12/12 md:w-12/12 w-full p-10 lg:mt-36'>
             <p
               tabIndex='0'
-              className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'
+              className='focus:outline-none dark:text-gray-200 text-2xl font-bold leading-6 text-gray-800 text-left'
             >
               Ingresa una nueva contraseña
             </p>
@@ -172,7 +172,7 @@ const RestorePasswordForm = () => {
                   id='password'
                   className='text-sm font-medium leading-none text-gray-800'
                 >
-                  <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                  <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                     Nueva contraseña
                   </p>
                 </label>
@@ -182,8 +182,8 @@ const RestorePasswordForm = () => {
                     type={showPassword ? 'text' : 'password'}
                     className={
                       errors.password
-                        ? 'bg-red-100 border border-red-500 outline-red-500 rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
-                        : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                        ? 'bg-red-100 border dark:outline-none dark:bg-gray-900 border-red-500 outline-red-500 dark:text-gray-200 rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                        : 'bg-white border rounded dark:text-gray-200 dark:border-none dark:outline-none dark:bg-gray-900 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                     }
                     name='password'
                     onChange={handleChange}
@@ -217,7 +217,7 @@ const RestorePasswordForm = () => {
                   id='password'
                   className='text-sm font-medium leading-none text-gray-800'
                 >
-                  <p className='text-base font-normal leading-6 text-gray-800 text-left pt-4'>
+                  <p className='text-base font-normal dark:text-gray-200 leading-6 text-gray-800 text-left pt-4'>
                     Repite tu nueva contraseña
                   </p>
                 </label>
@@ -227,8 +227,8 @@ const RestorePasswordForm = () => {
                     type={showPassword ? 'text' : 'password'}
                     className={
                       errors.confirmPassword
-                        ? 'bg-red-100 border border-red-500 outline-red-500 rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
-                        : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                        ? 'bg-red-100 border dark:outline-none dark:bg-gray-900 border-red-500 outline-red-500 dark:text-gray-200 rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                        : 'bg-white border rounded dark:text-gray-200 dark:border-none dark:outline-none dark:bg-gray-900 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                     }
                     onChange={handleChange}
                     required
@@ -267,9 +267,9 @@ const RestorePasswordForm = () => {
                   className={
                     !isSubmitting && !success
                       ? isDisabled
-                        ? ' cursor-default text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
-                        : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                      : 'cursor-default text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
+                        ? ' cursor-default text-base font-semibold leading-none text-white focus:outline-none dark:border-none dark:bg-gray-700 bg-gray-400 border rounded-lg py-6 w-full'
+                        : 'hover:ring-4 dark:border-none dark:hover:ring-gray-700 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                      : 'cursor-default text-base dark:border-none font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
                   }
                   type='submit'
                   disabled={isDisabled}
@@ -293,7 +293,7 @@ const RestorePasswordForm = () => {
           {showAlert && (
             <div
               role='alert'
-              class='rounded-xl absolute border border-gray-100 bg-white p-4  shadow-xl mr-auto ml-auto left-0 right-0 text-center top-0 bottom-0 flex justify-center items-center transition-opacity'
+              class='rounded-xl absolute border dark:border-none dark:bg-gray-900 border-gray-100 bg-white p-4  shadow-xl mr-auto ml-auto left-0 right-0 text-center top-0 bottom-0 flex justify-center items-center transition-opacity'
             >
               <div className='flex flex-col'>
                 <div class='flex items-center justify-center'>
@@ -313,18 +313,18 @@ const RestorePasswordForm = () => {
                       />
                     </svg>
                   </span>
-                  <strong class='ml-1 font-medium text-2xl text-gray-900'>
+                  <strong class='ml-1 font-medium lg:text-2xl text-xl dark:text-gray-200 text-gray-900'>
                     Contraseña restablecida correctamente
                   </strong>
                 </div>
-                <p class='mt-1 text-lg text-gray-700'>
+                <p class='mt-1 lg:text-lg text-md dark:text-gray-400 text-gray-700'>
                   Ahora puedes iniciar sesión con tu nueva contraseña.
                 </p>
                 <button
                   onClick={() => {
                     navigate('/login')
                   }}
-                  className='mt-4 bg-codecolor py-3 px-5 text-lg w-auto self-center rounded-md text-white font-semibold text-center hover:bg-codecolordark transition duration-200 ease-in-out cursor-pointer'
+                  className='mt-4 bg-codecolor py-2 px-3 lg:py-3 lg:px-5 text-lg w-auto self-center rounded-md text-white font-semibold text-center hover:bg-codecolordark transition duration-200 ease-in-out cursor-pointer'
                 >
                   Volver a iniciar sesión
                 </button>
@@ -335,13 +335,13 @@ const RestorePasswordForm = () => {
       )}
       {error && (
         <div className='flex flex-col items-center justify-center'>
-          <div className=' lg:w-12/12 md:w-12/12 pt-72 justify-center items-center w-[600px]'>
+          <div className=' lg:w-12/12 md:w-12/12 pt-72 justify-center items-center lg:w-[600px]'>
             <p className='text-red-500 text-md text-center mb-5 break-words'>
               {error}
             </p>
             <Link
               to='/login'
-              className='text-white bg-codecolor rounded-lg p-4 font-semibold hover:bg-codecolordark w-full text-center transition-all duration-200 ease-in-out self-center
+              className='text-white bg-codecolor rounded-lg max-lg:px-3 max-lg:py-2 lg:p-4 font-semibold hover:bg-codecolordark w-full text-center transition-all duration-200 ease-in-out self-center
             '
             >
               Volver a iniciar sesión

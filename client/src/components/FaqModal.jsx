@@ -58,7 +58,7 @@ export default function FaqModal (props) {
   return (
     <div className='fixed z-[9999] inset-0 overflow-y-auto'>
       {/* overlay */}
-      <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+      <div className='flex items-end justify-center lg:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
         {/* background overlay */}
         <div className='fixed inset-0 transition-opacity' aria-hidden='true'>
           <div className='absolute inset-0 bg-gray-500 opacity-75' />
@@ -72,16 +72,16 @@ export default function FaqModal (props) {
         </span>
         {/* modal content */}
         <form
-          className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+          className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
           role='dialog'
           aria-modal='true'
           aria-labelledby='modal-headline'
         >
-          <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
+          <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <div className='sm:flex sm:items-start'>
               <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full'>
                 <h3
-                  className='text-2xl leading-6 font-semibold text-gray-900'
+                  className='text-2xl leading-6 font-semibold text-gray-900 dark:text-gray-200'
                   id='modal-headline'
                 >
                   {selectedOption === 'question'
@@ -116,7 +116,7 @@ export default function FaqModal (props) {
                     </div>
                   )}
                   <textarea
-                    className='w-full h-36 border border-gray-300 rounded-md resize-none  focus:border-codecolor px-3 py-2'
+                    className='w-full h-36 border border-gray-300 dark:bg-gray-900 dark:border-none dark:outline-none dark:text-gray-200 rounded-md resize-none  focus:border-codecolor px-3 py-2'
                     placeholder={
                       selectedOption === 'question'
                         ? 'Escribe tu pregunta aquí'
@@ -127,9 +127,11 @@ export default function FaqModal (props) {
                     maxLength={500}
                   />
                   <div className='flex justify-end mx-1'>
-                    <p className='text-sm text-gray-500'>{charCount}/500</p>
+                    <p className='text-sm text-gray-500 dark:text-gray-400'>
+                      {charCount}/500
+                    </p>
                   </div>
-                  <p className='mt-2 text-sm text-gray-500'>
+                  <p className='mt-2 text-sm text-gray-500 dark:text-gray-400'>
                     {selectedOption === 'question'
                       ? 'Tu pregunta será revisada por el equipo de CodeTutor y, si es aprobada, será publicada en la sección de preguntas frecuentes.'
                       : 'Tu comentario será revisado por el equipo de CodeTutor y será utilizado para mejorar la experiencia de los usuarios.'}
@@ -138,7 +140,7 @@ export default function FaqModal (props) {
               </div>
             </div>
           </div>
-          <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+          <div className='bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row justify-end'>
             <button
               type='button'
               className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:ml-3 sm:w-20 sm:text-sm'
@@ -150,7 +152,7 @@ export default function FaqModal (props) {
               disabled={isDisabled}
               className={
                 isDisabled
-                  ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
+                  ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 dark:bg-gray-700 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
                   : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
               }
               onClick={handleSubmit}

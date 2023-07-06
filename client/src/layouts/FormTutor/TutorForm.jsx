@@ -160,7 +160,7 @@ const TutorForm = props => {
 
   return (
     <>
-      <section className='bg-[#FAFBFC] h-full w-full'>
+      <section className='bg-[#FFFFFF] dark:bg-gray-900 min-h-screen h-full w-full'>
         <div className='flex flex-col'>
           <div className='flex flex-col mt-[33px]'>
             <TutorFormWelcome user={user} />
@@ -174,14 +174,14 @@ const TutorForm = props => {
           </div>
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className='flex justify-center lg:mt-[33px] lg:mx-28'>
           <TutorFormDataLeft
             user={user}
             form={form}
             dataForm={dataForm}
             setDataForm={setDataForm}
           />
-          <section className='flex flex-col w-full gap-[18px] ml-6 '>
+          <section className='flex flex-col w-full lg:gap-[18px] gap-2 lg:ml-6 max-lg:px-2'>
             <TutorFormBiografia
               form={form}
               isDone={isDone}
@@ -226,10 +226,10 @@ const TutorForm = props => {
               setSection={setSection}
             />
 
-            <section className='flex justify-end items-center space-x-4 mb-[64px]'>
+            <section className='flex justify-end items-center lg:space-x-4 max-lg:space-x-2 lg:mb-[64px] max-lg:pt-2 mb-4'>
               <CancelarPerfilButton />
               <EnviarPerfilButton
-                title='Enviar perfil'
+                title='Enviar'
                 isDisabled={isDisabled ? true : permantentDisabled}
                 setSection={setSection}
                 setProgress={setProgress}
@@ -256,19 +256,19 @@ const TutorForm = props => {
           <div className='fixed inset-0 bg-[#141414] bg-opacity-70 transition-opacity'></div>
 
           <div className='fixed inset-0 z-10 overflow-y-auto'>
-            <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <div className='relative transform overflow-hidden rounded-lg bg-white text-center shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'>
-                <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
+            <div className='flex lg:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
+              <div className='relative transform overflow-hidden rounded-lg max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 text-center shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'>
+                <div className='bg-white dark:bg-gray-800 px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
                   <div className='sm:flex sm:items-center justify-center'>
                     <div className='mt-3 text-center'>
                       <h3
-                        className='text-lg font-semibold leading-6 text-[#05004E] text-center pb-8 pt-16'
+                        className='text-lg font-semibold dark:text-gray-200 leading-6 text-[#05004E] text-center pb-8 pt-16'
                         id='modal-title'
                       >
                         Muchas gracias por la información.
                       </h3>
                       <div className='mt-2 max-w-lg'>
-                        <p className='text-lg font-semibold text-[#05004E] text-center'>
+                        <p className='text-lg font-semibold dark:text-gray-200 text-[#05004E] text-center'>
                           Vamos a analizar tu formulario y te avisaremos en las
                           próximas semanas.
                         </p>
@@ -276,10 +276,10 @@ const TutorForm = props => {
                     </div>
                   </div>
                 </div>
-                <div className='bg-gray-50 px-4 pb-12 pt-10 sm:flex sm:flex-row justify-center sm:px-6'>
+                <div className='bg-gray-50 dark:bg-gray-800 px-4 pb-12 pt-10 sm:flex sm:flex-row justify-center sm:px-6'>
                   <button
                     type='button'
-                    className='mt-3 inline-flex w-full justify-center rounded-lg bg-codecolor px-12 py-5 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto'
+                    className='mt-3 inline-flex w-full justify-center rounded-lg bg-codecolor px-12 py-5 text-md font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-codecolordark transition-all ease-in-out duration-200 sm:mt-0 sm:w-auto dark:ring-0 dark:border-none dark:outline-none'
                     onClick={e => handleRedirect(e)}
                   >
                     Continuar con la plataforma

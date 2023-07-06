@@ -10,13 +10,19 @@ import {
 import { CardReviewUser, CardExperience, CardProyects } from '../'
 
 import { Pais, Moneda, Mensaje } from '../../assets'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faDollar,
+  faGlobe,
+  faMapMarkerAlt
+} from '@fortawesome/free-solid-svg-icons'
 
 const TutorInfoR = props => {
   const { tutor } = props
 
   return (
-    <div className='w-full pl-9 flex flex-col relative z-0'>
-      <div className='p-20 bg-white border border-gray-200 shadow-md rounded-lg'>
+    <div className='w-full lg:pl-9 flex flex-col relative z-0'>
+      <div className='lg:p-20 p-5 bg-white dark:bg-gray-800 dark:border-gray-800 border border-gray-200 shadow-md rounded-lg'>
         {/* Area del Developer */}
         <div>
           <AreaTutor3xl />
@@ -25,46 +31,61 @@ const TutorInfoR = props => {
         {/* Contenedor de País,Tarifa e Idiomas */}
         <div className='pt-6 pb-6 flex justify-start items-center'>
           {/* Los svg y span contienen iconos */}
-          <img src={Pais} />
+          <FontAwesomeIcon
+            icon={faMapMarkerAlt}
+            className='text-[#141414B2] mr-1 dark:text-gray-400 self-center text-xs'
+          />
+
           {/* País */}
           <CountryTutor location={tutor.user.location} />
 
-          <span className='pl-4 pr-4 font-semibold text-sm text-[#141414B2]'>
+          <span className='pl-4 pr-4 font-semibold text-sm text-[#141414B2] dark:text-gray-400'>
             ◦
           </span>
 
-          <img src={Moneda} />
+          <FontAwesomeIcon
+            icon={faDollar}
+            className='text-[#141414B2] mr-1 dark:text-gray-400 self-center text-sm'
+          />
           {/* Tarifa */}
           <PriceHourGray rates={tutor.rates[0].value} />
 
-          <span className='pl-4 pr-4 font-semibold text-sm text-[#141414B2]'>
+          <span className='pl-4 pr-4 font-semibold text-sm text-[#141414B2] dark:text-gray-400'>
             ◦
           </span>
 
-          <img src={Mensaje} />
+          <FontAwesomeIcon
+            icon={faGlobe}
+            className='text-[#141414B2] dark:text-gray-400 self-center text-sm'
+          />
+
           {/* Idiomas */}
           <LanguageTutor languages={tutor.languages} />
         </div>
 
         {/* Descripción del tutor */}
-        <div className='pt-2 pb-6 border-b'>
+        <div className='pt-2 pb-6 border-b dark:border-gray-700'>
           <DescriptionTutor description={tutor.bio.description} />
         </div>
 
         {/* Cuadro de Habilidades Técnicas */}
         <div className='pt-6 pb-6'>
-          <h2 className='text-left text-xl font-bold'>Habilidades Técnicas</h2>
+          <h2 className='text-left text-xl font-bold  dark:text-codecolor'>
+            Habilidades Técnicas
+          </h2>
         </div>
-        <div className='pb-6 border-b'>
-          <div className='grid grid-cols-5 gap-3'>
+        <div className='pb-6 border-b dark:border-gray-700'>
+          <div className='lg:grid lg:grid-cols-5 lg:gap-3 max-lg:flex max-lg:flex-wrap'>
             <TechnicalSkillsTutor skills={tutor.skills} />
           </div>
         </div>
 
         {/* Valoraciones */}
-        <div className='pb-6 border-b'>
+        <div className='pb-6 border-b dark:border-gray-700'>
           <div className='pt-6'>
-            <h2 className='text-left text-xl font-bold'>Reviews</h2>
+            <h2 className='text-left text-xl font-bold dark:text-codecolor'>
+              Reviews
+            </h2>
           </div>
           <div className='pt-6 pb-6 flex justify-between items-center space-x-6'>
             <div className='flex items-center space-x-2'>
@@ -76,7 +97,7 @@ const TutorInfoR = props => {
             </div>
             {/* Reviews */}
             {tutor.reviews && (
-              <h2 className='font-semibold text-gray-600'>
+              <h2 className='font-semibold text-gray-600 dark:text-gray-400'>
                 {tutor.reviews.length} Reviews
               </h2>
             )}
@@ -89,10 +110,12 @@ const TutorInfoR = props => {
         </div>
 
         {/* Experiencia Laboral */}
-        <div className='pb-6 border-b'>
+        <div className='pb-6 border-b dark:border-gray-700'>
           {/* Título */}
           <div className='pt-6'>
-            <h2 className='text-left text-xl font-bold'>Experiencia Laboral</h2>
+            <h2 className='text-left text-xl font-bold dark:text-codecolor'>
+              Experiencia Laboral
+            </h2>
           </div>
 
           {/* Card Experiencias */}
@@ -103,7 +126,9 @@ const TutorInfoR = props => {
         <div className='pb-6'>
           {/* Título */}
           <div className='pt-6'>
-            <h2 className='text-left text-xl font-bold'>Proyectos</h2>
+            <h2 className='text-left text-xl font-bold dark:text-codecolor'>
+              Proyectos
+            </h2>
           </div>
 
           {/* Card Proyectos */}

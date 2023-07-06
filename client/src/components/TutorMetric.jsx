@@ -156,7 +156,11 @@ const TutorMetric = props => {
 
   return (
     <div className='flex justify-center'>
-      <Grid numItemsSm={2} numItemsLg={3} className='gap-6 mt-12 w-4/5'>
+      <Grid
+        numItemsSm={3}
+        numItemsLg={3}
+        className='lg:gap-6 gap-3 mt-12 lg:w-4/5 w-full max-lg:px-3'
+      >
         {categories.map(item => (
           <Card key={item.title}>
             <Icon icon={item.icon} variant='light' size='sm' color='violet' />

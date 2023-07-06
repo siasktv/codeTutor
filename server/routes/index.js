@@ -14,6 +14,7 @@ const sessionRoutes = require('./Session/sessionRoutes.js')
 const faqsRoutes = require('./Faqs/faqsRoutes.js')
 const newsletterRoutes = require('./Newsletter/newsletterRoutes.js')
 const cashoutsRoutes = require('./Cashouts/cashoutsRoutes.js')
+const payRoutes = require('./Pay/payRoutes.js')
 
 const router = Router()
 
@@ -32,5 +33,6 @@ router.use('/api/session', sessionRoutes)
 router.use('/api/faqs', faqsRoutes)
 router.use('/api/newsletter', newsletterRoutes)
 router.use('/api/cashouts', cashoutsRoutes)
+router.use('/api/pay', payRoutes)
 
 module.exports = router

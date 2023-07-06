@@ -28,7 +28,7 @@ const getUserBySocketId = socketId => {
   return users.find(user => user.socketId === socketId)
 }
 
-const addSession = session => {
+const addSession = (session, meetLink) => {
   // generate random id
   const sessionId = Math.floor(Math.random() * 1000000000)
   // check if session id already exists
@@ -38,7 +38,7 @@ const addSession = session => {
     return addSession(session)
   }
   // if session id does not exist, add session to sessions array
-  sessions.push({ ...session, id: sessionId, paymentAlert: false })
+  sessions.push({ ...session, id: sessionId, paymentAlert: false, meetLink })
 
   return sessionId
 }

@@ -188,13 +188,13 @@ export default function MessageContainer (props) {
 
   return (
     // container must be in the bottom right corner
-    <div className='fixed bottom-0 right-28 z-50 h-125 w-[380px] bg-white rounded-t-lg'>
+    <div className='fixed bottom-0 lg:right-28 right-0 z-50 h-125 lg:w-[380px] w-[95%] max-lg:right-1 max-lg:max-w-[380px] bg-white dark:bg-gray-900 rounded-t-lg'>
       <div
         className='flex flex-col justify-center items-center bg-codecolor p-2 m-0 rounded-t-md cursor-pointer'
         onClick={event => handleMinimizeMessage(event)}
       >
         <div className='flex justify-center items-center'>
-          <h1 className='text-white font-semibold text-xl'>
+          <h1 className='text-white dark:text-gray-200 font-semibold text-xl'>
             Chat con {tutor.user.fullName}
           </h1>
           {!isOnline ? (
@@ -203,27 +203,27 @@ export default function MessageContainer (props) {
             <h2 className='font-semibold text-xl text-green-500 ml-2'>◉</h2>
           )}
         </div>
-        <p className='text-white text-sm'>
+        <p className='text-white  dark:text-gray-200 text-sm'>
           {tutor.bio?.specialty || 'Cliente'}
         </p>
       </div>
-      <div className='flex flex-col justify-start items-center bg-white p-2 m-0 overflow-y-auto overflow-x-hidden h-[365px] border-x border-purple-200'>
+      <div className='flex flex-col justify-start items-center bg-white dark:bg-gray-900 p-2 m-0 overflow-y-auto overflow-x-hidden h-[380px] border-x border-purple-200 dark:border-gray-700'>
         {messages.map((item, index) => (
           <React.Fragment key={index}>
             {item.sender !== user.id ? (
               <div
                 ref={scrollRef}
-                className='flex flex-start justify-start items-center w-full  bg-gray-100 rounded-md p-2'
+                className='flex flex-start justify-start items-center w-full rounded-md p-2'
               >
-                <div className='flex flex-col justify-center items-start bg-gray-100 p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
+                <div className='flex flex-col justify-center items-start dark:bg-gray-700 bg-gray-100 p-4 rounded-tr-md rounded-b-md max-w-[75%]'>
                   <strong className='text-codecolor'>
                     {tutor.user.fullName}
                   </strong>
                   <div className='flex flex-col justify-center items-start text-left'>
-                    <p className='text-sm text-gray-700 break-words max-w-[230px]'>
+                    <p className='text-sm text-gray-700 dark:text-gray-200 break-words max-w-[230px]'>
                       {item.message}
                     </p>
-                    <p className='text-xs text-gray-500 self-start pr-2 mt-1 -mb-1'>
+                    <p className='text-xs text-gray-500 dark:text-gray-400 self-start pr-2 mt-1 -mb-1'>
                       {moment(item.createdAt).format('l')} a las{' '}
                       {moment(item.createdAt).format('LT')} hs
                     </p>
@@ -235,13 +235,13 @@ export default function MessageContainer (props) {
                 ref={scrollRef}
                 className='flex flex-end justify-end items-center w-full rounded-md p-2 '
               >
-                <div className='flex flex-col justify-center items-start bg-[#ece3ffae] p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
+                <div className='flex flex-col justify-center items-start dark:bg-gray-800  bg-[#ece3ffae] p-4 rounded-t-md rounded-bl-md max-w-[75%]'>
                   <strong className='text-codecolor'>{user.fullName}</strong>
                   <div className='flex flex-col justify-center items-start text-left'>
-                    <p className='text-sm text-gray-700 break-words max-w-[230px]'>
+                    <p className='text-sm text-gray-700 dark:text-gray-200 break-words max-w-[230px]'>
                       {item.message}
                     </p>
-                    <p className='text-xs text-gray-500 self-end pr-2 mt-1 -mr-2 -mb-1'>
+                    <p className='text-xs text-gray-500 dark:text-gray-400 self-end pr-2 mt-1 -mr-2 -mb-1'>
                       {moment(item.createdAt).format('l')} a las{' '}
                       {moment(item.createdAt).format('LT')} hs
                     </p>
@@ -255,11 +255,11 @@ export default function MessageContainer (props) {
         {messages[messages.length - 1]?.sender === user.id && (
           <>
             {messages[messages.length - 1]?.read ? (
-              <p className='text-xs text-gray-500 self-end pr-2 -mt-1 -mb-1'>
+              <p className='text-xs text-gray-500 dark:text-gray-400 self-end pr-2 -mt-1 -mb-1'>
                 Visto
               </p>
             ) : (
-              <p className='text-xs text-gray-500 self-end pr-2 -mt-1 -mb-1'>
+              <p className='text-xs text-gray-500 dark:text-gray-400 self-end pr-2 -mt-1 -mb-1'>
                 Enviado
               </p>
             )}
@@ -267,17 +267,17 @@ export default function MessageContainer (props) {
         )}
       </div>
       <form onSubmit={handleSubmit}>
-        <div className='flex justify-center items-center bg-white p-2 m-0 rounded-b-md space-x-2 border-x border-purple-200'>
+        <div className='flex justify-center items-center bg-white dark:bg-gray-900 p-2 m-0 space-x-2 border-x border-purple-200 dark:border-gray-700'>
           <input
             type='text'
-            className='w-full h-10 rounded-md p-2 m-0 focus:outline-none outline-none resize-none -webkit-appearance-none border'
+            className='w-full h-10 rounded-md p-2 m-0 dark:bg-gray-800 dark:border-none focus:outline-none outline-none resize-none dark:text-gray-200 -webkit-appearance-none border'
             placeholder='Escribe un mensaje...'
             value={message}
             onChange={event => setMessage(event.target.value)}
           />
           <button
             type='submit'
-            className='bg-codecolor hover:bg-codecolordark text-white font-bold py-2 px-4 rounded'
+            className='bg-codecolor hover:bg-codecolordark dark:text-gray-200 text-white font-bold py-2 px-4 rounded'
           >
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>

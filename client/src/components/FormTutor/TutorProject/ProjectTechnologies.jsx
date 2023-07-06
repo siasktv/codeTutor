@@ -1,6 +1,6 @@
 import { FlechaFiltro } from '../../../assets'
 import { useState, useEffect } from 'react'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProjectTechnologies = props => {
@@ -64,16 +64,18 @@ const ProjectTechnologies = props => {
 
   return (
     <>
-      <p className='text-[#737791] font-inter text-base mb-[10px] font-medium leading-[27px] tracking-normal text-left'>
+      <p className='text-[#737791] dark:text-gray-400 font-inter text-base mb-2 lg:mb-[10px] font-medium leading-[27px] tracking-normal text-left'>
         Tecnologías Utilizadas <span className='text-[#FF5757]'>*</span>
       </p>
-      <div className='flex flex-row justify-start flex-wrap mb-[10px]'>
+      <div className='flex flex-row justify-start flex-wrap lg:mb-[10px]'>
         {selectedTechs.map((tech, index) => (
           <div
-            className='bg-[#7D5AE21A] mr-3 max-w-[200px] justify-center p-4 mb-2 flex flex-row items-center text-[#7D5AE2]  py-3 rounded-[8px]'
+            className='bg-[#7D5AE21A] mr-2 lg:mr-3 max-w-[200px] justify-center lg:p-4 mb-2 flex flex-row items-center dark:bg-codecolor dark:text-codecolorlighter text-[#7D5AE2] max-lg:py-2 max-lg:px-3 max-lg:text-sm  lg:py-3 rounded-[8px]'
             key={index}
           >
-            <p className='text-[#7D5AE2]'>{tech.name}</p>
+            <p className='text-[#7D5AE2] dark:text-codecolorlighter'>
+              {tech.name}
+            </p>
             <FontAwesomeIcon
               icon={faXmark}
               onClick={() => handleDelete(tech.id)}
@@ -91,8 +93,8 @@ const ProjectTechnologies = props => {
           <select
             className={
               errorsData.technologies
-                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500 appearance-none'
-                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500 appearance-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                : 'w-full py-3 px-6 bg-none rounded-[8px] border dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none border-[#C3D3E2] text-gray-500 appearance-none'
             }
             onChange={handleSelect}
           >
@@ -121,8 +123,8 @@ const ProjectTechnologies = props => {
               </option>
             ))} */}
           </select>
-          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
-            <img src={FlechaFiltro} />
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700 dark:text-gray-200'>
+            <FontAwesomeIcon icon={faChevronDown} />
           </div>
         </div>
       )}

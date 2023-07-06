@@ -39,17 +39,22 @@ const TutorProfile = () => {
     }
   }, [error])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       {isLoading && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center h-screen dark:bg-gray-900'>
           <Loader />
         </div>
       )}
       {!isLoading && (
         <>
           <div
-            className='sticky top-0 z-[100] bg-white min-h-16'
+            className='sticky top-0 z-[100] bg-white min-h-16 dark:bg-gray-900'
             style={{
               position: 'sticky !important',
               top: '0px !important',
@@ -62,7 +67,7 @@ const TutorProfile = () => {
               redirect={`/tutor/${id}`}
             />
           </div>
-          <div className='bg-gray-100 flex items-start px-20 py-10 gap-2 w-full h-max left-0 right-0'>
+          <div className='bg-gray-100 dark:bg-gray-900 flex max-lg:flex-col px-4 py-2 items-start lg:px-20 lg:py-10 gap-2 w-full h-max left-0 right-0'>
             {tutor.bio.specialty && (
               <>
                 {/* Tabla de información Izquierda */}

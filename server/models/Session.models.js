@@ -36,6 +36,10 @@ const SessionSchema = new Schema(
       type: Object,
       default: null
     },
+    meetLink: {
+      type: String,
+      default: null
+    },
     //referencia del pago
     clientHasJoined: {
       type: Boolean,

@@ -3,7 +3,13 @@ import { useState, useContext } from 'react'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faXmark, faMessage } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTrash,
+  faXmark,
+  faMessage,
+  faBars,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
 import IconCodeTutor from '../assets/IconCodeTutor.svg'
 import React from 'react'
 import { Default } from '../assets'
@@ -43,6 +49,28 @@ const NavUserNotifications = ({ user, id, redirect }) => {
     audioPlayer.current.play()
   }
 
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }, [])
+
   const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
 
   useEffect(() => {
@@ -64,6 +92,12 @@ const NavUserNotifications = ({ user, id, redirect }) => {
     }
   }, [socket, user])
 
+  const [navbarMobile, setNavbarMobile] = useState(false)
+
+  const handleMobileMenuButtonClick = () => {
+    setNavbarMobile(!navbarMobile)
+  }
+
   useEffect(() => {
     if (
       notifications.filter(
@@ -81,7 +115,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
@@ -215,23 +249,25 @@ const NavUserNotifications = ({ user, id, redirect }) => {
         pauseOnFocusLoss={false}
         closeOnClick
         rtl={false}
-        theme='light'
       />
-      <header className='flex items-center h-20 w-full'>
+      <header className='flex items-center h-20 w-full dark:bg-gray-900'>
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='flex justify-between w-full items-center'>
           <div className='pl-8 pt-2'>
             <Link to='/'>
-              <span className='flex h-10 w-52'>
-                <img className='h-8' src={IconCodeTutor} />
-                <h1 className='font-bold text-xl ml-1'>Code-Tutor.</h1>
+              <span className='flex h-10 lg:w-52'>
+                <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
+                <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                <h1 className='font-bold text-xl ml-1 dark:text-gray-200'>
+                  Code-Tutor.
+                </h1>
               </span>
             </Link>
           </div>
 
           <div>
             {/* Foto Usuario */}
-            <div className='flex items-center'>
+            <div className='flex items-center max-lg:hidden'>
               <div className='flex flex-col items-center'>
                 <div className='bg-black rounded-full border-none'>
                   <img
@@ -243,18 +279,18 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                   ></img>
                 </div>
                 {showProfile && (
-                  <div className='absolute top-14 mr-16 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-                    <div className='flex flex-col gap-2 p-2'>
+                  <div className='absolute top-16 mr-16 rounded-xl shadow-xl z-50 border border-[#1414140D] dark:border-none dark:bg-gray-800'>
+                    <div className='flex flex-col gap-2 p-2 '>
                       <div className='flex flex-col gap-2'>
                         {user && (
                           <>
                             <Link to='/user'>
-                              <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
+                              <button className='text-white dark:outline-none dark:hover:outline-none transition duration-150 dark:hover:bg-codecolordark bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Ir a mi perfil
                               </button>
                             </Link>
                             <button
-                              className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
+                              className='text-white dark:outline-none dark:hover:outline-none transition duration-150 dark:hover:bg-red-600 bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
                               onClick={() => setShowModalLogout(true)}
                             >
                               Cerrar sesión
@@ -264,7 +300,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                         {!user && (
                           <>
                             <Link to={`/login?redirect=${redirect}`}>
-                              <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
+                              <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 dark:outline-none dark:hover:outline-none dark:hover:bg-codecolordark transition duration-150 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                 Iniciar sesión
                               </button>
                             </Link>
@@ -297,6 +333,99 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                 handleSendShowMessage={handleSendShowMessage}
                 markAsRead={markAsRead}
               />
+            </div>
+
+            <div className='lg:hidden'>
+              <div className='flex flex-row gap-1'>
+                {user && (
+                  <ChatsNav
+                    user={user}
+                    handleShowChat={handleShowChat}
+                    showChat={showChat}
+                    setShowChat={setShowChat}
+                    localUserChats={localUserChats}
+                    handleSendShowMessage={handleSendShowMessage}
+                  />
+                )}
+                {/* Notificaciones */}
+                <NotificationsNav
+                  user={user}
+                  handleShowNotifications={handleShowNotifications}
+                  showNotifications={showNotifications}
+                  setShowNotifications={setShowNotifications}
+                  notifications={notifications}
+                  handleSendShowMessage={handleSendShowMessage}
+                  markAsRead={markAsRead}
+                />
+                <button
+                  className='rounded-lg p-2 text-gray-600 mr-2 w-10 dark:text-gray-200'
+                  type='button'
+                  onClick={handleMobileMenuButtonClick}
+                >
+                  <span className='sr-only'>Open menu</span>
+                  <FontAwesomeIcon icon={navbarMobile ? faTimes : faBars} />
+                </button>
+              </div>
+              {navbarMobile && (
+                <div className='absolute z-[999] mt-16 top-0 inset-x-0 w-full transition transform origin-top-right lg:hidden bg-white dark:bg-gray-800 dark:text-gray-200'>
+                  <div className='bg-white w-full'>
+                    <div className='w-full flex flex-col'>
+                      {!user && (
+                        <>
+                          <Link
+                            to={`/login?redirect=${redirect}`}
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Iniciar sesión
+                          </Link>
+                          <Link
+                            to={`/register?redirect=${redirect}`}
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Registrarme como estudiante
+                          </Link>
+                          <Link
+                            to='/register?redirect=/tutor'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                          >
+                            Registrarme como tutor
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                    <div className='w-full flex flex-col'>
+                      {user && (
+                        <>
+                          <Link
+                            to='/user'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold w-full bg-white'
+                            tabIndex='-1'
+                          >
+                            Ir a mi perfil
+                          </Link>
+                          <button
+                            className='text-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 font-semibold w-full bg-white'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                            onClick={() => setShowModalLogout(true)}
+                          >
+                            Cerrar sesión
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

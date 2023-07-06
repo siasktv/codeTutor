@@ -128,13 +128,13 @@ export default function ChatsNav ({
         {user?.id && (
           <>
             <div
-              className='p-2 justify-center items-center h-10 w-10 bg-violet-100 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
+              className='p-2 justify-center items-center h-10 w-10 bg-violet-100 dark:bg-gray-800 rounded-xl  cursor-pointer active:scale-90 transition duration-150 select-none'
               onClick={e => handleShowChat(e)}
             >
               <FontAwesomeIcon icon={faMessage} className='text-codecolor' />
             </div>
             {showChat && (
-              <div className='absolute top-14 mt-2 right-16 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+              <div className='absolute top-14 mt-2 lg:right-16 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl z-50 border border-[#1414140D] dark:border-gray-900'>
                 <div className='flex flex-col gap-2 p-4 max-h-80 w-72'>
                   <div className='flex justify-between items-start flex-1 max-h-8'>
                     <h1 className='font-bold text-xl text-codecolor'>Chats</h1>
@@ -151,12 +151,12 @@ export default function ChatsNav ({
                       placeholder='Buscar'
                       id='search'
                       value={inputValue}
-                      className='w-full h-10 text-sm rounded-lg border-none text-black px-2 outline-none'
+                      className='w-full h-8 text-sm rounded-lg border-none dark:bg-gray-800 dark:text-gray-200 text-black px-2 outline-none'
                       onChange={e => setInputValue(e.target.value)}
                     />
                     <div className='flex flex-col items-center gap-2'>
                       <button
-                        className='p-1 rounded-lg text-sm bg-codecolor text-white hover:bg-codecolordark transition duration-150'
+                        className='p-1 rounded-lg h-8 px-2 text-sm bg-codecolor text-white dark:text-gray-200 ml-1 font-semibold hover:bg-codecolordark transition duration-150'
                         onClick={() => setShowCreate(!showCreate)}
                       >
                         {showCreate ? 'Cancelar' : 'Nuevo'}
@@ -169,7 +169,7 @@ export default function ChatsNav ({
                         {newUsersChat.map(user => (
                           <div
                             key={user._id}
-                            className='flex items-center gap-2 p-2 w-full rounded-lg cursor-pointer hover:bg-codecolorlight'
+                            className='flex items-center gap-2 p-2 w-full rounded-lg cursor-pointer hover:bg-codecolorlight dark:hover:bg-gray-700'
                             onClick={e => {
                               handleSendShowMessage(e, user)
                               setShowCreate(false)
@@ -186,7 +186,7 @@ export default function ChatsNav ({
                               </div>
                               <div className='flex flex-col w-full'>
                                 <div className='flex flex-row justify-between'>
-                                  <h1 className='font-bold text-sm text-codecolor ml-2'>
+                                  <h1 className='font-bold text-sm text-codecolor ml-2 dark:text-gray-200'>
                                     {user.fullName}
                                   </h1>
                                 </div>
@@ -208,7 +208,7 @@ export default function ChatsNav ({
                               .map(chat => (
                                 <div
                                   key={chat._id}
-                                  className='flex items-center gap-2 p-2 rounded-lg cursor-pointer hover:bg-codecolorlight'
+                                  className='flex items-center gap-2 p-2 rounded-lg cursor-pointer hover:bg-codecolorlight dark:hover:bg-gray-700 '
                                   onClick={e =>
                                     handleSendShowMessage(
                                       e,
@@ -234,14 +234,14 @@ export default function ChatsNav ({
                                       ></img>
                                     </div>
                                     <div className='flex flex-col text-left'>
-                                      <p className='text-sm text-gray-900 ml-3 font-semibold'>
+                                      <p className='text-sm text-gray-900 ml-3 font-semibold dark:text-gray-200'>
                                         {
                                           chat.members.find(
                                             u => u._id !== user.id
                                           )?.fullName
                                         }
                                       </p>
-                                      <p className='text-xs text-gray-900 ml-3'>
+                                      <p className='text-xs text-gray-900 dark:text-gray-400 ml-3'>
                                         {chat?.lastMessage && (
                                           <>
                                             {chat?.lastMessage?.sender !==

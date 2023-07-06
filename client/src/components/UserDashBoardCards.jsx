@@ -16,10 +16,10 @@ const Tab = ({ active, children, ...props }) => (
   <button
     {...props}
     className={classNames(
-      'w-40 h-12 relative left-2 mt-8 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] hover:bg-codecolor hover:text-white text-codecolor',
+      'lg:w-40 w-[46%] lg:h-12 h-10 relative lg:left-2 lg:mt-8 mt-4 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] dark:bg-gray-700 dark:text-gray-200 hover:bg-codecolor hover:text-white text-codecolor',
       {
-        'bg-codecolor text-white': active,
-        'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200':
+        'bg-codecolor dark:bg-[#7F56D9!important] text-white': active,
+        'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200':
           props.disabled
       }
     )}
@@ -69,6 +69,11 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const currentFavoriteTutors = [
     ...tutorFavorites.slice(indexOfFirstFavoriteTutor, indexOfLastFavoriteTutor)
   ]
+
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [currentPage, currentFavoritesPage])
 
   const pageNumbers = []
   const pageNumbersFavorites = []
@@ -190,9 +195,9 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   return (
     <>
       {!isLoading && (
-        <div className='relative items-center w-full px-8 pb-8'>
+        <div className='relative items-center w-full lg:px-8 lg:pb-8 p-2'>
           <>
-            <div className=' w-full gap-2 rounded-b-none rounded-xl flex justify-start'>
+            <div className=' w-full gap-2 rounded-b-none rounded-xl flex justify-start max-lg:justify-center'>
               <Tab onClick={setFeatured} active={view === 'featured'}>
                 Destacados
               </Tab>
@@ -206,7 +211,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
             </div>
             {tutors.length === 0 && (
               <div className='flex justify-center items-center mt-40'>
-                <h1 className='text-2xl font-semibold'>
+                <h1 className='lg:text-2xl text-xl font-semibold'>
                   No se encontraron programadores.
                 </h1>
               </div>

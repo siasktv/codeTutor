@@ -29,7 +29,8 @@ export const onAuthStateChanged = onChange => {
             image: res.data.image,
             location: res.data.location,
             timezone: res.data.timezone,
-            tutor: res.data?.tutor
+            tutor: res.data?.tutor,
+            admin: res.data?.admin
           })
         })
       }
