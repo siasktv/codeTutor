@@ -116,6 +116,8 @@ const UserDashboard = () => {
     window.scrollTo(0, 0)
   }, [selectedSection])
 
+  const [selectedViewTutors, setSelectedViewTutors] = useState('featured')
+
   return (
     <>
       {user && (
@@ -137,6 +139,7 @@ const UserDashboard = () => {
                   setShowMessage={setShowMessage}
                   handleShowMessage={handleShowMessage}
                   selectedSection={selectedSection}
+                  selectedViewTutors={selectedViewTutors}
                 />
               </div>
               <div className='sticky top-0 z-50 bg-white lg:hidden'>
@@ -154,6 +157,7 @@ const UserDashboard = () => {
                     <UserDashboardCards
                       handleShowMessage={handleShowMessage}
                       userMongo={userMongo}
+                      setSelectedViewTutors={setSelectedViewTutors}
                     />
                   </>
                 )}
