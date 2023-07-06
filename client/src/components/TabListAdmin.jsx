@@ -32,7 +32,7 @@ export const TabListAdmin = () => {
 
   return (
     <div className='flex justify-center'>
-      <Card className='w-4/5 my-8' placeholder='Source Selection'>
+      <Card className='lg:w-4/5 lg:my-8 my-4' placeholder='Source Selection'>
         <Select value={selectedTab} onChange={handleTabChange}>
           <SelectItem value='Transacciones' className='cursor-pointer'>
             Transacciones
@@ -44,8 +44,8 @@ export const TabListAdmin = () => {
         {selectedTab === 'Transacciones' && (
           <TabGroup>
             <TabList className='' color='violet'>
-              <Tab icon={UserGroupIcon}>Transacciones totales este mes</Tab>
-              <Tab icon={UserIcon}>Transacciones totales este año</Tab>
+              <Tab icon={UserGroupIcon}>Totales este mes</Tab>
+              <Tab icon={UserIcon}>Totales este año</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -60,8 +60,8 @@ export const TabListAdmin = () => {
         {selectedTab === 'Ganancias' && (
           <TabGroup>
             <TabList className='' color='violet'>
-              <Tab icon={UserGroupIcon}>Ganancias totales este mes</Tab>
-              <Tab icon={UserIcon}>Ganancias totales este año</Tab>
+              <Tab icon={UserGroupIcon}>Totales este mes</Tab>
+              <Tab icon={UserIcon}>Totales este año</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>

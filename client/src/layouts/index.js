@@ -22,8 +22,10 @@ import SessionsTutor from './Dashboards/TutorDashboard/Sessions'
 import Payments from './Dashboards/TutorDashboard/Payments'
 import AdminPayments from './Dashboards/AdminDashboard/Payments'
 import AdminSessions from './Dashboards/AdminDashboard/Sessions'
+import Tutors from './Dashboards/AdminDashboard/Tutors'
 
 export {
+  Tutors,
   AdminSessions,
   AdminPayments,
   Payments,

@@ -76,8 +76,13 @@ const AdminMetricStatic = () => {
   }, [])
 
   return (
-    <div className='flex justify-center mt-12'>
-      <Grid numItemsSm={2} numItemsLg={3} className='gap-6 w-4/5'>
+    <div className='flex justify-center lg:mt-12 mt-4'>
+      <Grid
+        numItems={2}
+        numItemsSm={2}
+        numItemsLg={3}
+        className='lg:gap-6 gap-3 lg:w-4/5 w-full'
+      >
         {categories.map(item => (
           <Card key={item.title} decoration='top' decorationColor={item.color}>
             <Flex justifyContent='start' className='space-x-4'>

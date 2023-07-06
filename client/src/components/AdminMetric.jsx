@@ -155,7 +155,11 @@ const AdminMetric = () => {
 
   return (
     <div className='flex justify-center'>
-      <Grid numItemsSm={2} numItemsLg={3} className='gap-6 mt-12 w-4/5'>
+      <Grid
+        numItemsSm={2}
+        numItemsLg={3}
+        className='lg:gap-6 gap-3 lg:mt-12 mt-4 lg:w-4/5 w-full'
+      >
         {categories.map(item => (
           <Card key={item.title}>
             <Icon icon={item.icon} variant='light' size='sm' color='violet' />

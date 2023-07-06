@@ -9,8 +9,10 @@ const Navlogo = () => {
               <span className='inline-block h-10 w-52'>
                 <div className='flex'>
                   <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
-                  <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply'></div>
-                  <h1 className='font-bold text-2xl ml-1'>Code-Tutor.</h1>
+                  <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                  <h1 className='font-bold text-2xl ml-1 dark:text-gray-200'>
+                    Code-Tutor.
+                  </h1>
                 </div>
               </span>
             </Link>

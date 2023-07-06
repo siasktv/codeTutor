@@ -131,7 +131,7 @@ export default function ModalBankTutor (props) {
   }, [errors, form])
 
   return (
-    <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+    <div className='fixed z-[99999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
       <div className='bg-white rounded-md p-5 w-[620px] max-h-[900px] overflow-y-auto'>
         <div
           className='flex flex-col items-center justify-center mt-1 mb-3'

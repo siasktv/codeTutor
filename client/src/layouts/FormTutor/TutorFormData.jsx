@@ -106,7 +106,7 @@ const TutorFormData = props => {
   return (
     <>
       {/* contenedor principal */}
-      <section className='bg-[#FAFBFC] h-full w-full'>
+      <section className='bg-[#FFFFFF] dark:bg-gray-900 h-full w-full'>
         <div className='flex flex-col'>
           <div className='flex flex-col mt-[33px]'>
             <TutorFormWelcome user={user} />
@@ -114,14 +114,14 @@ const TutorFormData = props => {
           </div>
         </div>
 
-        <section className='flex justify-center mt-[33px] mx-28'>
+        <section className='flex justify-center lg:mt-[33px] lg:mx-28'>
           <TutorFormDataLeft
             user={user}
             form={form}
             setDataForm={setDataForm}
             dataForm={dataForm}
           />
-          <section className='flex flex-col w-full gap-[18px] ml-6'>
+          <section className='flex flex-col w-full lg:gap-[18px] lg:ml-6'>
             <TutorFormProfileName
               dataForm={dataForm}
               setDataForm={setDataForm}
@@ -159,7 +159,7 @@ const TutorFormData = props => {
               errorsData={errorsData}
               setErrorsData={setErrorsData}
             />
-            <section className='flex justify-end items-center space-x-4 mx-12 pt-6 pb-8'>
+            <section className='flex justify-end items-center lg:space-x-4 space-x-2 lg:mx-12 mx-2 lg:pt-6 pt-2 pb-8'>
               <CancelarPerfilButton />
               <EnviarPerfilButton
                 title='Continuar'

@@ -18,6 +18,17 @@
 ::-webkit-scrollbar-track {
   background: #fff;
 }
+/* scrollbar dark mode */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: #111827;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #7f56d9;
+    border-radius: 20px;
+    border: 1px solid #111827 !important;
+  }
+}
 
 ::-webkit-scrollbar-thumb {
   background-color: #7f56d9;

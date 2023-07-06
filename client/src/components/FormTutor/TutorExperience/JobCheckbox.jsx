@@ -21,7 +21,7 @@ const JobCheckbox = props => {
         className={'h-5 w-5'}
       />
       <label
-        className='text-[#737791] font-inter text-base font-medium leading-[27px] tracking-normal'
+        className='text-[#737791] dark:text-gray-400 font-inter text-base font-medium leading-[27px] tracking-normal'
         htmlFor='checkbox'
       >
         Actualmente trabajo aquí

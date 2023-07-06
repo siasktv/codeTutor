@@ -195,7 +195,7 @@ const Meeting = () => {
       successFromURL &&
       session?.isPaid === true &&
       session?.clientUserId === user.id &&
-      session?.paymentAlert === false
+      session?.paymentAlert !== true
     ) {
       setShowPaymentSuccess(true)
       socket.emit('dismissPayment', { sessionId: Number(id) })
@@ -297,39 +297,45 @@ const Meeting = () => {
   }
 
   return (
-    <>
+    <div className='min-h-screen dark:bg-gray-900'>
       {loading ? (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center dark:bg-gray-900 h-screen'>
           <Loader />
         </div>
       ) : (
         <>
           <NavUserNotifications user={user} />
-          <div className='bg-gray-100 py-10 w-full h-full'>
+          <div className='lg:bg-gray-100 lg:dark:bg-gray-900 dark:bg-gray-900 max-lg:p-2 lg:py-10 py-4 w-full max-lg:h-full'>
             {/* --------------------------Fila 1--------------------------- */}
 
-            <div className='flex w-full h-full space-x-8 px-10'>
+            <div className='flex w-full dark:bg-gray-900 h-full lg:space-x-8 lg:px-10 max-lg:flex-col'>
               {/* Contenedor de 3 los pasos */}
-              <div className='flex flex-col justify-center bg-codecolor w-full h-full rounded px-10 py-8'>
-                <h1 className='text-white font-semibold text-lg text-start'>
+              <div className='max-lg:hidden flex flex-col justify-center dark:bg-gray-800 bg-codecolor w-full h-full rounded px-10 py-8'>
+                <h1 className='text-white font-semibold text-lg dark:text-codecolor dark:font-bold text-start'>
                   Como empezar
                 </h1>
                 <div className='flex justify-between space-x-4 pt-2 pb-4'>
                   <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>1</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                    <h2 className='text-white dark:text-gray-200 text-5xl font-semibold'>
+                      1
+                    </h2>
+                    <h2 className='text-white dark:text-gray-200 text-sm font-semibold'>
                       Prepara audio y video. Recomendamos usar Zoom.
                     </h2>
                   </div>
                   <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>2</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                    <h2 className='text-white dark:text-gray-200 text-5xl font-semibold'>
+                      2
+                    </h2>
+                    <h2 className='text-white dark:text-gray-200 text-sm font-semibold'>
                       Prepara lo que necesites comunicarle a tu tutor.
                     </h2>
                   </div>
                   <div className='flex space-x-2 items-center'>
-                    <h2 className='text-white text-5xl font-semibold'>3</h2>
-                    <h2 className='text-white text-sm font-semibold'>
+                    <h2 className='text-white dark:text-gray-200 text-5xl font-semibold'>
+                      3
+                    </h2>
+                    <h2 className='text-white dark:text-gray-200 text-sm font-semibold'>
                       Inicia la sesión y monitorea el tiempo de sesión.
                     </h2>
                   </div>
@@ -338,7 +344,7 @@ const Meeting = () => {
 
               <div>
                 {/* Contenedor con el cronómetro */}
-                <div className='flex flex-col items-center justify-center bg-white w-auto h-full rounded space-y-2'>
+                <div className='flex flex-col items-center justify-center bg-white dark:bg-gray-800 w-auto h-full rounded space-y-2 max-lg:p-5'>
                   {!moment(session?.appointmentDate).isBefore(moment()) ? (
                     <>
                       {timeLeftToStart.days ||
@@ -351,50 +357,50 @@ const Meeting = () => {
                           </h2>
                           <div className='flex items-center justify-between space-x-7 px-3'>
                             <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                              <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.days
                                   ? timeLeftToStart.days
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                 días
                               </p>
                             </div>
                             <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                              <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.hours
                                   ? timeLeftToStart.hours
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                 horas
                               </p>
                             </div>
                             <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                              <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.minutes
                                   ? timeLeftToStart.minutes
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                 minutos
                               </p>
                             </div>
                             <div className='flex flex-col items-center justify-center space-y-1'>
-                              <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                              <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                 {timeLeftToStart.seconds
                                   ? timeLeftToStart.seconds
                                       .toString()
                                       .padStart(2, '0')
                                   : '00'}
                               </h3>
-                              <p className='text-gray-800 font-semibold text-sm text-center'>
+                              <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                 segundos
                               </p>
                             </div>
@@ -447,7 +453,7 @@ const Meeting = () => {
                                 id='tiempo'
                               >
                                 <div className='flex flex-col items-center justify-center space-y-1'>
-                                  <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                                  <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                     {running ? (
                                       <>
                                         {timeLeftSession.minutes
@@ -467,13 +473,13 @@ const Meeting = () => {
                                     )}
                                     {/* Minutos */}
                                   </h3>
-                                  <p className='text-gray-800 font-semibold text-sm text-center'>
+                                  <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                     minutos
                                   </p>
                                 </div>
                                 <div className='h-full border'></div>
                                 <div className='flex flex-col items-center justify-center space-y-1'>
-                                  <h3 className='text-gray-800 font-semibold text-2xl text-center'>
+                                  <h3 className='text-gray-800 dark:text-gray-200 font-semibold text-2xl text-center'>
                                     {timeLeftSession.seconds
                                       ? timeLeftSession.seconds
                                           .toString()
@@ -481,7 +487,7 @@ const Meeting = () => {
                                       : '00'}{' '}
                                     {/* Segundos */}
                                   </h3>
-                                  <p className='text-gray-800 font-semibold text-sm text-center'>
+                                  <p className='text-gray-800 dark:text-gray-200 font-semibold text-sm text-center'>
                                     segundos
                                   </p>
                                 </div>
@@ -639,8 +645,8 @@ const Meeting = () => {
                 </div>
                 {/* Renderiza el componente StarRating y pasa la función handleCloseModal como prop */}
                 {showModal && (
-                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
-                    <div className='bg-white rounded-lg p-8 mx-4 sm:mx-auto max-w-md'>
+                  <div className='fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 max-lg:px-3 max-md:px-0'>
+                    <div className='bg-white dark:bg-gray-800 rounded-lg p-8 mx-4 sm:mx-auto max-lg:w-full lg:max-w-md'>
                       <MeetingReviews
                         onCloseModal={handleCloseModal}
                         setReviewComment={setReviewComment}
@@ -655,13 +661,13 @@ const Meeting = () => {
 
             {/* --------------------------Fila 2--------------------------- */}
 
-            <div className='flex w-full space-x-8 px-10 py-8'>
+            <div className='flex w-full lg:space-x-8 lg:px-10 lg:py-8 py-2'>
               {/* Plataformas videollamada+Otras  */}
-              <div className='flex flex-col justify-center border-gray-300 bg-white w-full h-full rounded'>
+              <div className='flex flex-col justify-center border-gray-300 bg-white dark:bg-gray-800 w-full h-full rounded max-lg:py-4'>
                 {/* Barra de Opciones */}
-                <div className='flex w-full justify-end space-x-2 px-10 py-5 border-b'>
+                <div className='flex lg:w-full w-60 max-lg:self-center max-lg:space-y-2 max-lg:justify-center max-lg:flex-col justify-end lg:space-x-2 lg:px-10 lg:py-5 lg:border-b dark:border-b-gray-700'>
                   <button
-                    className='text-codecolor font-semibold text-center active:scale-90 transition duration-150 bg-codecolorlighter rounded-md px-2 py-1'
+                    className='text-codecolor font-semibold text-center active:scale-90 transition duration-150 bg-codecolorlighter rounded-md px-2 py-1 dark:bg-codecolor dark:text-codecolorlighter'
                     onClick={() => setShowInfoModal(true)}
                   >
                     <FontAwesomeIcon
@@ -674,7 +680,7 @@ const Meeting = () => {
                 Audio/Vídeo
               </h2> */}
                   <button
-                    className='text-black bg-gray-200 rounded-md px-2 py-1 font-semibold text-center active:scale-90 transition duration-150'
+                    className='text-black bg-gray-200 rounded-md px-2 py-1 font-semibold text-center active:scale-90 transition duration-150 dark:bg-black dark:text-gray-200'
                     onClick={() => setShowFaqsModal(true)}
                   >
                     <FontAwesomeIcon
@@ -686,25 +692,25 @@ const Meeting = () => {
                 </div>
 
                 {/* Plataformas */}
-                <div className='flex justify-center bg-white w-full h-full py-6 px-5 rounded-b border-b'>
+                <div className='flex justify-center bg-white dark:bg-gray-800 w-full h-full py-6 lg:px-5 px-2 rounded-b lg:border-b dark:border-none max-lg:flex-col max-lg:space-y-8'>
                   {/* Zoom */}
-                  <div className='flex flex-col justify-between w-full px-4 border-r'>
+                  <div className='flex flex-col justify-between w-full px-4 max-lg:py-4 lg:border-r max-lg:border-b dark:border-gray-700'>
                     <div className='flex justify-between items-center space-x-4'>
-                      <h2 className='text-black font-semibold text-start'>
+                      <h2 className='text-black dark:text-gray-200 font-semibold text-start'>
                         Zoom
                       </h2>
-                      <h2 className='bg-blue-100 font-semibold text-blue-600 px-2 py-1 text-xs rounded'>
+                      <h2 className='bg-blue-100 font-semibold text-blue-600 px-2 py-1 text-xs rounded dark:bg-blue-600 dark:text-blue-100'>
                         MAYOR CONTROL
                       </h2>
                     </div>
-                    <h2 className='text-start mt-2'>
+                    <h2 className='text-start mt-2 dark:text-gray-200'>
                       Admite videollamadas, uso compartido de pantalla y control
                       remoto.
                     </h2>
-                    <h2 className='text-start text-sm mt-4'>
+                    <h2 className='text-start text-sm mt-4 dark:text-gray-200'>
                       Si no tienes Zoom instalado, sigue los siguientes pasos:
                     </h2>
-                    <h2 className='text-gray-600 text-start text-sm'>
+                    <h2 className='text-gray-600 dark:text-gray-400 text-start text-sm'>
                       1 - Haz clic en el botón que se encuentra debajo para ir
                       al sitio web de Zoom y descargarlo.
                       <br />
@@ -712,10 +718,10 @@ const Meeting = () => {
                       <br />3 - Acuerda con el otro usuario para crear una sala
                       de reuniones y unirte a ella.
                     </h2>
-                    <h2 className='text-start text-sm mt-4'>
+                    <h2 className='text-start dark:text-gray-200 text-sm mt-4'>
                       Si Zoom ya está instalado:
                     </h2>
-                    <h2 className='text-gray-600 text-start text-sm'>
+                    <h2 className='text-gray-600 dark:text-gray-400 text-start text-sm'>
                       1 - Abre la aplicación de Zoom y haz clic en "Unirse a una
                       reunión".
                       <br />
@@ -726,28 +732,28 @@ const Meeting = () => {
                     <div>
                       {/* Botón Zoom */}
                       <a href='https://zoom.us/es/download' target='_blank'>
-                        <button className='hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded px-3 py-1 text-blue-600 mt-6 active:scale-90 transition duration-150'>
+                        <button className='hover:bg-blue-600 hover:text-white font-semibold border border-blue-600 rounded px-3 py-1 text-blue-600 max-lg:mb-2 mt-6 active:scale-90 transition duration-150'>
                           Descargar Zoom
                         </button>
                       </a>
                     </div>
                   </div>
 
-                  <div className='flex flex-col w-full px-4'>
+                  <div className='flex flex-col max-lg:border-b dark:border-gray-700 w-full lg:px-4 px-2'>
                     {/* Google Meet */}
-                    <div className='flex justify-between bg-white w-full h-full'>
+                    <div className='flex justify-between bg-white dark:bg-gray-800 w-full h-full'>
                       {/* Info Google Meet */}
                       <div>
                         <div className='flex justify-between items-center space-x-4'>
-                          <h2 className='text-black font-semibold text-start'>
+                          <h2 className='text-black dark:text-gray-200 font-semibold text-start'>
                             Google Meet
                           </h2>
-                          <h2 className='bg-green-200 font-semibold text-green-600 px-2 py-1 text-xs rounded'>
+                          <h2 className='bg-green-200 font-semibold text-green-600 px-2 py-1 text-xs rounded dark:bg-green-600 dark:text-green-200'>
                             AUTOMATIZADO
                           </h2>
                         </div>
 
-                        <h2 className='text-start mt-2'>
+                        <h2 className='text-start mt-2 dark:text-gray-200'>
                           Admite videollamadas y uso compartido de pantalla.
                         </h2>
                         <h2 className='text-green-600 rounded-md px-3 py-2 bg-green-200 text-justify text-sm my-2 font-semibold'>
@@ -757,7 +763,7 @@ const Meeting = () => {
                           seguir ningún paso. Para reuniones que no requieran de
                           control remoto, recomendamos utilizar Google Meet.
                         </h2>
-                        <h2 className='text-gray-600 text-start text-sm'>
+                        <h2 className='text-gray-600 dark:text-gray-400 text-start text-sm'>
                           1 - Aguarda a que ambos usuarios confirmen asistencia.
                           <br />
                           2- Una vez confirmada la asistencia, se desbloqueará
@@ -773,32 +779,32 @@ const Meeting = () => {
 
                       {session.tutorHasJoined && session.clientHasJoined ? (
                         <a href={session.meetLink} target='_blank'>
-                          <button className='border border-green-600 rounded px-3 py-1 text-green-600 mt-6 active:scale-90 transition duration-150 hover:bg-green-600 hover:text-white font-semibold'>
+                          <button className='border border-green-600 rounded px-3 py-1 text-green-600 mt-6 active:scale-90 transition duration-150 hover:bg-green-600 hover:text-white font-semibold max-lg:mb-6'>
                             Unirse al Meet
                           </button>
                         </a>
                       ) : (
-                        <button className='border border-gray-400 rounded px-3 py-1 text-gray-400 mt-6 font-semibold cursor-default'>
+                        <button className='border border-gray-400 rounded px-3 py-1 text-gray-400 mt-6 font-semibold cursor-default max-lg:mb-6'>
                           Esperando confirmación
                         </button>
                       )}
                     </div>
                   </div>
 
-                  <div className='flex flex-col w-full border-l px-4'>
+                  <div className='flex flex-col w-full lg:border-l dark:border-gray-700 lg:px-4 px-2'>
                     {/* Google Hangouts */}
-                    <div className='flex justify-between bg-white w-full h-full'>
+                    <div className='flex justify-between bg-white dark:bg-gray-800 w-full h-full'>
                       {/* Info Google Hangouts */}
                       <div>
                         <div className='flex justify-between items-center space-x-4'>
-                          <h2 className='text-black font-semibold text-start'>
+                          <h2 className='text-black dark:text-gray-200 font-semibold text-start'>
                             Google Hangouts / Chat
                           </h2>
-                          <h2 className='bg-orange-200 font-semibold text-orange-700 px-2 py-1 text-xs rounded'>
+                          <h2 className='bg-orange-200 font-semibold text-orange-700 px-2 py-1 text-xs rounded dark:text-orange-200 dark:bg-orange-600'>
                             ALTERNATIVA
                           </h2>
                         </div>
-                        <h2 className='text-start mt-2'>
+                        <h2 className='text-start mt-2 dark:text-gray-200'>
                           Admite videollamadas y uso compartido de pantalla.
                         </h2>
                         <h2 className='text-orange-700 rounded-md px-3 py-2 bg-orange-200 text-justify text-sm my-2 font-semibold'>
@@ -811,11 +817,11 @@ const Meeting = () => {
                           recomendada para realizar reuniones ya que requiere de
                           varios pasos adicionales para poder utilizarlo.
                         </h2>
-                        <p className='text-start text-sm text-gray-600 mt-2'>
+                        <p className='text-start text-sm dark:text-gray-200 text-gray-600 mt-2'>
                           Si todavía quieren utilizarlo con el otro usuario,
                           sigan los siguientes pasos:
                         </p>
-                        <h2 className='text-gray-600 text-start text-sm'>
+                        <h2 className='text-gray-600 dark:text-gray-400 text-start text-sm'>
                           1- Haz clic en el botón que se encuentra debajo para
                           ingresar a Google Chat.
                           <br />
@@ -866,22 +872,22 @@ const Meeting = () => {
                 </span>
 
                 <div
-                  className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+                  className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
                   role='dialog'
                   aria-modal='true'
                   aria-labelledby='modal-headline'
                 >
-                  <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
+                  <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
                     <div className='sm:flex sm:items-start'>
                       <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
                         <h3
-                          className='text-lg leading-6 font-medium text-gray-900'
+                          className='text-lg leading-6 font-medium text-gray-900 dark:text-gray-200'
                           id='modal-headline'
                         >
                           ¡Pago realizado con éxito!
                         </h3>
                         <div className='mt-2'>
-                          <p className='text-sm leading-5 text-gray-500'>
+                          <p className='text-sm leading-5 text-gray-500 dark:text-gray-200'>
                             El pago se ha realizado con éxito. Puedes ver el
                             recibo en el apartado de "Mis sesiones" dentro de tu
                             panel de usuario.
@@ -890,7 +896,7 @@ const Meeting = () => {
                       </div>
                     </div>
                   </div>
-                  <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+                  <div className='bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
                     <span className='flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto'>
                       <button
                         onClick={() => setShowPaymentSuccess(false)}
@@ -906,13 +912,13 @@ const Meeting = () => {
             </div>
           )}
           {showFaqsModal && (
-            <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
-              <div className='bg-white rounded-md p-5 w-[600px] max-h-[900px] overflow-y-auto'>
+            <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center max-lg:px-3'>
+              <div className='bg-white dark:bg-gray-800 rounded-md p-5 lg:w-[600px] lg:max-h-[900px] max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:max-h-[90%] max-lg:py-2'>
                 <div
-                  className='flex flex-col items-center justify-center mt-1 mb-3'
+                  className='flex flex-col items-center justify-center mt-1 mb-3 overflow-y-auto max-lg:max-h-[500px] max-lg:justify-start'
                   id='steps'
                 >
-                  <ul className='list-inside text-justify w-[450px] text-gray-800 text-sm mt-2 space-y-1'>
+                  <ul className='list-inside text-justify lg:w-[450px] dark:text-gray-200 text-gray-800 text-sm mt-2 space-y-1'>
                     <li>
                       1. Si estas aquí antes de la fecha y hora agendada de la
                       sesion, en la parte superior derecha, encontrarás una
@@ -995,16 +1001,16 @@ const Meeting = () => {
         </>
       )}
       {showInfoModal && (
-        <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
-          <div className='bg-white rounded-md p-5 w-[500px] max-h-[900px] overflow-y-auto'>
+        <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center max-lg:px-3'>
+          <div className='bg-white dark:bg-gray-800 rounded-md p-5 lg:w-[500px] max-lg:w-full  lg:max-h-[900px] overflow-y-auto'>
             <div
               className='flex flex-col items-center justify-center mt-1 mb-3'
               id='steps'
             >
-              <p className='text-xl leading-5 text-gray-800 mb-3'>
+              <p className='text-xl leading-5 text-gray-800 dark:text-gray-200 mb-3'>
                 <strong>Datos de la sesión:</strong>
               </p>
-              <ul className='list-inside text-justify w-[450px] text-gray-800 text-md mt-2 space-y-3 flex items-center flex-col justify-center'>
+              <ul className='list-inside text-justify lg:w-[450px] text-gray-800 dark:text-gray-200 text-md mt-2 space-y-3 flex items-center flex-col justify-center'>
                 <li>
                   <strong>Tutor:</strong>{' '}
                   {session.tutorUserId === user.id ? (
@@ -1044,12 +1050,12 @@ const Meeting = () => {
                 </li>
                 <li>
                   {session.isPaid ? (
-                    <span className='text-green-500 bg-green-200 font-semibold text-sm px-2 py-2 rounded-md'>
+                    <span className='text-green-500 bg-green-200 font-semibold text-sm px-2 py-2 rounded-md dark:bg-green-600 dark:text-green-100'>
                       <FontAwesomeIcon icon={faCheckCircle} className='mr-2' />
                       Pagada
                     </span>
                   ) : (
-                    <span className='text-red-500 font-semibold bg-red-200 px-2 py-1 text-sm rounded-md'>
+                    <span className='text-red-500 font-semibold bg-red-200 px-2 py-1 text-sm rounded-md dark:bg-red-500 dark:text-red-100'>
                       <FontAwesomeIcon icon={faTimesCircle} className='mr-1' />
                       No pagada
                     </span>
@@ -1060,7 +1066,7 @@ const Meeting = () => {
 
             <div className='flex items-center justify-center mt-6'>
               <button
-                className='bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 mr-2'
+                className='bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1'
                 onClick={() => setShowInfoModal(false)}
               >
                 Aceptar
@@ -1069,7 +1075,7 @@ const Meeting = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

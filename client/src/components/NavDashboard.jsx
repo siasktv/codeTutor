@@ -204,13 +204,13 @@ const NavDashboard = ({
           />
 
           <audio ref={audioPlayer} src={notificationSound} />
-          <header className='flex items-center h-20 w-full z-50'>
+          <header className='flex items-center h-20 w-full z-50 dark:bg-gray-900'>
             <div className='flex justify-between w-full items-center'>
               <div className='pl-[45%] pt-1'>
                 {selectedSection === 'dashboard' && (
                   <div className='relative'>
                     <button
-                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
+                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor dark:font-semibold'
                       onClick={handleShowTech}
                     >
                       Encuentra desarrolladores
@@ -272,7 +272,7 @@ const NavDashboard = ({
             {showTech && selectedSection === 'dashboard' && (
               <div className='absolute w-full z-50 top-20  '>
                 <div className='flex justify-center'>
-                  <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
+                  <div className='pb-4 bg-white dark:bg-gray-800 relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
                     {categories.map(category => (
                       <button
                         key={category}
@@ -287,7 +287,7 @@ const NavDashboard = ({
                             .map(tech => (
                               <div
                                 key={tech._id}
-                                className='text-codecolor font-normal hover:underline cursor-pointer'
+                                className='text-codecolor font-normal hover:underline cursor-pointer dark:text-gray-200'
                                 onClick={() => handleSortByTech(tech.name)}
                               >
                                 <h1>{tech.name}</h1>
@@ -298,7 +298,7 @@ const NavDashboard = ({
                     ))}
                     <div className='h-full w-full'>
                       <button
-                        className='relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark'
+                        className='relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark dark:border-none'
                         onClick={() => handleSortByTech('Todos')}
                       >
                         Restaurar

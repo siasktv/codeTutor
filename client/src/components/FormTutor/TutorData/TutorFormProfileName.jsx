@@ -48,8 +48,8 @@ const TutorFormProfileName = props => {
           id='inputField'
           className={
             errorsData.name
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 bg-red-100 text-red-500 focus:outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 bg-red-100 text-red-500 focus:outline-red-500 dark:bg-gray-800 dark:outline-none dark:focus:outline-none'
+              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
           }
           type='text'
           value={dataForm.name || form.name}
@@ -57,7 +57,7 @@ const TutorFormProfileName = props => {
           placeholder='Nombre Completo'
         />
         {errorsData.name && (
-          <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
+          <p className='font-inter font-normal italic text-red-500 text-left lg:-mt-5'>
             {errorsData.name}
           </p>
         )}

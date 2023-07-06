@@ -351,29 +351,31 @@ export default function Payments (props) {
   return (
     <>
       {!isLoading ? (
-        <div className='flex flex-col pb-6 justify-center items-center w-5/6'>
+        <div className='flex flex-col pb-6 justify-center items-center lg:w-5/6 w-full'>
           <div className='flex flex-row justify-center items-center w-full rounded-md'>
             <div className='flex flex-col items-center justify-center w-full h-full'>
-              <h1 className='text-4xl font-bold mt-6'>Detalles de pagos</h1>
-              <div className='flex flex-row justify-between items-center w-full px-3 space-x-6 h-full py-3 mt-6'>
-                <div className='flex flex-col justify-center items-center border w-full h-full rounded-md bg-white shadow-md border-orange-200 shadow-orange-100'>
+              <h1 className='text-2xl mt-2 lg:text-4xl font-bold lg:mt-6 dark:text-gray-200'>
+                Detalles de pagos
+              </h1>
+              <div className='flex flex-row max-lg:flex-col justify-between items-center w-full lg:px-3 lg:space-x-6 max-lg:space-y-3 h-full py-3 lg:mt-6'>
+                <div className='flex flex-col justify-center items-center border w-full h-full rounded-md max-lg:px-3 dark:bg-gray-800 dark:border-none dark:shadow-none bg-white shadow-md border-orange-200 shadow-orange-100'>
                   <FontAwesomeIcon
                     icon={faIcicles}
-                    className='text-xl p-3 mb-3 mt-5 text-blue-500 bg-blue-200  rounded-md'
+                    className='text-xl p-3 lg:mb-3 mb-1 mt-5 text-blue-500 bg-blue-200  rounded-md'
                   />
-                  <h1 className='text-2xl font-bold text-[#05004E]'>
+                  <h1 className='text-2xl max-lg:text-lg font-bold text-[#05004E] dark:text-blue-500'>
                     Congelados
                   </h1>
-                  <div className='flex flex-row justify-between items-center w-5/6 space-x-3 px-3 h-full py-3'>
+                  <div className='flex flex-row justify-between items-center w-5/6 space-x-3 px-3 h-full lg:py-3 py-2'>
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
                       <FontAwesomeIcon
                         icon={faWarning}
                         className='text-lg text-orange-500 bg-[#ffe6cb]  p-3 rounded-md'
                       />
-                      <h1 className='text-md mt-3 font-bold text-[#05004E]'>
+                      <h1 className='text-md lg:mt-3 mt-1 max-lg:text-sm font-bold text-[#05004E] dark:text-orange-500'>
                         Pendientes{' '}
                       </h1>
-                      <h1 className='text-2xl font-bold mt-3 text-gray-400'>
+                      <h1 className='text-2xl max-lg:text-sm font-bold lg:mt-3 dark:text-gray-200 text-gray-400'>
                         USD${' '}
                         {(
                           (frozenPayments.reduce(
@@ -389,12 +391,12 @@ export default function Payments (props) {
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
                       <FontAwesomeIcon
                         icon={faSackDollar}
-                        className='text-lg text-green-600 bg-[#cdf6d6] p-3 rounded-md mb-3'
+                        className='text-lg text-green-600 bg-[#cdf6d6] p-3 rounded-md lg:mb-3 mb-1'
                       />
-                      <h1 className='text-md font-bold text-[#05004E]'>
+                      <h1 className='text-md max-lg:text-sm dark:text-green-500 font-bold text-[#05004E]'>
                         Disponibles{' '}
                       </h1>
-                      <h1 className='text-2xl font-bold mt-3 text-gray-400'>
+                      <h1 className='text-2xl max-lg:text-sm font-bold lg:mt-3 dark:text-gray-200 text-gray-400'>
                         USD${' '}
                         {(
                           (availablePayments.reduce(
@@ -414,24 +416,24 @@ export default function Payments (props) {
                   </p>
                 </div>
 
-                <div className='flex flex-col justify-center items-center border w-full h-full rounded-md bg-white shadow-md border-codecolorlighter shadow-codecolorlighter'>
+                <div className='flex flex-col justify-center items-center border w-full h-full rounded-md bg-white shadow-md border-codecolorlighter shadow-codecolorlighter max-lg:px-3 dark:bg-gray-800 dark:border-none dark:shadow-none'>
                   <FontAwesomeIcon
                     icon={faCheck}
-                    className='text-xl bg-codecolorlighter p-3 mb-3 mt-5 text-codecolor rounded-md'
+                    className='text-xl bg-codecolorlighter p-3 lg:mb-3 mb-1 mt-5 text-codecolor rounded-md'
                   />
-                  <h1 className='text-2xl font-bold text-[#05004E]'>
+                  <h1 className='text-2xl max-lg:text-lg font-bold dark:text-codecolor text-[#05004E]'>
                     Liberados
                   </h1>
-                  <div className='flex flex-row justify-between items-center w-5/6 space-x-3 px-3 h-full py-3'>
+                  <div className='flex flex-row justify-between items-center w-5/6 space-x-3 px-3 h-full lg:py-3 py-2'>
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
                       <FontAwesomeIcon
                         icon={faHand}
-                        className='text-lg  mb-3 text-gray-600 bg-gray-200  p-3 rounded-md'
+                        className='text-lg  lg:mb-3 mb-1 text-gray-600 bg-gray-200  p-3 rounded-md'
                       />
-                      <h1 className='text-md font-bold text-[#05004E]'>
+                      <h1 className='text-md max-lg:text-sm font-bold dark:text-gray-400 text-[#05004E]'>
                         Aguardando{' '}
                       </h1>
-                      <h1 className='text-2xl font-bold mt-3 text-gray-400'>
+                      <h1 className='text-2xl max-lg:text-sm font-bold lg:mt-3 dark:text-gray-200 text-gray-400'>
                         USD${' '}
                         {(
                           inTransitPayments.reduce(
@@ -449,12 +451,12 @@ export default function Payments (props) {
                     <div className='flex flex-col justify-center items-center w-full rounded-md h-full'>
                       <FontAwesomeIcon
                         icon={faShare}
-                        className='text-lg text-yellow-600 bg-yellow-100 p-3 rounded-md mb-3'
+                        className='text-lg text-yellow-600 bg-yellow-100 p-3 rounded-md lg:mb-3 mb-1'
                       />
-                      <h1 className='text-md font-bold text-[#05004E]'>
+                      <h1 className='text-md max-lg:text-sm font-bold dark:text-yellow-500 text-[#05004E]'>
                         Pagados{' '}
                       </h1>
-                      <h1 className='text-2xl font-bold mt-3 text-gray-400'>
+                      <h1 className='text-2xl max-lg:text-sm font-bold lg:mt-3 dark:text-gray-200 text-gray-400'>
                         USD${' '}
                         {sentPayments
                           .reduce(
@@ -473,13 +475,41 @@ export default function Payments (props) {
                 </div>
               </div>
               {/* section selector */}
-              <div className='flex flex-row justify-center items-center w-full px-3 mt-6'>
+              <div className='lg:hidden w-full'>
+                <select
+                  className='w-full font-semibold cursor-pointer rounded-md bg-white shadow-md border px-3 py-2 dark:bg-gray-800 dark:border-none dark:text-gray-200 dark:outline-none'
+                  onChange={e => setSelectedSection(e.target.value)}
+                >
+                  <option
+                    value='awaiting'
+                    selected={selectedSection === 'awaiting'}
+                    className='cursor-pointer'
+                  >
+                    Pendientes
+                  </option>
+                  <option
+                    value='sent'
+                    selected={selectedSection === 'sent'}
+                    className='cursor-pointer'
+                  >
+                    Pagados
+                  </option>
+                  <option
+                    value='disputed'
+                    selected={selectedSection === 'disputed'}
+                    className='cursor-pointer'
+                  >
+                    Disputados
+                  </option>
+                </select>
+              </div>
+              <div className='flex flex-row justify-center items-center w-full px-3 mt-6 max-lg:hidden'>
                 <div className='flex flex-row justify-center items-center w-full space-x-3'>
                   <button
                     className={`flex flex-row justify-center items-center w-full py-3 rounded-md ${
                       selectedSection === 'sent'
-                        ? 'bg-[#05004E] text-white'
-                        : 'bg-white text-[#05004E]'
+                        ? 'bg-[#05004E] text-white dark:bg-codecolor'
+                        : 'bg-white text-[#05004E] dark:bg-gray-800 dark:text-codecolor'
                     }`}
                     onClick={() => setSelectedSection('sent')}
                   >
@@ -488,14 +518,14 @@ export default function Payments (props) {
                       className={`text-lg mr-2 ${
                         selectedSection === 'sent'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     />
                     <h1
                       className={`text-md font-bold ${
                         selectedSection === 'sent'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     >
                       Enviados
@@ -504,8 +534,8 @@ export default function Payments (props) {
                   <button
                     className={`flex flex-row justify-center items-center w-full py-3 rounded-md ${
                       selectedSection === 'awaiting'
-                        ? 'bg-[#05004E] text-white'
-                        : 'bg-white text-[#05004E]'
+                        ? 'bg-[#05004E] text-white dark:bg-codecolor'
+                        : 'bg-white text-[#05004E] dark:bg-gray-800 dark:text-codecolor'
                     }`}
                     onClick={() => setSelectedSection('awaiting')}
                   >
@@ -514,14 +544,14 @@ export default function Payments (props) {
                       className={`text-lg mr-2 ${
                         selectedSection === 'awaiting'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     />
                     <h1
                       className={`text-md font-bold ${
                         selectedSection === 'awaiting'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     >
                       Aguardando
@@ -530,8 +560,8 @@ export default function Payments (props) {
                   <button
                     className={`flex flex-row justify-center items-center w-full py-3 rounded-md ${
                       selectedSection === 'disputed'
-                        ? 'bg-[#05004E] text-white'
-                        : 'bg-white text-[#05004E]'
+                        ? 'bg-[#05004E] text-white dark:bg-codecolor'
+                        : 'bg-white text-[#05004E] dark:bg-gray-800 dark:text-codecolor'
                     }`}
                     onClick={() => setSelectedSection('disputed')}
                   >
@@ -540,14 +570,14 @@ export default function Payments (props) {
                       className={`text-lg mr-2 ${
                         selectedSection === 'disputed'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     />
                     <h1
                       className={`text-md font-bold ${
                         selectedSection === 'disputed'
                           ? 'text-white'
-                          : 'text-[#05004E]'
+                          : 'text-[#05004E] dark:text-codecolor'
                       }`}
                     >
                       Disputados
@@ -559,10 +589,116 @@ export default function Payments (props) {
                 <>
                   {sentPayments.length > 0 && (
                     <div className='px-3 w-full'>
-                      <div className='flex flex-col mt-5 w-full px-3 border rounded-md'>
-                        <table className='w-full'>
+                      <div className='flex flex-col lg:mt-5 w-full lg:px-3 lg:border dark:border-gray-800 rounded-md'>
+                        <div className='lg:hidden'>
+                          {sentPayments.map(payment => (
+                            <div
+                              key={payment._id}
+                              className='flex flex-col border-b dark:border-gray-800 border-gray-200 py-4 lg:px-4 space-y-1'
+                            >
+                              <div className='flex flex-row justify-between '>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Fecha de pago
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {moment(payment.paymentDetails.date).format(
+                                    'DD/MM/YYYY HH:mm:ss'
+                                  )}{' '}
+                                  hs
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Monto
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  USD$ {payment.amount}
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Estado
+                                </p>
+                                <span
+                                  className={
+                                    `font-semibold text-sm ` +
+                                    (payment.status === 'pending'
+                                      ? ' text-yellow-600'
+                                      : payment.status === 'failed'
+                                      ? 'text-red-600'
+                                      : payment.status === 'success'
+                                      ? 'text-green-600'
+                                      : '')
+                                  }
+                                >
+                                  <FontAwesomeIcon
+                                    icon={
+                                      payment.status === 'pending'
+                                        ? faClock
+                                        : payment.status === 'failed'
+                                        ? faTimes
+                                        : payment.status === 'success'
+                                        ? faCheck
+                                        : ''
+                                    }
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  Exitoso
+                                </span>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Cuenta bancaria
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {
+                                    payment.paymentDetails.bankAccount
+                                      .accountNumber
+                                  }
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Comprobante
+                                </p>
+                                <span className='text-yellow-600 font-semibold text-sm cursor-pointer'>
+                                  <FontAwesomeIcon
+                                    icon={faFileInvoice}
+                                    className='mr-1 text-xs'
+                                  />
+                                  <a
+                                    href={payment.paymentDetails.receiptUrl}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                  >
+                                    Descargar
+                                  </a>
+                                </span>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Detalles
+                                </p>
+
+                                <span
+                                  className=' text-codecolor font-semibold text-sm cursor-pointer'
+                                  onClick={() => {
+                                    handleShowModalSentPayment(payment)
+                                  }}
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    className='mr-1 text-xs'
+                                  />
+                                  Ver detalles
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <table className='w-full max-lg:hidden'>
                           <thead>
-                            <tr className='text-black'>
+                            <tr className='text-black dark:text-gray-200'>
                               <th className='py-3 px-6 text-center'>
                                 Fecha de pago
                               </th>
@@ -579,9 +715,12 @@ export default function Payments (props) {
                               </th>
                             </tr>
                           </thead>
-                          <tbody className='text-gray-600 text-md font-md'>
+                          <tbody className='text-gray-600 dark:text-gray-200 text-md font-md'>
                             {sentPayments.map(payment => (
-                              <tr key={payment._id} className='text-black'>
+                              <tr
+                                key={payment._id}
+                                className='text-black dark:text-gray-200 '
+                              >
                                 <td className='py-2 pb-4 px-4'>
                                   {moment(payment.paymentDetails.date).format(
                                     'DD/MM/YYYY HH:mm:ss'
@@ -596,11 +735,11 @@ export default function Payments (props) {
                                     className={
                                       `px-2 py-1 rounded-md font-semibold ` +
                                       (payment.status === 'pending'
-                                        ? 'bg-yellow-100 text-yellow-600'
+                                        ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-600 dark:text-yellow-100'
                                         : payment.status === 'failed'
-                                        ? 'bg-red-100 text-red-600'
+                                        ? 'bg-red-100 text-red-600 dark:bg-red-600 dark:text-red-100'
                                         : payment.status === 'success'
-                                        ? 'bg-green-200 text-green-600'
+                                        ? 'bg-green-200 text-green-600 dark:bg-green-600 dark:text-green-100'
                                         : '')
                                     }
                                   >
@@ -628,7 +767,7 @@ export default function Payments (props) {
                                   }
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
-                                  <span className='text-yellow-600 bg-yellow-100 py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer'>
+                                  <span className='text-yellow-600 bg-yellow-100 py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer dark:bg-yellow-600 dark:text-yellow-100'>
                                     <FontAwesomeIcon
                                       icon={faFileInvoice}
                                       className='mr-1 text-xs'
@@ -644,7 +783,7 @@ export default function Payments (props) {
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
                                   <span
-                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer'
+                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer dark:text-codecolorlighter dark:bg-codecolor'
                                     onClick={() => {
                                       handleShowModalSentPayment(payment)
                                     }}
@@ -665,10 +804,10 @@ export default function Payments (props) {
                   )}
                   {!sentPayments.length > 0 && (
                     <div className='px-3 w-full mt-5'>
-                      <p className='text-md text-[#05004E]'>
+                      <p className='text-md text-[#05004E] dark:text-gray-200'>
                         <FontAwesomeIcon
                           icon={faInfoCircle}
-                          className='text-[#05004E] mr-1'
+                          className='text-[#05004E] mr-1 dark:text-gray-200'
                         />{' '}
                         No hay pagos realizados aún.
                       </p>
@@ -680,10 +819,90 @@ export default function Payments (props) {
                 <>
                   {inTransitPayments.length > 0 && (
                     <div className='px-3 w-full'>
-                      <div className='flex flex-col mt-5 w-full px-3 border rounded-md'>
-                        <table className='w-full'>
+                      <div className='flex flex-col mt-5 w-full lg:px-3 dark:border-gray-800 lg:border rounded-md'>
+                        <div className='lg:hidden'>
+                          {inTransitPayments.map(payment => (
+                            <div
+                              key={payment.tutorId}
+                              className='flex flex-col border-b dark:border-gray-800 border-gray-200 py-4 lg:px-4 space-y-1'
+                            >
+                              <div className='flex flex-row justify-between '>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Liberación
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {moment(
+                                    getReleaseDate(payment.payments[0])
+                                  ).format('DD/MM/YYYY')}{' '}
+                                  (
+                                  {moment(
+                                    getReleaseDate(payment.payments[0])
+                                  ).fromNow()}
+                                  )
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Monto
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  USD${' '}
+                                  {(
+                                    payment.payments.reduce(
+                                      (acc, payment) => acc + payment.price,
+                                      0
+                                    ) * 0.9
+                                  ).toFixed(2)}
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Estado
+                                </p>
+                                <span className='text-yellow-600 text-sm font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faClock}
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  Pendiente
+                                </span>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Cuenta bancaria
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {
+                                    tutors.find(
+                                      tutor =>
+                                        tutor.user._id === payment.tutorId
+                                    ).bankAccount.accountNumber
+                                  }
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Pagar
+                                </p>
+                                <span
+                                  className=' text-codecolor font-semibold text-sm cursor-pointer'
+                                  onClick={() =>
+                                    handleShowModalPayment(payment)
+                                  }
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    className='mr-1 text-xs'
+                                  />
+                                  Ver detalles y pagar
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <table className='w-full max-lg:hidden'>
                           <thead>
-                            <tr className='text-black'>
+                            <tr className='text-black dark:text-gray-200'>
                               <th className='py-3 px-6 text-center'>
                                 Fecha de liberación
                               </th>
@@ -695,9 +914,12 @@ export default function Payments (props) {
                               <th className='py-3 px-6 text-center'>Pagar</th>
                             </tr>
                           </thead>
-                          <tbody className='text-gray-600 text-md font-md'>
+                          <tbody className='text-gray-600 dark:text-gray-200 text-md font-md'>
                             {inTransitPayments.map(payment => (
-                              <tr className='text-black' key={payment.tutorId}>
+                              <tr
+                                className='text-black dark:text-gray-200'
+                                key={payment.tutorId}
+                              >
                                 <td className='py-2 pb-4 px-4'>
                                   {moment(
                                     getReleaseDate(payment.payments[0])
@@ -718,7 +940,7 @@ export default function Payments (props) {
                                   ).toFixed(2)}
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
-                                  <span className='px-2 py-1 rounded-md font-semibold bg-yellow-100 text-yellow-600'>
+                                  <span className='px-2 py-1 rounded-md font-semibold bg-yellow-100 text-yellow-600 dark:text-yellow-100 dark:bg-yellow-600'>
                                     <FontAwesomeIcon
                                       icon={faClock}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -727,11 +949,16 @@ export default function Payments (props) {
                                   </span>
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
-                                  0000-0000-0000-0000
+                                  {
+                                    tutors.find(
+                                      tutor =>
+                                        tutor.user._id === payment.tutorId
+                                    ).bankAccount.accountNumber
+                                  }
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
                                   <span
-                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer'
+                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer dark:bg-codecolor dark:text-codecolorlighter'
                                     onClick={() =>
                                       handleShowModalPayment(payment)
                                     }
@@ -752,10 +979,10 @@ export default function Payments (props) {
                   )}
                   {!inTransitPayments.length > 0 && (
                     <div className='px-3 w-full mt-5'>
-                      <p className='text-md text-[#05004E]'>
+                      <p className='text-md text-[#05004E] dark:text-gray-200'>
                         <FontAwesomeIcon
                           icon={faInfoCircle}
-                          className='text-[#05004E] mr-1'
+                          className='text-[#05004E] mr-1 dark:text-gray-200'
                         />{' '}
                         No hay pagos pendientes.
                       </p>
@@ -767,10 +994,85 @@ export default function Payments (props) {
                 <>
                   {disputedPayments.length > 0 && (
                     <div className='px-3 w-full'>
-                      <div className='flex flex-col mt-5 w-full px-3 border rounded-md'>
-                        <table className='w-full'>
+                      <div className='flex flex-col lg:mt-5 w-full lg:px-3 dark:border-gray-800 lg:border rounded-md'>
+                        <div className='lg:hidden'>
+                          {disputedPayments.map(payment => (
+                            <div
+                              key={payment._id}
+                              className='flex flex-col border-b dark:border-gray-800 border-gray-200 py-4 lg:px-4 space-y-1'
+                            >
+                              <div className='flex flex-row justify-between '>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Fecha
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {moment(getReleaseDate(payment)).format(
+                                    'DD/MM/YYYY'
+                                  )}{' '}
+                                  ({moment(getReleaseDate(payment)).fromNow()})
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Monto
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  USD$ {payment.price}
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Estado
+                                </p>
+                                <span className='text-red-600 text-sm font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faWarning}
+                                    className='mr-1 text-xs'
+                                  />
+                                  Disputado
+                                </span>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Cliente
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {payment.clientUserId.fullName}
+                                </p>
+                              </div>
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Tutor
+                                </p>
+                                <p className='text-gray-400 text-center font-semibold text-sm'>
+                                  {payment.tutorUserId.fullName}
+                                </p>
+                              </div>
+
+                              <div className='flex flex-row justify-between'>
+                                <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                                  Detalles
+                                </p>
+
+                                <span
+                                  className=' text-codecolor font-semibold text-sm cursor-pointer'
+                                  onClick={() =>
+                                    handleShowModalDisputed(payment)
+                                  }
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    className='mr-1 text-xs'
+                                  />
+                                  Ver detalles
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <table className='w-full max-lg:hidden'>
                           <thead>
-                            <tr className='text-black'>
+                            <tr className='text-black dark:text-gray-200'>
                               <th className='py-3 px-6 text-center'>
                                 Fecha de sesión
                               </th>
@@ -783,9 +1085,12 @@ export default function Payments (props) {
                               </th>
                             </tr>
                           </thead>
-                          <tbody className='text-gray-600 text-md font-md'>
+                          <tbody className='text-gray-600 dark:text-gray-200 text-md font-md'>
                             {disputedPayments.map(payment => (
-                              <tr className='text-black' key={payment.tutorId}>
+                              <tr
+                                className='text-black dark:text-gray-200'
+                                key={payment.tutorId}
+                              >
                                 <td className='py-2 pb-4 px-4'>
                                   {moment(getReleaseDate(payment)).format(
                                     'DD/MM/YYYY'
@@ -796,7 +1101,7 @@ export default function Payments (props) {
                                   USD$ {payment.price}
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
-                                  <span className='px-2 py-1 rounded-md font-semibold bg-red-200 text-red-600'>
+                                  <span className='px-2 py-1 rounded-md font-semibold bg-red-200 text-red-600 dark:bg-red-600 dark:text-red-100'>
                                     <FontAwesomeIcon
                                       icon={faExclamationTriangle}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -812,7 +1117,7 @@ export default function Payments (props) {
                                 </td>
                                 <td className='py-2 pb-4 px-4'>
                                   <span
-                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md font-semibold text-sm cursor-pointer'
+                                    className='bg-codecolorlighter text-codecolor py-0.5 px-2 ml-2 rounded-md dark:bg-codecolor dark:text-codecolorlighter font-semibold text-sm cursor-pointer'
                                     onClick={() =>
                                       handleShowModalDisputed(payment)
                                     }
@@ -833,10 +1138,10 @@ export default function Payments (props) {
                   )}
                   {!disputedPayments.length > 0 && (
                     <div className='px-3 w-full mt-5'>
-                      <p className='text-md text-[#05004E]'>
+                      <p className='text-md text-[#05004E] dark:text-gray-200'>
                         <FontAwesomeIcon
                           icon={faInfoCircle}
-                          className='text-[#05004E] mr-1'
+                          className='text-[#05004E] mr-1 dark:text-gray-200'
                         />{' '}
                         No hay pagos disputados.
                       </p>
@@ -849,7 +1154,7 @@ export default function Payments (props) {
           {showModal !== null && (
             <div className='fixed z-[9999] inset-0 overflow-y-auto'>
               {/* overlay */}
-              <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+              <div className='flex items-end justify-center lg:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
                 {/* background overlay */}
                 <div
                   className='fixed inset-0 transition-opacity'
@@ -866,12 +1171,12 @@ export default function Payments (props) {
                 </span>
                 {/* modal content */}
                 <div
-                  className='inline-block align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full max-h-[800px]'
+                  className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full lg:max-h-[800px] max-lg:max-h-[calc(100svh-70px)]'
                   role='dialog'
                   aria-modal='true'
                   aria-labelledby='modal-headline'
                 >
-                  <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex items-center justify-center'>
+                  <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex items-center justify-center'>
                     <div className='sm:flex sm:items-start'>
                       <div
                         className={
@@ -906,7 +1211,7 @@ export default function Payments (props) {
                       </div>
                       <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
                         <h3
-                          className='text-lg mt-2 leading-6 font-medium text-gray-900'
+                          className='text-lg mt-2 leading-6 font-medium dark:text-gray-200 text-gray-900'
                           id='modal-headline'
                         >
                           {showModal !== 'disputed' && (
@@ -926,7 +1231,7 @@ export default function Payments (props) {
                         <div className='mt-5 space-y-3'>
                           {showModal === 'details' && (
                             <div className='space-y-3'>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>
                                   Fecha de liberación:
                                 </span>{' '}
@@ -943,7 +1248,7 @@ export default function Payments (props) {
                                 ).fromNow()}
                                 )
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>
                                   Monto a pagar:
                                 </span>{' '}
@@ -955,9 +1260,9 @@ export default function Payments (props) {
                                   ) * 0.9
                                 ).toFixed(2)}
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Estado:</span>{' '}
-                                <span className='px-2 py-1 rounded-md font-semibold bg-yellow-100 text-yellow-600'>
+                                <span className='px-2 py-1 rounded-md font-semibold bg-yellow-100 text-yellow-600 dark:text-yellow-100 dark:bg-yellow-600'>
                                   <FontAwesomeIcon
                                     icon={faClock}
                                     className='mr-1.5 mb-[1.01px] text-xs'
@@ -965,10 +1270,10 @@ export default function Payments (props) {
                                   Pendiente
                                 </span>
                               </p>
-                              <p className='text-md text-gray-800 text-center'>
+                              <p className='text-md text-gray-800 dark:text-gray-200 text-center'>
                                 <span className='font-semibold'>Sesiones:</span>
                               </p>
-                              <table className='w-full list-disc list-inside text-sm text-gray-800'>
+                              <table className='w-full list-disc list-inside text-sm text-gray-800 dark:text-gray-200'>
                                 <thead>
                                   <tr>
                                     <th className='text-left px-4'>Fecha</th>
@@ -1034,7 +1339,7 @@ export default function Payments (props) {
                                     </td>
                                     <td className='py-2 px-4'></td>
                                     <td className='py-2 px-4'></td>
-                                    <td className='py-2 px-4 font-semibold bg-codecolorlighter text-codecolor rounded-md'>
+                                    <td className='py-2 px-4 font-semibold bg-codecolorlighter text-codecolor rounded-md dark:bg-codecolor dark:text-codecolorlight'>
                                       $USD{' '}
                                       {(
                                         selectedPaymentDetails.payments.reduce(
@@ -1047,12 +1352,12 @@ export default function Payments (props) {
                                 </tbody>
                               </table>
                               <div className='flex flex-col items-center justify-center space-y-2'>
-                                <p className='text-md text-gray-900 mb-1'>
+                                <p className='text-md text-gray-900 dark:text-gray-200 mb-1'>
                                   <span className='font-semibold'>
                                     Datos de pago:
                                   </span>
                                 </p>
-                                <p className='text-sm text-gray-800'>
+                                <p className='text-sm text-gray-800 dark:text-gray-200'>
                                   <span className='font-semibold'>
                                     Nombre del tutor:
                                   </span>{' '}
@@ -1064,7 +1369,7 @@ export default function Payments (props) {
                                     ).user.fullName
                                   }
                                 </p>
-                                <p className='text-sm text-gray-800'>
+                                <p className='text-sm text-gray-800 dark:text-gray-200'>
                                   <span className='font-semibold'>Banco:</span>{' '}
                                   {
                                     tutors.find(
@@ -1074,7 +1379,7 @@ export default function Payments (props) {
                                     ).bankAccount.bankName
                                   }
                                 </p>
-                                <p className='text-sm text-gray-800'>
+                                <p className='text-sm text-gray-800 dark:text-gray-200'>
                                   <span className='font-semibold'>
                                     CBU/CVU:
                                   </span>{' '}
@@ -1086,7 +1391,7 @@ export default function Payments (props) {
                                     ).bankAccount.accountNumber
                                   }
                                 </p>
-                                <p className='text-sm text-gray-800'>
+                                <p className='text-sm text-gray-800 dark:text-gray-200'>
                                   <span className='font-semibold'>
                                     Tipo de cuenta:
                                   </span>{' '}
@@ -1098,7 +1403,7 @@ export default function Payments (props) {
                                     ).bankAccount.accountType
                                   }
                                 </p>
-                                <p className='text-sm text-gray-800'>
+                                <p className='text-sm text-gray-800 dark:text-gray-200'>
                                   <span className='font-semibold'>
                                     Correo electrónico:
                                   </span>{' '}
@@ -1165,8 +1470,8 @@ export default function Payments (props) {
                                   type='button'
                                   className={
                                     file
-                                      ? `w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium transition-all duration-200 sm:ml-3 sm:w-24 sm:text-sm text-white bg-codecolor hover:bg-codecolordark h-10 items-center`
-                                      : `w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium transition-all duration-200 sm:ml-3 sm:w-24 sm:text-sm text-gray-400 bg-gray-200 cursor-not-allowed h-10 items-center`
+                                      ? ` inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium transition-all duration-200 sm:ml-3 lg:w-24 sm:text-sm text-white bg-codecolor hover:bg-codecolordark h-10 items-center`
+                                      : `inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium transition-all duration-200 sm:ml-3 lg:w-24 sm:text-sm text-gray-400 dark:bg-gray-700 bg-gray-200 cursor-not-allowed h-10 items-center`
                                   }
                                   onClick={() => handleSendPayment()}
                                   disabled={!file}
@@ -1187,37 +1492,39 @@ export default function Payments (props) {
                           )}
                           {showModal === 'disputed' && (
                             <div className='space-y-3'>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>
                                   ID de sesión:
                                 </span>{' '}
                                 {selectedSentPayment.sessionId}
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Fecha:</span>{' '}
                                 {moment
                                   .unix(selectedSentPayment.paymentDetails.date)
                                   .format('DD/MM/YYYY HH:mm:ss')}{' '}
                                 hs
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Monto:</span>{' '}
                                 $USD {selectedSentPayment.price} (-10% = $USD{' '}
                                 {(selectedSentPayment.price * 0.9).toFixed(2)})
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Estado:</span>{' '}
-                                <span className='text-red-500'>Disputado</span>
+                                <span className='text-red-500 dark:font-semibold'>
+                                  Disputado
+                                </span>
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>
                                   Email del tutor:
                                 </span>{' '}
                                 {selectedSentPayment.tutorUserId.email}
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>
-                                  Email del alumno:
+                                  Email del cliente:
                                 </span>{' '}
                                 {selectedSentPayment.clientUserId.email}
                               </p>
@@ -1226,22 +1533,22 @@ export default function Payments (props) {
 
                           {showModal === 'send' && (
                             <div className='space-y-3'>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>ID:</span>{' '}
                                 {selectedSentPayment._id}
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Fecha:</span>{' '}
                                 {moment(
                                   selectedSentPayment.paymentDetails.date
                                 ).format('DD/MM/YYYY HH:mm:ss')}{' '}
                                 hs
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Monto:</span>{' '}
                                 $USD {selectedSentPayment.amount}
                               </p>
-                              <p className='text-sm text-gray-800'>
+                              <p className='text-sm text-gray-800 dark:text-gray-200'>
                                 <span className='font-semibold'>Estado:</span>{' '}
                                 {selectedSentPayment.status === 'pending'
                                   ? 'Pendiente'
@@ -1251,10 +1558,10 @@ export default function Payments (props) {
                                   ? 'Fallido'
                                   : 'En disputa'}
                               </p>
-                              <p className='text-md text-gray-800 text-center'>
+                              <p className='text-md text-gray-800 dark:text-gray-200 text-center'>
                                 <span className='font-semibold'>Sesiones:</span>
                               </p>
-                              <table className='w-full list-disc list-inside text-sm text-gray-800'>
+                              <table className='w-full list-disc list-inside text-sm text-gray-800 dark:text-gray-200'>
                                 <thead>
                                   <tr>
                                     <th className='text-left'>Fecha</th>
@@ -1270,8 +1577,8 @@ export default function Payments (props) {
                                         key={index}
                                         className={
                                           index % 2 === 0
-                                            ? 'bg-gray-50'
-                                            : 'bg-white'
+                                            ? 'bg-gray-50 dark:bg-gray-800'
+                                            : 'bg-white dark:bg-gray-700'
                                         }
                                       >
                                         <td className='py-1'>
@@ -1292,7 +1599,7 @@ export default function Payments (props) {
                                       </tr>
                                     )
                                   )}
-                                  <tr className='bg-gray-50 border-t border-t-gray-200'>
+                                  <tr className='bg-gray-50 dark:bg-gray-700 dark:border-gray-800 border-t border-t-gray-200'>
                                     <td className='py-1'></td>
                                     <td className='py-1'></td>
                                     <td className='py-1 text-right pr-4'>
@@ -1308,7 +1615,7 @@ export default function Payments (props) {
                                       )}{' '}
                                     </td>
                                   </tr>
-                                  <tr className='bg-gray-50 border-t border-t-gray-200'>
+                                  <tr className='bg-gray-50 dark:bg-gray-700 dark:border-gray-800  border-t border-t-gray-200'>
                                     <td className='py-1'></td>
                                     <td className='py-1'></td>
                                     <td className='py-1 pr-4 text-right'>
@@ -1326,7 +1633,7 @@ export default function Payments (props) {
                                       ).toFixed(2)}{' '}
                                     </td>
                                   </tr>
-                                  <tr className='bg-gray-50 border-t border-t-gray-200'>
+                                  <tr className='bg-gray-50 dark:bg-gray-700 dark:border-gray-800  border-t border-t-gray-200'>
                                     <td className='py-1'></td>
                                     <td className='py-1'></td>
                                     <td className='py-1 text-right pr-4'>
@@ -1350,7 +1657,7 @@ export default function Payments (props) {
                       </div>
                     </div>
                   </div>
-                  <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+                  <div className='bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
                     <button
                       type='button'
                       className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium transition-all duration-200 sm:ml-3 sm:w-24 sm:text-sm text-white bg-codecolor hover:bg-codecolordark`}

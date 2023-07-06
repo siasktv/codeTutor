@@ -24,15 +24,15 @@ const Register = () => {
   return (
     <>
       {isLoading && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center dark:bg-gray-900 lg:h-screen'>
           <Loader />
         </div>
       )}
       {!isLoading && (
-        <div className='overflow-hidden'>
+        <div className='overflow-hidden dark:bg-gray-900 h-screen'>
           <Navlogo />
           <div className='flex items-center justify-center'>
-            <div className='w-6/12 mb-[450px] ml-20'>
+            <div className='w-6/12 mb-[450px] ml-20 max-lg:hidden'>
               <ImageSlider />
             </div>
             <div className='flex-grow flex items-center justify-center'>

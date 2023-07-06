@@ -149,19 +149,24 @@ const FormRegister = ({ redirect }) => {
   return (
     <>
       <div className='flex flex-col items-center justify-center'>
-        <div className='bg-white rounded lg:w-12/12 md:w-12/12 mr-72 w-full mt-12'>
+        <div className='bg-white dark:bg-gray-800 rounded lg:w-12/12 lg:p-10 max-lg:w-12/12 lg:r-72 w-full lg:mt-6 p-5 max-lg:mt-2'>
           <p
             tabIndex='0'
-            className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'
+            className='focus:outline-none text-2xl font-bold leading-6 dark:text-gray-200 text-gray-800 text-left'
           >
             Crea tu cuenta
           </p>
           <p
             href='javascript:void(0)'
-            className='pt-4 text-left hover:text-violet-400    text-sm font-medium leading-none text-codecolor'
+            className='pt-4 text-left    text-sm font-medium leading-none text-codecolor'
           >
-            <span className='text-black'>¿Ya tienes una cuenta? </span>
-            <Link to={loginRedirect} className='hover:underline cursor-pointer'>
+            <span className='text-black dark:text-gray-400'>
+              ¿Ya tienes una cuenta?{' '}
+            </span>
+            <Link
+              to={loginRedirect}
+              className='hover:underline cursor-pointer hover:text-violet-400 dark:hover:text-codecolordark'
+            >
               Inicia sesión
             </Link>
           </p>
@@ -171,7 +176,7 @@ const FormRegister = ({ redirect }) => {
                 id='name'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Nombre Completo
                 </p>
               </label>
@@ -180,8 +185,8 @@ const FormRegister = ({ redirect }) => {
                 type='text'
                 className={
                   errors.fullName
-                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                    : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                    ? 'border rounded dark:text-gray-200 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 dark:bg-gray-900 dark:outline-none bg-red-100'
+                    : 'bg-white dark:text-gray-200 border rounded dark:bg-gray-900 dark:outline-none dark:border-none text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                 }
                 name='fullName'
                 onChange={handleChange}
@@ -198,7 +203,7 @@ const FormRegister = ({ redirect }) => {
                 id='email'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Email
                 </p>
               </label>
@@ -207,8 +212,8 @@ const FormRegister = ({ redirect }) => {
                 type='email'
                 className={
                   errors.email
-                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                    : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                    ? 'border rounded dark:text-gray-200 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 dark:bg-gray-900 dark:outline-none bg-red-100'
+                    : 'bg-white dark:text-gray-200 border rounded dark:bg-gray-900 dark:outline-none dark:border-none text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                 }
                 name='email'
                 onChange={handleChange}
@@ -225,7 +230,7 @@ const FormRegister = ({ redirect }) => {
                 htmlFor='pass'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Contraseña
                 </p>
               </label>
@@ -235,8 +240,8 @@ const FormRegister = ({ redirect }) => {
                   type={showPassword ? 'text' : 'password'}
                   className={
                     errors.password
-                      ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                      : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                      ? 'border rounded text-xl dark:text-gray-200 font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 dark:bg-gray-900 dark:outline-none bg-red-100'
+                      : 'bg-white dark:text-gray-200 border rounded dark:bg-gray-900 dark:outline-none dark:border-none text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                   }
                   name='password'
                   onChange={handleChange}
@@ -271,7 +276,7 @@ const FormRegister = ({ redirect }) => {
                 htmlFor='pass'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Confirmar Contraseña
                 </p>
               </label>
@@ -281,8 +286,8 @@ const FormRegister = ({ redirect }) => {
                   type={showPassword ? 'text' : 'password'}
                   className={
                     errors.confirmPassword
-                      ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                      : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                      ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 dark:text-gray-200 outline-red-500 dark:bg-gray-900 dark:outline-none bg-red-100'
+                      : 'bg-white border rounded dark:bg-gray-900 dark:outline-none dark:border-none dark:text-gray-200 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                   }
                   name='confirmPassword'
                   onChange={handleChange}
@@ -317,9 +322,9 @@ const FormRegister = ({ redirect }) => {
                 className={
                   !isSubmitting && !success && !redirecting
                     ? !isDisabled && !formsDisabled
-                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
-                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-l py-6 w-full cursor-not-allowed'
+                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 dark:border-none dark:hover:ring-gray-700 py-6 w-full'
+                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 dark:bg-gray-700 dark:border-none border rounded-lg py-6 w-full cursor-not-allowed'
+                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border dark:border-none rounded-lg py-6 w-full cursor-not-allowed'
                 }
                 disabled={isDisabled || formsDisabled}
                 type='submit'
@@ -331,7 +336,9 @@ const FormRegister = ({ redirect }) => {
                 ) : redirecting ? (
                   <>
                     <span className='flex items-center justify-center'>
-                      <span className='mr-1'>Redireccionando</span>
+                      <span className='mr-1 dark:text-gray-200'>
+                        Redireccionando
+                      </span>
                       <LoaderMini />
                     </span>
                   </>
@@ -346,16 +353,16 @@ const FormRegister = ({ redirect }) => {
               </p>
             )}
           </form>
-          <div className='w-full flex items-center justify-between py-10'>
-            <hr className='w-full bg-gray-400' />
+          <div className='w-full flex items-center justify-between lg:py-10 max-lg:hidden'>
+            <hr className='w-full bg-gray-400 dark:border-gray-700' />
           </div>
           <button
             aria-label='Continue with Google'
             role='button'
             className={
               !isLoadingGoogle
-                ? 'hover:outline-none hover:ring-4  hover:ring-gray-300 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0'
-                : 'py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0 cursor-not-allowed'
+                ? 'hover:outline-none hover:ring-4 dark:bg-white dark:border-none hover:ring-gray-300 dark:hover:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0 max-lg:hidden'
+                : 'py-3.5 px-4 border rounded-lg dark:bg-white dark:border-none border-gray-700 flex items-center justify-center w-full mt-0 cursor-not-allowed max-lg:hidden'
             }
             onClick={isLoadingGoogle ? null : handleGoogleLogin}
           >

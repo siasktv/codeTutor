@@ -27,7 +27,9 @@ import ReactDOM from 'react-dom'
 import {
   faArrowLeft,
   faArrowRight,
-  faMessage
+  faBars,
+  faMessage,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { signOut } from '../firebase/client'
 import { Link } from 'react-router-dom'
@@ -91,6 +93,11 @@ const NavUserSearch = ({
       socket?.emit('setAlerted', { userId: user.id })
     }
   }, [socket, user])
+
+  const [navbarMobile, setNavbarMobile] = useState(false)
+  const handleMobileMenuButtonClick = () => {
+    setNavbarMobile(!navbarMobile)
+  }
 
   useEffect(() => {
     if (
@@ -299,20 +306,23 @@ const NavUserSearch = ({
         />
 
         <audio ref={audioPlayer} src={notificationSound} />
-        <header className='flex items-center h-20 w-full z-50'>
+        <header className='flex items-center h-20 w-full z-50 dark:bg-gray-900'>
           <div className='flex justify-between w-full items-center'>
             <div className='pl-8 pt-2'>
               <Link to='/'>
                 <span className='flex h-10 '>
-                  <img className='h-8' src={IconCodeTutor} />
-                  <h1 className='font-bold text-xl ml-1'>Code-Tutor.</h1>
+                  <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
+                  <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                  <h1 className='font-bold text-xl ml-1 dark:text-gray-200'>
+                    Code-Tutor.
+                  </h1>
                 </span>
               </Link>
             </div>
 
             <div className='relative pr-8'>
               <button
-                className='flex items-center rounded-full btn btn-sm btn-white text-codecolor'
+                className='flex items-center rounded-full btn btn-sm dark:font-semibold btn-white max-lg:hidden text-codecolor'
                 onClick={handleShowTech}
               >
                 Encuentra desarrolladores
@@ -334,8 +344,8 @@ const NavUserSearch = ({
 
             <div>
               {/* Foto Usuario */}
-              <div className='flex items-center'>
-                <div className='flex flex-col items-center'>
+              <div className='flex items-center max-lg:hidden'>
+                <div className='flex flex-col items-center '>
                   <div className='bg-black rounded-full border-none'>
                     <img
                       src={user ? user.image : Default}
@@ -346,17 +356,17 @@ const NavUserSearch = ({
                     ></img>
                   </div>
                   {showProfile && (
-                    <div className='absolute top-16 mr-20 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                    <div className='absolute top-16 mr-20 bg-white dark:bg-gray-800 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                       <div className='flex flex-col gap-2 p-2'>
                         <div className='flex flex-col gap-2'>
                           <Link to={user ? `/user` : '/login?redirect=/search'}>
-                            <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
+                            <button className='text-white dark:border-none dark:outline-none dark:hover:outline-none dark:hover:bg-codecolordark transition duration-150 bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                               {user ? 'Ir a mi perfil' : 'Iniciar sesión'}
                             </button>
                           </Link>
                           {user && (
                             <button
-                              className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
+                              className='text-white dark:border-none dark:outline-none dark:hover:outline-none bg-red-500 dark:hover:bg-red-600 transition duration-150 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
                               onClick={() => setShowModalLogout(true)}
                             >
                               Cerrar sesión
@@ -389,10 +399,103 @@ const NavUserSearch = ({
                 />
               </div>
             </div>
+            <div className='lg:hidden'>
+              <div className='flex flex-row gap-1'>
+                {user && (
+                  <ChatsNav
+                    user={user}
+                    handleShowChat={handleShowChat}
+                    showChat={showChat}
+                    setShowChat={setShowChat}
+                    localUserChats={localUserChats}
+                    handleSendShowMessage={handleSendShowMessage}
+                  />
+                )}
+                {/* Notificaciones */}
+                <NotificationsNav
+                  user={user}
+                  handleShowNotifications={handleShowNotifications}
+                  showNotifications={showNotifications}
+                  setShowNotifications={setShowNotifications}
+                  notifications={notifications}
+                  handleSendShowMessage={handleSendShowMessage}
+                  markAsRead={markAsRead}
+                />
+                <button
+                  className='rounded-lg p-2 text-gray-600 dark:text-gray-200 mr-2 w-10'
+                  type='button'
+                  onClick={handleMobileMenuButtonClick}
+                >
+                  <span className='sr-only'>Open menu</span>
+                  <FontAwesomeIcon icon={navbarMobile ? faTimes : faBars} />
+                </button>
+              </div>
+              {navbarMobile && (
+                <div className='absolute z-[999] mt-16 top-0 inset-x-0 w-full transition transform origin-top-right lg:hidden bg-white dark:bg-gray-800'>
+                  <div className='bg-white w-full'>
+                    <div className='w-full flex flex-col'>
+                      {!user && (
+                        <>
+                          <Link
+                            to='/login?redirect=/search'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Iniciar sesión
+                          </Link>
+                          <Link
+                            to='/register?redirect=/search'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Registrarme como estudiante
+                          </Link>
+                          <Link
+                            to='/register?redirect=/tutor'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-gray-200 bg-white dark:bg-gray-800 w-full'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                          >
+                            Registrarme como tutor
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                    <div className='w-full flex flex-col'>
+                      {user && (
+                        <>
+                          <Link
+                            to='/user'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:text-gray-200 dark:bg-gray-800 bg-white'
+                            tabIndex='-1'
+                          >
+                            Ir a mi perfil
+                          </Link>
+                          <button
+                            className='text-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                            onClick={() => setShowModalLogout(true)}
+                          >
+                            Cerrar sesión
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {showTech && (
               <div className='absolute w-full z-50 top-20  '>
                 <div className='flex justify-center'>
-                  <div className='pb-4 bg-white relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
+                  <div className='pb-4 bg-white dark:bg-gray-800 relative border border-[#1414140D] rounded-xl shadow-xl z-50'>
                     {categories.map(category => (
                       <button
                         key={category}
@@ -407,7 +510,7 @@ const NavUserSearch = ({
                             .map(tech => (
                               <div
                                 key={tech._id}
-                                className='text-codecolor font-normal hover:underline cursor-pointer'
+                                className='text-codecolor font-normal hover:underline cursor-pointer dark:text-gray-200'
                                 onClick={() => handleSortByTech(tech.name)}
                               >
                                 <h1>{tech.name}</h1>
@@ -418,7 +521,7 @@ const NavUserSearch = ({
                     ))}
                     <div className='h-full w-full'>
                       <button
-                        className='relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark'
+                        className='relative border p-2 px-4 bg-codecolor text-white rounded-md shadow-md hover:bg-codecolordark dark:border-none'
                         onClick={() => handleSortByTech('Todos')}
                       >
                         Restaurar

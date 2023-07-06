@@ -14,21 +14,21 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
 
   return (
     <div>
-      <div className='box-border border w-64 h-max left-79 top-516 pb-10 bg-white border-1 border-gray-100 shadow-md'>
+      <div className='box-border max-lg:hidden border w-64 h-max left-79 top-516 pb-10 bg-white border-1 border-gray-100 shadow-md dark:bg-gray-800 dark:border-gray-800'>
         <div className='flex flex-col items-start pt-10 pl-10 pr-10 gap-30'>
-          <h2 className='w-62 h-30 font-inter font-bold leading-150 text-xl text-black'>
+          <h2 className='w-62 h-30 font-inter font-bold leading-150 text-xl dark:text-codecolor text-black'>
             Filtros
           </h2>
-          <h2 className='w-62 h-30 font-inter font-semibold leading-150 text-black pt-6'>
+          <h2 className='w-62 h-30 font-inter font-semibold leading-150 dark:text-codecolor text-black pt-6'>
             Tarifa por hora
           </h2>
         </div>
         <RangeBar />
         <div className='flex flex-col items-start pt-2 pl-10 pr-10 gap-30'>
-          <h2 className='w-62 h-30 font-inter font-semibold leading-150 text-black pt-6'>
+          <h2 className='w-62 h-30 font-inter font-semibold leading-150 dark:text-codecolor text-black pt-6'>
             Review
           </h2>
-          <ul className='w-48 text-sm font-medium text-black'>
+          <ul className='w-48 text-sm font-medium dark:text-gray-200 text-black'>
             <li className='w-full'>
               <div className='flex items-center'>
                 <input
@@ -41,7 +41,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='todosreviews'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Todos
                 </label>
@@ -59,7 +59,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='star5'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   5 estrellas
                 </label>
@@ -77,7 +77,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='star4'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   4 estrellas
                 </label>
@@ -95,7 +95,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='star3'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   3 estrellas
                 </label>
@@ -113,7 +113,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='star2'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   2 estrellas
                 </label>
@@ -131,7 +131,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='star1'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   1 estrellas
                 </label>
@@ -140,10 +140,10 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
           </ul>
         </div>
         <div className='flex flex-col items-start pt-2 pl-10 pr-10 gap-30'>
-          <h2 className='w-62 h-30 font-inter font-semibold leading-150 text-black pt-6'>
+          <h2 className='w-62 h-30 font-inter font-semibold leading-150 dark:text-codecolor text-black pt-6'>
             Idioma
           </h2>
-          <ul className='w-48 text-sm font-medium text-black'>
+          <ul className='w-48 text-sm font-medium dark:text-gray-200 text-black'>
             <li className='w-full'>
               <div className='flex items-center'>
                 <input
@@ -156,7 +156,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='todoslangs'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Todos
                 </label>
@@ -175,7 +175,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='espanol'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Español
                 </label>
@@ -193,7 +193,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='ingles'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Inglés
                 </label>
@@ -211,7 +211,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='portugues'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Portugués
                 </label>
@@ -229,7 +229,7 @@ const FilterTutor = ({ sortedByLanguages, sortedByReview }) => {
                 />
                 <label
                   htmlFor='frances'
-                  className='py-3 ml-2 text-sm font-medium text-black'
+                  className='py-3 ml-2 text-sm font-medium dark:text-gray-200 text-black'
                 >
                   Francés
                 </label>

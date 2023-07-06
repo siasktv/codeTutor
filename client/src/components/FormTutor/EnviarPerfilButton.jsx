@@ -191,7 +191,7 @@ const EnviarPerfilButton = props => {
       className={
         isSubmitting || success
           ? 'inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white focus:outline-none cursor-default w-44 h-[46px]'
-          : 'inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-codecolor focus:outline-none active:text-codecolor disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-default disabled:border-gray-400 disabled:opacity-50 w-44 h-[46px]'
+          : 'inline-block rounded border transition-all duration-200 ease-in-out border-codecolor bg-codecolor px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-codecolor dark:hover:bg-codecolordark dark:hover:text-gray-200 dark:text-gray-200 dark:border-none focus:outline-none active:text-codecolor disabled:bg-gray-200 dark:disabled:hover:text-gray-400 disabled:text-gray-400 dark:disabled:bg-gray-700 disabled:cursor-default disabled:border-gray-400 disabled:opacity-50 w-44 h-[46px]'
       }
       disabled={isDisabled}
       onClick={handleClick}

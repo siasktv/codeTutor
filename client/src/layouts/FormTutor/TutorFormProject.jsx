@@ -65,9 +65,9 @@ const TutorFormProject = props => {
         technologies: form.projects[form.editProjectIndex].technologies
       })
       setIsEdit(true)
-      setEditIndex(form.editExpIndex)
+      setEditIndex(form.editProjectIndex)
     }
-  }, [form.editExpIndex, form.avatar, form.projects])
+  }, [form.editProjectIndex, form.avatar, form.projects])
 
   useEffect(() => {
     if (
@@ -91,8 +91,8 @@ const TutorFormProject = props => {
   return (
     <>
       {/* <NavUserNotifications /> */}
-      <section className="bg-[#FAFBFC] h-full w-full">
-        <div className="flex flex-col pt-[33px]">
+      <section className='bg-[#FFFFFF] min-h-screen dark:bg-gray-900 h-full w-full'>
+        <div className='flex flex-col pt-[33px]'>
           <TutorFormWelcome user={user} />
           <TutorFormProgressBar
             progress={progress}
@@ -106,7 +106,7 @@ const TutorFormProject = props => {
           />
         </div>
 
-        <section className="flex justify-center mt-[33px] mx-28">
+        <section className='flex justify-center lg:mt-[33px] lg:mx-28'>
           <TutorFormDataLeft
             user={user}
             form={form}
@@ -114,21 +114,21 @@ const TutorFormProject = props => {
             setDataForm={setDataForm}
           />
 
-          <section className="flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6">
-            <div className="mx-[52px] my-[36px] ">
-              <div className="flex flex-row items-center mb-[50px]">
-                <h2 className="font-inter   font-bold text-[25px] text-[#05004E] text-left">
-                  Proyecto{" "}
+          <section className='flex flex-col bg-white dark:bg-gray-900 rounded-[8px] border w-full border-[#1414140D] gap-[18px] lg:ml-6'>
+            <div className='lg:mx-[52px] lg:my-[36px] m-2'>
+              <div className='flex flex-row items-center mb-2 lg:mb-[50px]'>
+                <h2 className='font-inter dark:text-gray-200  font-bold text-[25px] text-[#05004E] text-left'>
+                  Proyecto{' '}
                   {correct && (
                     <FontAwesomeIcon
                       icon={faCheckCircle}
-                      className="text-green-500 text-xl"
+                      className='text-green-500 text-xl'
                     />
                   )}
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
-                      className="text-orange-300 text-xl"
+                      className='text-orange-300 text-xl'
                     />
                   )}
                 </h2>
@@ -152,7 +152,7 @@ const TutorFormProject = props => {
                 />
               </div>
 
-              <div className="mt-[50px] mb-[30px]">
+              <div className='mt-4 lg:mt-[50px] lg:mb-[30px]'>
                 <ProjectDescription
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -161,7 +161,7 @@ const TutorFormProject = props => {
                 />
               </div>
 
-              <div className="mt-[50px] mb-[30px]">
+              <div className='mt-4 lg:mt-[50px] mb-2 lg:mb-[30px]'>
                 <ProjectTechnologies
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -173,10 +173,10 @@ const TutorFormProject = props => {
             </div>
           </section>
         </section>
-        <section className="flex justify-end items-center space-x-4 mx-28 pt-6 pb-8">
+        <section className='flex justify-end dark:lg:mx-[165px] items-center space-x-2 lg:space-x-4 lg:mx-28 mx-2 lg:pt-6 lg:pb-8 max-lg:py-2'>
           <CancelarPerfilButton />
           <EnviarPerfilButton
-            title={isEdit ? "Actualizar" : "Guardar"}
+            title={isEdit ? 'Actualizar' : 'Guardar'}
             isDisabled={isDisabled}
             setSection={setSection}
             setProgress={setProgress}
@@ -193,7 +193,7 @@ const TutorFormProject = props => {
         </section>
       </section>
     </>
-  );
+  )
 }
 
 export default TutorFormProject

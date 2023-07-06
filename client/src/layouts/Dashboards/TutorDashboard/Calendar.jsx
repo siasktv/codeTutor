@@ -60,7 +60,9 @@ export default function Calendar (props) {
 
   return (
     <div>
-      <h1 className='text-4xl font-bold mb-5'>Calendario</h1>
+      <h1 className='text-2xl lg:text-4xl font-bold mb-3 my-2 dark:text-gray-200'>
+        Calendario
+      </h1>
       <ScheduleComponent
         height='800px'
         selectedDate={new Date()}

@@ -109,8 +109,8 @@ export default function Settings (props) {
   }, [successUpload])
 
   return (
-    <div className='flex flex-col items-center min-w-[580px]'>
-      <h1 className='text-4xl font-bold text-center my-8'>
+    <div className='flex flex-col items-center lg:min-w-[580px] dark:text-gray-200 max-lg:w-full'>
+      <h1 className='lg:text-4xl text-2xl font-bold text-center lg:my-8 my-4'>
         Ajustes de usuario
       </h1>
       <div className='flex flex-col min-h-[500px] w-full relative rounded-lg'>
@@ -121,15 +121,15 @@ export default function Settings (props) {
           className='hidden'
           onChange={handleUploadImage}
         />
-        <div className='self-center rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9] group'>
+        <div className='self-center rounded-full items-center justify-center lg:w-[145px] lg:h-[145px] h-32 w-32 bg-[#D9D9D9] group'>
           <label htmlFor='avatar'>
             <img
               src={avatar}
               alt='user'
               className={
                 isUploading || successUpload
-                  ? 'w-[145px] h-[145px] rounded-full object-cover filter brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
-                  : 'w-[145px] h-[145px] rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+                  ? 'lg:w-[145px] lg:h-[145px] h-32 w-32 rounded-full object-cover filter brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+                  : 'lg:w-[145px] lg:h-[145px] h-32 w-32 rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
               }
               referrerPolicy='no-referrer'
             />
@@ -157,8 +157,8 @@ export default function Settings (props) {
         {errorImage && (
           <p className='text-red-500 text-center text-sm mt-2'>{errorImage}</p>
         )}
-        <div className='flex flex-col mx-4 space-y-4 mt-4'>
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+        <div className='flex flex-col mx-4 lg:space-y-4 space-y-2 mt-4'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faEnvelope}
@@ -174,7 +174,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faAddressCard}
@@ -190,7 +190,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faLocationDot}
@@ -216,7 +216,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={
@@ -281,7 +281,7 @@ export default function Settings (props) {
             )}
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <div className='flex flex-row items-center'>
               <p className='text-lg font-bold'>
                 <FontAwesomeIcon

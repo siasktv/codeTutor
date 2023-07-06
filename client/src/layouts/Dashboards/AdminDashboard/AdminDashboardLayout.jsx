@@ -9,10 +9,12 @@ import {
   faCreditCard,
   faExternalLinkAlt,
   faGear,
+  faGraduationCap,
   faHome,
   faQuestionCircle,
   faSignOut,
   faUser,
+  faUserClock,
   faWallet
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
@@ -22,27 +24,30 @@ const AdminDashboardLayout = props => {
   const { selectedSection, setSelectedSection } = props
   const [showModalLogout, setShowModalLogout] = useState(false)
   return (
-    <div className='flex overflow-hidden bg-white rounded-lg'>
+    <div className='flex overflow-hidden bg-white dark:bg-gray-900 rounded-lg'>
       <div className='flex overflow-hidden'>
         <div className='flex flex-col h-screen'>
-          <div className='flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r'>
+          <div className='flex flex-col flex-grow pt-5 overflow-y-auto dark:bg-gray-900 dark:border-r-gray-900 bg-white border-r'>
             <div className='flex pt-2 ml-12 h-10'>
               <Link to='/'>
                 <span className='flex h-10 w-52'>
-                  <img className='h-8' src={IconCodeTutor} />
-                  <h1 className='font-bold text-xl ml-1'>Code-Tutor.</h1>
+                  <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
+                  <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                  <h1 className='font-bold text-xl ml-1 dark:text-gray-200'>
+                    Code-Tutor.
+                  </h1>
                 </span>
               </Link>
             </div>
             <div className='flex flex-col flex-grow px-4 mt-5'>
-              <nav className='flex-1 space-y-1 bg-white'>
+              <nav className='flex-1 space-y-1 bg-white dark:bg-gray-900'>
                 <ul>
                   <li>
                     <button
                       className={
                         selectedSection === 'dashboard'
                           ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform dark:text-gray-200 dark:bg-gray-800 bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('dashboard')}
@@ -61,9 +66,27 @@ const AdminDashboardLayout = props => {
                   <li>
                     <button
                       className={
+                        selectedSection === 'tutors'
+                          ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform dark:text-gray-200 dark:bg-gray-800 bg-white rounded-lg'
+                      }
+                      onClick={() => setSelectedSection('tutors')}
+                    >
+                      <FontAwesomeIcon
+                        icon={faGraduationCap}
+                        className={
+                          selectedSection === 'tutors' ? 'w-5 h-5 ' : 'w-5 h-5'
+                        }
+                      />
+                      <span className='ml-4'>Tutores</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={
                         selectedSection === 'sessions'
                           ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform dark:text-gray-200 dark:bg-gray-800 bg-white rounded-lg'
                       }
                       onClick={() => setSelectedSection('sessions')}
                     >
@@ -83,7 +106,7 @@ const AdminDashboardLayout = props => {
                       className={
                         selectedSection === 'payments'
                           ? 'inline-flex items-center w-full px-4 py-4 mt-1 font-semibold  text-white transition duration-200 ease-in-out transform bg-codecolor rounded-lg shadow-lg pl-8'
-                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform bg-white rounded-lg'
+                          : 'inline-flex items-center w-full px-4 py-4 mt-1 pl-8 border border-transparent hover:border-codecolor text-gray-700 transition duration-200 ease-in-out transform dark:text-gray-200 dark:bg-gray-800 bg-white rounded-lg'
                       }
                       white=''
                       onClick={() => setSelectedSection('payments')}
@@ -101,7 +124,7 @@ const AdminDashboardLayout = props => {
                   </li>
                   <li>
                     <Link
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer dark:text-gray-200 dark:bg-gray-800 bg-white cursor-pointer'
                       to='/user'
                     >
                       <FontAwesomeIcon icon={faUser} className='w-5 h-5' />
@@ -117,7 +140,7 @@ const AdminDashboardLayout = props => {
 
                   <li>
                     <Link
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-gray-700 hover:border-codecolor transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer dark:text-gray-200 dark:bg-gray-800 bg-white cursor-pointer'
                       to='/'
                     >
                       <FontAwesomeIcon icon={faHome} className='w-5 h-5' />
@@ -126,7 +149,7 @@ const AdminDashboardLayout = props => {
                   </li>
                   <li>
                     <a
-                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-red-500 hover:border-red-500 transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer bg-white cursor-pointer'
+                      className='inline-flex items-center w-full px-4 py-4 mt-1 pl-8 text-base text-red-500 hover:border-red-500 transition duration-200 ease-in-out border-transparent transform border rounded-lg focus:shadow-outlinecursor-pointer dark:bg-gray-800 bg-white cursor-pointer'
                       white=''
                       onClick={setShowModalLogout}
                     >

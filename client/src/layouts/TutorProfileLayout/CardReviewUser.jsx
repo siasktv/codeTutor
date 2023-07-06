@@ -36,7 +36,7 @@ const CardReviewUser = props => {
             <div className='pl-2 flex flex-col w-full'>
               <div className='pl-2 flex-grow flex items-center justify-between w-full'>
                 <div className='flex justify-center items-center'>
-                  <h2 className='text-left font-semibold mr-2'>
+                  <h2 className='text-left font-semibold mr-2 dark:text-gray-200'>
                     {review.user.fullName}
                   </h2>
                   <div className='flex justify-center items-center space-x-1'>
@@ -49,13 +49,13 @@ const CardReviewUser = props => {
                 </div>
                 <div className='pl-2 flex'>
                   {/* Fecha */}
-                  <p className='text-sm text-[#98A2B3] '>
+                  <p className='text-sm text-[#98A2B3] dark:text-gray-400'>
                     {formatDate(review.createdAt)}
                   </p>
                 </div>
               </div>
               <div>
-                <h2 className='pl-2 text-sm  text-[#141414B2] text-justify'>
+                <h2 className='pl-2 text-sm  text-[#141414B2] text-justify dark:text-gray-200'>
                   {review.comment}
                 </h2>
               </div>
@@ -67,7 +67,7 @@ const CardReviewUser = props => {
         <div className='flex flex-col items-center pt-6'>
           <button
             onClick={handleShowMoreReviews}
-            className='flex flex-row items-center justify-center w-40 h-11 border border-codecolor text-codecolor rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none'
+            className='flex flex-row items-center justify-center w-40 h-11 border border-codecolor text-codecolor rounded transition duration-1 ease-in-out transform active:scale-95 active:outline-none focus:outline-none dark:bg-codecolor dark:text-white dark:font-semibold'
           >
             Ver más
           </button>

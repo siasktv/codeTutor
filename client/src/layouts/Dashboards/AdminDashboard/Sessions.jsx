@@ -12,6 +12,7 @@ import {
   faDollar,
   faDollarSign,
   faLink,
+  faMinus,
   faMoneyBill,
   faPlus,
   faPlusCircle,
@@ -78,21 +79,55 @@ export default function Sessions (props) {
     setPaymentModal(true)
   }
 
+  const [showStatsMobile, setShowStatsMobile] = useState(false)
+  const handleShowStatsMobile = () => {
+    setShowStatsMobile(!showStatsMobile)
+  }
+
   return (
     <div className='flex flex-col w-full items center justify-center'>
       {finishedLoading === true ? (
         <>
-          <h1 className='text-4xl font-bold'>Sesiones</h1>
-          <div className='flex flex-row w-full justify-between space-x-3 items-center'>
-            <div className='flex flex-col shadow-md shadow-codecolorlighter mt-5 w-full rounded-md h-72 items-center justify-center border'>
+          <h1 className='text-2xl lg:text-4xl font-bold dark:text-gray-200'>
+            Sesiones
+          </h1>
+          <div
+            className='flex flex-row justify-center items-center mt-5 lg:hidden bg-codecolorlighter text-codecolor px-2 py-1 w-48 self-center rounded-md cursor-pointer dark:text-codecolorlighter dark:bg-codecolor'
+            onClick={handleShowStatsMobile}
+          >
+            {showStatsMobile ? (
+              <>
+                <p className='text-md font-semibold'>Ocultar estadísticas</p>
+                <FontAwesomeIcon
+                  icon={faMinus}
+                  className='text-md ml-2 text-codecolor dark:text-codecolorlighter'
+                />
+              </>
+            ) : (
+              <>
+                <p className='text-md font-semibold'>Mostrar estadísticas</p>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className='text-md ml-2 text-codecolor dark:text-codecolorlighter'
+                />
+              </>
+            )}
+          </div>
+          <div
+            className={
+              `flex flex-row w-full max-lg:self-center max-lg:justify-center lg:justify-between lg:space-x-3 items-center` +
+              (showStatsMobile ? ' max-lg:flex-col' : ' max-lg:hidden')
+            }
+          >
+            <div className='flex flex-col shadow-md shadow-codecolorlighter lg:mt-5 mt-2 w-full rounded-md lg:h-72 py-4 items-center justify-center border dark:bg-gray-800 dark:border-none dark:shadow-none'>
               <FontAwesomeIcon
                 icon={faVideo}
                 className='text-codecolor bg-codecolorlighter p-3 rounded-md'
               />
-              <p className='text-[#05004E] text-center font-semibold mt-2 text-lg'>
+              <p className='text-[#05004E] dark:text-codecolor text-center font-semibold mt-2 text-lg'>
                 Sesiones totales
               </p>
-              <p className='text-gray-400 text-center font-semibold text-4xl'>
+              <p className='text-gray-400 dark:text-gray-200 text-center font-semibold lg:text-4xl text-2xl'>
                 {
                   sessions.filter(
                     session =>
@@ -102,12 +137,12 @@ export default function Sessions (props) {
                   ).length
                 }
               </p>
-              <p className='text-[#05004E] text-center font-semibold text-sm'>
+              <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                 completadas
               </p>
               <div className='flex flex-col items-center justify-between w-[80%] px-5 mt-5'>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     En proceso:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -126,7 +161,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Futuras:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -138,7 +173,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Expiradas:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -153,16 +188,16 @@ export default function Sessions (props) {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col mt-5 shadow-md shadow-orange-100 w-full border rounded-md h-72 items-center justify-center'>
+            <div className='flex flex-col lg:mt-5 mt-2 shadow-md shadow-orange-100 w-full border rounded-md lg:h-72 py-4 items-center justify-center dark:bg-gray-800 dark:border-none dark:shadow-none'>
               <FontAwesomeIcon
                 icon={faClock}
                 className='text-orange-700 bg-orange-200 p-3 rounded-md'
               />
 
-              <p className='text-[#05004E] text-center font-semibold text-lg mt-2'>
+              <p className='text-[#05004E] dark:text-orange-500 text-center font-semibold text-lg mt-2'>
                 Minutos en sesiones
               </p>
-              <p className='text-gray-400 text-center font-semibold text-4xl'>
+              <p className='text-gray-400 dark:text-gray-200 text-center font-semibold lg:text-4xl text-2xl'>
                 {sessions
                   .filter(
                     session =>
@@ -173,12 +208,12 @@ export default function Sessions (props) {
                     return acc + session.minutes
                   }, 0)}
               </p>
-              <p className='text-[#05004E] text-center font-semibold text-sm'>
+              <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                 completados
               </p>
               <div className='flex flex-col items-center justify-between w-[80%] px-5 mt-5'>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     En proceso:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -199,7 +234,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Futuros:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -213,7 +248,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Expirados:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -227,30 +262,30 @@ export default function Sessions (props) {
                         return acc + session.minutes
                       }, 0)}
                   </p>
-                </div>
+                </div>{' '}
               </div>
             </div>
-            <div className='flex flex-col mt-5 shadow-md shadow-green-100 w-full border rounded-md h-72 items-center justify-center'>
+            <div className='flex flex-col lg:mt-5 mt-2 shadow-md shadow-green-100 w-full border rounded-md lg:h-72 py-4 items-center justify-center dark:bg-gray-800 dark:border-none dark:shadow-none'>
               <FontAwesomeIcon
                 icon={faMoneyBill}
                 className='text-green-700 p-3 rounded-md bg-green-200'
               />
-              <p className='text-[#05004E] text-center font-semibold mt-2 text-lg'>
+              <p className='text-[#05004E] dark:text-green-500 text-center font-semibold mt-2 text-lg'>
                 Pagos
               </p>
-              <p className='text-gray-400 text-center font-semibold text-4xl'>
+              <p className='text-gray-400 dark:text-gray-200 text-center font-semibold lg:text-4xl text-2xl'>
                 USD $
                 {sessions
                   .filter(session => session.isPaid)
                   .map(session => session.price)
                   .reduce((acc, price) => acc + price, 0)}
               </p>
-              <p className='text-[#05004E] text-center font-semibold text-sm'>
+              <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                 completados
               </p>
               <div className='flex flex-col items-center justify-between w-[80%] px-5 mt-5'>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Esperando:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -267,7 +302,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Futuros:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -283,7 +318,7 @@ export default function Sessions (props) {
                   </p>
                 </div>
                 <div className='flex flex-row justify-between w-full'>
-                  <p className='text-[#05004E] text-center font-semibold text-sm'>
+                  <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
                     Expirados:
                   </p>
                   <p className='text-gray-400 text-center font-semibold text-sm'>
@@ -307,7 +342,7 @@ export default function Sessions (props) {
                 selectedSection === 'previous'
                   ? 'border-b-codecolor'
                   : 'border-b-transparent'
-              } border-b-4 cursor-pointer bg-white text-codecolor font-semibold text-xl`}
+              } border-b-4 cursor-pointer bg-white dark:bg-gray-900 dark:text-gray-200 text-codecolor font-semibold text-xl`}
               onClick={() => setSelectedSection('previous')}
             >
               Pasadas
@@ -317,7 +352,7 @@ export default function Sessions (props) {
                 selectedSection === 'upcoming'
                   ? 'border-b-codecolor'
                   : 'border-b-transparent'
-              } ml-4 border-b-4 cursor-pointer bg-white text-codecolor font-semibold text-xl`}
+              } ml-4 border-b-4 cursor-pointer bg-white dark:bg-gray-900 dark:text-gray-200 text-codecolor font-semibold text-xl`}
               onClick={() => setSelectedSection('upcoming')}
             >
               Futuras
@@ -326,10 +361,138 @@ export default function Sessions (props) {
           {selectedSection === 'upcoming' && (
             <>
               {upcomingSessions.length > 0 ? (
-                <div className='flex flex-col mt-5 w-full border rounded-md'>
-                  <table className='w-full border rounded-md'>
+                <div className='flex flex-col mt-5 w-full lg:border dark:border-gray-800 rounded-md'>
+                  <div className='lg:hidden'>
+                    {upcomingSessions.map(session => (
+                      <div
+                        key={session.id}
+                        className='flex flex-col border-b border-gray-200 dark:border-gray-800 py-4 px-4 space-y-1'
+                      >
+                        <div className='flex flex-row justify-between '>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Fecha
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {moment(session.appointmentDate).format(
+                              'DD/MM/YYYY HH'
+                            )}
+                            :00 hs
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Cliente
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.clientUserId?.fullName}
+                          </p>
+                        </div>
+
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Tutor
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.tutorUserId?.fullName}
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Duración
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.minutes} minutos
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Precio
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            USD ${session?.price}
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Estado de pago
+                          </p>
+                          {session.isPaid ? (
+                            <span className='text-sm rounded-md text-green-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faCheckCircle}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Pagada
+                              <FontAwesomeIcon
+                                icon={faPlus}
+                                className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
+                                onClick={() => {
+                                  showPaymentModal(session)
+                                }}
+                              />
+                            </span>
+                          ) : (
+                            <span className='text-sm rounded-md text-red-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faTriangleExclamation}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              No pagada
+                            </span>
+                          )}
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Estado de la sesión
+                          </p>
+                          {!session.startedCounterDate &&
+                          moment(session.expiredDate).isBefore(moment()) ? (
+                            <span className='text-sm rounded-md text-red-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faTriangleExclamation}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Expirada
+                            </span>
+                          ) : session.startedCounterDate ? (
+                            <>
+                              {moment(session.endedCounterDate).isBefore(
+                                moment()
+                              ) ? (
+                                <span className='text-sm rounded-md text-green-600 font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faCheckCircle}
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  Finalizada
+                                </span>
+                              ) : (
+                                <span className='text-sm rounded-md text-yellow-600 font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faClock}
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  En curso
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <span className='text-sm rounded-md text-codecolor font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faCalendar}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Agendada
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <table className='w-full border dark:border-gray-800 rounded-md max-lg:hidden'>
                     <thead>
-                      <tr className='text-black'>
+                      <tr className='text-black dark:text-gray-200'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
                         <th className='py-2 pt-4 px-4'>Tutor</th>
                         <th className='py-2 pt-4 px-4'>Cliente</th>
@@ -341,7 +504,10 @@ export default function Sessions (props) {
                     </thead>
                     <tbody>
                       {upcomingSessions.map(session => (
-                        <tr key={session.id} className='text-black'>
+                        <tr
+                          key={session.id}
+                          className='text-black dark:text-gray-200'
+                        >
                           <td className='py-2 pb-4 px-4'>
                             {moment(session.appointmentDate).format(
                               'DD/MM/YYYY HH'
@@ -372,7 +538,7 @@ export default function Sessions (props) {
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.isPaid ? (
-                              <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold'>
+                              <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold dark:bg-green-600 dark:text-green-200'>
                                 <FontAwesomeIcon
                                   icon={faCheckCircle}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -387,7 +553,7 @@ export default function Sessions (props) {
                                 />
                               </span>
                             ) : (
-                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
+                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold dark:bg-red-600 dark:text-red-200'>
                                 <FontAwesomeIcon
                                   icon={faTriangleExclamation}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -399,7 +565,7 @@ export default function Sessions (props) {
                           <td className='py-2 pb-4 px-4'>
                             {!session.startedCounterDate &&
                             moment(session.expiredDate).isBefore(moment()) ? (
-                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
+                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold dark:bg-red-600 dark:text-red-200'>
                                 <FontAwesomeIcon
                                   icon={faTriangleExclamation}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -411,7 +577,7 @@ export default function Sessions (props) {
                                 {moment(session.endedCounterDate).isBefore(
                                   moment()
                                 ) ? (
-                                  <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold'>
+                                  <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold dark:bg-green-600 dark:text-green-200'>
                                     <FontAwesomeIcon
                                       icon={faCheckCircle}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -419,7 +585,7 @@ export default function Sessions (props) {
                                     Finalizada
                                   </span>
                                 ) : (
-                                  <span className='bg-[#ffe5ae] px-2 py-1 rounded-md text-yellow-600 font-semibold'>
+                                  <span className='bg-[#ffe5ae] px-2 py-1 rounded-md text-yellow-600 font-semibold dark:bg-yellow-600 dark:text-[#ffe5ae]'>
                                     <FontAwesomeIcon
                                       icon={faClock}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -429,7 +595,7 @@ export default function Sessions (props) {
                                 )}
                               </>
                             ) : (
-                              <span className='bg-codecolorlight px-2 py-1 rounded-md text-codecolor font-semibold'>
+                              <span className='bg-codecolorlight px-2 py-1 rounded-md text-codecolor font-semibold dark:bg-codecolor dark:text-codecolorlighter'>
                                 <FontAwesomeIcon
                                   icon={faCalendar}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -445,7 +611,7 @@ export default function Sessions (props) {
                 </div>
               ) : (
                 <div className='flex flex-col mt-5 w-full'>
-                  <p className='text-black text-center text-lg py-4'>
+                  <p className='text-black dark:text-gray-200 text-center text-lg py-4'>
                     No tienes sesiones agendadas a futuro.
                   </p>
                 </div>
@@ -455,10 +621,137 @@ export default function Sessions (props) {
           {selectedSection === 'previous' && (
             <>
               {previousSessions.length > 0 ? (
-                <div className='flex flex-col mt-5 w-full border rounded-md'>
-                  <table className='w-full border rounded-md'>
+                <div className='flex flex-col mt-5 w-full lg:border dark:border-gray-800 rounded-md'>
+                  <div className='lg:hidden'>
+                    {previousSessions.map(session => (
+                      <div
+                        key={session.id}
+                        className='flex flex-col border-b border-gray-200 dark:border-gray-800 py-4 px-4 space-y-1'
+                      >
+                        <div className='flex flex-row justify-between '>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Fecha
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {moment(session.appointmentDate).format(
+                              'DD/MM/YYYY HH'
+                            )}
+                            :00 hs
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Cliente
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.clientUserId?.fullName}
+                          </p>
+                        </div>
+
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Tutor
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.tutorUserId?.fullName}
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Duración
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            {session?.minutes} minutos
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Precio
+                          </p>
+                          <p className='text-gray-400 text-center font-semibold text-sm'>
+                            USD ${session?.price}
+                          </p>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Estado de pago
+                          </p>
+                          {session.isPaid ? (
+                            <span className='text-sm rounded-md text-green-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faCheckCircle}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Pagada
+                              <FontAwesomeIcon
+                                icon={faPlus}
+                                className='ml-1.5 mb-[1.01px] text-xs hover:test-green-800 transition-all duration-200 cursor-pointer'
+                                onClick={() => {
+                                  showPaymentModal(session)
+                                }}
+                              />
+                            </span>
+                          ) : (
+                            <span className='text-sm rounded-md text-red-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faTriangleExclamation}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              No pagada
+                            </span>
+                          )}
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                          <p className='text-[#05004E] dark:text-gray-200 text-center font-semibold text-sm'>
+                            Estado de la sesión
+                          </p>
+                          {!session.startedCounterDate &&
+                          moment(session.expiredDate).isBefore(moment()) ? (
+                            <span className='text-sm rounded-md text-red-600 font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faTriangleExclamation}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Expirada
+                            </span>
+                          ) : session.startedCounterDate ? (
+                            <>
+                              {moment(session.endedCounterDate).isBefore(
+                                moment()
+                              ) ? (
+                                <span className='text-sm rounded-md text-green-600 font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faCheckCircle}
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  Finalizada
+                                </span>
+                              ) : (
+                                <span className='text-sm rounded-md text-yellow-600 font-semibold'>
+                                  <FontAwesomeIcon
+                                    icon={faClock}
+                                    className='mr-1.5 mb-[1.01px] text-xs'
+                                  />
+                                  En curso
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <span className='text-sm rounded-md text-codecolor font-semibold'>
+                              <FontAwesomeIcon
+                                icon={faCalendar}
+                                className='mr-1.5 mb-[1.01px] text-xs'
+                              />
+                              Agendada
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <table className='w-full border rounded-md dark:border-gray-800 max-lg:hidden'>
                     <thead>
-                      <tr className='text-black'>
+                      <tr className='text-black dark:text-gray-200'>
                         <th className='py-2 pt-4 px-4'>Fecha</th>
                         <th className='py-2 pt-4 px-4'>Tutor</th>
                         <th className='py-2 pt-4 px-4'>Cliente</th>
@@ -470,7 +763,10 @@ export default function Sessions (props) {
                     </thead>
                     <tbody>
                       {previousSessions.map(session => (
-                        <tr key={session.id} className='text-black'>
+                        <tr
+                          key={session.id}
+                          className='text-black dark:text-gray-200'
+                        >
                           <td className='py-2 pb-4 px-4'>
                             {moment(session.appointmentDate).format(
                               'DD/MM/YYYY HH'
@@ -501,7 +797,7 @@ export default function Sessions (props) {
                           </td>
                           <td className='py-2 pb-4 px-4'>
                             {session.isPaid ? (
-                              <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold'>
+                              <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold dark:bg-green-600 dark:text-green-200'>
                                 <FontAwesomeIcon
                                   icon={faCheckCircle}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -516,7 +812,7 @@ export default function Sessions (props) {
                                 />
                               </span>
                             ) : (
-                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
+                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold dark:bg-red-600 dark:text-red-200'>
                                 <FontAwesomeIcon
                                   icon={faTriangleExclamation}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -528,7 +824,7 @@ export default function Sessions (props) {
                           <td className='py-2 pb-4 px-4'>
                             {!session.startedCounterDate &&
                             moment(session.expiredDate).isBefore(moment()) ? (
-                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold'>
+                              <span className='bg-red-200 px-2 py-1 rounded-md text-red-600 font-semibold dark:bg-red-600 dark:text-red-200'>
                                 <FontAwesomeIcon
                                   icon={faTriangleExclamation}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -540,7 +836,7 @@ export default function Sessions (props) {
                                 {moment(session.endedCounterDate).isBefore(
                                   moment()
                                 ) ? (
-                                  <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold'>
+                                  <span className='bg-green-200 px-2 py-1 rounded-md text-green-600 font-semibold dark:bg-green-600 dark:text-green-200'>
                                     <FontAwesomeIcon
                                       icon={faCheckCircle}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -548,7 +844,7 @@ export default function Sessions (props) {
                                     Finalizada
                                   </span>
                                 ) : (
-                                  <span className='bg-[#ffe5ae] px-2 py-1 rounded-md text-yellow-600 font-semibold'>
+                                  <span className='bg-[#ffe5ae] px-2 py-1 rounded-md text-yellow-600 font-semibold dark:bg-yellow-600 dark:text-[#ffe5ae]'>
                                     <FontAwesomeIcon
                                       icon={faClock}
                                       className='mr-1.5 mb-[1.01px] text-xs'
@@ -558,7 +854,7 @@ export default function Sessions (props) {
                                 )}
                               </>
                             ) : (
-                              <span className='bg-codecolorlight px-2 py-1 rounded-md text-codecolor font-semibold'>
+                              <span className='bg-codecolorlight px-2 py-1 rounded-md text-codecolor font-semibold dark:bg-codecolor dark:text-codecolorlighter'>
                                 <FontAwesomeIcon
                                   icon={faCalendar}
                                   className='mr-1.5 mb-[1.01px] text-xs'
@@ -574,8 +870,8 @@ export default function Sessions (props) {
                 </div>
               ) : (
                 <div className='flex flex-col mt-5 w-full'>
-                  <p className='text-black text-center text-lg py-4'>
-                    No tienes sesiones agendadas a futuro.
+                  <p className='text-black dark:text-gray-200 text-center text-lg py-4'>
+                    No tienes sesiones pasadas.
                   </p>
                 </div>
               )}

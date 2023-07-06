@@ -29,19 +29,19 @@ const RestorePassword = () => {
   return (
     <>
       {isLoading && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center h-screen dark:bg-gray-900'>
           <Loader />
         </div>
       )}
       {!isLoading && (
-        <div className='overflow-hidden h-screen'>
+        <div className='overflow-hidden h-screen dark:bg-gray-900'>
           <Navlogo />
           <div className='flex'>
-            <div className='w-6/12 mt-20'>
+            <div className='w-6/12 mt-20 max-lg:hidden'>
               <ImageSlider />
             </div>
             <div className='flex-grow flex items-center justify-center'>
-              <div className='w-11/12'>
+              <div className='lg:w-11/12 w-full'>
                 <RestorePasswordForm />
               </div>
             </div>

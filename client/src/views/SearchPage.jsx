@@ -151,8 +151,8 @@ const SearchPage = () => {
   }, [tutors])
 
   return (
-    <div>
-      <div className='sticky top-0 z-[100] bg-white'>
+    <div className='max-lg:w-full dark:bg-gray-900'>
+      <div className='sticky top-0 z-[100] bg-white dark:bg-gray-900'>
         <NavUserSearch
           user={user}
           showMessage={showMessage}
@@ -161,14 +161,14 @@ const SearchPage = () => {
         />
       </div>
 
-      <div className='bg-transparent flex flex-col justify-center items-start pt-1 gap-2 w-full h-full left-0 right-0'>
+      <div className='bg-transparent flex flex-col max-lg:items-center items-start pt-1 gap-2 w-full h-full left-0 right-0 dark:bg-gray-900 min-h-screen'>
         <SearchBarTutor />
-        <div className='bg-gray-100 flex items-start px-20 py-10  w-full h-max left-0 right-0'>
+        <div className='bg-gray-100 dark:bg-gray-900 flex items-start lg:px-20 lg:py-10  w-full h-max left-0 right-0'>
           <FilterTutor
             sortedByLanguages={sortedByLanguages}
             sortedByReview={sortedByReview}
           />
-          <div className='w-full p-9 flex flex-col relative z-0'>
+          <div className='w-full lg:p-9 p-3 flex flex-col relative z-0'>
             {isLoading && (
               <div className='flex justify-center items-center'>
                 <Loader />
@@ -176,8 +176,8 @@ const SearchPage = () => {
             )}
             {!isLoading && (
               <>
-                <div className='flex items-center justify-between'>
-                  <h2 className='pb-10 h-30 font-inter font-bold leading-150 text-2xl text-black text-left'>
+                <div className='flex items-center lg:justify-between justify-end'>
+                  <h2 className='pb-10 h-30 font-inter font-bold leading-150 lg:text-2xl text-black dark:text-codecolor text-left max-lg:hidden'>
                     {tutors.length === 0
                       ? ''
                       : tutors.length === 1

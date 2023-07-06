@@ -67,7 +67,14 @@ import BookMeeting from './BookMeeting.jsx'
 
 import ModalBankTutor from './ModalBankTutor.jsx'
 
+import NavDashboardMobile from './UserDashboard/NavDashboardMobile.jsx'
+import TutorNavDashboardMobile from './TutorDashboard/NavDashboardMobile.jsx'
+import AdminNavDashboardMobile from './AdminDashboard/NavDashboardMobile.jsx'
+
 export {
+  AdminNavDashboardMobile,
+  TutorNavDashboardMobile,
+  NavDashboardMobile,
   ModalBankTutor,
   PaymentModal,
   TutorFormProfileDisponibility,

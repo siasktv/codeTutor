@@ -72,14 +72,16 @@ export default function FAQs (props) {
 
   return (
     <>
-      <div className='bg-gray-100 flex flex-col items-center px-10 py-10 top-0 gap-2 w-full'>
+      <div className='bg-gray-100 dark:bg-gray-900 flex flex-col items-center px-10 py-10 top-0 gap-2 w-full'>
         {/* Contenedor secundario de bordes redondeados */}
-        <h1 className='font-bold text-3xl mb-4'>FAQs - Preguntas frecuentes</h1>
+        <h1 className='font-bold text-3xl mb-4 dark:text-gray-200'>
+          FAQs - Preguntas frecuentes
+        </h1>
         <div className='relative w-full'>
           <input
             type='text'
             placeholder='Buscar'
-            className='w-1/2 px-4 py-3 mb-2 text-lg focus:outline-codecolor border border-gray-200 rounded-md shadow-md'
+            className='w-full lg:w-1/2 px-4 py-3 mb-2 text-lg focus:outline-codecolor border border-gray-200 rounded-md shadow-md dark:border-none dark:outline-none dark:focus:outline-none dark:bg-gray-800 dark:text-gray-200'
             onChange={e => setSearch(e.target.value)}
           />
           <FontAwesomeIcon
@@ -88,13 +90,13 @@ export default function FAQs (props) {
           />
         </div>
 
-        <div className='w-1/2 p-4 text-left bg-white border border-gray-200 shadow-md rounded-lg space-y-2'>
+        <div className='w-full lg:w-1/2 p-4 text-left bg-white dark:bg-gray-800 dark:border-none border border-gray-200 shadow-md rounded-lg space-y-2'>
           {/* Título */}
           <div className='flex justify-end items-center pb-1'>
             <div className=' space-x-2'>
               {/* Pregunta para ser aprobada y sumada a las FAQs */}
               <button
-                className='px-2 py-1 bg-violet-100 border rounded text-codecolor text-md hover:bg-codecolor hover:text-white font-semibold active:scale-90 transition duration-200 select-none'
+                className='px-2 py-1 bg-violet-100 border rounded text-codecolor text-md hover:bg-codecolor hover:text-white font-semibold active:scale-90 transition duration-200 select-none dark:text-codecolorlighter dark:bg-codecolor dark:border-none'
                 onClick={() => {
                   setSelectedOption('question')
                   setShowModal(true)
@@ -104,7 +106,7 @@ export default function FAQs (props) {
               </button>
               {/* Espacio para dar una opinion constructiva sobre code-tutor */}
               <button
-                className='px-2 py-1 bg-violet-100 border rounded text-codecolor text-md hover:bg-codecolor hover:text-white font-semibold active:scale-90 transition duration-200 select-none'
+                className='px-2 py-1 bg-violet-100 border rounded text-codecolor text-md hover:bg-codecolor hover:text-white font-semibold active:scale-90 transition duration-200 select-none dark:text-codecolorlighter dark:bg-codecolor dark:border-none'
                 onClick={() => {
                   setSelectedOption('opinion')
                   setShowModal(true)
@@ -121,22 +123,28 @@ export default function FAQs (props) {
                 <div key={index + 1}>
                   {/* Pregunta */}
                   <div
-                    className='flex justify-between items-center cursor-pointer border border-gray-200 rounded-md px-4 py-3'
+                    className='flex justify-between items-center cursor-pointer border border-gray-200 rounded-md px-4 py-3 dark:border-gray-700'
                     onClick={() => toggleAnswer(index)}
                   >
-                    <h3 className='font-semibold text-xl select-none'>
+                    <h3 className='font-semibold text-xl select-none dark:text-gray-200'>
                       {faq.question}
                     </h3>
                     {isOpened[index] ? (
-                      <FontAwesomeIcon icon={faMinus} className='ml-2' />
+                      <FontAwesomeIcon
+                        icon={faMinus}
+                        className='ml-2 dark:text-gray-200'
+                      />
                     ) : (
-                      <FontAwesomeIcon icon={faChevronDown} className='ml-2' />
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className='ml-2 dark:text-gray-200'
+                      />
                     )}
                   </div>
                   {/* Respuesta */}
                   <div
                     id={index}
-                    className='faq hidden text-lg mt-5 font-normal text-gray-900 text-justify px-4'
+                    className='faq hidden text-lg mt-5 font-normal dark:text-gray-200 text-gray-900 text-justify px-4'
                   >
                     {faq.answer}
                   </div>
@@ -144,7 +152,7 @@ export default function FAQs (props) {
               )
             })}
             {faqs.length === 0 && (
-              <div className='text-lg text-gray-900 text-center py-10'>
+              <div className='text-lg text-gray-900 dark:text-gray-200 text-center py-10'>
                 No se encontraron resultados.
               </div>
             )}

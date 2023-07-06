@@ -45,8 +45,8 @@ const TutorProfileFormTech = props => {
           id='inputField'
           className={
             errorsData.tech
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 gap-8 outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 gap-8'
+              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 gap-8 outline-red-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 gap-8 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
           }
           defaultValue='default'
           onChange={handleSelect}
@@ -58,7 +58,7 @@ const TutorProfileFormTech = props => {
             <option
               key={index}
               value={tech._id}
-              className='text-gray-500 bg-white'
+              className='text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-200'
               selected={dataForm.tech.name === tech.name}
             >
               {tech.name}
