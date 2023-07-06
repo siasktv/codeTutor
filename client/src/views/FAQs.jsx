@@ -79,6 +79,11 @@ const FAQs = () => {
     setFaqs(filteredFaqs)
   }, [search])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       <NavUserNotifications user={user} redirect={'/faqs'} />

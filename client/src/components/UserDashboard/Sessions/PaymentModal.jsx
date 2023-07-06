@@ -29,12 +29,12 @@ export default function PaymentModal ({ session, setPaymentModal }) {
         </span>
         {/* modal content */}
         <div
-          className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+          className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
           role='dialog'
           aria-modal='true'
           aria-labelledby='modal-headline'
         >
-          <div className='bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
+          <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <div className='sm:flex sm:items-start'>
               <div className='mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-codecolor sm:mx-0 sm:h-10 sm:w-10'>
                 <FontAwesomeIcon
@@ -126,7 +126,7 @@ export default function PaymentModal ({ session, setPaymentModal }) {
               y analizaremos tu situación.
             </p>
           </div>
-          <div className='bg-gray-50 dark:bg-gray-900 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+          <div className='bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
             <button
               type='button'
               className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none transition-all duration-200 sm:ml-3 sm:w-24 sm:text-sm'

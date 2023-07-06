@@ -70,6 +70,11 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
     ...tutorFavorites.slice(indexOfFirstFavoriteTutor, indexOfLastFavoriteTutor)
   ]
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [currentPage, currentFavoritesPage])
+
   const pageNumbers = []
   const pageNumbersFavorites = []
   for (let i = 1; i <= Math.ceil(tutors.length / tutorsPerPage); i++) {

@@ -92,6 +92,11 @@ export default function FormTutor () {
     navigate('/user')
   }
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       {loading && (

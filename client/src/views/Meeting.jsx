@@ -292,6 +292,11 @@ const Meeting = () => {
     }
   }, [timeLeftSession, alertClosed, showAlert, showModal])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   const handleCloseModal = () => {
     setShowModal(false)
   }

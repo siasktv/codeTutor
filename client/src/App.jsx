@@ -138,7 +138,7 @@ function App () {
   }, [])
 
   return (
-    <div className='App' id='codetutorapp'>
+    <div className='App dark:bg-gray-900' id='codetutorapp'>
       <SocketContext.Provider value={socket}>
         <Routes>
           <Route path='*' element={<NotFound />} />

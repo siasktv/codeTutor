@@ -50,6 +50,11 @@ const Landing = () => {
     navigate('/search')
   }
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <section className=' flex-1 dark:bg-gray-900'>
       <div className='sticky top-0 z-[99999] bg-white dark:bg-gray-900'>

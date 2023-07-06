@@ -105,6 +105,11 @@ const AdminDashboard = () => {
     }
   }, [user])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [selectedSection])
+
   return (
     <>
       {user && !isLoading && (

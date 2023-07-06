@@ -25,6 +25,11 @@ const Login = () => {
     }
   }, [user])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       {isLoading && (
