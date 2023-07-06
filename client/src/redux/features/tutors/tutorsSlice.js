@@ -160,9 +160,9 @@ function filterTutors (state, tutors) {
     }
     if (selectedTech) {
       if (
-        tutor.skills.some(
+        !tutor.skills.some(
           ({ techName }) =>
-            techName.name.toLowerCase() !== selectedTech.toLowerCase()
+            techName.name.toLowerCase() === selectedTech.toLowerCase()
         ) ||
         !tutor.skills.length
       )

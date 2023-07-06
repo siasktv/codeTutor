@@ -197,7 +197,7 @@ const SearchPage = () => {
                 </div>
                 {tutors.length === 0 && (
                   <div className='flex justify-center items-center mt-40'>
-                    <h1 className='text-2xl font-semibold'>
+                    <h1 className='text-2xl dark:text-gray-200 font-semibold'>
                       No se encontraron programadores.
                     </h1>
                   </div>
@@ -214,13 +214,13 @@ const SearchPage = () => {
                 {tutors.length > currentTutors.length && (
                   <>
                     <div className='flex justify-center items-center'>
-                      <div className='flex justify-center items-center'>
+                      <div className='flex justify-center items-center max-lg:flex-wrap'>
                         <button
                           onClick={handlePreviusPage}
                           className={
                             currentPage === 1
-                              ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                              : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                              ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                              : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer max-lg:my-1 max-lg:px-2 max-lg:py-1'
                           }
                         >
                           <FontAwesomeIcon icon={faArrowLeft} />
@@ -232,8 +232,8 @@ const SearchPage = () => {
                             onClick={() => handlePage(number)}
                             className={
                               currentPage === number
-                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                                ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                                : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                             }
                           >
                             {number}
@@ -244,8 +244,8 @@ const SearchPage = () => {
                             onClick={handleNextPage}
                             className={
                               currentPage === pageNumbers.length
-                                ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                                : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                                ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                                : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                             }
                           >
                             <FontAwesomeIcon icon={faArrowRight} />
@@ -253,7 +253,7 @@ const SearchPage = () => {
                         </>
                       </div>
                     </div>
-                    <p className='text-codecolor font-bold text-md mt-3'>
+                    <p className='text-codecolor font-bold max-lg:text-sm text-md mt-3'>
                       {pageNumbers.length} páginas en total
                     </p>
                   </>

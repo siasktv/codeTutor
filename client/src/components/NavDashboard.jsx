@@ -26,7 +26,8 @@ const NavDashboard = ({
   handleShowMessage,
   setShowMessage,
   showMessage,
-  selectedSection
+  selectedSection,
+  selectedViewTutors
 }) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
@@ -228,29 +229,30 @@ const NavDashboard = ({
           <header className='flex items-center h-20 w-full z-50 dark:bg-gray-900'>
             <div className='flex justify-between w-full items-center'>
               <div className='pl-[45%] pt-1'>
-                {selectedSection === 'dashboard' && (
-                  <div className='relative'>
-                    <button
-                      className='flex items-center rounded-full btn btn-sm btn-white text-codecolor dark:font-semibold'
-                      onClick={handleShowTech}
-                    >
-                      Encuentra desarrolladores
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 24 24'
-                        fill='none'
-                        stroke='currentColor'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        aria-hidden='true'
-                        className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                {selectedSection === 'dashboard' &&
+                  selectedViewTutors === 'featured' && (
+                    <div className='relative'>
+                      <button
+                        className='flex items-center rounded-full btn btn-sm btn-white text-codecolor dark:font-semibold'
+                        onClick={handleShowTech}
                       >
-                        <polyline points='6 9 12 15 18 9'></polyline>
-                      </svg>
-                    </button>
-                  </div>
-                )}
+                        Encuentra desarrolladores
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 24 24'
+                          fill='none'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          aria-hidden='true'
+                          className='flex-none w-4 h-4 ml-1 -mr-1 transition duration-200 ease-out transform'
+                        >
+                          <polyline points='6 9 12 15 18 9'></polyline>
+                        </svg>
+                      </button>
+                    </div>
+                  )}
               </div>
 
               <div>

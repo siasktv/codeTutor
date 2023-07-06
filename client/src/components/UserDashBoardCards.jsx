@@ -28,7 +28,11 @@ const Tab = ({ active, children, ...props }) => (
   </button>
 )
 
-const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
+const UserDashboardCards = ({
+  userMongo,
+  handleShowMessage,
+  setSelectedViewTutors
+}) => {
   const [isLoading, setIsLoading] = useState(true)
   const tutors = useSelector(state => state.tutors.tutors)
   const user = useUser()
@@ -69,6 +73,14 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
   const currentFavoriteTutors = [
     ...tutorFavorites.slice(indexOfFirstFavoriteTutor, indexOfLastFavoriteTutor)
   ]
+
+  useEffect(() => {
+    if (view === 'featured') {
+      setSelectedViewTutors('featured')
+    } else {
+      setSelectedViewTutors('favorites')
+    }
+  }, [view])
 
   useEffect(() => {
     //scroll to top on route change
@@ -209,9 +221,9 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                 Favoritos
               </Tab>
             </div>
-            {tutors.length === 0 && (
+            {tutors.length === 0 && view === 'featured' && (
               <div className='flex justify-center items-center mt-40'>
-                <h1 className='lg:text-2xl text-xl font-semibold'>
+                <h1 className='lg:text-2xl dark:text-gray-200 text-xl font-semibold'>
                   No se encontraron programadores.
                 </h1>
               </div>
@@ -253,8 +265,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       onClick={handlePreviusPage}
                       className={
                         currentPage === 1
-                          ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                          : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                          ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                          : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer max-lg:my-1 max-lg:px-2 max-lg:py-1'
                       }
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
@@ -266,8 +278,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                         onClick={() => handlePage(number)}
                         className={
                           currentPage === number
-                            ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                            : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                            : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                         }
                       >
                         {number}
@@ -278,8 +290,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                         onClick={handleNextPage}
                         className={
                           currentPage === pageNumbers.length
-                            ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                            : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                            ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                            : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                         }
                       >
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -287,7 +299,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                     </>
                   </div>
                 </div>
-                <p className='text-codecolor font-bold text-md mt-3'>
+                <p className='text-codecolor max-lg:text-sm max-lg:mt-2 font-bold text-md mt-3'>
                   {pageNumbers.length} páginas en total
                 </p>
               </>
@@ -301,8 +313,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                         onClick={handlePreviusFavoritesPage}
                         className={
                           currentFavoritesPage === 1
-                            ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default'
-                            : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer'
+                            ? 'rounded-l bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                            : 'rounded-l bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer max-lg:my-1 max-lg:px-2 max-lg:py-1'
                         }
                       >
                         <FontAwesomeIcon icon={faArrowLeft} />
@@ -314,8 +326,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                           onClick={() => handleFavoritesPage(number)}
                           className={
                             currentFavoritesPage === number
-                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                              ? 'bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                              : 'bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                           }
                         >
                           {number}
@@ -326,8 +338,8 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                           onClick={handleNextFavoritesPage}
                           className={
                             currentFavoritesPage === pageNumbersFavorites.length
-                              ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1'
-                              : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1'
+                              ? 'rounded-r bg-codecolordark border border-codecolordark text-white font-bold py-2 px-4 cursor-default ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
+                              : 'rounded-r bg-codecolor border border-codecolor text-white font-bold py-2 px-4 hover:bg-codecolordark hover:border-codecolordark transition-all duration-300 cursor-pointer ml-1 max-lg:my-1 max-lg:px-2 max-lg:py-1'
                           }
                         >
                           <FontAwesomeIcon icon={faArrowRight} />
@@ -335,7 +347,7 @@ const UserDashboardCards = ({ userMongo, handleShowMessage }) => {
                       </>
                     </div>
                   </div>
-                  <p className='text-codecolor font-bold text-md mt-3'>
+                  <p className='text-codecolor max-lg:text-sm max-lg:mt-2 font-bold text-md mt-3'>
                     {pageNumbersFavorites.length} páginas en total
                   </p>
                 </>
