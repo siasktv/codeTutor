@@ -18,7 +18,7 @@ const Tab = ({ active, children, ...props }) => (
     className={classNames(
       'lg:w-40 w-[46%] lg:h-12 h-10 relative lg:left-2 lg:mt-8 mt-4 rounded-md rounded-b-none font-semibold bg-[#EDEBFA] dark:bg-gray-700 dark:text-gray-200 hover:bg-codecolor hover:text-white text-codecolor',
       {
-        'bg-codecolor dark:bg-[#7F56D8] text-white': active,
+        'bg-codecolor dark:bg-[#7F56D9!important] text-white': active,
         'text-gray-600 hover:text-gray-600 hover:bg-gray-200 bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200':
           props.disabled
       }

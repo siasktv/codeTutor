@@ -127,22 +127,24 @@ export default function ModalBankTutor (props) {
       form.accountHolder.trim()
     ) {
       setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
     }
   }, [errors, form])
 
   return (
     <div className='fixed z-[99999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
-      <div className='bg-white rounded-md p-5 w-[620px] max-h-[900px] overflow-y-auto'>
+      <div className='bg-white dark:bg-gray-800 max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] rounded-md p-5 w-[620px] max-h-[900px] overflow-y-auto'>
         <div
           className='flex flex-col items-center justify-center mt-1 mb-3'
           id='steps'
         >
-          <p className='text-xl leading-5 text-gray-800 mb-3 font-semibold'>
+          <p className='text-xl leading-5 text-gray-800 dark:text-gray-200 mb-3 font-semibold'>
             ¡Bienvenido a la comunidad de Tutores de CodeTutor!
           </p>
         </div>
         <div className='flex flex-col items-center justify-center mt-1 mb-3 w-full'>
-          <p className='text-base leading-5 text-gray-800 mb-3 w-5/6'>
+          <p className='text-base leading-5 text-gray-800 dark:text-gray-200 mb-3 w-5/6'>
             ¡Felicitaciones! Hemos aprobado tu solicitud para ser tutor en
             CodeTutor. Para poder continuar con el uso de la plataforma, es
             necesario que completes tus datos bancarios. Esto es necesario para
@@ -167,7 +169,7 @@ export default function ModalBankTutor (props) {
                 <input
                   type='text'
                   name='accountNumber'
-                  className='border border-gray-300 rounded-md mb-2 px-3 py-2 w-[300px] text-sm leading-5 text-gray-800'
+                  className='border border-gray-300 rounded-md mb-2 px-3 py-2 w-[300px] text-sm leading-5 text-gray-800 dark:bg-gray-900 dark:border-none dark:outline-none dark:text-gray-200'
                   placeholder='Número de cuenta bancaria'
                   value={form.accountNumber}
                   onChange={e => handleChange(e)}
@@ -188,7 +190,7 @@ export default function ModalBankTutor (props) {
                 <input
                   type='text'
                   name='accountHolder'
-                  className='border border-gray-300 rounded-md px-3 mb-2 py-2 w-[300px] text-sm leading-5 text-gray-800'
+                  className='border border-gray-300 rounded-md px-3 mb-2 py-2 w-[300px] text-sm leading-5 text-gray-800 dark:bg-gray-900 dark:border-none dark:outline-none dark:text-gray-200'
                   placeholder='Nombre del titular'
                   value={form.accountHolder}
                   onChange={e => handleChange(e)}
@@ -209,7 +211,7 @@ export default function ModalBankTutor (props) {
                 <input
                   type='text'
                   name='bankName'
-                  className='border border-gray-300 rounded-md px-3 mb-2 py-2 w-[300px] text-sm leading-5 text-gray-800'
+                  className='border border-gray-300 rounded-md px-3 mb-2 py-2 w-[300px] text-sm leading-5 text-gray-800 dark:bg-gray-900 dark:border-none dark:outline-none dark:text-gray-200'
                   placeholder='Ej: Banco Santander'
                   value={form.bankName}
                   onChange={e => handleChange(e)}
@@ -229,7 +231,7 @@ export default function ModalBankTutor (props) {
                 </label>
                 <select
                   name='accountType'
-                  className='border border-gray-300 rounded-md px-3 py-2 w-[300px] text-sm leading-5 text-gray-800'
+                  className='border border-gray-300 rounded-md px-3 py-2 w-[300px] text-sm leading-5 text-gray-800 dark:bg-gray-900 dark:border-none dark:outline-none dark:text-gray-200'
                   value={form.accountType}
                   onChange={e => handleChange(e)}
                 >
@@ -249,7 +251,7 @@ export default function ModalBankTutor (props) {
                 type='submit'
                 className={
                   isDisabled
-                    ? 'bg-gray-300 items-center flex justify-center w-24 h-8 text-white  text-sm font-semibold rounded-md px-5 py-2 mr-2 cursor-default'
+                    ? 'bg-gray-300 items-center flex justify-center w-24 h-8 text-white  text-sm font-semibold rounded-md px-5 py-2 mr-2 cursor-default dark:bg-gray-700'
                     : loading || success
                     ? 'bg-codecolor items-center flex justify-center w-24 h-8 text-white text-sm font-semibold rounded-md px-5 py-2 mr-2 cursor-default'
                     : 'bg-codecolor items-center flex justify-center w-24 h-8 text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-5 py-2 mr-2'
