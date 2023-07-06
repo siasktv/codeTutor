@@ -374,7 +374,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                         <>
                           <Link
                             to={`/login?redirect=${redirect}`}
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:hover:bg-codecolor dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-0'
@@ -383,7 +383,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                           </Link>
                           <Link
                             to={`/register?redirect=${redirect}`}
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-0'
@@ -392,7 +392,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                           </Link>
                           <Link
                             to='/register?redirect=/tutor'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold bg-white w-full'
                             tabIndex='-1'
                             id='menu-item-1'
                           >
@@ -406,13 +406,13 @@ const NavUserNotifications = ({ user, id, redirect }) => {
                         <>
                           <Link
                             to='/user'
-                            className='text-black p-2 hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold w-full bg-white'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 dark:text-gray-200 font-semibold w-full bg-white'
                             tabIndex='-1'
                           >
                             Ir a mi perfil
                           </Link>
                           <button
-                            className='text-red-500 p-2 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 font-semibold w-full bg-white'
+                            className='text-red-500 p-2 dark:hover:bg-red-500 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white dark:bg-gray-800 font-semibold w-full bg-white'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-1'
