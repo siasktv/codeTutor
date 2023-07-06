@@ -11,7 +11,11 @@ const CardTutorData = ({ children, title, correct }) => {
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {!correct && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
         </h2>
         {children}

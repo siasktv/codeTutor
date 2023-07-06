@@ -55,7 +55,7 @@ export default function BookMeeting (props) {
         return {
           name: `Sesión con ${session.tutorUserId.fullName}`,
           description: `http://localhost:5173/meeting/${session.sessionId}`,
-          date: moment(session.appointmentDate).format('MM/DD/YYYY HH')
+          date: moment(session.appointmentDate).format('DD/MM/YYYY HH')
         }
       })
       setClientEvents(sessions)
@@ -68,7 +68,7 @@ export default function BookMeeting (props) {
         return {
           name: `Sesión con ${session.clientUserId.fullName}`,
           description: `http://localhost:5173/meeting/${session.sessionId}`,
-          date: moment(session.appointmentDate).format('MM/DD/YYYY HH')
+          date: moment(session.appointmentDate).format('DD/MM/YYYY HH')
         }
       })
       setScheduledDates(sessions)
@@ -77,7 +77,7 @@ export default function BookMeeting (props) {
 
   useEffect(() => {
     if (selectedDate !== null) {
-      if (moment(selectedDate).isBefore(moment(), 'day')) {
+      if (moment(selectedDate, 'DD/MM/YYYY').isBefore(moment(), 'day')) {
         setSelectedDate(null)
       }
     }
@@ -89,34 +89,34 @@ export default function BookMeeting (props) {
         .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
-            'MM/DD/YYYY HH'
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH').format(
+            'DD/MM/YYYY HH'
           )
         ) ||
       scheduledDates
         .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH')
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH')
             .add(selectedDuration > 60 ? 60 : 0, 'minutes')
-            .format('MM/DD/YYYY HH')
+            .format('DD/MM/YYYY HH')
         ) ||
       scheduledDates
         .map(date =>
-          moment(date.date, 'MM/DD/YYYY HH')
+          moment(date.date, 'DD/MM/YYYY HH')
             .add(Number(date.duration) > 60 ? 60 : 0, 'minutes')
-            .format('MM/DD/YYYY HH')
+            .format('DD/MM/YYYY HH')
         )
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
-            'MM/DD/YYYY HH'
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH').format(
+            'DD/MM/YYYY HH'
           )
         ) ||
       !disabledTimes
         .map(day => day)
         .filter(
-          day => Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
+          day => Number(day.day) === moment(selectedDate, 'DD/MM/YYYY').day()
         )
         .flatMap(day => day.hours)
         .map(hour =>
@@ -127,7 +127,7 @@ export default function BookMeeting (props) {
         !disabledTimes
           .map(day => day)
           .filter(
-            day => Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
+            day => Number(day.day) === moment(selectedDate, 'DD/MM/YYYY').day()
           )
           .flatMap(day => day.hours)
           .map(hour =>
@@ -138,31 +138,31 @@ export default function BookMeeting (props) {
         .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
-            'MM/DD/YYYY HH'
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH').format(
+            'DD/MM/YYYY HH'
           )
         ) ||
       clientEvents
         .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH')
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH')
             .add(selectedDuration > 60 ? 60 : 0, 'minutes')
-            .format('MM/DD/YYYY HH')
+            .format('DD/MM/YYYY HH')
         ) ||
       clientEvents
         .map(date =>
-          moment(date.date, 'MM/DD/YYYY HH')
+          moment(date.date, 'DD/MM/YYYY HH')
             .add(Number(date.duration) > 60 ? 60 : 0, 'minutes')
-            .format('MM/DD/YYYY HH')
+            .format('DD/MM/YYYY HH')
         )
         .includes(
           // transform time to timezone selectedTimezone
-          moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
-            'MM/DD/YYYY HH'
+          moment(`${selectedDate} ${time}`, 'DD/MM/YYYY HH').format(
+            'DD/MM/YYYY HH'
           )
         ) ||
-      (selectedDate === moment().format('MM/DD/YYYY') &&
+      (selectedDate === moment().format('DD/MM/YYYY') &&
         moment(time, 'HH').format('HH') < moment().add(1, 'hour').format('HH'))
     )
       return true
@@ -199,7 +199,7 @@ export default function BookMeeting (props) {
       setSelectedTime(null)
       return
     }
-    setSelectedDate(moment(e.value).format('MM/DD/YYYY'))
+    setSelectedDate(moment(e.value).format('DD/MM/YYYY'))
     setSelectedDuration(null)
     setSelectedTime(null)
   }
@@ -266,7 +266,7 @@ export default function BookMeeting (props) {
     setSubmitting(true)
     const appointmentDate = moment(
       `${selectedDate} ${selectedTime}`,
-      'MM/DD/YYYY HH'
+      'DD/MM/YYYY HH'
     ).valueOf()
     const price = getPrice(selectedDuration)
     const minutes = Number(selectedDuration)
@@ -406,7 +406,7 @@ export default function BookMeeting (props) {
             name='duration'
             value={selectedDuration}
             onChange={handleSelectDuration}
-            className=' mt-2 border border-gray-800 w-[250px] bg-white rounded-md p-1 cursor-pointer text-center'
+            className=' mt-2 border border-gray-800 w-[250px] bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-codecolor dark:outline-none rounded-md p-1 cursor-pointer text-center'
           >
             <option disabled hidden selected={selectedDuration === null}>
               Duración
@@ -424,7 +424,7 @@ export default function BookMeeting (props) {
           name='timepicker'
           value={selectedTime}
           onChange={handleSelectTime}
-          className='mt-2 border border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center'
+          className='mt-2 border dark:bg-gray-800 dark:text-gray-200 dark:border-codecolor dark:outline-none border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center'
         >
           <option disabled hidden selected={selectedTime === null}>
             Horario de inicio

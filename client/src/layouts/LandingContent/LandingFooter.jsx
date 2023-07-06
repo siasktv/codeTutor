@@ -66,7 +66,7 @@ const LandingFooter = () => {
   }
 
   return (
-    <footer class='bg-[#101828] lg:h-52 w-full flex max-md:absolute max-lg:p-5 lg:p-10 overflow-hidden'>
+    <footer class='bg-[#101828] dark:bg-gray-800 lg:h-52 w-full flex max-md:absolute max-lg:p-5 lg:p-10 overflow-hidden'>
       <div className='flex flex-1 max-lg:flex-col'>
         <div className='flex-col flex max-lg:justify-center max-lg:items-center'>
           <div className=' flex pt-2 '>

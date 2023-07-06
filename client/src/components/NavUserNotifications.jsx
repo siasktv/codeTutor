@@ -49,6 +49,28 @@ const NavUserNotifications = ({ user, id, redirect }) => {
     audioPlayer.current.play()
   }
 
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }, [])
+
   const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
 
   useEffect(() => {
@@ -93,7 +115,7 @@ const NavUserNotifications = ({ user, id, redirect }) => {
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
@@ -227,7 +249,6 @@ const NavUserNotifications = ({ user, id, redirect }) => {
         pauseOnFocusLoss={false}
         closeOnClick
         rtl={false}
-        theme='light'
       />
       <header className='flex items-center h-20 w-full dark:bg-gray-900'>
         <audio ref={audioPlayer} src={notificationSound} />

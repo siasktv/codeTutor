@@ -20,31 +20,51 @@ const CardForm = props => {
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {next === 'bio' && !isDone?.bio && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
           {next === 'experience' && isDone?.experience && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {next === 'experience' && !isDone?.experience && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
           {next === 'skills' && isDone?.skills && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {next === 'skills' && !isDone?.skills && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
           {next === 'projects' && isDone?.projects && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {next === 'projects' && !isDone?.projects && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
           {next === 'rate' && isDone?.rate && (
             <FontAwesomeIcon icon={faCheckCircle} className='text-green-500' />
           )}
           {next === 'rate' && !isDone?.rate && (
-            <FontAwesomeIcon icon={faWarning} className='text-orange-300' />
+            <FontAwesomeIcon
+              icon={faWarning}
+              className='text-orange-300'
+              title='Completa todos los campos'
+            />
           )}
         </h2>
         {children}

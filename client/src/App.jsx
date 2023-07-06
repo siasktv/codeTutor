@@ -132,8 +132,15 @@ function App () {
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind-dark.css'
+      // change scrollbar color
+      document.documentElement.classList.add('scrollbarDark')
     } else {
       document.documentElement.classList.remove('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind.css'
+      document.documentElement.classList.remove('scrollbarDark')
     }
   }, [])
 

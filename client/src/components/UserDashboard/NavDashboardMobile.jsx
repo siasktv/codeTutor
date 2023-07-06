@@ -50,6 +50,28 @@ const NavDashboardMobile = ({
     audioPlayer.current.play()
   }
 
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }, [])
+
   const [notifications, setNotifications] = useState([])
 
   const { soundEnabled, alertsEnabled } = useSelector(state => state.localUser)
@@ -90,7 +112,7 @@ const NavDashboardMobile = ({
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
@@ -252,7 +274,6 @@ const NavDashboardMobile = ({
         pauseOnFocusLoss={false}
         closeOnClick
         rtl={false}
-        theme='light'
       />
       <header className='dark:bg-gray-900'>
         <audio ref={audioPlayer} src={notificationSound} />

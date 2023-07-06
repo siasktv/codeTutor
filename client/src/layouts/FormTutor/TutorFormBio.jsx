@@ -188,6 +188,7 @@ const TutorFormBio = props => {
                     <FontAwesomeIcon
                       icon={faWarning}
                       className='text-orange-300 text-xl'
+                      title='Completa todos los campos'
                     />
                   )}
                 </h2>

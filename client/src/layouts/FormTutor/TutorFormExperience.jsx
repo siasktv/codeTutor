@@ -145,6 +145,7 @@ const TutorFormExperience = props => {
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
+                      title='Completa todos los campos'
                       className='text-orange-300 text-xl'
                     />
                   )}

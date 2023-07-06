@@ -4,6 +4,9 @@
   text-align: center;
   --toastify-color-progress-light: #7f56d9;
   --toastify-text-color-light: #141414;
+  --toastify-color-progress-dark: #7f56d9;
+  --toastify-text-color-dark: #fff;
+  --toastify-color-dark: #1f2937;
 }
 
 * {
@@ -19,7 +22,7 @@
   background: #fff;
 }
 /* scrollbar dark mode */
-@media (prefers-color-scheme: dark) {
+.scrollbarDark {
   ::-webkit-scrollbar-track {
     background: #111827;
   }

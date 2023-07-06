@@ -53,11 +53,17 @@ export default function Settings (props) {
       localStorage.theme = 'dark'
       const html = document.querySelector('html')
       html.classList.add('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind-dark.css'
+      document.documentElement.classList.add('scrollbarDark')
     } else if (value === 'false') {
       setDarkMode(false)
       localStorage.theme = 'light'
       const html = document.querySelector('html')
       html.classList.remove('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind.css'
+      document.documentElement.classList.remove('scrollbarDark')
     } else if (value === 'auto') {
       setDarkMode(
         localStorage.theme === 'dark' ||
@@ -68,8 +74,14 @@ export default function Settings (props) {
       const html = document.querySelector('html')
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         html.classList.add('dark')
+        document.getElementById('themeSyncfusion').href =
+          'https://cdn.syncfusion.com/ej2/tailwind-dark.css'
+        document.documentElement.classList.add('scrollbarDark')
       } else {
         html.classList.remove('dark')
+        document.getElementById('themeSyncfusion').href =
+          'https://cdn.syncfusion.com/ej2/tailwind.css'
+        document.documentElement.classList.remove('scrollbarDark')
       }
     }
   }

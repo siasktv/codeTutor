@@ -99,6 +99,28 @@ const NavUserSearch = ({
     setNavbarMobile(!navbarMobile)
   }
 
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (
       notifications.filter(
@@ -116,7 +138,7 @@ const NavUserSearch = ({
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
@@ -302,7 +324,6 @@ const NavUserSearch = ({
           pauseOnFocusLoss={false}
           closeOnClick
           rtl={false}
-          theme='light'
         />
 
         <audio ref={audioPlayer} src={notificationSound} />

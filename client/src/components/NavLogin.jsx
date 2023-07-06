@@ -54,6 +54,28 @@ const NavLogin = ({ user }) => {
     dispatch(getNotificationsStatus())
   }, [])
 
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (user?.id) {
       socket?.emit('getNotifications', { userId: user.id })
@@ -86,7 +108,7 @@ const NavLogin = ({ user }) => {
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
@@ -245,7 +267,6 @@ const NavLogin = ({ user }) => {
         pauseOnFocusLoss={false}
         closeOnClick
         rtl={false}
-        theme='light'
       />
       <header className=''>
         <audio ref={audioPlayer} src={notificationSound} />
