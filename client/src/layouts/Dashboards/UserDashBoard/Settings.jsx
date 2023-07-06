@@ -8,7 +8,8 @@ import {
   faLock,
   faUser,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
@@ -33,6 +34,45 @@ export default function Settings (props) {
   const [showModal, setShowModal] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [successUpload, setSuccessUpload] = useState(false)
+
+  const [darkMode, setDarkMode] = useState(null)
+  const theme = localStorage.getItem('theme')
+  useEffect(() => {
+    if (theme === 'dark') {
+      setDarkMode(true)
+    } else if (theme === 'light') {
+      setDarkMode(false)
+    } else if (theme === null) {
+      setDarkMode('auto')
+    }
+  }, [theme])
+
+  const handleDarkMode = value => {
+    if (value === 'true') {
+      setDarkMode(true)
+      localStorage.theme = 'dark'
+      const html = document.querySelector('html')
+      html.classList.add('dark')
+    } else if (value === 'false') {
+      setDarkMode(false)
+      localStorage.theme = 'light'
+      const html = document.querySelector('html')
+      html.classList.remove('dark')
+    } else if (value === 'auto') {
+      setDarkMode(
+        localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+      )
+      localStorage.removeItem('theme')
+      const html = document.querySelector('html')
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.classList.add('dark')
+      } else {
+        html.classList.remove('dark')
+      }
+    }
+  }
 
   useEffect(() => {
     if (tutorStatus === 'approved') {
@@ -305,6 +345,39 @@ export default function Settings (props) {
             >
               Cambiar contraseña
             </button>
+          </div>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
+            <div className='flex flex-row items-center'>
+              <p className='text-lg font-bold'>
+                <FontAwesomeIcon
+                  icon={faMoon}
+                  className='mr-2 text-codecolor'
+                />
+                Modo oscuro:{' '}
+              </p>
+            </div>
+            <select
+              name='darkmode'
+              id='darkmode'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold transition-all ease-in-out duration-200 ml-2'
+              onChange={e => handleDarkMode(e.target.value)}
+            >
+              <option
+                value='true'
+                selected={darkMode === 'true' || darkMode === true}
+              >
+                Activado
+              </option>
+              <option
+                value='false'
+                selected={darkMode === 'false' || darkMode === false}
+              >
+                Desactivado
+              </option>
+              <option value='auto' selected={darkMode === 'auto'}>
+                Usar tema del sistema
+              </option>
+            </select>
           </div>
         </div>
       </div>

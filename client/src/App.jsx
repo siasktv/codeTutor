@@ -125,8 +125,20 @@ function App () {
     }
   }, [user])
 
+  useEffect(() => {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [])
+
   return (
-    <div className='App'>
+    <div className='App' id='codetutorapp'>
       <SocketContext.Provider value={socket}>
         <Routes>
           <Route path='*' element={<NotFound />} />
