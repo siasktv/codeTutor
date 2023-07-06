@@ -71,11 +71,11 @@ const LandingFooter = () => {
         <div className='flex-col flex max-lg:justify-center max-lg:items-center'>
           <div className=' flex pt-2 '>
             <Link to='/'>
-              <span className='inline-block lg:h-10 lg:w-52 '>
+              <span className='inline-block h-10 w-52'>
                 <div className='flex'>
-                  <div className='border-codecolor border-8 rounded-full w-8 lg:h-8'></div>
-                  <div className='border-gray-200 border-8 rounded-full w-8 lg:h-8 -ml-5 mix-blend-soft-light'></div>
-                  <h1 className='font-bold text-2xl ml-1 text-white'>
+                  <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
+                  <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                  <h1 className='font-bold text-2xl ml-1 dark:text-gray-200'>
                     Code-Tutor.
                   </h1>
                 </div>
