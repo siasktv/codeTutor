@@ -134,6 +134,7 @@ const NavDashboard = ({
               src={notifications[0].sender.image}
               alt='notification'
               className='rounded-full'
+              referrerPolicy='no-referrer'
             />
           )
         })

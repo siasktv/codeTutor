@@ -168,7 +168,7 @@ const Meeting = () => {
       amount: session.price,
       sessionId: session.id,
       userId: user.id,
-      name: 'Sesión de tutoría en CodeTutor',
+      name: 'Sesión de tutoría en Code-Tutor',
       description: `Sesión de ${session.minutes} minutos con ${
         users.find(u => u._id === session.tutorUserId).fullName
       }`
@@ -763,10 +763,11 @@ const Meeting = () => {
                         </h2>
                         <h2 className='text-green-600 rounded-md px-3 py-2 bg-green-200 text-justify text-sm my-2 font-semibold'>
                           <FontAwesomeIcon icon={faRobot} className='mr-2' />
-                          CodeTutor proporciona acceso a Google Meet de forma
-                          automatizada, por lo que no deberás instalar nada ni
-                          seguir ningún paso. Para reuniones que no requieran de
-                          control remoto, recomendamos utilizar Google Meet.
+                          Code-Tutor Tutor proporciona acceso a Google Meet de
+                          forma automatizada, por lo que no deberás instalar
+                          nada ni seguir ningún paso. Para reuniones que no
+                          requieran de control remoto, recomendamos utilizar
+                          Google Meet.
                         </h2>
                         <h2 className='text-gray-600 dark:text-gray-400 text-start text-sm'>
                           1 - Aguarda a que ambos usuarios confirmen asistencia.

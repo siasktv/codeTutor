@@ -1,6 +1,15 @@
 const nodemailer = require('nodemailer')
 
-const sendRejectTutorEmail = async user => {
+const emailToTutor = async ({
+  tutor,
+  client,
+  dateToCalendar,
+  dateToCalendarEnd,
+  dateToText,
+  timeToText,
+  session,
+  sessionId
+}) => {
   let transporter = nodemailer.createTransport({
     host: 'smtp.titan.email',
     port: 587,
@@ -10,13 +19,12 @@ const sendRejectTutorEmail = async user => {
     }
   })
 
-  try {
-    let info = await transporter.sendMail({
-      from: 'Code-Tutor <support@codetutor.live>', // sender address
-      to: user.email, // list of receivers
-      subject: `Tu solicitud de Tutor fue rechazada - Code-Tutor`, // Subject line
-      text: `Tu solicitud de Tutor fue rechazada - Code-Tutor`, // plain text body
-      html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  let info = await transporter.sendMail({
+    from: 'Code-Tutor <support@codetutor.live>', // sender address
+    to: tutor.email, // list of receivers
+    subject: `${client.fullName} ha agendado una sesión contigo en Code-Tutor`, // Subject line
+    text: `${client.fullName} ha agendado una sesión contigo en Code-Tutor`, // plain text body
+    html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <!--[if gte mso 9]>
@@ -123,10 +131,10 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
       <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr style="background-color: transparent;"><![endif]-->
       
-<!--[if (mso)|(IE)]><td align="center" width="500" style="width: 500px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+<!--[if (mso)|(IE)]><td align="center" width="500" style="width: 500px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
 <div class="u-col u-col-100" style="max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;">
-  <div style="height: 100%;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
+  <div style="height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+  <!--[if (!mso)&(!IE)]><!--><div style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->
   
 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
@@ -137,7 +145,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="https://i.imgur.com/xeNMLnv.png" alt="" title="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 188px;" width="188"/>
+      <img align="center" border="0" src="https://i.imgur.com/xeNMLnv.png" alt="" title="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 49%;max-width: 235.2px;" width="235.2"/>
       
     </td>
   </tr>
@@ -173,7 +181,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <tr>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
-  <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 22px; font-weight: 700;">Hola, ${user.fullName}</h1>
+  <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif; font-size: 22px; font-weight: 400;"><strong>¡${tutor.fullName}, han agendado una sesión contigo!</strong></h1>
 
       </td>
     </tr>
@@ -185,12 +193,9 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <tr>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
-  <div style="font-family: 'Montserrat',sans-serif; font-size: 16px; line-height: 140%; text-align: center; word-wrap: break-word;">
-    <div>
-<div>Lamentamos informarte que hemos decidido rechazar tu perfil de Tutor. Esto puede deberse a que la información que enviaste sea incorrecta o esté incompleta, que no seas apto para ser tutor en Code-Tutor, que hayas incumplido alguna de las normas de Code-Tutor o que hayamos detectado alguna actividad inusual en tu cuenta.</div>
-</div>
-<p style="line-height: 140%;"> </p>
-<p style="line-height: 140%;">Para cualquier duda o inconveniente, estamos a un mensaje de distancia a <span style="color: #7f56d9; line-height: 22.4px;"><a rel="noopener" href="mailto:support@code-tutor.dev" target="_blank" style="color: #7f56d9;">support@code-tutor.dev</a></span>.</p>
+  <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
+    <p style="line-height: 140%;">¡Hola, ${tutor.fullName}!</p>
+<p style="line-height: 140%;">${client.fullName} ha agendado una sesión de ${session.minutes} minutos contigo para el día ${dateToText} a las ${timeToText} hs. Para más información, visita tu panel de Tutor.</p>
   </div>
 
       </td>
@@ -204,10 +209,29 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->
+<div align="left">
+  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Sesión+con+${client.fullName}&dates=${dateToCalendar}/${dateToCalendarEnd}&details=Enlace+de+la+sesión:+https://code-tutor.dev/meeting/${sessionId}&sf=true&output=xml" style="height:37px; v-text-anchor:middle; width:238px;" arcsize="11%"  stroke="f" fillcolor="#23b15e"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->  
+    <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Sesión+con+${client.fullName}&dates=${dateToCalendar}/${dateToCalendarEnd}&details=Enlace+de+la+sesión:+https://code-tutor.dev/meeting/${sessionId}&sf=true&output=xml" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #23b15e; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-family: 'Montserrat',sans-serif; font-size: 14px;">
+      <span style="display:block;padding:10px 20px;line-height:120%;"><strong>Agregar a Google Calendar</strong></span>
+    </a>
+  <!--[if mso]></center></v:roundrect><![endif]-->
+</div>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
+        
+  <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->
 <div align="center">
-  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://code-tutor.dev" style="height:37px; v-text-anchor:middle; width:167px;" arcsize="11%"  stroke="f" fillcolor="#7f56d9"><w:anchorlock/><center style="color:#ffffff;font-family:arial,helvetica,sans-serif;"><![endif]-->  
-    <a href="https://code-tutor.dev" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #7f56d9; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-family: 'Montserrat',sans-serif; font-size: 14px;font-weight: 700; ">
-      <span style="display:block;padding:10px 20px;line-height:120%;"><strong>Ir a Code-Tutor ➜</strong></span>
+  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:37px; v-text-anchor:middle; width:215px;" arcsize="11%"  stroke="f" fillcolor="#7f56d9"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->  
+    <a href="https://code-tutor.dev/tutordashboard" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #7f56d9; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-family: 'Montserrat',sans-serif; font-size: 14px;">
+      <span style="display:block;padding:10px 20px;line-height:120%;"><strong><strong><span style="line-height: 16.8px;">Visitar panel de Tutor </span></strong></strong>➜<strong><strong><span style="line-height: 16.8px;"><br /></span></strong></strong></span>
     </a>
   <!--[if mso]></center></v:roundrect><![endif]-->
 </div>
@@ -242,9 +266,11 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <tr>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
-  <div style="font-family: 'Montserrat',sans-serif; font-size: 12px; line-height: 140%; text-align: center; word-wrap: break-word;">
+  <div>
+    <div style="font-family: 'Montserrat',sans-serif; font-size: 12px; line-height: 140%; text-align: center; word-wrap: break-word;">
     <p style="line-height: 140%;">Code-Tutor ©2023</p>
 <p style="line-height: 140%;">Todos los derechos reservados.</p>
+  </div>
   </div>
 
       </td>
@@ -272,11 +298,9 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 </body>
 
 </html>
+
 ` // html body
-    })
-  } catch (e) {
-    console.log(e)
-  }
+  })
 }
 
-module.exports = sendRejectTutorEmail
+module.exports = emailToTutor

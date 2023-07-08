@@ -29,6 +29,7 @@ const CardReviewUser = props => {
             {/* Imagen de Perfil */}
             <img
               src={review.user.image}
+              referrerPolicy='no-referrer'
               alt='Imagen de perfil Usuario de review'
               className='w-10 h-10 rounded-full object-cover transition duration-1 ease-in-out transform active:scale-150 active:outline-none focus:outline-none'
             />
@@ -36,7 +37,7 @@ const CardReviewUser = props => {
             <div className='pl-2 flex flex-col w-full'>
               <div className='pl-2 flex-grow flex items-center justify-between w-full'>
                 <div className='flex justify-center items-center'>
-                  <h2 className='text-left font-semibold mr-2 dark:text-gray-200'>
+                  <h2 className='text-left font-semibold break-all mr-2 dark:text-gray-200'>
                     {review.user.fullName}
                   </h2>
                   <div className='flex justify-center items-center space-x-1'>
@@ -55,7 +56,7 @@ const CardReviewUser = props => {
                 </div>
               </div>
               <div>
-                <h2 className='pl-2 text-sm  text-[#141414B2] text-justify dark:text-gray-200'>
+                <h2 className='pl-2 text-sm break-all text-[#141414B2] text-justify dark:text-gray-200'>
                   {review.comment}
                 </h2>
               </div>

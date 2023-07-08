@@ -265,7 +265,7 @@ export default function FormTutor () {
                             <p className='text-lg font-semibold dark:text-gray-200 text-[#05004E] text-center'>
                               Luego de revisar tu formulario, hemos determinado
                               que no cumples con los requisitos para ser tutor
-                              en CodeTutor. Si crees que esto es un error,
+                              en Code-Tutor. Si crees que esto es un error,
                               contáctanos a support@code-tutor.dev.
                             </p>
                           </div>

@@ -12,10 +12,10 @@ const sendAcceptTutorEmail = async user => {
 
   try {
     let info = await transporter.sendMail({
-      from: 'Code Tutor <support@codetutor.live>', // sender address
+      from: 'Code-Tutor <support@codetutor.live>', // sender address
       to: user.email, // list of receivers
-      subject: `¡Hemos aprobado tu solicitud de Tutor! - Code Tutor`, // Subject line
-      text: `¡Hemos aprobado tu solicitud de Tutor! - Code Tutor`, // plain text body
+      subject: `¡Hemos aprobado tu solicitud de Tutor! - Code-Tutor`, // Subject line
+      text: `¡Hemos aprobado tu solicitud de Tutor! - Code-Tutor`, // plain text body
       html: `
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">

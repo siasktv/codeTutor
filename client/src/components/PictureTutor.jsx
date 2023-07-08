@@ -5,6 +5,7 @@ const PictureTutor = props => {
       src={props.image}
       alt='Imagen de perfil Tutor'
       className='w-full h-full object-cover'
+      referrerPolicy='no-referrer'
     />
   )
 }

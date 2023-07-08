@@ -41,6 +41,9 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN
 const moment = require('moment')
+const momentTz = require('moment-timezone')
+const emailToTutor = require('./utils/meetings/emailToTutor.js')
+const emailToClient = require('./utils/meetings/emailToClient.js')
 
 //test
 server.use(cors())
@@ -540,7 +543,52 @@ io.on('connection', socket => {
         console.log(error)
       }
     }
+    const dateToCalendar = new Date(session.appointmentDate)
+      .toISOString()
+      .replace(/-|:|\.\d\d\d/g, '')
+    const endDate = moment(session.appointmentDate).add(
+      session.minutes,
+      'minutes'
+    )
+    const dateToCalendarEnd = new Date(endDate)
+      .toISOString()
+      .replace(/-|:|\.\d\d\d/g, '')
     sessionToDb()
+    const tutor = await getUser(session.tutorUserId)
+    const tutorTimezone = tutor.userInfo.timezone
+    const dateToText = momentTz(session.appointmentDate)
+      .tz(tutorTimezone)
+      .format('DD/MM/YYYY')
+    const timeToText = momentTz(session.appointmentDate)
+      .tz(tutorTimezone)
+      .format('HH:mm')
+    const userTimezone = user.userInfo?.timezone || 'America/Buenos_Aires'
+    const dateToTextUser = momentTz(session.appointmentDate)
+      .tz(userTimezone)
+      .format('DD/MM/YYYY')
+    const timeToTextUser = momentTz(session.appointmentDate)
+      .tz(userTimezone)
+      .format('HH:mm')
+    emailToClient({
+      tutor: tutor.userInfo,
+      client: user.userInfo,
+      dateToCalendar: dateToCalendar,
+      dateToCalendarEnd: dateToCalendarEnd,
+      dateToText: dateToTextUser,
+      timeToText: timeToTextUser,
+      session: session,
+      sessionId: createdSession
+    })
+    emailToTutor({
+      tutor: tutor.userInfo,
+      client: user.userInfo,
+      dateToCalendar: dateToCalendar,
+      dateToCalendarEnd: dateToCalendarEnd,
+      dateToText: dateToText,
+      timeToText: timeToText,
+      session: session,
+      sessionId: createdSession
+    })
   })
 
   socket.on('getSessionsFromClient', async ({ userId }) => {

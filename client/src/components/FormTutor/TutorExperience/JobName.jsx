@@ -38,7 +38,7 @@ const JobName = props => {
         }
         name='company'
         type='text'
-        placeholder='Ej. CodeTutor'
+        placeholder='Ej. Code-Tutor'
         value={dataForm.company}
         onChange={handleInputChange}
       />

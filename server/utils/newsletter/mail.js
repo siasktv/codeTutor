@@ -11,10 +11,10 @@ const sendEmailNewsletter = async email => {
   })
 
   let info = await transporter.sendMail({
-    from: 'Code Tutor <support@codetutor.live>', // sender address
+    from: 'Code-Tutor <support@codetutor.live>', // sender address
     to: email, // list of receivers
-    subject: `¡Bienvenid@ a las Newsletters de Code Tutor!`, // Subject line
-    text: `¡Bienvenid@ a las Newsletter de Code Tutor!`, // plain text body
+    subject: `¡Bienvenid@ a las Newsletters de Code-Tutor!`, // Subject line
+    text: `¡Bienvenid@ a las Newsletter de Code-Tutor!`, // plain text body
     html: `
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">

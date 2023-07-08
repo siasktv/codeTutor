@@ -29,7 +29,7 @@ const CardExperience = props => {
           {/* Experiencias */}
           <div className='pt-6 pb-6 flex justify-between items-center space-x-6'>
             <div className='flex items-cent'>
-              <h2 className='font-semibold dark:text-gray-200'>
+              <h2 className='font-semibold break-all dark:text-gray-200'>
                 {ex.position}
               </h2>
             </div>
@@ -41,7 +41,7 @@ const CardExperience = props => {
               className='text-[#141414B2] mr-1 dark:text-gray-400 self-center text-xs'
             />
 
-            <h2 className='font-semibold text-sm text-gray-600 dark:text-gray-400'>
+            <h2 className='font-semibold text-sm break-all text-gray-600 dark:text-gray-400'>
               {ex.location}
             </h2>
             <span className='pl-4 pr-4 font-semibold text-sm text-gray-600 dark:text-gray-400'>
@@ -52,7 +52,7 @@ const CardExperience = props => {
               className='text-[#141414B2] mr-1 dark:text-gray-400 self-center text-xs'
             />
 
-            <h2 className='font-semibold text-sm text-gray-600 dark:text-gray-400'>
+            <h2 className='font-semibold break-all text-sm text-gray-600 dark:text-gray-400'>
               {ex.company}
             </h2>
           </div>
@@ -76,7 +76,7 @@ const CardExperience = props => {
           </div>
 
           <div className='pt-6 pb-6'>
-            <p className='font-semibold text-[#141414B2] dark:text-gray-200 text-sm text-left'>
+            <p className='font-semibold break-all text-[#141414B2] dark:text-gray-200 text-sm text-left'>
               {ex.description}
             </p>
           </div>

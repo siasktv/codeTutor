@@ -125,7 +125,7 @@ const TutorInfoI = props => {
         <>
           {user?.id !== tutor.user._id && (
             <div className='mx-2'>
-              <p className='text-center text-gray-700 dark:text-gray-200 font-semibold text-md mt-2'>
+              <p className='text-center break-all text-gray-700 dark:text-gray-200 font-semibold text-md mt-2'>
                 Contratar una sesión con {tutor.user.fullName}
               </p>
               <BookMeeting user={user} tutor={tutor} />
