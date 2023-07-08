@@ -37,7 +37,7 @@ const createTutorHandler = async (req, res) => {
     projects,
     rates,
     fullName,
-    disponibility
+    disponibility,
   } = req.body
   if (!user) {
     res.status(400).json({ error: 'User is required' })
@@ -56,7 +56,7 @@ const createTutorHandler = async (req, res) => {
       projects,
       rates,
       fullName,
-      disponibility
+      disponibility,
     })
     res.status(200).json(tutor)
   } catch (error) {
@@ -89,7 +89,7 @@ const updateTutorHandler = async (req, res) => {
     status,
     socialMedia,
     offline,
-    disponibility
+    disponibility,
   } = req.body
 
   try {
@@ -106,7 +106,7 @@ const updateTutorHandler = async (req, res) => {
       status,
       socialMedia,
       offline,
-      disponibility
+      disponibility,
     })
     res.status(200).json(updatedTutor)
   } catch (error) {
@@ -119,5 +119,5 @@ module.exports = {
   getTutorByIdHandler,
   createTutorHandler,
   deleteTutorHandler,
-  updateTutorHandler
+  updateTutorHandler,
 }

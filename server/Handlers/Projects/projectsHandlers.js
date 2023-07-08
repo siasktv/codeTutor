@@ -3,6 +3,7 @@ const getProjectById = require('../../controllers/Projects/getProjectById.js')
 const getAllProjects = require('../../controllers/Projects/getAllProjects.js')
 const deleteProject = require('../../controllers/Projects/deleteProject.js')
 const updateProject = require('../../controllers/Projects/updateProject.js')
+const Tutor = require('../../models/Tutor.models.js')
 
 const getAllProjectsHandler = async (req, res) => {
   try {
@@ -27,6 +28,7 @@ const deleteProjectHandler = async (req, res) => {
   const { id } = req.params
   try {
     const deletedProject = await deleteProject(id)
+
     res.status(200).json(deletedProject)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -34,7 +36,7 @@ const deleteProjectHandler = async (req, res) => {
 }
 
 const createProjectHandler = async (req, res) => {
-  const { tutor, name, link, end_date, description, techName } = req.body;
+  const { tutor, name, link, end_date, description, techName } = req.body
   if (!tutor) {
     return res.status(400).json({ error: 'Tutor is required' })
   }
@@ -57,7 +59,7 @@ const createProjectHandler = async (req, res) => {
       link,
       end_date,
       description,
-      techName
+      techName,
     })
     res.status(200).json(newProject)
   } catch (error) {
@@ -67,7 +69,7 @@ const createProjectHandler = async (req, res) => {
 
 const updateProjectHandler = async (req, res) => {
   const { id } = req.params
-  const { tutor, name, link, end_date, description, techName } = req.body;
+  const { tutor, name, link, end_date, description, techName } = req.body
   if (!tutor) {
     return res.status(400).json({ error: 'Tutor is required' })
   }
@@ -90,7 +92,7 @@ const updateProjectHandler = async (req, res) => {
       link,
       end_date,
       description,
-      techName
+      techName,
     })
     res.status(200).json(updatedProject)
   } catch (error) {
@@ -103,5 +105,5 @@ module.exports = {
   getProjectByIdHandler,
   deleteProjectHandler,
   createProjectHandler,
-  updateProjectHandler
+  updateProjectHandler,
 }

@@ -68,6 +68,9 @@ import BookMeeting from './BookMeeting.jsx'
 //componentes del TutorDashboard
 import Biography from './TutorDashboard/Biography.jsx'
 import Skills from './TutorDashboard/Skills.jsx'
+import Projects from './TutorDashboard/Projects.jsx'
+import Rates from './TutorDashboard/Rates.jsx'
+import Experience from './TutorDashboard/Experience.jsx'
 
 export {
   PaymentModal,
@@ -126,4 +129,7 @@ export {
   ChatsNav,
   UpdateModal,
   Skills,
+  Projects,
+  Rates,
+  Experience,
 }

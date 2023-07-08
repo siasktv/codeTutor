@@ -32,7 +32,7 @@ export default function Sessions (props) {
   }, [])
 
   const [selectedSection, setSelectedSection] = useState('upcoming')
-  const [previousSessions, setPreviousSessions] = useState(['laoding'])
+  const [previousSessions, setPreviousSessions] = useState(['loading'])
   const [upcomingSessions, setUpcomingSessions] = useState(['loading'])
   const [paymentModal, setPaymentModal] = useState(false)
   const [finishedLoading, setFinishedLoading] = useState(false)
@@ -52,26 +52,24 @@ export default function Sessions (props) {
   useEffect(() => {
     if (sessions) {
       const previousSessions = sessions.filter(session => {
-        return (
-          moment(session.appointmentDate).format('DD-MM-YYYY H') <
-          moment().format('DD-MM-YYYY H')
-        )
+        return session.appointmentDate < moment().valueOf()
       })
       const upcomingSessions = sessions.filter(session => {
-        return (
-          moment(session.appointmentDate).format('DD-MM-YYYY H') >=
-          moment().format('DD-MM-YYYY H')
-        )
+        return session.appointmentDate >= moment().valueOf()
       })
-      setPreviousSessions(previousSessions)
-      setUpcomingSessions(upcomingSessions)
+      setPreviousSessions(
+        previousSessions.sort((a, b) => {
+          return a.appointmentDate - b.appointmentDate
+        })
+      )
+
+      setUpcomingSessions(
+        upcomingSessions.sort((a, b) => {
+          return a.appointmentDate - b.appointmentDate
+        })
+      )
     }
   }, [sessions])
-
-  useEffect(() => {
-    console.log('previousSessions', previousSessions)
-    console.log('upcomingSessions', upcomingSessions)
-  }, [previousSessions, upcomingSessions])
 
   const [paymentData, setPaymentData] = useState(null)
 
@@ -82,9 +80,9 @@ export default function Sessions (props) {
 
   return (
     <div className='flex flex-col w-full items center justify-center'>
-      <h1 className='text-4xl font-bold'>Mis sesiones</h1>
       {finishedLoading === true ? (
         <>
+          <h1 className='text-4xl font-bold'>Mis sesiones</h1>
           <div className='flex flex-row w-full justify-between space-x-3 items-center'>
             <div className='flex flex-col shadow-md shadow-codecolorlighter mt-5 w-full rounded-md h-72 items-center justify-center border'>
               <FontAwesomeIcon
@@ -98,8 +96,9 @@ export default function Sessions (props) {
                 {
                   sessions.filter(
                     session =>
-                      moment(session.endedCounterDate).format('DD-MM-YYYY H') <
-                      moment().format('DD-MM-YYYY H')
+                      moment(session.endedCounterDate).format(
+                        'DD-MM-YYYY HH:mm:ss'
+                      ) < moment().format('DD-MM-YYYY HH:mm:ss')
                   ).length
                 }
               </p>
@@ -116,9 +115,7 @@ export default function Sessions (props) {
                       sessions.filter(
                         session =>
                           session.startedCounterDate &&
-                          moment(session.endedCounterDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                          session.endedCounterDate >= moment().valueOf()
                       ).length
                     }
                   </p>
@@ -130,10 +127,7 @@ export default function Sessions (props) {
                   <p className='text-gray-400 text-center font-semibold text-sm'>
                     {
                       sessions.filter(
-                        session =>
-                          moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                        session => session.appointmentDate >= moment().valueOf()
                       ).length
                     }
                   </p>
@@ -147,8 +141,7 @@ export default function Sessions (props) {
                       sessions.filter(
                         session =>
                           !session.startedCounterDate &&
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H')
+                          session.expiredDate < moment().valueOf()
                       ).length
                     }
                   </p>
@@ -169,8 +162,7 @@ export default function Sessions (props) {
                   .filter(
                     session =>
                       session.startedCounterDate &&
-                      moment(session.endedCounterDate).format('DD-MM-YYYY H') <
-                        moment().format('DD-MM-YYYY H')
+                      session.endedCounterDate < moment().valueOf()
                   )
                   .reduce((acc, session) => {
                     return acc + session.minutes
@@ -189,9 +181,7 @@ export default function Sessions (props) {
                       .filter(
                         session =>
                           session.startedCounterDate &&
-                          moment(session.endedCounterDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                          session.endedCounterDate >= moment().valueOf()
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -205,10 +195,7 @@ export default function Sessions (props) {
                   <p className='text-gray-400 text-center font-semibold text-sm'>
                     {sessions
                       .filter(
-                        session =>
-                          moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) >= moment().format('DD-MM-YYYY H')
+                        session => session.appointmentDate >= moment().valueOf()
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -224,8 +211,7 @@ export default function Sessions (props) {
                       .filter(
                         session =>
                           !session.startedCounterDate &&
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H')
+                          session.expiredDate < moment().valueOf()
                       )
                       .reduce((acc, session) => {
                         return acc + session.minutes
@@ -262,11 +248,8 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          moment(session.expiredDate).format('DD-MM-YYYY H') >
-                            moment().format('DD-MM-YYYY H') &&
-                          moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) <= moment().format('DD-MM-YYYY H') &&
+                          session.expiredDate >= moment().valueOf() &&
+                          session.appointmentDate <= moment().valueOf() &&
                           !session.isPaid
                       )
                       .map(session => session.price)
@@ -282,9 +265,8 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          moment(session.appointmentDate).format(
-                            'DD-MM-YYYY H'
-                          ) > moment().format('DD-MM-YYYY H') && !session.isPaid
+                          session.appointmentDate > moment().valueOf() &&
+                          !session.isPaid
                       )
                       .map(session => session.price)
                       .reduce((acc, price) => acc + price, 0)}
@@ -299,8 +281,8 @@ export default function Sessions (props) {
                     {sessions
                       .filter(
                         session =>
-                          moment(session.expiredDate).format('DD-MM-YYYY H') <
-                            moment().format('DD-MM-YYYY H') && !session.isPaid
+                          session.expiredDate < moment().valueOf() &&
+                          !session.isPaid
                       )
                       .map(session => session.price)
                       .reduce((acc, price) => acc + price, 0)}
@@ -617,7 +599,7 @@ export default function Sessions (props) {
           )}
         </>
       ) : (
-        <div className='flex flex-col mt-5 w-full items-center justify-center'>
+        <div className='flex flex-col mt-72 w-full items-center justify-center'>
           <Loader />
         </div>
       )}

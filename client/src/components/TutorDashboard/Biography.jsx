@@ -36,18 +36,31 @@ const Biography = ({ bio, id }) => {
   }
 
   return (
-    <div className="flex flex-col bg-white rounded-[8px] border w-full gap-[18px] ">
-      <div className="flex px-12 py-8 justify-between ">
-        <h2 className="font-inter text-xl font-semibold leading-[38px] tracking-normal text-left text-[#05004E]">
-          Biografía{' '}
-        </h2>
-        <div className="flex">
+    <div className="flex flex-col bg-white rounded-[8px] border gap-[18px] ">
+      <div className="flex flex-col px-12 py-8 justify-between ">
+        <div className="flex justify-between">
+          <h2 className="font-inter text-xl font-semibold leading-[38px] tracking-normal text-left text-[#05004E]">
+            Biografía{' '}
+          </h2>
+
           <button
-            className='"ml-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-codecolor border border-transparent rounded-md shadow-sm hover:bg-codecolordark focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"'
+            className="ml-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-codecolor border border-transparent rounded-md shadow-sm hover:bg-codecolordark focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
             onClick={handleEditButtonClick}
           >
-            Editar
+            Agregar
           </button>
+        </div>
+
+        <div className="flex flex-col mt-2 gap-2">
+          <div className="flex">
+            <h2 className="font-semibold ">{data.specialty}</h2>
+          </div>
+          <div className="flex">
+            <p className="italic">{data.description}</p>
+          </div>
+          <div className="flex">
+            <p className="text-sm text-blue-700">{data.portfolio}</p>
+          </div>
         </div>
       </div>
 

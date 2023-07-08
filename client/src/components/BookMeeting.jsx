@@ -5,7 +5,7 @@ import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchCompleteSessionsByClient,
-  fetchCompleteSessionsByTutor,
+  fetchCompleteSessionsByTutor
 } from '../redux/features/sessions/sessionsSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,18 +13,16 @@ import {
   faChevronDown,
   faMinus,
   faPercent,
-  faQuestion,
+  faQuestion
 } from '@fortawesome/free-solid-svg-icons'
 import { SocketContext } from '../socket/context'
 import LoaderMini from './LoaderMini'
 
-export default function BookMeeting(props) {
+export default function BookMeeting (props) {
   const { tutor, user } = props
   const dispatch = useDispatch()
   const socket = useContext(SocketContext)
-  const [selectedDate, setSelectedDate] = useState(
-    moment().format('MM/DD/YYYY')
-  )
+  const [selectedDate, setSelectedDate] = useState(null)
   const [disabledDates, setDisabledDates] = useState([])
   const [scheduledDates, setScheduledDates] = useState([])
   const [preFormattedScheduledDates, setPreFormattedScheduledDates] = useState(
@@ -40,10 +38,10 @@ export default function BookMeeting(props) {
   const [selectedTime, setSelectedTime] = useState(null)
 
   const sessionsClient = useSelector(
-    (state) => state.sessions.completeSessionsByClient
+    state => state.sessions.completeSessionsByClient
   )
   const sessionsTutor = useSelector(
-    (state) => state.sessions.completeSessionsByTutor
+    state => state.sessions.completeSessionsByTutor
   )
 
   useEffect(() => {
@@ -53,11 +51,11 @@ export default function BookMeeting(props) {
 
   useEffect(() => {
     if (sessionsClient) {
-      const sessions = sessionsClient.map((session) => {
+      const sessions = sessionsClient.map(session => {
         return {
           name: `Sesión con ${session.tutorUserId.fullName}`,
           description: `http://localhost:5173/meeting/${session.sessionId}`,
-          date: moment(session.appointmentDate).format('MM/DD/YYYY HH'),
+          date: moment(session.appointmentDate).format('MM/DD/YYYY HH')
         }
       })
       setClientEvents(sessions)
@@ -66,11 +64,11 @@ export default function BookMeeting(props) {
 
   useEffect(() => {
     if (sessionsTutor) {
-      const sessions = sessionsTutor.map((session) => {
+      const sessions = sessionsTutor.map(session => {
         return {
           name: `Sesión con ${session.clientUserId.fullName}`,
           description: `http://localhost:5173/meeting/${session.sessionId}`,
-          date: moment(session.appointmentDate).format('MM/DD/YYYY HH'),
+          date: moment(session.appointmentDate).format('MM/DD/YYYY HH')
         }
       })
       setScheduledDates(sessions)
@@ -85,10 +83,10 @@ export default function BookMeeting(props) {
     }
   }, [selectedDate])
 
-  const isDisabledTime = (time) => {
+  const isDisabledTime = time => {
     if (
       scheduledDates
-        .map((date) => date.date)
+        .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
           moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
@@ -96,7 +94,7 @@ export default function BookMeeting(props) {
           )
         ) ||
       scheduledDates
-        .map((date) => date.date)
+        .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
           moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH')
@@ -104,7 +102,7 @@ export default function BookMeeting(props) {
             .format('MM/DD/YYYY HH')
         ) ||
       scheduledDates
-        .map((date) =>
+        .map(date =>
           moment(date.date, 'MM/DD/YYYY HH')
             .add(Number(date.duration) > 60 ? 60 : 0, 'minutes')
             .format('MM/DD/YYYY HH')
@@ -116,29 +114,28 @@ export default function BookMeeting(props) {
           )
         ) ||
       !disabledTimes
-        .map((day) => day)
+        .map(day => day)
         .filter(
-          (day) => Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
+          day => Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
         )
-        .flatMap((day) => day.hours)
-        .map((hour) =>
+        .flatMap(day => day.hours)
+        .map(hour =>
           moment(`${hour} ${selectedTimezone}`, 'HH ZZ').format('HH')
         )
         .includes(moment(time, 'HH').format('HH')) ||
       (selectedDuration > 60 &&
         !disabledTimes
-          .map((day) => day)
+          .map(day => day)
           .filter(
-            (day) =>
-              Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
+            day => Number(day.day) === moment(selectedDate, 'MM/DD/YYYY').day()
           )
-          .flatMap((day) => day.hours)
-          .map((hour) =>
+          .flatMap(day => day.hours)
+          .map(hour =>
             moment(`${hour} ${selectedTimezone}`, 'HH ZZ').format('HH')
           )
           .includes(moment(time, 'HH').add(1, 'hour').format('HH'))) ||
       clientEvents
-        .map((date) => date.date)
+        .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
           moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH').format(
@@ -146,7 +143,7 @@ export default function BookMeeting(props) {
           )
         ) ||
       clientEvents
-        .map((date) => date.date)
+        .map(date => date.date)
         .includes(
           // transform time to timezone selectedTimezone
           moment(`${selectedDate} ${time}`, 'MM/DD/YYYY HH')
@@ -154,7 +151,7 @@ export default function BookMeeting(props) {
             .format('MM/DD/YYYY HH')
         ) ||
       clientEvents
-        .map((date) =>
+        .map(date =>
           moment(date.date, 'MM/DD/YYYY HH')
             .add(Number(date.duration) > 60 ? 60 : 0, 'minutes')
             .format('MM/DD/YYYY HH')
@@ -174,22 +171,22 @@ export default function BookMeeting(props) {
     if (tutor && tutor?.timezone !== null) {
       setSelectedTimezone(tutor.user.timezone)
       const disabledDays = tutor?.disponibility
-        .map((day) => day)
-        .filter((day) => day.hours.length === 0)
-        .map((day) => day.day)
+        .map(day => day)
+        .filter(day => day.hours.length === 0)
+        .map(day => day.day)
       setDisabledDates(disabledDays)
-      const disabledTimes = tutor?.disponibility.map((day) => day)
+      const disabledTimes = tutor?.disponibility.map(day => day)
       setDisabledTimes(disabledTimes)
     }
   }, [tutor])
 
-  const onRenderDayCell = (args) => {
+  const onRenderDayCell = args => {
     if (disabledDates.includes(args.date.getDay())) {
       args.isDisabled = true
     }
   }
 
-  const handleSelectDate = (e) => {
+  const handleSelectDate = e => {
     if (e.value === null) {
       setSelectedDate(null)
       setSelectedDuration(null)
@@ -207,7 +204,7 @@ export default function BookMeeting(props) {
     setSelectedTime(null)
   }
 
-  const handleSelectDuration = (e) => {
+  const handleSelectDuration = e => {
     if (e.target.value === null) {
       setSelectedDuration(null)
       setSelectedTime(null)
@@ -217,7 +214,7 @@ export default function BookMeeting(props) {
     setSelectedTime(null)
   }
 
-  const handleSelectTime = (e) => {
+  const handleSelectTime = e => {
     if (e.target.value === null) {
       setSelectedTime(null)
       return
@@ -234,7 +231,7 @@ export default function BookMeeting(props) {
   useEffect(() => {
     if (
       clientEvents.length === 0 &&
-      tutor.rates.find((rate) => rate.name === 'Mentorship').promo
+      tutor.rates.find(rate => rate.name === 'Mentorship').promo
     ) {
       setPromo(true)
     } else {
@@ -242,8 +239,8 @@ export default function BookMeeting(props) {
     }
   }, [clientEvents])
 
-  const getPrice = (duration) => {
-    const rate = tutor.rates.find((rate) => rate.name === 'Mentorship').value
+  const getPrice = duration => {
+    const rate = tutor.rates.find(rate => rate.name === 'Mentorship').value
     if (promo) {
       return ((rate / 60) * (duration - 15)).toFixed(2)
     } else {
@@ -276,12 +273,12 @@ export default function BookMeeting(props) {
     const session = {
       tutorUserId: tutor.user._id,
       clientUserId: user.id,
-      appointmentDate: moment().valueOf(),
+      appointmentDate: appointmentDate,
       minutes: minutes,
       price,
       nameForClient: `Sesión con ${tutor.user.fullName}`,
       nameForTutor: `Sesión con ${user.fullName}`,
-      expiredDate: moment(appointmentDate).add(2, 'hours').valueOf(),
+      expiredDate: moment(appointmentDate).add(2, 'hours').valueOf()
     }
     socket.emit('createSession', { session })
   }
@@ -289,7 +286,7 @@ export default function BookMeeting(props) {
   const [session, setSession] = useState(null)
 
   useEffect(() => {
-    socket.on('createdSession', (session) => {
+    socket.on('createdSession', session => {
       setSession(session)
     })
   }, [])
@@ -311,8 +308,8 @@ export default function BookMeeting(props) {
           receiver: tutor.user,
           createdAt: Date.now(),
           isRead: false,
-          link: `/meeting/${session.sessionId}`,
-        },
+          link: `/meeting/${session.sessionId}`
+        }
       })
       socket.emit('sendNotification', {
         userId: user.id,
@@ -324,8 +321,8 @@ export default function BookMeeting(props) {
           receiver: user,
           createdAt: Date.now(),
           isRead: false,
-          link: `/meeting/${session.sessionId}`,
-        },
+          link: `/meeting/${session.sessionId}`
+        }
       })
     }
   }, [session])
@@ -354,39 +351,39 @@ export default function BookMeeting(props) {
   }, [success])
 
   return (
-    <div className="flex flex-col items-center justify-center mt-2 mb-5">
+    <div className='flex flex-col items-center justify-center mt-2 mb-5'>
       <DatePickerComponent
-        id="datepicker"
+        id='datepicker'
         renderDayCell={onRenderDayCell}
         onChange={handleSelectDate}
         min={moment().subtract(30, 'minutes').toDate()}
         value={selectedDate}
         allowEdit={false}
-        placeholder="Selecciona una fecha"
-        cssClass="customclass"
-        locale="es"
+        placeholder='Selecciona una fecha'
+        cssClass='customclass'
+        locale='es'
         width={250}
       />
       {selectedDate && (
         <>
           {promo && (
             <>
-              <p className="text-center text-xs bg-orange-200 text-orange-600 py-2 w-[250px] justify-center font-semibold flex items-center mt-2 rounded-md">
-                <FontAwesomeIcon icon={faPercent} className="mr-1 w-3 h-3" />
+              <p className='text-center text-xs bg-orange-200 text-orange-600 py-2 w-[250px] justify-center font-semibold flex items-center mt-2 rounded-md'>
+                <FontAwesomeIcon icon={faPercent} className='mr-1 w-3 h-3' />
                 15 minutos gratis activados
                 <FontAwesomeIcon
                   icon={faQuestion}
-                  className="ml-2 w-[9px] h-[9px] rounded-full bg-orange-600 text-orange-200 p-0.5 font-bold cursor-pointer hover:bg-orange-700"
+                  className='ml-2 w-[9px] h-[9px] rounded-full bg-orange-600 text-orange-200 p-0.5 font-bold cursor-pointer hover:bg-orange-700'
                   onClick={() => setQuestionModal(true)}
                 />
               </p>
               {questionModal && (
-                <div className="fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-                  <div className="bg-white rounded-md p-5 w-[450px]">
-                    <p className="text-center text-gray-800 text-lg font-semibold">
+                <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+                  <div className='bg-white rounded-md p-5 w-[450px]'>
+                    <p className='text-center text-gray-800 text-lg font-semibold'>
                       ¿Cómo funciona?
                     </p>
-                    <p className="text-center text-gray-800 text-sm mt-2">
+                    <p className='text-center text-gray-800 text-sm mt-2'>
                       Al ser tu primera sesión en CodeTutor y el tutor tener la
                       promoción de 15 minutos gratis habilitada, se te
                       descontará automáticamente el valor de 15 minutos de la
@@ -394,7 +391,7 @@ export default function BookMeeting(props) {
                       necesario que realices ningún paso adicional.
                     </p>
                     <button
-                      className="bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 mt-3"
+                      className='bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 mt-3'
                       onClick={() => setQuestionModal(false)}
                     >
                       Entendido
@@ -405,11 +402,11 @@ export default function BookMeeting(props) {
             </>
           )}
           <select
-            id="duration"
-            name="duration"
+            id='duration'
+            name='duration'
             value={selectedDuration}
             onChange={handleSelectDuration}
-            className=" mt-2 border border-gray-800 w-[250px] bg-white rounded-md p-1 cursor-pointer text-center"
+            className=' mt-2 border border-gray-800 w-[250px] bg-white rounded-md p-1 cursor-pointer text-center'
           >
             <option disabled hidden selected={selectedDuration === null}>
               Duración
@@ -423,20 +420,20 @@ export default function BookMeeting(props) {
       )}
       {selectedDate && selectedDuration && (
         <select
-          id="timepicker"
-          name="timepicker"
+          id='timepicker'
+          name='timepicker'
           value={selectedTime}
           onChange={handleSelectTime}
-          className="mt-2 border border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center"
+          className='mt-2 border border-gray-800 bg-white rounded-md p-1 cursor-pointer w-[250px] text-center'
         >
           <option disabled hidden selected={selectedTime === null}>
             Horario de inicio
           </option>
-          {Array.from(Array(24).keys()).map((hour) => (
+          {Array.from(Array(24).keys()).map(hour => (
             <option
               key={hour}
               value={hour}
-              className=" disabled:hidden text-center"
+              className=' disabled:hidden text-center'
               disabled={isDisabledTime(hour)}
             >{`${hour}:00 hs`}</option>
           ))}
@@ -445,7 +442,7 @@ export default function BookMeeting(props) {
       {selectedDate && selectedDuration && selectedTime && (
         <>
           <button
-            className="bg-codecolor rounded-md text-white w-[250px] py-2 mt-2 hover:bg-codecolordark transition duration-300 ease-in-out font-semibold"
+            className='bg-codecolor rounded-md text-white w-[250px] py-2 mt-2 hover:bg-codecolordark transition duration-300 ease-in-out font-semibold'
             onClick={() => {
               setShowBookingModal(true)
             }}
@@ -453,37 +450,37 @@ export default function BookMeeting(props) {
             Agendar sesión
           </button>
           {showBookingModal && (
-            <div className="fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-              <div className="bg-white rounded-md p-5 w-[600px] max-h-[900px] overflow-y-auto">
-                <p className="text-center text-gray-800 text-xl font-semibold">
+            <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+              <div className='bg-white rounded-md p-5 w-[600px] max-h-[900px] overflow-y-auto'>
+                <p className='text-center text-gray-800 text-xl font-semibold'>
                   Estas a punto de agendar una sesión con {tutor.user.fullName}
                 </p>
-                <p className="text-center text-gray-800 font-semibold text-lg mt-3">
+                <p className='text-center text-gray-800 font-semibold text-lg mt-3'>
                   Datos de la sesión:
                 </p>
-                <div className="flex flex-col items-center justify-center mt-1 mb-3">
-                  <p className="text-center text-gray-800 text-md">
-                    <span className="font-semibold">Fecha:</span>{' '}
+                <div className='flex flex-col items-center justify-center mt-1 mb-3'>
+                  <p className='text-center text-gray-800 text-md'>
+                    <span className='font-semibold'>Fecha:</span>{' '}
                     {moment(selectedDate).format('DD/MM/YYYY')}
                   </p>
-                  <p className="text-center text-gray-800 text-md">
-                    <span className="font-semibold">Hora de inicio:</span>{' '}
+                  <p className='text-center text-gray-800 text-md'>
+                    <span className='font-semibold'>Hora de inicio:</span>{' '}
                     {selectedTime}:00 hs
                   </p>
-                  <p className="text-center text-gray-800 text-md">
-                    <span className="font-semibold">Duración:</span>{' '}
+                  <p className='text-center text-gray-800 text-md'>
+                    <span className='font-semibold'>Duración:</span>{' '}
                     {selectedDuration} minutos
                   </p>
-                  <p className="text-center text-gray-800 text-md">
-                    <span className="font-semibold">Precio:</span> $USD{' '}
+                  <p className='text-center text-gray-800 text-md'>
+                    <span className='font-semibold'>Precio:</span> $USD{' '}
                     {getPrice(selectedDuration)}
                   </p>
                 </div>
-                <p className="text-center font-semibold underline text-gray-800 text-md">
+                <p className='text-center font-semibold underline text-gray-800 text-md'>
                   Información importante antes de agendar:
                 </p>
-                <div className="flex flex-col items-center justify-center mt-1 mb-3">
-                  <ul className="list-disc list-inside text-justify w-[450px] text-gray-800 text-sm mt-2 space-y-1">
+                <div className='flex flex-col items-center justify-center mt-1 mb-3'>
+                  <ul className='list-disc list-inside text-justify w-[450px] text-gray-800 text-sm mt-2 space-y-1'>
                     <li>
                       Al agendar una sesión, estás reservando el día y horario
                       seleccionado del tutor.{' '}
@@ -531,9 +528,9 @@ export default function BookMeeting(props) {
                     </li>
                   </ul>
                 </div>
-                <div className="flex items-center justify-center mt-3 flex-col">
+                <div className='flex items-center justify-center mt-3 flex-col'>
                   <div
-                    className="flex items-center justify-between mt-3 cursor-pointer bg-codecolorlighter rounded-md p-2 w-[460px] text-codecolor font-semibold transition duration-300 ease-in-out"
+                    className='flex items-center justify-between mt-3 cursor-pointer bg-codecolorlighter rounded-md p-2 w-[460px] text-codecolor font-semibold transition duration-300 ease-in-out'
                     onClick={() => {
                       setShowSteps(!showSteps)
                       // scroll to #steps
@@ -542,32 +539,32 @@ export default function BookMeeting(props) {
                         element.scrollIntoView({
                           behavior: 'smooth',
                           block: 'start',
-                          inline: 'nearest',
+                          inline: 'nearest'
                         })
                       }, 100)
                     }}
                   >
-                    <p className="text-center">
+                    <p className='text-center'>
                       ¿Cómo es el procedimiento de una sesión?
                     </p>
                     {showSteps ? (
                       <FontAwesomeIcon
                         icon={faMinus}
-                        className="ml-2 text-sm"
+                        className='ml-2 text-sm'
                       />
                     ) : (
                       <FontAwesomeIcon
                         icon={faChevronDown}
-                        className="ml-2 text-sm"
+                        className='ml-2 text-sm'
                       />
                     )}
                   </div>
                   {showSteps && (
                     <div
-                      className="flex flex-col items-center justify-center mt-1 mb-3"
-                      id="steps"
+                      className='flex flex-col items-center justify-center mt-1 mb-3'
+                      id='steps'
                     >
-                      <ul className="list-inside text-justify w-[450px] text-gray-800 text-sm mt-2 space-y-1">
+                      <ul className='list-inside text-justify w-[450px] text-gray-800 text-sm mt-2 space-y-1'>
                         <li>
                           1. Al agendar la sesión, se generará un enlace único
                           para la misma que estará disponible para ambos.
@@ -642,11 +639,11 @@ export default function BookMeeting(props) {
                   )}
                 </div>
                 {promo && (
-                  <div className="flex items-center justify-center mt-3 flex-col">
-                    <p className=" text-xs text-orange-700 bg-orange-200 rounded-md px-3 text-justify py-2 mt-3 w-[460px]">
+                  <div className='flex items-center justify-center mt-3 flex-col'>
+                    <p className=' text-xs text-orange-700 bg-orange-200 rounded-md px-3 text-justify py-2 mt-3 w-[460px]'>
                       <FontAwesomeIcon
                         icon={faPercent}
-                        className="mr-2 text-xs"
+                        className='mr-2 text-xs'
                       />
                       <strong>
                         Estas utilizando la promoción de los primeros 15 minutos
@@ -658,22 +655,22 @@ export default function BookMeeting(props) {
                     </p>
                   </div>
                 )}
-                <div className="flex items-center justify-center flex-col">
-                  <p className="text-xs text-gray-600 text-center mt-3 mb-2 w-[460px]">
+                <div className='flex items-center justify-center flex-col'>
+                  <p className='text-xs text-gray-600 text-center mt-3 mb-2 w-[460px]'>
                     Al agendar la sesión, confirmas automáticamente haber leído
                     y aceptado los datos mencionados anteriormente.
                   </p>
                 </div>
 
-                <div className="flex items-center justify-center mt-3">
+                <div className='flex items-center justify-center mt-3'>
                   <button
-                    className="bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 mr-2"
+                    className='bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 mr-2'
                     onClick={() => setShowBookingModal(false)}
                   >
                     Cancelar
                   </button>
                   <button
-                    className="bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 w-20 h-7"
+                    className='bg-codecolor text-white hover:bg-codecolordark transition-all ease-in-out duration-200 text-sm font-semibold rounded-md px-3 py-1 w-20 h-7'
                     onClick={() => handleCreateSession()}
                     disabled={submitting || success}
                   >
