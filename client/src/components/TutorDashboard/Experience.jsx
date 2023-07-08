@@ -336,6 +336,19 @@ const Experience = ({ experience, id }) => {
     //   submitEditItem(e)
   }
 
+  //deleteHandler
+  const deleteHandler = async id => {
+    try {
+      const response = await axios.delete(
+        `${BACKEND_URL}/api/experiences/${id}`
+      )
+      console.log(response.data)
+      dispatch(tutorFetchById(tutorId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='flex flex-col bg-white dark:bg-gray-800 dark:border-none rounded-[8px] border w-full gap-[18px] '>
       <div className='flex flex-col px-12 py-8 max-lg:p-6'>
@@ -372,7 +385,7 @@ const Experience = ({ experience, id }) => {
                 <FontAwesomeIcon
                   icon={faXmark}
                   className='w-3 text-codecolor max-lg:mr-1 hover:text-codecolordark dark:text-codecolorlighter'
-                  //   onClick={() => deleteItem(project._id, tutorId)}
+                  onClick={() => deleteHandler(exp._id, tutorId)}
                 />
               </button>
             </div>
