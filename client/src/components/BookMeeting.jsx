@@ -54,7 +54,7 @@ export default function BookMeeting (props) {
       const sessions = sessionsClient.map(session => {
         return {
           name: `Sesión con ${session.tutorUserId.fullName}`,
-          description: `http://localhost:5173/meeting/${session.sessionId}`,
+          description: `https://code-tutor.dev/meeting/${session.sessionId}`,
           date: moment(session.appointmentDate).format('DD/MM/YYYY HH')
         }
       })
@@ -67,7 +67,7 @@ export default function BookMeeting (props) {
       const sessions = sessionsTutor.map(session => {
         return {
           name: `Sesión con ${session.clientUserId.fullName}`,
-          description: `http://localhost:5173/meeting/${session.sessionId}`,
+          description: `https://code-tutor.dev/meeting/${session.sessionId}`,
           date: moment(session.appointmentDate).format('DD/MM/YYYY HH')
         }
       })
@@ -384,7 +384,7 @@ export default function BookMeeting (props) {
                       ¿Cómo funciona?
                     </p>
                     <p className='text-center text-gray-800 dark:text-gray-200 text-sm mt-2'>
-                      Al ser tu primera sesión en CodeTutor y el tutor tener la
+                      Al ser tu primera sesión en Code-Tutor y el tutor tener la
                       promoción de 15 minutos gratis habilitada, se te
                       descontará automáticamente el valor de 15 minutos de la
                       sesión. El descuento se aplica automáticamente y no es
@@ -490,7 +490,7 @@ export default function BookMeeting (props) {
                     </li>
                     <li>
                       Si alguno de los dos no puede cumplir con la sesión, debe
-                      contactar por el chat de CodeTutor al otro usuario para
+                      contactar por el chat de Code-Tutor al otro usuario para
                       notificarlo y dar aviso de la cancelación.{' '}
                       <strong>
                         El tiempo maximo para cancelar una sesión es de 24 horas
@@ -510,7 +510,7 @@ export default function BookMeeting (props) {
                     </li>
                     <li>
                       <strong>El pago se realiza a través de Stripe</strong>,
-                      una plataforma de pagos segura y confiable. CodeTutor no
+                      una plataforma de pagos segura y confiable. Code-Tutor no
                       almacena ningún dato de tu tarjeta de crédito.
                     </li>
                     <li>

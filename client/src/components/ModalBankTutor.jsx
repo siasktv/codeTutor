@@ -140,13 +140,13 @@ export default function ModalBankTutor (props) {
           id='steps'
         >
           <p className='text-xl leading-5 text-gray-800 dark:text-gray-200 mb-3 font-semibold'>
-            ¡Bienvenido a la comunidad de Tutores de CodeTutor!
+            ¡Bienvenido a la comunidad de Tutores de Code-Tutor!
           </p>
         </div>
         <div className='flex flex-col items-center justify-center mt-1 mb-3 w-full'>
           <p className='text-base leading-5 text-gray-800 dark:text-gray-200 mb-3 w-5/6'>
             ¡Felicitaciones! Hemos aprobado tu solicitud para ser tutor en
-            CodeTutor. Para poder continuar con el uso de la plataforma, es
+            Code-Tutor. Para poder continuar con el uso de la plataforma, es
             necesario que completes tus datos bancarios. Esto es necesario para
             que puedas recibir tus pagos por las clases que impartas. Podrás
             actualizar tus datos bancarios en cualquier momento desde tu panel

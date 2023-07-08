@@ -145,6 +145,7 @@ export default function NotificationsNav ({
                                   className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                   src={notification.sender.image}
                                   alt='avatar'
+                                  referrerPolicy='no-referrer'
                                 />
                                 <div className='flex flex-col w-60 text-left'>
                                   <h2 className='text-md dark:text-gray-200'>
@@ -184,6 +185,7 @@ export default function NotificationsNav ({
                                   className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                   src={notification.sender.image}
                                   alt='avatar'
+                                  referrerPolicy='no-referrer'
                                 />
                                 <div className='flex flex-col w-60 text-left'>
                                   <h2 className='text-md dark:text-gray-200'>

@@ -12,10 +12,10 @@ const sendDisableTutorEmail = async user => {
 
   try {
     let info = await transporter.sendMail({
-      from: 'Code Tutor <support@codetutor.live>', // sender address
+      from: 'Code-Tutor <support@codetutor.live>', // sender address
       to: user.email, // list of receivers
-      subject: `Tu perfil de Tutor fue deshabilitado - Code Tutor`, // Subject line
-      text: `Tu perfil de Tutor fue deshabilitado - Code Tutor`, // plain text body
+      subject: `Tu perfil de Tutor fue deshabilitado - Code-Tutor`, // Subject line
+      text: `Tu perfil de Tutor fue deshabilitado - Code-Tutor`, // plain text body
       html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -187,7 +187,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
         
   <div style="font-family: 'Montserrat',sans-serif; font-size: 16px; line-height: 140%; text-align: center; word-wrap: break-word;">
     <div>
-<div>Lamentamos informarte que hemos decidido deshabilitar tu perfil de Tutor. Esto puede deberse a que incumpliste alguna de las normas de Code Tutor o hemos detectado alguna actividad inusual en tu cuenta.</div>
+<div>Lamentamos informarte que hemos decidido deshabilitar tu perfil de Tutor. Esto puede deberse a que incumpliste alguna de las normas de Code-Tutor o hemos detectado alguna actividad inusual en tu cuenta.</div>
 </div>
 <p style="line-height: 140%;"> </p>
 <p style="line-height: 140%;">Para cualquier duda o inconveniente, estamos a un mensaje de distancia a <span style="color: #7f56d9; line-height: 22.4px;"><a rel="noopener" href="mailto:support@code-tutor.dev" target="_blank" style="color: #7f56d9;">support@code-tutor.dev</a></span>.</p>

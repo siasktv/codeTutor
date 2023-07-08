@@ -18,17 +18,18 @@ const CardProyects = props => {
         <div key={project._id}>
           {/* Proyectos */}
           <div className='pt-6 pb-4'>
-            <h2 className='font-semibold text-left dark:text-gray-200'>
+            <h2 className='font-semibold text-left dark:text-gray-200 break-all'>
               {project.name}
             </h2>
           </div>
           <div className=' pb-6 flex justify-between items-center space-x-6'>
             <div className='flex items-center'>
               <a
-                href='#'
+                href={project.link}
+                target='_blank'
                 className='font-semibold text-blue-500 hover:text-blue-700 border-b border-blue-500 hover:border-blue-700'
               >
-                {project.link}
+                Ver proyecto
               </a>
             </div>
             <div className='pt-6 flex gap-4 '>
@@ -51,7 +52,7 @@ const CardProyects = props => {
           </div>
 
           <div className='pt-6 pb-6'>
-            <p className='font-semibold text-[#141414B2] dark:text-gray-200 text-sm text-left'>
+            <p className='font-semibold text-[#141414B2] break-all dark:text-gray-200 text-sm text-left'>
               {project.description}
             </p>
           </div>

@@ -115,6 +115,7 @@ const NavLogin = ({ user }) => {
               src={notifications[0].sender.image}
               alt='notification'
               className='rounded-full'
+              referrerPolicy='no-referrer'
             />
           )
         })
@@ -442,6 +443,15 @@ const NavLogin = ({ user }) => {
                       {!user && (
                         <>
                           <Link
+                            to='/search'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Explorar tutores
+                          </Link>
+                          <Link
                             to='/login?redirect=/'
                             className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
                             role='menuitem'
@@ -473,6 +483,15 @@ const NavLogin = ({ user }) => {
                     <div className='w-full flex flex-col'>
                       {user && (
                         <>
+                          <Link
+                            to='/search'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Explorar tutores
+                          </Link>
                           <Link
                             to='/user'
                             className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:text-white dark:bg-gray-800 bg-white'

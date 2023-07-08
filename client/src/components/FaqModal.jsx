@@ -133,8 +133,8 @@ export default function FaqModal (props) {
                   </div>
                   <p className='mt-2 text-sm text-gray-500 dark:text-gray-400'>
                     {selectedOption === 'question'
-                      ? 'Tu pregunta será revisada por el equipo de CodeTutor y, si es aprobada, será publicada en la sección de preguntas frecuentes.'
-                      : 'Tu comentario será revisado por el equipo de CodeTutor y será utilizado para mejorar la experiencia de los usuarios.'}
+                      ? 'Tu pregunta será revisada por el equipo de Code-Tutor y, si es aprobada, será publicada en la sección de preguntas frecuentes.'
+                      : 'Tu comentario será revisado por el equipo de Code-Tutor y será utilizado para mejorar la experiencia de los usuarios.'}
                   </p>
                 </div>
               </div>

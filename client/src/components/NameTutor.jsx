@@ -5,7 +5,7 @@ import { faPercentage } from '@fortawesome/free-solid-svg-icons'
 const NameTutor = props => {
   return (
     <div className='flex flex-row items-center justify-center'>
-      <h2 className='text-2xl font-medium dark:text-gray-200'>
+      <h2 className='text-2xl font-medium break-all dark:text-gray-200'>
         {props.fullName}
       </h2>
       {props.promo && (

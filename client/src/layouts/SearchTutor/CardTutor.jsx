@@ -271,10 +271,10 @@ const CardTutor = props => {
                 <button
                   className='flex justify-center items-center w-full py-3 bg-gray-400 dark:bg-gray-700 rounded-md transition duration-1 text-white font-semibold ease-in-out transform active:outline-none focus:outline-none cursor-default'
                   type='button'
-                  title='Contactar'
+                  title='Inicia sesión para contactar'
                   onClick={event => event.preventDefault()}
                 >
-                  Contactar{' '}
+                  Inicia sesión para contactar{' '}
                   <FontAwesomeIcon
                     icon={faMessage}
                     className='self-center text-xs ml-2 mt-0.5'
@@ -297,7 +297,7 @@ const CardTutor = props => {
             <button
               className='flex max-lg:hidden justify-center items-center w-16 h-16 bg-gray-400 shadow-xl dark:bg-gray-700 rounded-2xl transition duration-1 ease-in-out transform active:outline-none focus:outline-none cursor-default'
               type='button'
-              title='Contactar'
+              title='Inicia sesión para contactar'
               onClick={event => event.preventDefault()}
             >
               <img src={MensajeTexto} />

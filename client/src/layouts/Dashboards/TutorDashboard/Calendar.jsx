@@ -49,7 +49,7 @@ export default function Calendar (props) {
           EndTime: moment(session.appointmentDate)
             .add(session.minutes, 'minutes')
             .toDate(),
-          Description: `http://localhost:5173/meeting/${session.sessionId}`
+          Description: `https://code-tutor.dev/meeting/${session.sessionId}`
         }
       })
       setEventsClient(events)
