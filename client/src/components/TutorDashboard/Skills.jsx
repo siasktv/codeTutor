@@ -9,6 +9,8 @@ import { tutorFetchById } from '../../redux/features/tutors/tutorsSlice'
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 const Skills = ({ skills, id }) => {
+  const tutorId = id
+
   const dispatch = useDispatch()
 
   const [showModal, setShowModal] = useState(false)
@@ -29,7 +31,7 @@ const Skills = ({ skills, id }) => {
 
   const [data, setData] = useState({
     skills: mappedData,
-    tutor: id,
+    tutor: tutorId,
   })
 
   const [editingSkillId, setEditingSkillId] = useState(null)
@@ -57,19 +59,19 @@ const Skills = ({ skills, id }) => {
     if (editingSkillId) {
       // Update existing skill
       const updatedData = {
-        tutor: id,
+        tutor: tutorId,
         techName: data.techName,
         years: data.years,
         description: data.description,
       }
       await handlerUpdateSkill(editingSkillId, updatedData)
-      dispatch(tutorFetchById(id))
+      dispatch(tutorFetchById(tutorId))
     } else {
       // Add new skill
       try {
         const response = await axios.post(`${BACKEND_URL}/api/skillstech`, data)
         console.log(response.data)
-        dispatch(tutorFetchById(id))
+        dispatch(tutorFetchById(tutorId))
       } catch (error) {
         console.log(error)
       }
@@ -77,6 +79,17 @@ const Skills = ({ skills, id }) => {
 
     setShowModal(false)
     setEditingSkillId(null) // Reset the editing skill ID
+  }
+
+  //deleteHandler
+  const deleteHandler = async (id) => {
+    try {
+      const response = await axios.delete(`${BACKEND_URL}/api/skillstech/${id}`)
+      console.log(response.data)
+      dispatch(tutorFetchById(tutorId))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -116,6 +129,7 @@ const Skills = ({ skills, id }) => {
                 <FontAwesomeIcon
                   icon={faXmark}
                   className="w-3 text-codecolor hover:text-codecolordark"
+                  onClick={() => deleteHandler(skill._id, tutorId)}
                 />
               </button>
             </div>
