@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchLocations } from '../../../redux/features/locations/locationsSlice'
 import { FlechaFiltro } from '../../../assets'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 const TutorFormProfileTime = props => {
   const { dataForm, setDataForm, form, errorsData, setErrorsData } = props
@@ -101,8 +103,8 @@ const TutorFormProfileTime = props => {
             onChange={handleSelectLocation}
             className={
               errorsData.location
-                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
-                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
             }
             defaultValue='default'
           >
@@ -114,14 +116,14 @@ const TutorFormProfileTime = props => {
                 key={index}
                 value={location.name}
                 selected={locationSelected === location.name}
-                className='bg-white text-gray-500'
+                className='bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-200'
               >
                 {location.name}
               </option>
             ))}
           </select>
-          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
-            <img src={FlechaFiltro} />
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700 dark:text-gray-200'>
+            <FontAwesomeIcon icon={faChevronDown} />
           </div>
         </div>
 
@@ -138,8 +140,8 @@ const TutorFormProfileTime = props => {
                 onChange={handleSelect}
                 className={
                   errorsData.zona_horaria
-                    ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none'
-                    : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none'
+                    ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 appearance-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                    : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] text-gray-500 appearance-none dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
                 }
               >
                 <option value='default' hidden selected>
@@ -153,18 +155,18 @@ const TutorFormProfileTime = props => {
                       dataForm.zona_horaria === timezone ||
                       form.zona_horaria === timezone
                     }
-                    className='bg-white text-gray-500'
+                    className='bg-white text-gray-500 dark:text-gray-200 dark:bg-gray-800'
                   >
                     {timezone}
                   </option>
                 ))}
               </select>
-              <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700'>
-                <img src={FlechaFiltro} />
+              <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700 dark:text-gray-200'>
+                <FontAwesomeIcon icon={faChevronDown} />
               </div>
             </div>
             {errorsData.zona_horaria && (
-              <p className='font-inter font-normal italic text-red-500 text-left -mt-5'>
+              <p className='font-inter font-normal italic text-red-500 text-left lg:-mt-5'>
                 {errorsData.zona_horaria}
               </p>
             )}

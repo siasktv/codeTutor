@@ -139,13 +139,13 @@ export default function TutorFormProfileDisponibility (props) {
   return (
     <>
       <CardTutorData title='Seleccionar disponibilidad' correct={correct}>
-        <p className='text-sm text-gray-500 text-left -mt-6 mb-4'>
+        <p className='text-sm text-gray-500 dark:text-gray-400 text-left lg:-mt-6 mb-4'>
           Selecciona los horarios por cada dia de la semana en los que estás
           disponible para dar tutorías.
         </p>
         <div className='flex space-x-8'>
           <div className='block w-full'>
-            <div className='flex flex-row justify-between'>
+            <div className='flex flex-row justify-between max-lg:overflow-auto'>
               {days.map(day => (
                 <div key={day.value} className='flex flex-col items-center'>
                   {Object.values(dataForm.disponibility[day.value]).length ===
@@ -175,7 +175,7 @@ export default function TutorFormProfileDisponibility (props) {
                     className={
                       selectedDay === day.value
                         ? 'text-codecolor cursor-pointer border-b-codecolor border-b-4 font-semibold px-1'
-                        : 'text-gray-800 cursor-pointer border-b border-b-transparent font-semibold px-1'
+                        : 'text-gray-800 cursor-pointer border-b border-b-transparent font-semibold px-1 dark:text-gray-200'
                     }
                     onClick={() => handleChange(day.value)}
                   >
@@ -191,8 +191,8 @@ export default function TutorFormProfileDisponibility (props) {
                     key={day.value}
                     className={
                       errorsData.disponibility
-                        ? 'day max-h-72 overflow-auto border border-red-500 rounded-md mt-4 px-4'
-                        : 'day max-h-72 overflow-auto border border-[#C3D3E2] rounded-md mt-4 px-4'
+                        ? 'day max-h-72 overflow-auto border border-red-500 rounded-md mt-4 px-4 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                        : 'day max-h-72 overflow-auto border border-[#C3D3E2] rounded-md mt-4 px-4 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
                     }
                     id={day.value}
                   >
@@ -240,7 +240,7 @@ export default function TutorFormProfileDisponibility (props) {
               <p className='font-inter font-normal italic text-red-500 text-md text-left'>
                 {errorsData.disponibility && <>{errorsData.disponibility}</>}
               </p>
-              <div className='text-md'>
+              <div className='text-md dark:text-gray-200'>
                 <FontAwesomeIcon
                   icon={faCircle}
                   className='text-green-500 mr-1'

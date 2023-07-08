@@ -32,8 +32,11 @@ export const TabListTutor = props => {
   console.warn = () => {}
 
   return (
-    <div className='flex justify-center'>
-      <Card className='w-4/5 my-8' placeholder='Source Selection'>
+    <div className='flex justify-center max-lg:w-full'>
+      <Card
+        className='lg:w-4/5 my-8 w-full px-3'
+        placeholder='Source Selection'
+      >
         <Select value={selectedTab} onChange={handleTabChange}>
           <SelectItem value='Transacciones' className='cursor-pointer'>
             Transacciones
@@ -45,8 +48,8 @@ export const TabListTutor = props => {
         {selectedTab === 'Transacciones' && (
           <TabGroup>
             <TabList className='' color='violet'>
-              <Tab icon={UserGroupIcon}>Transacciones totales este mes</Tab>
-              <Tab icon={UserIcon}>Transacciones totales este año</Tab>
+              <Tab icon={UserGroupIcon}>Totales este mes</Tab>
+              <Tab icon={UserIcon}>Totales este año</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -61,8 +64,8 @@ export const TabListTutor = props => {
         {selectedTab === 'Ganancias' && (
           <TabGroup>
             <TabList className='' color='violet'>
-              <Tab icon={UserGroupIcon}>Ganancias totales este mes</Tab>
-              <Tab icon={UserIcon}>Ganancias totales este año</Tab>
+              <Tab icon={UserGroupIcon}>Totales este mes</Tab>
+              <Tab icon={UserIcon}>Totales este año</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>

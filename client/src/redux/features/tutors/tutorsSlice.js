@@ -21,7 +21,8 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: ''
+      status: '',
+      bankAccount: {}
     }
   ],
   allTutors: [
@@ -40,7 +41,8 @@ const initialState = {
       freelance: 0,
       skills: [],
       socialMedia: [],
-      status: ''
+      status: '',
+      bankAccount: {}
     }
   ],
   tutor: {
@@ -57,8 +59,29 @@ const initialState = {
     skills: [],
     socialMedia: [],
     status: '',
-    sessions: []
+    sessions: [],
+    bankAccount: {}
   },
+  tutorsAdmin: [
+    {
+      _id: '',
+      user: {},
+      bio: {},
+      experience: [],
+      languages: [],
+      offline: false,
+      timezone: '',
+      projects: [],
+      reviews: [],
+      rates: [],
+      mentorship: 0,
+      freelance: 0,
+      skills: [],
+      socialMedia: [],
+      status: '',
+      bankAccount: {}
+    }
+  ],
   locations: [],
   location: '',
   selectedRate: 150,
@@ -99,6 +122,18 @@ export const tutorFetchById = createAsyncThunk(
   }
 )
 
+export const tutorsFetchAdmin = createAsyncThunk(
+  'tutors/tutorsFetchAdmin',
+  async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/tutors`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 function filterTutors (state, tutors) {
   const {
     currentSearch,
@@ -125,9 +160,9 @@ function filterTutors (state, tutors) {
     }
     if (selectedTech) {
       if (
-        tutor.skills.some(
+        !tutor.skills.some(
           ({ techName }) =>
-            techName.name.toLowerCase() !== selectedTech.toLowerCase()
+            techName.name.toLowerCase() === selectedTech.toLowerCase()
         ) ||
         !tutor.skills.length
       )
@@ -260,6 +295,14 @@ const tutorsSlice = createSlice({
       .addCase(tutorFetchById.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message
+      })
+      .addCase(tutorsFetchAdmin.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(tutorsFetchAdmin.fulfilled, (state, action) => {
+        state.loading = false
+        state.tutorsAdmin = action.payload
       })
   }
 })

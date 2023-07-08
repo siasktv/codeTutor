@@ -26,7 +26,7 @@ const RangeBar = () => {
           value={rating}
           onChange={handleInputChange}
         />
-        <label className='aling-center' htmlFor='range'>
+        <label className='aling-center dark:text-gray-200' htmlFor='range'>
           {rating === '8' ? '$8' : `$8 - $${rating}`}
         </label>
       </div>

@@ -1,32 +1,22 @@
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-react-schedule/styles/tailwind.css';
-@import '../node_modules/@syncfusion/ej2-react-calendars/styles/tailwind.css';
+/* @import '../node_modules/@syncfusion/ej2/tailwind.css'; */
 
 .e-input-group .e-input-group-icon:last-child,
 .e-input-group.e-control-wrapper .e-input-group-icon:last-child {
-  color: rgb(127 86 217);
+  color: rgb(127 86 217) !important;
 }
 
 .customclass .e-input-group .e-input-group-icon:last-child:hover,
 .e-input-group.e-control-wrapper .e-input-group-icon:last-child:hover {
-  color: rgb(127 86 217);
+  color: rgb(127 86 217) !important;
 }
 /* apply on focus */
 .e-date-wrapper span.e-input-group-icon.e-date-icon.e-icons.e-active {
-  color: rgb(127 86 217);
+  color: rgb(127 86 217) !important;
 }
 
 .e-input-group:not(.e-success):not(.e-warning):not(.e-error),
 .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error) {
-  border-color: rgb(127 86 217);
+  border-color: rgb(127 86 217) !important;
   font-size: 16px;
 }
 .e-input-group.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
@@ -41,7 +31,216 @@
   textarea:not([disabled]),
 .e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
   textarea:not([disabled]) {
-  border-color: rgb(127 86 217);
+  border-color: rgb(127 86 217) !important;
+}
+
+.e-input-group.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-input-group.e-control-wrapper.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled),
+.e-float-input.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  input:not([disabled]),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  input:not([disabled]),
+.e-float-input.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  textarea:not([disabled]),
+.e-float-input.e-control-wrapper.e-input-focus:hover:not(.e-input-group):not(.e-success):not(.e-warning):not(.e-error):not(.e-disabled)
+  textarea:not([disabled]) {
+  border-color: rgb(127 86 217) !important;
+}
+
+.e-input-group.e-input-focus:not(.e-success):not(.e-warning):not(.e-error),
+.e-input-group.e-control-wrapper.e-input-focus:not(.e-success):not(.e-warning):not(.e-error) {
+  border-color: rgb(127 86 217) !important;
+  box-shadow: 0 0 0 1px rgb(127 86 217) !important;
+}
+
+.e-calendar .e-content td.e-focused-date.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  border-color: rgb(127 86 217) !important;
+}
+
+.e-calendar .e-content td.e-selected span.e-day,
+.e-calendar .e-content td.e-selected span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-selected span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-selected span.e-day {
+  color: rgb(255 255 255) !important;
+}
+
+.e-calendar .e-content td.e-today span.e-day,
+.e-calendar .e-content td.e-focused-date.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  color: rgb(127 86 217) !important;
+}
+
+.e-datepicker .e-model-header {
+  background-color: rgb(127 86 217) !important;
+  color: white !important;
+}
+
+.e-schedule .e-vertical-view .e-previous-timeline {
+  border-color: rgb(127 86 217) !important;
+}
+.e-calendar .e-content td.e-today span.e-day,
+.e-calendar .e-content td.e-focused-date.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  color: rgb(127 86 217) !important;
+  border-color: rgb(127 86 217) !important;
+}
+
+.e-schedule .e-month-view .e-date-header-wrap table td.e-current-day,
+.e-schedule .e-month-agenda-view .e-date-header-wrap table td.e-current-day {
+  color: rgb(127 86 217) !important;
+}
+
+.e-btn.e-flat.e-primary:disabled,
+.e-btn.e-flat.e-primary.e-disabled,
+.e-css.e-btn.e-flat.e-primary:disabled,
+.e-css.e-btn.e-flat.e-primary.e-disabled {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: transparent !important;
+  display: none !important;
+}
+
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-edit:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-edit:hover,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-delete:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-delete:hover,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-close:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-close:hover {
+  color: rgb(127 86 217) !important;
+}
+
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-edit:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-edit:hover,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-delete:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-delete:hover,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-close:focus,
+.e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-header
+  .e-header-icon-wrapper
+  .e-close:hover {
+  color: rgb(127 86 217) !important;
+  background-color: transparent !important;
+}
+
+.e-schedule
+  .e-vertical-view
+  .e-day-wrapper
+  .e-appointment
+  .e-appointment-details {
+  color: white !important;
+}
+.e-schedule .e-month-view .e-appointment {
+  color: white !important;
+}
+.e-schedule .e-month-view .e-current-date .e-date-header,
+.e-schedule .e-month-agenda-view .e-current-date .e-date-header {
+  color: white !important;
+}
+.e-btn.e-flat:focus,
+.e-css.e-btn.e-flat:focus {
+  box-shadow: 0 0 0 2px rgb(127 86 217) !important;
+}
+
+.e-quick-popup-wrapper .e-popup-footer .e-event-edit:disabled,
+.e-quick-popup-wrapper .e-popup-footer .e-event-delete:disabled {
+  display: none !important;
+}
+
+.e-input:focus:not(.e-success):not(.e-warning):not(.e-error),
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  input:focus,
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  textarea:focus,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  input:focus,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  textarea:focus,
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group).e-input-focus
+  input,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group).e-input-focus
+  input {
+  border-color: rgb(127 86 217) !important;
+  box-shadow: 0 0 0 0px rgb(127 86 217) !important;
+}
+
+.e-input:focus:not(.e-success):not(.e-warning):not(.e-error),
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  input:focus,
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  textarea:focus,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  input:focus,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group)
+  textarea:focus,
+.e-float-input:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group).e-input-focus
+  input,
+.e-float-input.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-input-group).e-input-focus
+  input {
+  border-color: rgb(127 86 217) !important;
+  box-shadow: 0 0 0 0px rgb(127 86 217) !important;
+}
+
+input.e-input::selection,
+textarea.e-input::selection,
+.e-input-group input.e-input::selection,
+.e-input-group.e-control-wrapper input.e-input::selection,
+.e-float-input input::selection,
+.e-float-input.e-control-wrapper input::selection,
+.e-input-group textarea.e-input::selection,
+.e-input-group.e-control-wrapper textarea.e-input::selection,
+.e-float-input textarea::selection,
+.e-float-input.e-control-wrapper textarea::selection {
+  background: rgb(127 86 217) !important;
 }
 
 .e-schedule .e-schedule-toolbar .e-active-view .e-tbar-btn-text,
@@ -106,7 +305,7 @@
 .e-bigger.e-small .e-calendar .e-content td:hover span.e-day,
 .e-bigger.e-small .e-calendar .e-content td:focus span.e-day {
   border: 2px solid;
-  border-color: rgb(127 86 217);
+  border-color: rgb(127 86 217) !important;
 }
 
 .e-calendar .e-content span.e-day,
@@ -126,6 +325,7 @@
 .e-calendar .e-btn.e-today.e-flat.e-primary,
 .e-calendar .e-css.e-btn.e-today.e-flat.e-primary {
   background-color: rgb(127 86 217) !important;
+  color: white !important;
 }
 
 .e-calendar .e-content e- .logo {

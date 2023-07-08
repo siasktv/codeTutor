@@ -262,18 +262,20 @@ const FormRegister = props => {
   return (
     <div className='flex flex-col items-center justify-center'>
       {!forgotPassword && (
-        <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 mt-4'>
+        <div className='bg-white dark:bg-gray-800 rounded lg:w-12/12 md:w-12/12 w-full p-5 lg:p-10 mt-4'>
           <p
             tabIndex='0'
-            className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'
+            className='focus:outline-none text-2xl font-bold leading-6 dark:text-gray-200 text-gray-800 text-left'
           >
             Iniciar Sesión
           </p>
-          <p className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
-            <span className='text-black'>¿No tienes una cuenta? </span>
+          <p className='pt-4 text-left   focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
+            <span className='text-black dark:text-gray-400'>
+              ¿No tienes una cuenta?{' '}
+            </span>
             <Link
               to={registerRedirect}
-              className='hover:underline cursor-pointer'
+              className='hover:underline cursor-pointer hover:text-violet-400 dark:hover:text-codecolordark'
             >
               Registrate aquí
             </Link>
@@ -284,7 +286,7 @@ const FormRegister = props => {
                 id='email'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Email
                 </p>
               </label>
@@ -293,8 +295,8 @@ const FormRegister = props => {
                 type='email'
                 className={
                   errors.email
-                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                    : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 dark:bg-gray-900 dark:outline-none dark:text-gray-200 outline-red-500 bg-red-100'
+                    : 'bg-white border rounded dark:bg-gray-900 dark:outline-none dark:border-none dark:text-gray-200 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                 }
                 name='email'
                 onChange={handleChange}
@@ -310,7 +312,7 @@ const FormRegister = props => {
                 htmlFor='pass'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal dark:text-gray-200 leading-6 text-gray-800 text-left'>
                   Contraseña
                 </p>
               </label>
@@ -322,8 +324,8 @@ const FormRegister = props => {
                   onChange={handleChange}
                   className={
                     errors.password
-                      ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                      : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                      ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 dark:bg-gray-900 dark:outline-none dark:text-gray-200 outline-red-500 bg-red-100'
+                      : 'bg-white border rounded dark:bg-gray-900 dark:outline-none dark:border-none dark:text-gray-200 text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                   }
                 />
                 <div
@@ -351,7 +353,7 @@ const FormRegister = props => {
               )}
             </div>
             <p
-              className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
+              className='pt-4 text-left hover:text-violet-400 dark:hover:text-codecolordark focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
               onClick={handleForgotPassword}
             >
               ¿Olvidaste tu contraseña?
@@ -362,9 +364,9 @@ const FormRegister = props => {
                 className={
                   !isSubmitingLogin && !successLogin && !redirecting
                     ? !isDisabled && !formsDisabled
-                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-l py-6 w-full cursor-not-allowed'
-                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full cursor-not-allowed'
+                      ? 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none dark:border-none dark:hover:ring-gray-700 bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                      : 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg dark:bg-gray-700 dark:border-none py-6 w-full cursor-not-allowed'
+                    : 'text-base font-semibold leading-none dark:border-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full cursor-not-allowed'
                 }
                 disabled={isDisabled || formsDisabled}
                 type='submit'
@@ -389,8 +391,8 @@ const FormRegister = props => {
               </p>
             )}
           </form>
-          <div className='w-full flex items-center justify-between py-10'>
-            <hr className='w-full bg-gray-400' />
+          <div className='w-full flex items-center justify-between py-10 max-lg:py-4'>
+            <hr className='w-full bg-gray-400 dark:border-gray-700' />
           </div>
 
           <button
@@ -398,8 +400,8 @@ const FormRegister = props => {
             role='button'
             className={
               !isLoadingGoogle
-                ? 'hover:outline-none hover:ring-4  hover:ring-gray-300 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0'
-                : 'py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0 cursor-not-allowed'
+                ? 'hover:outline-none hover:ring-4 dark:bg-white dark:hover:ring-gray-700  hover:ring-gray-300 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center justify-center w-full mt-0'
+                : 'py-3.5 px-4 border rounded-lg dark:bg-white border-gray-700 flex items-center justify-center w-full mt-0 cursor-not-allowed'
             }
             onClick={isLoadingGoogle ? null : handleGoogleLogin}
           >
@@ -440,11 +442,11 @@ const FormRegister = props => {
         </div>
       )}
       {forgotPassword && (
-        <div className='bg-white rounded lg:w-12/12 md:w-12/12 w-full p-10 pt-32 mt-4'>
+        <div className='bg-white dark:bg-gray-800 rounded lg:w-12/12 md:w-12/12 w-full p-5 lg:p-10 lg:pt-32 mt-4'>
           {showAlert && (
             <div
               role='alert'
-              class='rounded-xl absolute border border-gray-100 bg-white p-4  shadow-xl mr-auto ml-auto left-0 right-0 text-center top-0 bottom-0 flex justify-center items-center transition-opacity'
+              class='rounded-xl absolute border dark:bg-gray-900 dark:border-none border-gray-100 bg-white p-4  shadow-xl mr-auto ml-auto left-0 right-0 text-center top-0 bottom-0 flex justify-center items-center transition-opacity'
             >
               <div className='flex flex-col'>
                 <div class='flex items-center justify-center'>
@@ -464,11 +466,11 @@ const FormRegister = props => {
                       />
                     </svg>
                   </span>
-                  <strong class='ml-1 font-medium text-2xl text-gray-900'>
+                  <strong class='ml-1 font-medium lg:text-2xl text-xl dark:text-gray-200 text-gray-900'>
                     Correo de restablecimiento enviado.
                   </strong>
                 </div>
-                <p class='mt-1 text-lg text-gray-700'>
+                <p class='mt-1 lg:text-lg text-md dark:text-gray-400 text-gray-700'>
                   Revisa tu correo y sigue lo pasos para restablecer tu
                   contraseña.
                 </p>
@@ -476,8 +478,9 @@ const FormRegister = props => {
                   onClick={() => {
                     setShowAlert(false)
                     setForgotPassword(false)
+                    setIsDisabledReset(true)
                   }}
-                  className='mt-4 bg-codecolor py-3 px-5 text-lg w-auto self-center rounded-md text-white font-semibold text-center hover:bg-codecolordark transition duration-200 ease-in-out cursor-pointer'
+                  className='mt-4 bg-codecolor lg:py-3 py-2 px-3 lg:px-5 text-lg w-auto self-center rounded-md text-white font-semibold text-center hover:bg-codecolordark transition duration-200 ease-in-out cursor-pointer'
                 >
                   Volver a iniciar sesión
                 </button>
@@ -486,15 +489,17 @@ const FormRegister = props => {
           )}
           <p
             tabIndex='0'
-            className='focus:outline-none text-2xl font-bold leading-6 text-gray-800 text-left'
+            className='focus:outline-none text-2xl font-bold leading-6 dark:text-gray-200 text-gray-800 text-left lg:-mt-20'
           >
             ¿Olvidaste tu contraseña?
           </p>
-          <p className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
-            <span className='text-black'>¿No tienes una cuenta? </span>
+          <p className='pt-4 text-left focus:text-violet-400 focus:outline-none focus:underline text-sm font-medium leading-none text-codecolor'>
+            <span className='text-black dark:text-gray-400'>
+              ¿No tienes una cuenta?{' '}
+            </span>
             <Link
               to={registerRedirect}
-              className='hover:underline cursor-pointer'
+              className='hover:underline cursor-pointer hover:text-violet-400 dark:hover:text-codecolordark'
             >
               Registrate aquí
             </Link>
@@ -505,17 +510,18 @@ const FormRegister = props => {
                 id='email'
                 className='text-sm font-medium leading-none text-gray-800'
               >
-                <p className='text-base font-normal leading-6 text-gray-800 text-left'>
+                <p className='text-base font-normal leading-6 dark:text-gray-200 text-gray-800 text-left'>
                   Email
                 </p>
               </label>
               <input
                 aria-labelledby='email'
                 type='email'
+                value={formReset.email}
                 className={
                   errorsReset.email
-                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 outline-red-500 bg-red-100'
-                    : 'bg-white border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
+                    ? 'border rounded text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2 border-red-500 dark:text-gray-200 dark:bg-gray-900 dark:outline-none outline-red-500 bg-red-100'
+                    : 'bg-white border rounded dark:border-none dark:text-gray-200 dark:bg-gray-900 dark:outline-none text-xl font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2'
                 }
                 name='email'
                 onChange={handleChangeReset}
@@ -527,7 +533,7 @@ const FormRegister = props => {
               )}
             </div>
             <p
-              className='pt-4 text-left hover:text-violet-400 focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
+              className='pt-4 text-left hover:text-violet-400 dark:hover:text-codecolordark focus:text-violet-400 focus:outline-none focus:underline hover:underline text-base font-medium leading-none text-codecolor cursor-pointer'
               onClick={UnhandleForgotPassword}
             >
               ¿No haz olvidado tu contraseña?
@@ -539,9 +545,9 @@ const FormRegister = props => {
                 className={
                   !isSubmitingReset && !successReset
                     ? isDisabledReset
-                      ? 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full'
-                      : 'hover:ring-4 hover:ring-violet-300 text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
-                    : 'text-base font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
+                      ? 'text-base font-semibold leading-none text-white focus:outline-none bg-gray-400 border rounded-lg py-6 w-full dark:border-none dark:bg-gray-700'
+                      : 'hover:ring-4 hover:ring-violet-300 text-base dark:border-none dark:hover:ring-gray-700 font-semibold leading-none text-white focus:outline-none bg-codecolor border rounded-lg hover:bg-violet-600 py-6 w-full'
+                    : 'text-base font-semibold leading-none dark:border-none text-white focus:outline-none bg-codecolor border rounded-lg py-6 w-full'
                 }
                 disabled={isDisabledReset}
                 type='submit'
@@ -562,15 +568,12 @@ const FormRegister = props => {
               </p>
             )}
           </form>
-          <p className='text-center text-sm pt-4 text-gray-500'>
+          <p className='text-center text-sm pt-4 text-gray-500 dark:text-gray-400'>
             ¿Como se restablecerá tu contraseña?
             <br />
             Revisa tu mail, allí llegará un correo con las instrucciones para
             restablecer tu contraseña.
           </p>
-          <div className='w-full flex items-center justify-between py-10'>
-            <hr className='w-full bg-gray-400' />
-          </div>
         </div>
       )}
     </div>

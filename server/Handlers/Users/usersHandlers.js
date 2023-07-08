@@ -86,7 +86,7 @@ const createUserHandler = async (req, res) => {
       image,
     }
 
-    await sendEmail(userToMail)
+    sendEmail(userToMail)
 
     res.status(200).json(user)
   } catch (err) {

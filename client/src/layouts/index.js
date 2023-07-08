@@ -18,11 +18,17 @@ import FAQs from './Dashboards/UserDashBoard/FAQs'
 import Calendar from './Dashboards/UserDashBoard/Calendar'
 import CalendarTutor from './Dashboards/TutorDashBoard/Calendar'
 import Sessions from './Dashboards/UserDashBoard/Sessions'
-import SettingsTutor from './Dashboards/TutorDashBoard/SettingsTutor'
 import SessionsTutor from './Dashboards/TutorDashBoard/Sessions'
+import SettingsTutor from './Dashboards/TutorDashBoard/SettingsTutor'
 import Payments from './Dashboards/TutorDashBoard/Payments'
+import AdminPayments from './Dashboards/AdminDashboard/Payments'
+import AdminSessions from './Dashboards/AdminDashboard/Sessions'
+import Tutors from './Dashboards/AdminDashboard/Tutors'
 
 export {
+  Tutors,
+  AdminSessions,
+  AdminPayments,
   Payments,
   SessionsTutor,
   CalendarTutor,

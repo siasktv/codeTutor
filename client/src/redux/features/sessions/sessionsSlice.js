@@ -99,7 +99,8 @@ const initialState = {
       isRefunded: null,
       isReviewed: null,
       reviewId: null,
-      isDisputed: null
+      isDisputed: null,
+      sentPaymentToTutorial: null
     }
   ],
   completeSessionsByClient: [
@@ -121,7 +122,32 @@ const initialState = {
       isRefunded: null,
       isReviewed: null,
       reviewId: null,
-      isDisputed: null
+      isDisputed: null,
+      sentPaymentToTutorial: null
+    }
+  ],
+  allCompleteSessions: [
+    {
+      sessionId: 0,
+      tutorUserId: '',
+      clientUserId: '',
+      appointmentDate: 0,
+      minutes: 0,
+      price: 0,
+      isPaid: null,
+      paymentDetails: {},
+      clientHasJoined: null,
+      tutorHasJoined: null,
+      startedCounterDate: null,
+      endedCounterDate: null,
+      expiredDate: null,
+      isCancelled: null,
+      isRefunded: null,
+      isReviewed: null,
+      reviewId: null,
+      isDisputed: null,
+      sentPaymentToTutorial: null,
+      id: ''
     }
   ]
 }
@@ -272,6 +298,18 @@ export const fetchCompleteSessionsByClient = createAsyncThunk(
   }
 )
 
+export const fetchCompleteSessions = createAsyncThunk(
+  'sessions/fetchCompleteSessions',
+  async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/session/`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 const sessionsSlice = createSlice({
   name: 'sessions',
   initialState,
@@ -381,8 +419,7 @@ const sessionsSlice = createSlice({
           isReviewed: session.isReviewed,
           reviewId: session.reviewId,
           isDisputed: session.isDisputed,
-          sentPaymentToTutor: session.sentPaymentToTutor,
-          paymentToTutorDetails: session.paymentToTutorDetails
+          sentPaymentToTutor: session.sentPaymentToTutor
         }
       })
     },
@@ -407,8 +444,33 @@ const sessionsSlice = createSlice({
           isReviewed: session.isReviewed,
           reviewId: session.reviewId,
           isDisputed: session.isDisputed,
+          sentPaymentToTutor: session.sentPaymentToTutor
+        }
+      })
+    },
+    [fetchCompleteSessions.fulfilled]: (state, action) => {
+      state.allCompleteSessions = action.payload.map(session => {
+        return {
+          sessionId: session.sessionId,
+          tutorUserId: session.tutorUserId,
+          clientUserId: session.clientUserId,
+          appointmentDate: session.appointmentDate,
+          minutes: session.minutes,
+          price: session.price,
+          isPaid: session.isPaid,
+          paymentDetails: session.paymentDetails,
+          clientHasJoined: session.clientHasJoined,
+          tutorHasJoined: session.tutorHasJoined,
+          startedCounterDate: session.startedCounterDate,
+          endedCounterDate: session.endedCounterDate,
+          expiredDate: session.expiredDate,
+          isCancelled: session.isCancelled,
+          isRefunded: session.isRefunded,
+          isReviewed: session.isReviewed,
+          reviewId: session.reviewId,
+          isDisputed: session.isDisputed,
           sentPaymentToTutor: session.sentPaymentToTutor,
-          paymentToTutorDetails: session.paymentToTutorDetails
+          id: session._id
         }
       })
     }

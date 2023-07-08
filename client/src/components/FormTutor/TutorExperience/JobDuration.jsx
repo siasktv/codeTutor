@@ -78,14 +78,14 @@ const JobDuration = (props) => {
   return (
     <>
       <div className="block w-full">
-        <p className="text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left">
+        <p className="text-[#737791] dark:text-gray-400 font-inter text-base mb-2 lg:mb-[30px] font-medium leading-[27px] tracking-normal text-left">
           Desde <span className="text-red-500">*</span>
         </p>
         <input
           className={
             errorsData.startDate
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+              : 'w-full py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none border border-[#C3D3E2]'
           }
           name="startDate"
           type="date"
@@ -106,14 +106,14 @@ const JobDuration = (props) => {
                 </div> */}
       </div>
       <div className="block w-full">
-        <p className="text-[#737791] font-inter text-base mb-[30px] font-medium leading-[27px] tracking-normal text-left">
+        <p className="text-[#737791] dark:text-gray-400 font-inter text-base mb-2 lg:mb-[30px] font-medium leading-[27px] tracking-normal text-left">
           Hasta *
         </p>
         <input
           className={
             errorsData.endDate
-              ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 focus:outline-red-500'
-              : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+              ? 'w-full py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none border border-red-500 focus:outline-red-500'
+              : 'w-full py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none border border-[#C3D3E2]'
           }
           name="endDate"
           type="date"

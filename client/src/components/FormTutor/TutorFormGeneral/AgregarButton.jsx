@@ -3,7 +3,7 @@ const AgregarButton = props => {
 
   return (
     <button
-      className='w-28 transition-all duration-100 ease-in-out hover:border-codecolor border-transparent border hover:border py-2 flex items-center rounded bg-[#7D5AE21A] text-[#7D5AE2] justify-center '
+      className='lg:w-28 w-24 transition-all duration-100 ease-in-out hover:border-codecolor border-transparent border hover:border py-1 lg:py-2 flex items-center rounded bg-[#7D5AE21A] text-[#7D5AE2] justify-center dark:bg-codecolor dark:text-codecolorlighter dark:hover:bg-codecolordark dark:border-none'
       onClick={onClick}
     >
       {next === 'bio' && <>{isDone?.bio ? 'Editar' : 'Agregar'}</>}

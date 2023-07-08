@@ -4,43 +4,42 @@ const ExperienceSchema = new Schema(
   {
     tutor: {
       type: Schema.Types.ObjectId,
-      ref: 'Tutor',
+      ref: 'Tutor'
     },
     position: {
       type: String,
-      required: true,
+      required: true
     },
     company: {
       type: String,
-      required: true,
+      required: true
     },
     location: {
-      type: String,
+      type: String
     },
     start_date: {
       type: Date,
-      required: true,
+      required: true
     },
     end_date: {
-      type: Date,
-      required: true,
+      type: Date
     },
     current: {
       type: Boolean,
-      default: false,
+      default: false
     },
     description: {
-      type: String,
+      type: String
     },
     techName: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Tech',
-      },
-    ],
+        ref: 'Tech'
+      }
+    ]
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 

@@ -7,7 +7,8 @@ const createSession = async (
   appointmentDate,
   minutes,
   price,
-  expiredDate
+  expiredDate,
+  meetLink
 ) => {
   const newSession = await Session.create({
     sessionId,
@@ -16,7 +17,8 @@ const createSession = async (
     appointmentDate,
     minutes,
     price,
-    expiredDate
+    expiredDate,
+    meetLink
   })
 
   sessionPopulate = await Session.findById(newSession._id)

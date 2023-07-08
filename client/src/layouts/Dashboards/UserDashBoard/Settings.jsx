@@ -8,7 +8,8 @@ import {
   faLock,
   faUser,
   faCheck,
-  faCheckCircle
+  faCheckCircle,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
@@ -33,6 +34,57 @@ export default function Settings (props) {
   const [showModal, setShowModal] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [successUpload, setSuccessUpload] = useState(false)
+
+  const [darkMode, setDarkMode] = useState(null)
+  const theme = localStorage.getItem('theme')
+  useEffect(() => {
+    if (theme === 'dark') {
+      setDarkMode(true)
+    } else if (theme === 'light') {
+      setDarkMode(false)
+    } else if (theme === null) {
+      setDarkMode('auto')
+    }
+  }, [theme])
+
+  const handleDarkMode = value => {
+    if (value === 'true') {
+      setDarkMode(true)
+      localStorage.theme = 'dark'
+      const html = document.querySelector('html')
+      html.classList.add('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind-dark.css'
+      document.documentElement.classList.add('scrollbarDark')
+    } else if (value === 'false') {
+      setDarkMode(false)
+      localStorage.theme = 'light'
+      const html = document.querySelector('html')
+      html.classList.remove('dark')
+      document.getElementById('themeSyncfusion').href =
+        'https://cdn.syncfusion.com/ej2/tailwind.css'
+      document.documentElement.classList.remove('scrollbarDark')
+    } else if (value === 'auto') {
+      setDarkMode(
+        localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+      )
+      localStorage.removeItem('theme')
+      const html = document.querySelector('html')
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.classList.add('dark')
+        document.getElementById('themeSyncfusion').href =
+          'https://cdn.syncfusion.com/ej2/tailwind-dark.css'
+        document.documentElement.classList.add('scrollbarDark')
+      } else {
+        html.classList.remove('dark')
+        document.getElementById('themeSyncfusion').href =
+          'https://cdn.syncfusion.com/ej2/tailwind.css'
+        document.documentElement.classList.remove('scrollbarDark')
+      }
+    }
+  }
 
   useEffect(() => {
     if (tutorStatus === 'approved') {
@@ -109,8 +161,8 @@ export default function Settings (props) {
   }, [successUpload])
 
   return (
-    <div className='flex flex-col items-center min-w-[580px]'>
-      <h1 className='text-4xl font-bold text-center my-8'>
+    <div className='flex flex-col items-center lg:min-w-[580px] dark:text-gray-200 max-lg:w-full'>
+      <h1 className='lg:text-4xl text-2xl font-bold text-center lg:my-8 my-4'>
         Ajustes de usuario
       </h1>
       <div className='flex flex-col min-h-[500px] w-full relative rounded-lg'>
@@ -121,15 +173,15 @@ export default function Settings (props) {
           className='hidden'
           onChange={handleUploadImage}
         />
-        <div className='self-center rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9] group'>
+        <div className='self-center rounded-full items-center justify-center lg:w-[145px] lg:h-[145px] h-32 w-32 bg-[#D9D9D9] group'>
           <label htmlFor='avatar'>
             <img
               src={avatar}
               alt='user'
               className={
                 isUploading || successUpload
-                  ? 'w-[145px] h-[145px] rounded-full object-cover filter brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
-                  : 'w-[145px] h-[145px] rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+                  ? 'lg:w-[145px] lg:h-[145px] h-32 w-32 rounded-full object-cover filter brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
+                  : 'lg:w-[145px] lg:h-[145px] h-32 w-32 rounded-full object-cover group-hover:filter group-hover:brightness-50 transition duration-300 ease-in-out hover:cursor-pointer'
               }
               referrerPolicy='no-referrer'
             />
@@ -157,8 +209,8 @@ export default function Settings (props) {
         {errorImage && (
           <p className='text-red-500 text-center text-sm mt-2'>{errorImage}</p>
         )}
-        <div className='flex flex-col mx-4 space-y-4 mt-4'>
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+        <div className='flex flex-col mx-4 lg:space-y-4 space-y-2 mt-4'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faEnvelope}
@@ -174,7 +226,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faAddressCard}
@@ -190,7 +242,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={faLocationDot}
@@ -216,7 +268,7 @@ export default function Settings (props) {
             </button>
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <p className='text-lg font-bold'>
               <FontAwesomeIcon
                 icon={
@@ -281,7 +333,7 @@ export default function Settings (props) {
             )}
           </div>
 
-          <div className='flex flex-row items-center justify-between w-full p-3 rounded-lg'>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
             <div className='flex flex-row items-center'>
               <p className='text-lg font-bold'>
                 <FontAwesomeIcon
@@ -305,6 +357,39 @@ export default function Settings (props) {
             >
               Cambiar contraseña
             </button>
+          </div>
+          <div className='flex flex-col max-lg:space-y-2 lg:flex-row items-center justify-between w-full p-3 rounded-lg'>
+            <div className='flex flex-row items-center'>
+              <p className='text-lg font-bold'>
+                <FontAwesomeIcon
+                  icon={faMoon}
+                  className='mr-2 text-codecolor'
+                />
+                Modo oscuro:{' '}
+              </p>
+            </div>
+            <select
+              name='darkmode'
+              id='darkmode'
+              className='bg-codecolor w-[210px] px-3 py-2 rounded-md text-white font-bold transition-all ease-in-out duration-200 ml-2'
+              onChange={e => handleDarkMode(e.target.value)}
+            >
+              <option
+                value='true'
+                selected={darkMode === 'true' || darkMode === true}
+              >
+                Activado
+              </option>
+              <option
+                value='false'
+                selected={darkMode === 'false' || darkMode === false}
+              >
+                Desactivado
+              </option>
+              <option value='auto' selected={darkMode === 'auto'}>
+                Usar tema del sistema
+              </option>
+            </select>
           </div>
         </div>
       </div>

@@ -8,9 +8,16 @@ import { useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { userFetchById } from '../redux/features/users/usersSlice'
-import { MessageContainer, MessageMinimized, Loader } from '../components'
+import {
+  MessageContainer,
+  MessageMinimized,
+  Loader,
+  NavLogin,
+  NavDashboardMobile
+} from '../components'
 import { SocketContext, socket } from '../socket/context'
 import { FAQs, Settings, Calendar, Sessions } from '../layouts'
+import Navlogo from '../components/Navlogo'
 
 const UserDashboard = () => {
   const user = useUser()
@@ -104,50 +111,68 @@ const UserDashboard = () => {
         )
   }, [user])
 
+  useEffect(() => {
+    //scroll to top on route change
+    window.scrollTo(0, 0)
+  }, [selectedSection])
+
+  const [selectedViewTutors, setSelectedViewTutors] = useState('featured')
+
   return (
     <>
       {user && (
         <div className=''>
           <div className='flex'>
-            <div className='fixed top-0 z-[100]'>
+            <div className='fixed top-0 z-[100] max-lg:hidden dark:bg-gray-900'>
               <UserDashboardLayout
                 selectedSection={selectedSection}
                 setSelectedSection={setSelectedSection}
                 showTutorDashboard={showTutorDashboard}
+                user={user}
               />
             </div>
-            <div className='flex flex-col justify-center w-full h-full left-0 right-0'>
-              <div className='sticky top-0 z-50 bg-white'>
+            <div className='flex flex-col justify-center w-full dark:bg-gray-900 h-full left-0 right-0'>
+              <div className='sticky top-0 z-50 bg-white dark:bg-gray-900 max-lg:hidden'>
                 <NavDashboard
                   user={user}
                   showMessage={showMessage}
                   setShowMessage={setShowMessage}
                   handleShowMessage={handleShowMessage}
                   selectedSection={selectedSection}
+                  selectedViewTutors={selectedViewTutors}
                 />
               </div>
-              <div className='flex flex-col bg-[#FAFBFC] ml-60'>
+              <div className='sticky top-0 z-50 bg-white lg:hidden'>
+                <NavDashboardMobile
+                  user={user}
+                  selectedSection={selectedSection}
+                  setSelectedSection={setSelectedSection}
+                  showTutorDashboard={showTutorDashboard}
+                />
+              </div>
+              <div className='flex flex-col bg-[#FFFFFF] dark:bg-gray-900 min-h-screen lg:ml-60'>
                 {selectedSection === 'dashboard' && (
                   <>
                     <UserDashboardContent />
                     <UserDashboardCards
                       handleShowMessage={handleShowMessage}
                       userMongo={userMongo}
+                      setSelectedViewTutors={setSelectedViewTutors}
                     />
                   </>
                 )}
                 {selectedSection === 'calendar' && (
-                  <div className='flex justify-center items-center px-10'>
+                  <div className='flex justify-center items-center lg:px-10 px-2'>
                     <Calendar user={user} />
                   </div>
                 )}
                 {selectedSection === 'sessions' && (
-                  <div className='flex justify-center items-center px-8'>
+                  <div className='flex justify-center items-center lg:px-8 px-2'>
                     <Sessions user={user} />
                   </div>
                 )}
                 {selectedSection === 'settings' && (
-                  <div className='flex justify-center items-center px-8'>
+                  <div className='flex justify-center items-center lg:px-8 px-2'>
                     <Settings
                       user={user}
                       setShowTutorDashboard={setShowTutorDashboard}
@@ -181,7 +206,7 @@ const UserDashboard = () => {
         </div>
       )}
       {!user && (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center h-screen dark:bg-gray-900'>
           <Loader />
         </div>
       )}

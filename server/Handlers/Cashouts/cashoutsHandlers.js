@@ -1,6 +1,7 @@
 const getCashoutsFromUserId = require('../../controllers/Cashouts/getCashoutsFromUserId.js')
 const createCashout = require('../../controllers/Cashouts/createCashout.js')
 const updateCashout = require('../../controllers/Cashouts/updateCashout.js')
+const getAllCashouts = require('../../controllers/Cashouts/getAllCashouts.js')
 
 const getCashoutsFromUserIdHandler = async (req, res) => {
   const { userId } = req.params
@@ -68,8 +69,18 @@ const updateCashoutHandler = async (req, res) => {
   }
 }
 
+const getAllCashoutsHandler = async (req, res) => {
+  try {
+    const allCashouts = await getAllCashouts()
+    res.status(200).json(allCashouts)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
 module.exports = {
   getCashoutsFromUserIdHandler,
   createCashoutHandler,
-  updateCashoutHandler
+  updateCashoutHandler,
+  getAllCashoutsHandler
 }

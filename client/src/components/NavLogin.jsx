@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom'
 import { Default } from '../assets'
 import { signOut } from '../firebase/client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faMessage, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faXmark,
+  faMessage,
+  faTrash,
+  faBars,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
 import notification from '../assets/notification.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -34,6 +40,7 @@ const NavLogin = ({ user }) => {
   const dispatch = useDispatch()
   const socket = useContext(SocketContext)
   const audioPlayer = useRef(null)
+  const [navbarMobile, setNavbarMobile] = useState(false)
 
   function playNotification () {
     audioPlayer.current.play()
@@ -45,6 +52,28 @@ const NavLogin = ({ user }) => {
 
   useEffect(() => {
     dispatch(getNotificationsStatus())
+  }, [])
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        localStorage.getItem('theme') !== 'light')
+      ? true
+      : false
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark') {
+      setDarkMode(true)
+    } else if (localStorage.getItem('theme') === 'light') {
+      setDarkMode(false)
+    } else if (
+      window.matchMedia('(prefers-color-scheme: dark)').matches === true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -79,13 +108,14 @@ const NavLogin = ({ user }) => {
           hideProgressBar: false,
           closeOnClick: true,
           draggable: true,
-          theme: 'light',
+          theme: darkMode ? 'dark' : 'light',
           // icon is the notification.sender.image
           icon: (
             <img
               src={notifications[0].sender.image}
               alt='notification'
               className='rounded-full'
+              referrerPolicy='no-referrer'
             />
           )
         })
@@ -222,6 +252,10 @@ const NavLogin = ({ user }) => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const handleMobileMenuButtonClick = () => {
+    setNavbarMobile(!navbarMobile)
+  }
+
   return (
     <>
       <ToastContainer
@@ -234,45 +268,44 @@ const NavLogin = ({ user }) => {
         pauseOnFocusLoss={false}
         closeOnClick
         rtl={false}
-        theme='light'
       />
       <header className=''>
         <audio ref={audioPlayer} src={notificationSound} />
-        <div className='mx-auto py-4'>
+        <div className='lg:mx-auto py-4'>
           <div className='flex items-center justify-between gap-4 lg:gap-10'>
             <div className='flex lg:w-0 lg:flex-1 items-center'>
               <Link to='/'>
-                <span className='inline-block h-10 w-52 pl-5'>
-                  <div className='flex'>
+                <span className='inline-block lg:h-10 lg:w-52 pl-5'>
+                  <div className='flex max-lg:items-center max-lg:mt-2'>
                     <div className='border-codecolor border-8 rounded-full w-8 h-8'></div>
-                    <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply'></div>
-                    <h1 className='font-bold text-2xl ml-1'>Code-Tutor.</h1>
+                    <div className='border-gray-200 border-8 rounded-full w-8 h-8 -ml-5 mix-blend-multiply dark:mix-blend-normal'></div>
+                    <h1 className='font-bold lg:text-2xl text-md ml-1 dark:text-gray-200'>
+                      Code-Tutor.
+                    </h1>
                   </div>
                 </span>
               </Link>
             </div>
             <Link to='/search'>
-              <div className='flex'>
+              <div className='lg:flex hidden'>
                 <p className='font-semibold text-lg ml-4 mb-1 text-codecolor hover:text-codecolordark cursor-pointer'>
                   Explorar tutores{' '}
                   <FontAwesomeIcon icon={faSearch} className='ml-1 text-sm' />
                 </p>
               </div>
             </Link>
-            <div className='hidden flex-1 items-center justify-end gap-4 sm:flex'>
+            <div className='hidden flex-1 items-center justify-end gap-4 lg:flex'>
               {!user && (
                 <div className='pr-5'>
-                  <Link
-                    className='rounded-lg px-5 py-2 text-sm font-medium hover:rounded-lg hover:bg-codecolor hover:text-white hover:outline-4 hover:outline-violet-300 hover:outline'
-                    to='/login?redirect=/'
-                  >
-                    Iniciar sesión
+                  <Link to='/login?redirect=/'>
+                    <button className='rounded-lg px-5 py-2 text-sm font-medium hover:rounded-lg hover:bg-codecolor dark:bg-codecolor dark:text-gray-200 dark:font-semibold dark:hover:outline-gray-800 hover:text-white hover:outline-4 hover:outline-violet-300 hover:outline'>
+                      Iniciar sesión
+                    </button>
                   </Link>
-
                   <div className='relative inline-block text-left'>
                     <button
                       type='button'
-                      className='px-5 py-2 menu-button text-sm font-medium hover:bg-codecolor hover:text-white hover:rounded-lg hover:outline-4 hover:outline-violet-300 hover:outline'
+                      className='px-5 py-2 menu-button text-sm font-medium hover:bg-codecolor hover:text-white hover:rounded-lg dark:bg-codecolor dark:text-gray-200 dark:font-semibold dark:hover:outline-gray-800 rounded-lg ml-2 hover:outline-4 hover:outline-violet-300 hover:outline'
                       onClick={handleMenuButtonClick}
                       aria-expanded={isMenuOpen}
                       aria-haspopup='true'
@@ -290,7 +323,7 @@ const NavLogin = ({ user }) => {
                         <div className='' role='none'>
                           <Link
                             to='/register?redirect=/'
-                            className='text-white bg-codecolor rounded-lg flex items-center py-2 my-2 text-sm font-medium justify-center text-center outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 hover:outline'
+                            className='text-white dark:outline-gray-800 dark:hover:outline-gray-700 bg-codecolor rounded-lg flex items-center py-2 my-2 text-sm font-medium justify-center text-center outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 hover:outline'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-0'
@@ -299,7 +332,7 @@ const NavLogin = ({ user }) => {
                           </Link>
                           <Link
                             to='/register?redirect=/tutor'
-                            className='text-white bg-codecolor rounded-lg flex items-center py-2 my-3 text-sm font-medium justify-center text-center outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 hover:outline'
+                            className='text-white dark:outline-gray-800 dark:hover:outline-gray-700 bg-codecolor rounded-lg flex items-center py-2 my-3 text-sm font-medium justify-center text-center outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 hover:outline'
                             role='menuitem'
                             tabIndex='-1'
                             id='menu-item-1'
@@ -326,17 +359,17 @@ const NavLogin = ({ user }) => {
                         ></img>
                       </div>
                       {showProfile && (
-                        <div className='absolute top-10 -right-5 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+                        <div className='absolute top-10 -right-5 bg-white dark:bg-gray-800 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
                           <div className='flex flex-col gap-2 p-2'>
                             <div className='flex flex-col gap-2'>
                               <Link to='/user'>
-                                <button className='text-white bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
+                                <button className='text-white dark:outline-none dark:hover:outline-none dark:hover:bg-codecolordark transition duration-150 bg-codecolor rounded-xl p-2 outline-violet-100 outline-4 outline hover:outline-4 hover:outline-violet-300 w-32 hover:outline text-center'>
                                   {user ? 'Ir a mi perfil' : 'Iniciar sesión'}
                                 </button>
                               </Link>
                               {user && (
                                 <button
-                                  className='text-white bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
+                                  className='text-white dark:outline-none dark:hover:ring-gray-700 dark:hover:outline-none dark:hover:bg-red-600 transition duration-150 bg-red-500 rounded-xl p-2 mt-1 outline-red-100 outline-4 outline hover:outline-4 hover:outline-red-300 w-32 hover:outline text-center'
                                   onClick={() => setShowModalLogout(true)}
                                 >
                                   Cerrar sesión
@@ -373,27 +406,114 @@ const NavLogin = ({ user }) => {
               )}
             </div>
             <div className='lg:hidden'>
-              <button
-                className='rounded-lg bg-gray-100 p-2 text-gray-600'
-                type='button'
-              >
-                <span className='sr-only'>Open menu</span>
-                <svg
-                  aria-hidden='true'
-                  className='h-5 w-5'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    d='M4 6h16M4 12h16M4 18h16'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
+              <div className='flex flex-row gap-1'>
+                {user && (
+                  <ChatsNav
+                    user={user}
+                    handleShowChat={handleShowChat}
+                    showChat={showChat}
+                    setShowChat={setShowChat}
+                    localUserChats={localUserChats}
+                    handleSendShowMessage={handleSendShowMessage}
                   />
-                </svg>
-              </button>
+                )}
+                {/* Notificaciones */}
+                <NotificationsNav
+                  user={user}
+                  handleShowNotifications={handleShowNotifications}
+                  showNotifications={showNotifications}
+                  setShowNotifications={setShowNotifications}
+                  notifications={notifications}
+                  handleSendShowMessage={handleSendShowMessage}
+                  markAsRead={markAsRead}
+                />
+                <button
+                  className='rounded-lg p-2 text-gray-600 dark:text-gray-200 mr-2 w-10'
+                  type='button'
+                  onClick={handleMobileMenuButtonClick}
+                >
+                  <span className='sr-only'>Open menu</span>
+                  <FontAwesomeIcon icon={navbarMobile ? faTimes : faBars} />
+                </button>
+              </div>
+              {navbarMobile && (
+                <div className='absolute z-[999] mt-16 top-0 inset-x-0 w-full transition transform origin-top-right lg:hidden bg-white dark:bg-gray-800'>
+                  <div className='bg-white w-full dark:bg-gray-800'>
+                    <div className='w-full flex flex-col'>
+                      {!user && (
+                        <>
+                          <Link
+                            to='/search'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Explorar tutores
+                          </Link>
+                          <Link
+                            to='/login?redirect=/'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Iniciar sesión
+                          </Link>
+                          <Link
+                            to='/register?redirect=/'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Registrarme como estudiante
+                          </Link>
+                          <Link
+                            to='/register?redirect=/tutor'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                          >
+                            Registrarme como tutor
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                    <div className='w-full flex flex-col'>
+                      {user && (
+                        <>
+                          <Link
+                            to='/search'
+                            className='text-black p-2 hover:bg-codecolor dark:hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold dark:text-white dark:bg-gray-800 bg-white w-full'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-0'
+                          >
+                            Explorar tutores
+                          </Link>
+                          <Link
+                            to='/user'
+                            className='text-black p-2 dark:hover:bg-codecolor hover:bg-codecolor transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:text-white dark:bg-gray-800 bg-white'
+                            tabIndex='-1'
+                          >
+                            Ir a mi perfil
+                          </Link>
+                          <button
+                            className='text-red-500 p-2 dark:hover:bg-red-500 hover:bg-red-500 transition ease-in-out duration-150 hover:text-white font-semibold w-full dark:bg-gray-800 bg-white'
+                            role='menuitem'
+                            tabIndex='-1'
+                            id='menu-item-1'
+                            onClick={() => setShowModalLogout(true)}
+                          >
+                            Cerrar sesión
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

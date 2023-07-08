@@ -9,7 +9,7 @@ const LinkLinkedIn = props => {
     >
       <img
         src={LinkedIn}
-        className='hover:filter hover:brightness-50 transition duration-300 ease-in-out transform'
+        className='hover:filter hover:brightness-50 dark:hover:brightness-75 transition duration-300 ease-in-out transform'
         alt='LinkedIn'
       />
     </a>

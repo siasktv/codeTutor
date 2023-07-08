@@ -18,9 +18,13 @@ const ConexionStateTutor = props => {
   return (
     <>
       {!isOnline ? (
-        <h2 className='font-semibold text-l text-red-500'>◉ Offline</h2>
+        <h2 className='font-semibold text-l text-red-500'>
+          ◉ <span className=''>Offline</span>
+        </h2>
       ) : (
-        <h2 className='font-semibold text-l text-green-500'>◉ Online</h2>
+        <h2 className='font-semibold text-l text-green-500'>
+          ◉ <span className=''>Online</span>
+        </h2>
       )}
     </>
   )

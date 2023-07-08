@@ -71,8 +71,17 @@ import Skills from './TutorDashboard/Skills.jsx'
 import Projects from './TutorDashboard/Projects.jsx'
 import Rates from './TutorDashboard/Rates.jsx'
 import Experience from './TutorDashboard/Experience.jsx'
+import ModalBankTutor from './ModalBankTutor.jsx'
+
+import NavDashboardMobile from './UserDashboard/NavDashboardMobile.jsx'
+import TutorNavDashboardMobile from './TutorDashboard/NavDashboardMobile.jsx'
+import AdminNavDashboardMobile from './AdminDashboard/NavDashboardMobile.jsx'
 
 export {
+  AdminNavDashboardMobile,
+  TutorNavDashboardMobile,
+  NavDashboardMobile,
+  ModalBankTutor,
   PaymentModal,
   Biography,
   TutorFormProfileDisponibility,

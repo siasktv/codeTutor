@@ -76,14 +76,14 @@ const TutorFormProfileSocialMedia = props => {
   return (
     <>
       <CardTutorData title='Actualizar Social Media' correct={correct}>
-        <div className='flex space-x-8'>
+        <div className='flex lg:space-x-8 space-x-2'>
           <div className='block w-full'>
             <input
               id='inputField'
               className={
                 errorsData.github
-                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
-                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
               }
               name='github'
               onChange={handleChange}
@@ -115,8 +115,8 @@ const TutorFormProfileSocialMedia = props => {
               }
               className={
                 errorsData.linkedin
-                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500'
-                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2]'
+                  ? 'w-full py-3 px-6 bg-none rounded-[8px] border border-red-500 text-red-500 bg-red-100 focus:outline-red-500 dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none'
+                  : 'w-full py-3 px-6 bg-none rounded-[8px] border border-[#C3D3E2] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none'
               }
               type='link'
               placeholder='https://'

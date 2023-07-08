@@ -110,8 +110,8 @@ const TutorFormExperience = props => {
   return (
     <>
       {/* <NavUserNotifications /> */}
-      <section className="bg-[#FAFBFC] h-full w-full">
-        <div className="flex flex-col pt-[33px]">
+      <section className='bg-[#FFFFFF] min-h-screen dark:bg-gray-900 h-full w-full'>
+        <div className='flex flex-col pt-[33px]'>
           <TutorFormWelcome user={user} />
           <TutorFormProgressBar
             progress={progress}
@@ -124,35 +124,36 @@ const TutorFormExperience = props => {
           />
         </div>
 
-        <section className="flex justify-center mt-[33px] mx-28">
+        <section className='flex justify-center lg:mt-[33px] lg:mx-28'>
           <TutorFormDataLeft
             user={user}
             form={form}
             setDataForm={setDataForm}
             dataForm={dataForm}
           />
-          <section className="flex flex-col bg-white rounded-[8px] border w-full border-[#1414140D] gap-[18px] ml-6">
-            <div className="mx-[52px] my-[36px] ">
-              <div className="flex flex-row items-center mb-[50px]">
-                <h2 className="font-inter font-bold text-[25px] text-[#05004E] text-left">
-                  Empleo{" "}
+          <section className='flex flex-col bg-white dark:bg-gray-900 rounded-[8px] border w-full border-[#1414140D] gap-[18px] lg:ml-6'>
+            <div className='lg:mx-[52px] lg:my-[36px] m-2'>
+              <div className='flex flex-row items-center mb-2 lg:mb-[50px]'>
+                <h2 className='font-inter font-bold text-[25px] dark:text-gray-200 text-[#05004E] text-left'>
+                  Empleo{' '}
                   {correct && (
                     <FontAwesomeIcon
                       icon={faCheckCircle}
-                      className="text-green-500 text-xl"
+                      className='text-green-500 text-xl'
                     />
                   )}
                   {!correct && (
                     <FontAwesomeIcon
                       icon={faWarning}
-                      className="text-orange-300 text-xl"
+                      title='Completa todos los campos'
+                      className='text-orange-300 text-xl'
                     />
                   )}
                 </h2>
               </div>
 
-              <div className="flex space-x-8">
-                <div className="block w-full">
+              <div className='flex lg:space-x-8 space-x-2'>
+                <div className='block w-full'>
                   <JobPosition
                     dataForm={dataForm}
                     setDataForm={setDataForm}
@@ -160,7 +161,7 @@ const TutorFormExperience = props => {
                     setErrorsData={setErrorsData}
                   />
                 </div>
-                <div className="block w-full">
+                <div className='block w-full'>
                   <JobName
                     dataForm={dataForm}
                     setDataForm={setDataForm}
@@ -179,7 +180,7 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className="flex space-x-8 mt-[50px] mb-[50px]">
+              <div className='flex space-x-2 lg:space-x-8 mt-4 lg:mt-[50px] mb-2 lg:mb-[50px]'>
                 <JobDuration
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -188,11 +189,11 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className="flex space-x-6 items-center">
+              <div className='flex lg:space-x-6 space-x-2 items-center'>
                 <JobCheckbox dataForm={dataForm} setDataForm={setDataForm} />
               </div>
 
-              <div className="mt-[50px] mb-[30px]">
+              <div className='mt-4 lg:mt-[50px] mb-4 lg:mb-[30px]'>
                 <JobDescription
                   dataForm={dataForm}
                   setDataForm={setDataForm}
@@ -201,7 +202,7 @@ const TutorFormExperience = props => {
                 />
               </div>
 
-              <div className="mt-[50px] mb-[30px]">
+              <div className='mt-4 lg:mt-[50px] mb-2 lg:mb-[30px]'>
                 <JobTechnologies
                   technologies={technologies}
                   dataForm={dataForm}
@@ -213,10 +214,10 @@ const TutorFormExperience = props => {
             </div>
           </section>
         </section>
-        <section className="flex justify-end items-center space-x-4 mx-28 pt-6 pb-8">
+        <section className='flex justify-end items-center space-x-2 lg:space-x-4 mx-2 lg:mx-28 lg:pt-6 lg:pb-8 max-lg:py-2 dark:lg:mx-[165px]'>
           <CancelarPerfilButton />
           <EnviarPerfilButton
-            title={isEdit ? "Actualizar" : "Guardar"}
+            title={isEdit ? 'Actualizar' : 'Guardar'}
             isDisabled={isDisabled}
             setSection={setSection}
             setProgress={setProgress}
@@ -233,7 +234,7 @@ const TutorFormExperience = props => {
         </section>
       </section>
     </>
-  );
+  )
 }
 
 export default TutorFormExperience

@@ -68,7 +68,7 @@ export default function NotificationsNav ({
   }, [alertsEnabled])
 
   return (
-    <div className='pr-8 pl-3 flex items-center relative'>
+    <div className='lg:pr-8 pl-3 flex items-center relative'>
       {user && (
         <div className='flex flex-col'>
           <div
@@ -82,13 +82,13 @@ export default function NotificationsNav ({
                 </p>
               </div>
             )}
-            <div className='p-3 h-10 w-10  bg-violet-100 rounded-xl'>
+            <div className='p-3 h-10 w-10  bg-violet-100 dark:bg-gray-800 rounded-xl'>
               <img src={notification} className=''></img>
             </div>
           </div>
           {showNotifications && (
-            <div className='absolute top-10 right-3 bg-white rounded-xl shadow-xl z-50 border border-[#1414140D]'>
-              <div className='flex flex-col gap-2 p-4 max-h-80'>
+            <div className='absolute top-12 lg:right-3 -right-[50px] bg-white dark:bg-gray-800 rounded-xl shadow-xl z-50 border border-[#1414140D]'>
+              <div className='flex flex-col gap-2 p-4 max-h-80 max-lg:w-full'>
                 <div className='flex justify-between items-start flex-1'>
                   <div className='flex flex-row items-center'>
                     <h1 className='font-bold text-xl text-codecolor'>
@@ -121,7 +121,7 @@ export default function NotificationsNav ({
                   {notifications.length === 0 && (
                     <div className='flex flex-col gap-2 m-3'>
                       <div className='flex justify-center align-middle items-center'>
-                        <h1 className='text-black font-semibold w-72 m-3'>
+                        <h1 className='text-black font-semibold dark:text-gray-200 w-72 m-3'>
                           No tienes notificaciones.
                         </h1>
                       </div>
@@ -135,7 +135,7 @@ export default function NotificationsNav ({
                     .map(notification => (
                       <React.Fragment key={notification.id}>
                         {notification.type === 'link' && (
-                          <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
+                          <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter dark:hover:bg-gray-700 cursor-pointer hover:rounded-md'>
                             <div className='flex justify-center align-middle items-center'>
                               <Link
                                 to={notification.link}
@@ -145,9 +145,10 @@ export default function NotificationsNav ({
                                   className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                   src={notification.sender.image}
                                   alt='avatar'
+                                  referrerPolicy='no-referrer'
                                 />
                                 <div className='flex flex-col w-60 text-left'>
-                                  <h2 className='text-md'>
+                                  <h2 className='text-md dark:text-gray-200'>
                                     {notification.message}{' '}
                                   </h2>
                                 </div>
@@ -168,7 +169,7 @@ export default function NotificationsNav ({
                           </div>
                         )}
                         {notification.type === 'message' && (
-                          <div className='flex flex-col gap-2 p-3 hover:bg-codecolorlighter cursor-pointer hover:rounded-md'>
+                          <div className='flex flex-col gap-2 p-3 dark:hover:bg-gray-700 hover:bg-codecolorlighter dark:hover:gray-700 cursor-pointer hover:rounded-md'>
                             <div className=' flex justify-center align-middle items-center'>
                               <div
                                 className='flex flex-row items-center'
@@ -184,9 +185,10 @@ export default function NotificationsNav ({
                                   className='w-10 h-10 rounded-full border-none mr-2 object-cover'
                                   src={notification.sender.image}
                                   alt='avatar'
+                                  referrerPolicy='no-referrer'
                                 />
                                 <div className='flex flex-col w-60 text-left'>
-                                  <h2 className='text-md'>
+                                  <h2 className='text-md dark:text-gray-200'>
                                     {notification.message}{' '}
                                   </h2>
                                 </div>

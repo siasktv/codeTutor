@@ -1,6 +1,6 @@
 import { LinkGitHub, LinkLinkedIn } from '../index'
 import { Pais, es, uk, pt, fr } from '../../assets'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { uploadImage } from '../../firebase/client'
@@ -66,7 +66,7 @@ const TutorFormDataLeft = props => {
   }, [avatar])
 
   return (
-    <div className='flex flex-col bg-white items-center h-full justify-center p-[80px] rounded-[8px] border border-[#1414140D]'>
+    <div className='max-lg:hidden flex flex-col bg-white dark:bg-gray-800 items-center h-full justify-center p-[80px] rounded-[8px] border border-[#1414140D]'>
       <div className='rounded-full items-center justify-center w-[145px] h-[145px] bg-[#D9D9D9] group'>
         <input
           type='file'
@@ -91,24 +91,27 @@ const TutorFormDataLeft = props => {
       {errorImage && (
         <p className='text-red-500 text-sm mt-2 text-center'>{errorImage}</p>
       )}
-      <p className='font-inter font-medium text-2xl leading-[37.5px] mt-5'>
+      <p className='font-inter font-medium text-2xl leading-[37.5px] dark:text-gray-200 mt-5'>
         {form?.name || user?.fullName}
       </p>
       {form?.bio?.specialty && (
-        <p className='font-inter font-semi text-[15px] leading-[28px] mt-2'>
+        <p className='font-inter font-semi text-[15px] leading-[28px] dark:text-gray-200 mt-2'>
           {form?.bio?.specialty}
         </p>
       )}
-      {user?.location && (
+      {form?.location && (
         <div className='inline-flex items-center mt-2'>
-          <img src={Pais} alt='pais' />
-          <p className='font-inter font-normal text-sm leading-[28px] ml-1'>
+          <FontAwesomeIcon
+            icon={faMapMarkerAlt}
+            className='text-[#141414] text-xs self-center dark:text-gray-200'
+          />
+          <p className='font-inter font-normal text-sm leading-[28px] dark:text-gray-200 ml-1'>
             {form?.location || user?.location}
           </p>
         </div>
       )}
       {form?.zona_horaria && (
-        <p className='font-inter font-normal text-xs leading-[28px] ml-1'>
+        <p className='font-inter font-normal text-xs leading-[28px] dark:text-gray-200 ml-1'>
           {form?.zona_horaria}
         </p>
       )}

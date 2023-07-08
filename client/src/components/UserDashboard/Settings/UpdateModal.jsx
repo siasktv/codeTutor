@@ -366,7 +366,7 @@ export default function UpdateModal (props) {
     // create a centered modal
     <div className='fixed z-[9999] inset-0 overflow-y-auto'>
       {/* overlay */}
-      <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+      <div className='flex items-end justify-center lg:min-h-screen pt-4 lg:px-4 px-2 pb-20 text-center sm:block sm:p-0'>
         {/* background overlay */}
         <div className='fixed inset-0 transition-opacity' aria-hidden='true'>
           <div className='absolute inset-0 bg-gray-500 opacity-75' />
@@ -380,16 +380,16 @@ export default function UpdateModal (props) {
         </span>
         {/* modal content */}
         <form
-          className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+          className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
           role='dialog'
           aria-modal='true'
           aria-labelledby='modal-headline'
         >
-          <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
+          <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
             <div className='sm:flex sm:items-start'>
               <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full'>
                 <h3
-                  className='text-2xl leading-6 font-semibold text-gray-900'
+                  className='text-2xl leading-6 font-semibold dark:text-gray-200 text-gray-900'
                   id='modal-headline'
                 >
                   {selectedField === 'name' && 'Cambiar nombre'}
@@ -410,8 +410,8 @@ export default function UpdateModal (props) {
                         id='name'
                         className={
                           errors.name
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor dark:bg-gray-900 dark:border-none dark:outline-none dark:focus:border-none dark:focus:outline-none dark:text-gray-200'
                         }
                         placeholder='Nombre completo'
                         value={formData.name}
@@ -432,8 +432,8 @@ export default function UpdateModal (props) {
                         id='email'
                         className={
                           errors.email
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         placeholder='Correo electrónico'
                         value={formData.email}
@@ -450,8 +450,8 @@ export default function UpdateModal (props) {
                         id='previousPassword'
                         className={
                           errors.previousPassword
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         placeholder='Ingresa tu contraseña'
                         value={formData.previousPassword}
@@ -474,8 +474,8 @@ export default function UpdateModal (props) {
                         autoComplete='location'
                         className={
                           errors.location
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         value={selectedLocation}
                         onChange={e => handleSelectLocation(e)}
@@ -496,8 +496,8 @@ export default function UpdateModal (props) {
                           autoComplete='timezone'
                           className={
                             errors.timezone
-                              ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                              : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                              ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                              : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                           }
                           value={selectedTimezone}
                           onChange={e => setSelectedTimezone(e.target.value)}
@@ -526,8 +526,8 @@ export default function UpdateModal (props) {
                         id='previousPassword'
                         className={
                           errors.previousPassword
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         placeholder='Contraseña actual'
                         value={formData.previousPassword}
@@ -546,8 +546,8 @@ export default function UpdateModal (props) {
                         id='password'
                         className={
                           errors.password
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         placeholder='Nueva contraseña'
                         value={formData.password}
@@ -564,8 +564,8 @@ export default function UpdateModal (props) {
                         id='confirmPassword'
                         className={
                           errors.confirmPassword
-                            ? 'shadow-sm  focus:border-codecolor text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4'
-                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4'
+                            ? 'shadow-sm  focus:border-red-500 text-md border-red-500 border rounded-md w-full px-3 py-2 placeholder:text-red-500 focus:outline-red-500 mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none  dark:text-gray-200'
+                            : 'shadow-sm  focus:border-codecolor text-md border-gray-300 border rounded-md w-full px-3 py-2 focus:outline-codecolor mt-4 dark:bg-gray-900 dark:outline-none dark:focus:outline-none dark:focus:border-none dark:text-gray-200 dark:border-none'
                         }
                         placeholder='Confirmar contraseña'
                         value={formData.confirmPassword}
@@ -649,7 +649,7 @@ export default function UpdateModal (props) {
                         />
                         <label
                           htmlFor='disabletutor'
-                          className='ml-2 block text-sm font-medium text-gray-700'
+                          className='ml-2 block text-sm font-medium text-gray-700 dark:text-gray-400'
                         >
                           Entiendo las consecuencias y deseo continuar con el
                           proceso.
@@ -700,7 +700,7 @@ export default function UpdateModal (props) {
                         />
                         <label
                           htmlFor='enabletutor'
-                          className='ml-2 block text-sm font-medium text-gray-700'
+                          className='ml-2 block text-sm font-medium text-gray-700 dark:text-gray-400'
                         >
                           Entiendo las consecuencias y deseo reactivar mi cuenta
                           de tutor.
@@ -713,7 +713,7 @@ export default function UpdateModal (props) {
             </div>
           </div>
 
-          <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+          <div className='bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row justify-end'>
             <button
               type='button'
               className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:ml-3 sm:w-20 sm:text-sm'
@@ -725,7 +725,7 @@ export default function UpdateModal (props) {
               disabled={isDisabled}
               className={
                 isDisabled
-                  ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
+                  ? 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 dark:bg-gray-700 text-base font-medium text-white sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
                   : 'mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-codecolor text-base font-medium text-white hover:bg-codecolordark focus:outline-none   sm:mt-0 sm:ml-3 sm:w-20 sm:text-sm'
               }
               onClick={handleSubmit}
