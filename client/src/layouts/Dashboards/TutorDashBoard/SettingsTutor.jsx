@@ -4,17 +4,17 @@ import {
   Skills,
   Projects,
   Rates,
-  Experience,
+  Experience
 } from '../../../components'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { tutorFetchById } from '../../../redux/features/tutors/tutorsSlice'
 import { useEffect, useState } from 'react'
 
-export default function SettingsTutor(props) {
+export default function SettingsTutor (props) {
   const { user } = props
 
-  const tutor = useSelector((state) => state.tutors.tutor)
+  const tutor = useSelector(state => state.tutors.tutor)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function SettingsTutor(props) {
   //skills
 
   return (
-    <div className="flex mx-52 w-full flex-col gap-11 ">
+    <div className='flex mx-52 w-full flex-col gap-4 max-lg:mx-2 max-lg:gap-2'>
       <Biography bio={user.tutor.bio} id={user.tutor._id} />
       <Skills skills={tutor.skills} id={tutor._id} />
       <Experience experience={tutor.experience} id={tutor._id} />

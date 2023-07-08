@@ -66,11 +66,11 @@ import LogoutModal from './LogoutModal.jsx'
 import BookMeeting from './BookMeeting.jsx'
 
 //componentes del TutorDashboard
-import Biography from './TutorDashboard/Biography.jsx'
-import Skills from './TutorDashboard/Skills.jsx'
-import Projects from './TutorDashboard/Projects.jsx'
-import Rates from './TutorDashboard/Rates.jsx'
-import Experience from './TutorDashboard/Experience.jsx'
+import Biography from './TutorDashBoard/Biography.jsx'
+import Skills from './TutorDashBoard/Skills.jsx'
+import Projects from './TutorDashBoard/Projects.jsx'
+import Rates from './TutorDashBoard/Rates.jsx'
+import Experience from './TutorDashBoard/Experience.jsx'
 import ModalBankTutor from './ModalBankTutor.jsx'
 
 import NavDashboardMobile from './UserDashboard/NavDashboardMobile.jsx'
@@ -140,5 +140,5 @@ export {
   Skills,
   Projects,
   Rates,
-  Experience,
+  Experience
 }
