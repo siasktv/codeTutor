@@ -6,8 +6,17 @@ const getExperienceById = require('../../controllers/Experience/getExperienceByI
 const getAllExperiencesByTutorId = require('../../controllers/Experience/getAllExperiencesByTutorId.js')
 
 const createExperienceHandler = async (req, res) => {
-  const { tutor, position, company, techName, location, start_date, end_date, description } =
-    req.body
+  const {
+    tutor,
+    position,
+    company,
+    techName,
+    location,
+    start_date,
+    end_date,
+    description,
+    current
+  } = req.body
   if (!position || position.trim().length === 0) {
     return res.status(400).json({ error: 'Position is required' })
   }
@@ -31,7 +40,8 @@ const createExperienceHandler = async (req, res) => {
       techName,
       start_date,
       end_date,
-      description
+      description,
+      current
     })
     res.status(200).json(newExperience)
   } catch (error) {
@@ -79,7 +89,8 @@ const updatedExperienceHandler = async (req, res) => {
     start_date,
     end_date,
     description,
-    techName
+    techName,
+    current
   } = req.body
   if (!position || position.trim().length === 0) {
     return res.status(400).json({ error: 'Position is required' })
@@ -103,7 +114,8 @@ const updatedExperienceHandler = async (req, res) => {
       start_date,
       end_date,
       description,
-      techName
+      techName,
+      current
     })
     res.status(200).json(updatedExperience)
   } catch (error) {

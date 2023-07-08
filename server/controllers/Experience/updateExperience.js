@@ -2,7 +2,16 @@ const Experience = require('../../models/Experience.models.js')
 
 const updateExperience = async (
   id,
-  { position, company, location, start_date, end_date, description, techName }
+  {
+    position,
+    company,
+    location,
+    start_date,
+    end_date,
+    description,
+    techName,
+    current
+  }
 ) => {
   const updatedExperience = await Experience.findByIdAndUpdate(
     id,
@@ -14,6 +23,7 @@ const updateExperience = async (
       end_date,
       description,
       techName,
+      current
     },
     { new: true }
   )
@@ -22,7 +32,7 @@ const updateExperience = async (
     updatedExperience._id
   ).populate({
     path: 'techName',
-    select: 'name',
+    select: 'name'
   })
 
   return updatedExperiencePopulate
