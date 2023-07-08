@@ -1,27 +1,27 @@
 import { useState, useEffect } from 'react'
 
-const ProjectDescription = props => {
+const ProjectDescription = (props) => {
   const { dataForm, setDataForm, errorsData, setErrorsData } = props
   const [charCount, setCharCount] = useState(0)
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const description = e.target.value
     const trimmed = description.trim()
     if (trimmed.length <= 500) {
       if (trimmed.length === 0) {
         setErrorsData({
           ...errorsData,
-          description: 'La descripción no puede estar vacía'
+          description: 'La descripción no puede estar vacía',
         })
       } else {
         setErrorsData({
           ...errorsData,
-          description: ''
+          description: '',
         })
       }
       setDataForm({
         ...dataForm,
-        description: description
+        description: description,
       })
       setCharCount(trimmed.length)
     } else {
@@ -35,8 +35,8 @@ const ProjectDescription = props => {
 
   return (
     <>
-      <p className='text-[#737791] dark:text-gray-400 font-inter text-base mb-2 lg:mb-[30px] font-medium leading-[27px] tracking-normal text-left'>
-        Descripción <span className='text-[#FF5757]'>*</span>
+      <p className="text-[#737791] dark:text-gray-400 font-inter text-base mb-2 lg:mb-[30px] font-medium leading-[27px] tracking-normal text-left">
+        Descripción <span className="text-[#FF5757]">*</span>
       </p>
       <textarea
         className={
@@ -45,10 +45,10 @@ const ProjectDescription = props => {
             : 'w-full h-40 py-3 px-6 bg-none rounded-[8px] dark:bg-gray-800 dark:outline-none dark:text-gray-200 dark:focus:outline-none dark:border-none resize-none border border-[#C3D3E2]'
         }
         maxLength={500}
-        placeholder='Escribe una breve descripción...'
+        placeholder="Escribe una breve descripción..."
         onChange={handleInputChange}
         value={dataForm.description}
-        name='description'
+        name="description"
       ></textarea>
       <p
         className={
@@ -66,7 +66,7 @@ const ProjectDescription = props => {
         {charCount}/500
       </p>
       {errorsData.description && (
-        <p className='font-inter font-normal lg:-mt-[50px] italic text-red-500 text-left'>
+        <p className="font-inter font-normal lg:-mt-[50px] italic text-red-500 text-left">
           {errorsData.description}
         </p>
       )}

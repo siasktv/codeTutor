@@ -1,4 +1,6 @@
 require('dotenv').config()
+const { onRequest } = require('firebase-functions/v2/https')
+const logger = require('firebase-functions/logger')
 const express = require('express')
 const server = express()
 const connectDB = require('./db.js')
@@ -26,7 +28,6 @@ const {
 const Session = require('./models/Session.models.js')
 const Reviews = require('./models/Review.models.js')
 const Tutors = require('./models/Tutor.models.js')
-const Meeting = require('google-meet-api').meet
 
 const { Server: SocketServer } = require('socket.io')
 const http = require('http')
@@ -37,27 +38,11 @@ const { log } = require('console')
 const { find } = require('./models/Tutor.models.js')
 const PORT = process.env.PORT || 3001
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173'
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN
-const moment = require('moment')
-const momentTz = require('moment-timezone')
-const emailToTutor = require('./utils/meetings/emailToTutor.js')
-const emailToClient = require('./utils/meetings/emailToClient.js')
 
 //test
 server.use(cors())
 server.use((req, res, next) => {
-  const allowedOrigins = [
-    'https://code-tutor-53cb5.web.app',
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-  ]
-  const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-  }
-  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Origin', FRONTEND_URL)
   res.header('Access-Control-Allow-Credentials', 'true')
   res.header(
     'Access-Control-Allow-Headers',
@@ -66,7 +51,6 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
   next()
 })
-
 server.use(express.json())
 server.use(morgan('dev'))
 
@@ -520,25 +504,13 @@ io.on('connection', (socket) => {
   })
 
   socket.on('createSession', async ({ session }) => {
-    const meetLink = await Meeting({
-      clientId: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      refreshToken: GOOGLE_REFRESH_TOKEN,
-      date: moment(session.appointmentDate).format('YYYY-MM-DD'),
-      time: moment(session.appointmentDate).format('HH:mm:ss'),
-      summary: `Sesion entre ${session.tutorUserId} y ${session.clientUserId}`,
-      location: 'location',
-      description: `Sesion entre ${session.tutorUserId} y ${session.clientUserId}`,
-    })
-
-    const createdSession = await addSession(session, meetLink)
+    const createdSession = await addSession(session)
     const user = await getUser(session.clientUserId)
 
     if (user) {
       io.to(user.socketId).emit('createdSession', {
         ...session,
         sessionId: createdSession,
-        meetLink: meetLink,
       })
     }
     const sessionToDb = async () => {
@@ -551,58 +523,12 @@ io.on('connection', (socket) => {
           minutes: session.minutes,
           price: session.price,
           expiredDate: session.expiredDate,
-          meetLink: meetLink,
         })
       } catch (error) {
         console.log(error)
       }
     }
-    const dateToCalendar = new Date(session.appointmentDate)
-      .toISOString()
-      .replace(/-|:|\.\d\d\d/g, '')
-    const endDate = moment(session.appointmentDate).add(
-      session.minutes,
-      'minutes'
-    )
-    const dateToCalendarEnd = new Date(endDate)
-      .toISOString()
-      .replace(/-|:|\.\d\d\d/g, '')
     sessionToDb()
-    const tutor = await getUser(session.tutorUserId)
-    const tutorTimezone = tutor.userInfo.timezone
-    const dateToText = momentTz(session.appointmentDate)
-      .tz(tutorTimezone)
-      .format('DD/MM/YYYY')
-    const timeToText = momentTz(session.appointmentDate)
-      .tz(tutorTimezone)
-      .format('HH:mm')
-    const userTimezone = user.userInfo?.timezone || 'America/Buenos_Aires'
-    const dateToTextUser = momentTz(session.appointmentDate)
-      .tz(userTimezone)
-      .format('DD/MM/YYYY')
-    const timeToTextUser = momentTz(session.appointmentDate)
-      .tz(userTimezone)
-      .format('HH:mm')
-    emailToClient({
-      tutor: tutor.userInfo,
-      client: user.userInfo,
-      dateToCalendar: dateToCalendar,
-      dateToCalendarEnd: dateToCalendarEnd,
-      dateToText: dateToTextUser,
-      timeToText: timeToTextUser,
-      session: session,
-      sessionId: createdSession,
-    })
-    emailToTutor({
-      tutor: tutor.userInfo,
-      client: user.userInfo,
-      dateToCalendar: dateToCalendar,
-      dateToCalendarEnd: dateToCalendarEnd,
-      dateToText: dateToText,
-      timeToText: timeToText,
-      session: session,
-      sessionId: createdSession,
-    })
   })
 
   socket.on('getSessionsFromClient', async ({ userId }) => {

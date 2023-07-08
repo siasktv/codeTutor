@@ -4,7 +4,7 @@ const updateExperience = async (
   id,
   { position, company, location, start_date, end_date, description, techName }
 ) => {
-  const updatedExperience = Experience.findByIdAndUpdate(
+  const updatedExperience = await Experience.findByIdAndUpdate(
     id,
     {
       position,
@@ -13,16 +13,18 @@ const updateExperience = async (
       start_date,
       end_date,
       description,
-      techName
+      techName,
     },
     { new: true }
   )
+
   const updatedExperiencePopulate = await Experience.findById(
     updatedExperience._id
   ).populate({
     path: 'techName',
-    select: 'name'
+    select: 'name',
   })
+
   return updatedExperiencePopulate
 }
 

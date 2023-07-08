@@ -42,7 +42,7 @@ const createTutorHandler = async (req, res) => {
     projects,
     rates,
     fullName,
-    disponibility
+    disponibility,
   } = req.body
   if (!user) {
     res.status(400).json({ error: 'User is required' })
@@ -61,7 +61,7 @@ const createTutorHandler = async (req, res) => {
       projects,
       rates,
       fullName,
-      disponibility
+      disponibility,
     })
     res.status(200).json(tutor)
   } catch (error) {
@@ -94,7 +94,7 @@ const updateTutorHandler = async (req, res) => {
     status,
     socialMedia,
     offline,
-    disponibility
+    disponibility,
   } = req.body
 
   try {
@@ -111,7 +111,7 @@ const updateTutorHandler = async (req, res) => {
       status,
       socialMedia,
       offline,
-      disponibility
+      disponibility,
     })
     res.status(200).json(updatedTutor)
   } catch (error) {
@@ -124,7 +124,7 @@ const acceptTutorHandler = async (req, res) => {
   try {
     const acceptedTutor = await updateTutor(id, { status: 'approved' })
     const acceptedUser = await updateUser(acceptedTutor.user._id, {
-      role: 'Tutor'
+      role: 'Tutor',
     })
     const user = acceptedTutor.user
     sendAcceptTutorEmail(user)
@@ -139,7 +139,7 @@ const rejectTutorHandler = async (req, res) => {
   try {
     const rejectedTutor = await updateTutor(id, { status: 'rejected' })
     const rejectedUser = await updateUser(rejectedTutor.user._id, {
-      role: 'Client'
+      role: 'Client',
     })
     const user = rejectedTutor.user
     sendRejectTutorEmail(user)
@@ -154,7 +154,7 @@ const disableTutorHandler = async (req, res) => {
   try {
     const disabledTutor = await updateTutor(id, { status: 'rejected' })
     const disabledUser = await updateUser(disabledTutor.user._id, {
-      role: 'Client'
+      role: 'Client',
     })
     const user = disabledTutor.user
     sendDisableTutorEmail(user)
@@ -169,7 +169,7 @@ const enableTutorHandler = async (req, res) => {
   try {
     const enabledTutor = await updateTutor(id, { status: 'approved' })
     const enabledUser = await updateUser(enabledTutor.user._id, {
-      role: 'Tutor'
+      role: 'Tutor',
     })
     const user = enabledTutor.user
     sendEnableTutorEmail(user)
@@ -188,5 +188,5 @@ module.exports = {
   acceptTutorHandler,
   rejectTutorHandler,
   disableTutorHandler,
-  enableTutorHandler
+  enableTutorHandler,
 }

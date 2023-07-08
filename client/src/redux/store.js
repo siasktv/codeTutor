@@ -7,6 +7,7 @@ import localUserSlice from './features/localUser/localUserSlice'
 // import usersReducer from './usersReducer'
 import sessionsSlice from './features/sessions/sessionsSlice'
 import cashoutsSlice from './features/cashouts/cashoutsSlice'
+import skillsSlice from './features/skills/skillsSlice'
 
 const store = configureStore({
   reducer: {
@@ -16,13 +17,14 @@ const store = configureStore({
     locations: locationsSlice,
     localUser: localUserSlice,
     sessions: sessionsSlice,
-    cashouts: cashoutsSlice
+    cashouts: cashoutsSlice,
+    skills: skillsSlice,
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-      immutableCheck: false
-    })
+      immutableCheck: false,
+    }),
 })
 
 export default store

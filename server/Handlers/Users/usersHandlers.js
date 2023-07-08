@@ -25,10 +25,29 @@ const getUserByUidHandler = async (req, res) => {
   try {
     const user = await getUserByUid(uid)
     if (user) {
-      const tutor = await Tutor.findOne({ user: user._id }).populate('user')
+      const tutor = await Tutor.findOne({ user: user._id })
+        .populate('user')
+        .populate({
+          path: 'skills',
+          populate: {
+            path: 'techName',
+          },
+        })
+        .populate({
+          path: 'experience',
+          populate: {
+            path: 'techName',
+          },
+        })
+        .populate({
+          path: 'projects',
+          populate: {
+            path: 'techName',
+          },
+        })
       res.status(200).json({
         ...user._doc,
-        tutor
+        tutor,
       })
     } else {
       res.status(200).json(user)
@@ -58,13 +77,13 @@ const createUserHandler = async (req, res) => {
       location,
       timezone,
       role,
-      uid
+      uid,
     })
 
     const userToMail = {
       fullName,
       email,
-      image
+      image,
     }
 
     sendEmail(userToMail)
@@ -96,7 +115,7 @@ const updateUserHandler = async (req, res) => {
       image,
       location,
       timezone,
-      role
+      role,
     })
     res.status(200).json(updatedUser)
   } catch (error) {
@@ -136,5 +155,5 @@ module.exports = {
   updateUserHandler,
   getUserByUidHandler,
   resetPasswordHandler,
-  updateTutorsFavoritesHandler
+  updateTutorsFavoritesHandler,
 }

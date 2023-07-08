@@ -65,6 +65,12 @@ import LogoutModal from './LogoutModal.jsx'
 
 import BookMeeting from './BookMeeting.jsx'
 
+//componentes del TutorDashboard
+import Biography from './TutorDashboard/Biography.jsx'
+import Skills from './TutorDashboard/Skills.jsx'
+import Projects from './TutorDashboard/Projects.jsx'
+import Rates from './TutorDashboard/Rates.jsx'
+import Experience from './TutorDashboard/Experience.jsx'
 import ModalBankTutor from './ModalBankTutor.jsx'
 
 import NavDashboardMobile from './UserDashboard/NavDashboardMobile.jsx'
@@ -77,6 +83,7 @@ export {
   NavDashboardMobile,
   ModalBankTutor,
   PaymentModal,
+  Biography,
   TutorFormProfileDisponibility,
   BookMeeting,
   LogoutModal,
@@ -129,5 +136,9 @@ export {
   MessageContainer,
   MessageMinimized,
   ChatsNav,
-  UpdateModal
+  UpdateModal,
+  Skills,
+  Projects,
+  Rates,
+  Experience,
 }
