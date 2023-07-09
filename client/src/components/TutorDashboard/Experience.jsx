@@ -357,7 +357,6 @@ const Experience = ({ experience, id }) => {
       )
       setIsSubmitting(false)
       setSuccess(true)
-      console.log(response.data)
       dispatch(tutorFetchById(tutorId))
     } catch (error) {
       setIsSubmitting(false)
@@ -376,7 +375,6 @@ const Experience = ({ experience, id }) => {
       )
       setIsSubmitting(false)
       setSuccess(true)
-      console.log(response.data)
       dispatch(tutorFetchById(tutorId))
     } catch (error) {
       setIsSubmitting(false)
@@ -407,7 +405,6 @@ const Experience = ({ experience, id }) => {
       const response = await axios.delete(
         `${BACKEND_URL}/api/experiences/${id}`
       )
-      console.log(response.data)
       setIsSubmitting(false)
       setSuccess(true)
       dispatch(tutorFetchById(tutorId))
@@ -484,18 +481,19 @@ const Experience = ({ experience, id }) => {
               <p className='text-[#7D5AE2] font-semibold dark:text-codecolorlighter'>
                 {exp.company} - {exp.position}
               </p>
-              <button className='ml-2'>
+              <button
+                className='ml-2'
+                onClick={() => openModalHandler(false, exp._id)}
+              >
                 <FontAwesomeIcon
                   icon={faEdit}
                   className='w-3 mr-2 max-lg:mr-0 text-codecolor hover:text-codecolordark dark:text-codecolorlighter'
-                  onClick={() => openModalHandler(false, exp._id)}
                 />
               </button>
-              <button className='ml-2'>
+              <button className='ml-2' onClick={() => deleteHandler(exp._id)}>
                 <FontAwesomeIcon
                   icon={faXmark}
                   className='w-3 text-codecolor max-lg:mr-1 hover:text-codecolordark dark:text-codecolorlighter'
-                  onClick={() => deleteHandler(exp._id)}
                 />
               </button>
             </div>
@@ -519,7 +517,7 @@ const Experience = ({ experience, id }) => {
               &#8203;
             </span>
             <form
-              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'
@@ -894,7 +892,7 @@ const Experience = ({ experience, id }) => {
               &#8203;
             </span>
             <div
-              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'

@@ -451,7 +451,7 @@ export default function BookMeeting (props) {
           </button>
           {showBookingModal && (
             <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center max-lg:p-3'>
-              <div className='bg-white dark:bg-gray-800 max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] rounded-md p-5 lg:w-[600px] w-full lg:max-h-[900px] overflow-y-auto max-lg:h-full'>
+              <div className='bg-white dark:bg-gray-800 max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 rounded-md p-5 lg:w-[600px] w-full lg:max-h-[900px] overflow-y-auto max-lg:h-full'>
                 <p className='text-center text-gray-800 dark:text-gray-200 text-xl font-semibold'>
                   Estas a punto de agendar una sesión con {tutor.user.fullName}
                 </p>

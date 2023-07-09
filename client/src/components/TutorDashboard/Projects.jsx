@@ -247,7 +247,6 @@ const Projects = ({ projects, id }) => {
       const response = await axios.post(`${BACKEND_URL}/api/projects`, newData)
       setIsSubmitting(false)
       setSuccess(true)
-      console.log(response.data)
       dispatch(tutorFetchById(tutorId))
     } catch (error) {
       setIsSubmitting(false)
@@ -266,7 +265,6 @@ const Projects = ({ projects, id }) => {
       )
       setIsSubmitting(false)
       setSuccess(true)
-      console.log(response.data)
       dispatch(tutorFetchById(tutorId))
     } catch (error) {
       setIsSubmitting(false)
@@ -295,7 +293,6 @@ const Projects = ({ projects, id }) => {
       const response = await axios.delete(`${BACKEND_URL}/api/projects/${id}`)
       setIsSubmitting(false)
       setSuccess(true)
-      console.log(response.data)
       dispatch(tutorFetchById(tutorId))
     } catch (error) {
       setIsSubmitting(false)
@@ -359,18 +356,22 @@ const Projects = ({ projects, id }) => {
               <p className='text-[#7D5AE2] font-semibold dark:text-codecolorlighter'>
                 {project.name}
               </p>
-              <button className='ml-2'>
+              <button
+                className='ml-2'
+                onClick={() => openModalHandler(false, project._id)}
+              >
                 <FontAwesomeIcon
                   icon={faEdit}
                   className='w-3 mr-2 max-lg:mr-0 text-codecolor hover:text-codecolordark dark:text-codecolorlighter'
-                  onClick={() => openModalHandler(false, project._id)}
                 />
               </button>
-              <button className='ml-2'>
+              <button
+                className='ml-2'
+                onClick={() => handleDelete(project._id)}
+              >
                 <FontAwesomeIcon
                   icon={faXmark}
                   className='lg:w-3 max-lg:mr-1 text-codecolor hover:text-codecolordark dark:text-codecolorlighter'
-                  onClick={() => handleDelete(project._id)}
                 />
               </button>
             </div>
@@ -394,7 +395,7 @@ const Projects = ({ projects, id }) => {
               &#8203;
             </span>
             <form
-              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'
@@ -681,7 +682,7 @@ const Projects = ({ projects, id }) => {
               &#8203;
             </span>
             <div
-              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'

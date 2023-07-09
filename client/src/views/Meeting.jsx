@@ -878,7 +878,7 @@ const Meeting = () => {
                 </span>
 
                 <div
-                  className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+                  className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
                   role='dialog'
                   aria-modal='true'
                   aria-labelledby='modal-headline'
@@ -919,7 +919,7 @@ const Meeting = () => {
           )}
           {showFaqsModal && (
             <div className='fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center max-lg:px-3'>
-              <div className='bg-white dark:bg-gray-800 rounded-md p-5 lg:w-[600px] lg:max-h-[900px] max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:max-h-[90%] max-lg:py-2'>
+              <div className='bg-white dark:bg-gray-800 rounded-md p-5 lg:w-[600px] lg:max-h-[900px] max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 max-lg:max-h-[90%] max-lg:py-2'>
                 <div
                   className='flex flex-col items-center justify-center mt-1 mb-3 overflow-y-auto max-lg:max-h-[500px] max-lg:justify-start'
                   id='steps'

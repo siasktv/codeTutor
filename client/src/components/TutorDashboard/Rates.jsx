@@ -80,7 +80,6 @@ const Rates = ({ rates, id }) => {
       setIsSubmitting(false)
       setSuccess(true)
       setData(submitData)
-      console.log(res.data)
     } catch (err) {
       setIsSubmitting(false)
       console.log(err)
@@ -181,7 +180,7 @@ const Rates = ({ rates, id }) => {
               &#8203;
             </span>
             <form
-              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 dark:bg-gray-800 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'

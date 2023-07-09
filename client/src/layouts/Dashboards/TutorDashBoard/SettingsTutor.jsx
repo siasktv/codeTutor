@@ -23,10 +23,6 @@ export default function SettingsTutor (props) {
     dispatch(tutorFetchById(user.tutor._id))
   }, [dispatch])
 
-  console.log('tutor', tutor)
-
-  console.log('user', user)
-
   useEffect(() => {
     if (tutor?.bio?.description?.length > 0) {
       setIsLoading(false)

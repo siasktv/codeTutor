@@ -1,12 +1,12 @@
-const handleSave = async (event) => {
+const handleSave = async event => {
   event.preventDefault()
   const newSkills = [...skills]
   const updatedSkill = {
     ...data,
     techName: {
       name: data.techName,
-      category: 'Web App',
-    },
+      category: 'Web App'
+    }
   }
 
   // Replace or push skill
@@ -20,9 +20,8 @@ const handleSave = async (event) => {
   //actualizar la skill
   try {
     const res = await axios.put(`${BACKEND_URL}/api/tutors/${id}`, {
-      skills: newSkills,
+      skills: newSkills
     })
-    console.log(res.data)
 
     closeModal()
   } catch (err) {
@@ -30,7 +29,7 @@ const handleSave = async (event) => {
   }
 }
 
-const openModal = (skillId) => {
+const openModal = skillId => {
   if (typeof skillId === 'string') {
     const skillData = skills.find(({ _id }) => _id === skillId)
     setData({
@@ -38,7 +37,7 @@ const openModal = (skillId) => {
       tutor: skillData.tutor,
       years: skillData.years,
       techName: skillData.techName.name,
-      _id: skillData._id,
+      _id: skillData._id
     })
     setEditedSkill(skillId)
   } else {
@@ -46,7 +45,7 @@ const openModal = (skillId) => {
       description: '',
       tutor: '',
       years: '',
-      techName: '',
+      techName: ''
     })
   }
   setShowModal(true)
@@ -58,18 +57,15 @@ const closeModal = () => {
   setData(null)
 }
 
-const handleDelete = async (skillId) => {
-  console.log(skillId)
+const handleDelete = async skillId => {
   if (!window.confirm('¿Estás seguro de eliminar esta habilidad?')) return
 
   const remainingSkills = skills.filter(({ _id }) => _id !== skillId)
   try {
     const res = await axios.put(`${BACKEND_URL}/api/tutors/${id}`, {
-      skills: remainingSkills,
+      skills: remainingSkills
     })
-    console.log(res.data)
   } catch (err) {
     console.log(err)
   }
 }
-console.log('skills', skills)
