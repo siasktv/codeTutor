@@ -15,7 +15,7 @@ export default function LogoutModal (props) {
             className='hidden sm:inline-block sm:align-middle sm:h-screen'
             aria-hidden='true'
           ></span>
-          <div className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden dark:shadow-none shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'>
+          <div className='inline-block align-bottom max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden dark:shadow-none shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'>
             <div className='bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
               <div className='sm:flex sm:items-center flex-col'>
                 <div className='mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10'>

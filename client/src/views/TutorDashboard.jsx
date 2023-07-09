@@ -23,7 +23,6 @@ import {
 const TutorDashboard = () => {
   const user = useUser()
 
-  console.log(user)
   const navigate = useNavigate()
   const [showMessage, setShowMessage] = useState(false)
   const [loading, setLoading] = useState(true)

@@ -257,7 +257,7 @@ const TutorForm = props => {
 
           <div className='fixed inset-0 z-10 overflow-y-auto'>
             <div className='flex lg:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <div className='relative transform overflow-hidden rounded-lg max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] bg-white dark:bg-gray-800 text-center shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'>
+              <div className='relative transform overflow-hidden rounded-lg max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 bg-white dark:bg-gray-800 text-center shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'>
                 <div className='bg-white dark:bg-gray-800 px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
                   <div className='sm:flex sm:items-center justify-center'>
                     <div className='mt-3 text-center'>

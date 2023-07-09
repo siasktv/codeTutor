@@ -134,7 +134,7 @@ export default function ModalBankTutor (props) {
 
   return (
     <div className='fixed z-[99999] top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
-      <div className='bg-white dark:bg-gray-800 max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] rounded-md p-5 w-[620px] max-h-[900px] overflow-y-auto'>
+      <div className='bg-white dark:bg-gray-800 max-lg:absolute max-lg:top-1/2 max-lg:-translate-y-1/2 max-lg:w-[95%] max-lg:left-1/2 max-lg:-translate-x-1/2 rounded-md p-5 w-[620px] max-h-[900px] overflow-y-auto'>
         <div
           className='flex flex-col items-center justify-center mt-1 mb-3'
           id='steps'
