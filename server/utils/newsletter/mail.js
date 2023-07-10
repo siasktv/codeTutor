@@ -2,16 +2,16 @@ const nodemailer = require('nodemailer')
 
 const sendEmailNewsletter = async email => {
   let transporter = nodemailer.createTransport({
-    host: 'smtp.titan.email',
+    host: 'smtp.ionos.com',
     port: 587,
     auth: {
-      user: 'support@codetutor.live',
-      pass: 'Dante2804'
+      user: 'noreply@code-tutor.dev',
+      pass: 'Sc00by.d00.p4p4'
     }
   })
 
   let info = await transporter.sendMail({
-    from: 'Code-Tutor <support@codetutor.live>', // sender address
+    from: 'Code-Tutor <noreply@code-tutor.dev>', // sender address
     to: email, // list of receivers
     subject: `¡Bienvenid@ a las Newsletters de Code-Tutor!`, // Subject line
     text: `¡Bienvenid@ a las Newsletter de Code-Tutor!`, // plain text body

@@ -2,17 +2,17 @@ const nodemailer = require('nodemailer')
 
 const sendEnableTutorEmail = async user => {
   let transporter = nodemailer.createTransport({
-    host: 'smtp.titan.email',
+    host: 'smtp.ionos.com',
     port: 587,
     auth: {
-      user: 'support@codetutor.live',
-      pass: 'Dante2804'
+      user: 'noreply@code-tutor.dev',
+      pass: 'Sc00by.d00.p4p4'
     }
   })
 
   try {
     let info = await transporter.sendMail({
-      from: 'Code-Tutor <support@codetutor.live>', // sender address
+      from: 'Code-Tutor <noreply@code-tutor.dev>', // sender address
       to: user.email, // list of receivers
       subject: `¡Hemos habilitado tu perfil de Tutor! - Code-Tutor`, // Subject line
       text: `¡Hemos habilitado tu perfil de Tutor! - Code-Tutor`, // plain text body
