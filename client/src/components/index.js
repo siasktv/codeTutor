@@ -77,7 +77,19 @@ import NavDashboardMobile from './UserDashboard/NavDashboardMobile.jsx'
 import TutorNavDashboardMobile from './TutorDashboard/NavDashboardMobile.jsx'
 import AdminNavDashboardMobile from './AdminDashboard/NavDashboardMobile.jsx'
 
+//Landing
+import Hero from './Landing/Hero.jsx'
+import Services from './Landing/Services.jsx'
+import Team from './Landing/Team.jsx'
+import Testimonials from './Landing/Testimonials.jsx'
+import Footer from './Landing/Footer.jsx'
+
 export {
+  Hero,
+  Services,
+  Team,
+  Testimonials,
+  Footer,
   AdminNavDashboardMobile,
   TutorNavDashboardMobile,
   NavDashboardMobile,
@@ -140,5 +152,5 @@ export {
   Skills,
   Projects,
   Rates,
-  Experience
+  Experience,
 }
