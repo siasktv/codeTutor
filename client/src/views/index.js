@@ -7,6 +7,7 @@ import FormTutor from './FormTutor'
 import Meeting from './Meeting'
 import FAQs from './FAQs'
 import NotFound from './NotFound'
+import Landing2 from './Landing2'
 export {
   Landing,
   SearchPage,
@@ -17,4 +18,5 @@ export {
   Meeting,
   FAQs,
   NotFound,
+  Landing2,
 }

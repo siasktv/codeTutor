@@ -61,7 +61,7 @@ const Landing = () => {
         <NavLogin user={user} />
       </div>
       <div className=" overflow-x-hidden w-full dark:bg-gray-900 dark:text-gray-200">
-        <div className="px-0 lg:pt-10 pb-20 lg:mx-auto lg:max-w-7xl w-full sm:px-0 md:px-0 lg:px-0">
+        <div className=" px-0 lg:pt-10 pb-20 lg:mx-auto lg:max-w-7xl w-full sm:px-0 md:px-0 lg:px-0">
           <div className="lg:flex lg:flex-wrap lg:items-center lg:mx-auto lg:max-w-7xl lg:h-full">
             <div className="flex flex-col lg:items-start text-left lg:flex-grow  lg:w-1/2 lg:relative max-lg:space-y-5 items-center justify-center h-[calc(100svh-100px)] lg:h-full">
               {/* Mobile */}
@@ -210,12 +210,14 @@ const Landing = () => {
               </a>
             </div>
 
+            {/* desktop */}
+
             <div className="w-full lg:max-w-lg lg:w-1/2 lg:visible rounded-xl hidden lg:inline h-[35rem] invisible">
               <div className="box-border relative w-125 h-125 right-0 top-0 border border-codecolor rounded-full  "></div>
               <div className="relative w-full h-510px   border-transparent bottom-510px z-40">
                 <div className="relative rounded-full bg-codecolor  w-125 h-125 mt-8 ml-5  overflow-hidden border-transparent ">
                   <img
-                    className=" relative w-91.5 h-108 object-center justify-center top-20  object-fit border-transparent mx-auto z-0 "
+                    className=" relative w-91.5 h-108 object-center justify-center top-20  object-fit  mx-auto z-0 "
                     alt="hero"
                     src={heroimgSvg}
                   />
