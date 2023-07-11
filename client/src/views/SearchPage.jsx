@@ -5,20 +5,16 @@ import {
   tutorsFetch,
   sortedByRate,
   sortedByLanguages,
-  sortedByReview
+  sortedByReview,
 } from '../redux/features/tutors/tutorsSlice'
 import { usersFetch } from '../redux/features/users/usersSlice'
 import { techesFetch } from '../redux/features/teches/techesSlice'
-import { tutorFetchById } from '../redux/features/tutors/tutorsSlice'
-import { sortedByTech } from '../redux/features/tutors/tutorsSlice'
-import { Star, MensajeTexto } from '../assets'
 
 import { CardTutor, SearchBarTutor, FilterTutor } from '../layouts'
 import { ButtonDropdownLocation } from '../components'
-import Dropdown from '../components/Buttons/Dropdown'
+
 import { Loader, MessageContainer, MessageMinimized } from '../components'
-import { Link } from 'react-router-dom'
-import ReactDOM from 'react-dom'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import useUser from '../hooks/useUser'
@@ -26,11 +22,8 @@ import NavUserSearch from '../components/NavUserSearch'
 import { SocketContext } from '../socket/context'
 
 const SearchPage = () => {
-  const tutors = useSelector(state => state.tutors.tutors)
-  const users = useSelector(state => state.users.users)
-  const teches = useSelector(state => state.teches.teches)
-  const categories = useSelector(state => state.teches.categories)
-  const selectedTech = useSelector(state => state.tutors.selectedTech)
+  const tutors = useSelector((state) => state.tutors.tutors)
+
   const [isLoading, setIsLoading] = useState(true)
   const [tutorFavorites, setTutorFavorites] = useState([])
   const socket = useContext(SocketContext)
@@ -38,7 +31,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (user) {
-      socket.on('setFavorites', data => {
+      socket.on('setFavorites', (data) => {
         setTutorFavorites(data.tutorFavorites)
       })
       socket.emit('getFavorites', { userId: user.id })
@@ -63,27 +56,27 @@ const SearchPage = () => {
     }
   }
 
-  const handleMinimizeMessage = e => {
+  const handleMinimizeMessage = (e) => {
     e.preventDefault()
     setShowMessage(false)
     socket.emit('closeChat', {
       userId: user.id,
-      receiverId: selectedTutor.user._id
+      receiverId: selectedTutor.user._id,
     })
   }
 
-  const handleMaximizeMessage = e => {
+  const handleMaximizeMessage = (e) => {
     e.preventDefault()
     setShowMessage(true)
   }
 
-  const handleCloseMessage = e => {
+  const handleCloseMessage = (e) => {
     e.preventDefault()
     setShowMessage(false)
     setSelectedTutor(null)
     socket.emit('closeChat', {
       userId: user.id,
-      receiverId: selectedTutor.user._id
+      receiverId: selectedTutor.user._id,
     })
   }
 
@@ -107,7 +100,7 @@ const SearchPage = () => {
     }
   }
 
-  const handlePage = number => {
+  const handlePage = (number) => {
     setCurrentPage(number)
   }
 
@@ -123,7 +116,7 @@ const SearchPage = () => {
     } else if (currentPage + floor >= pageNumbers.length) {
       return {
         start: pageNumbers.length - pagesCutCount + 1,
-        end: pageNumbers.length + 1
+        end: pageNumbers.length + 1,
       }
     } else {
       return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 }
@@ -156,8 +149,8 @@ const SearchPage = () => {
   }, [currentPage])
 
   return (
-    <div className='max-lg:w-full dark:bg-gray-900'>
-      <div className='sticky top-0 z-[100]'>
+    <div className="max-lg:w-full dark:bg-gray-900">
+      <div className="sticky top-0 z-[100]">
         <NavUserSearch
           user={user}
           showMessage={showMessage}
@@ -166,43 +159,44 @@ const SearchPage = () => {
         />
       </div>
 
-      <div className='bg-transparent flex flex-col max-lg:items-center items-start pt-1 gap-2 w-full h-full left-0 right-0 dark:bg-gray-900 min-h-screen'>
+      <div className="bg-transparent max-lg:px-3 mt-2 lg:mt-16 flex flex-col max-lg:items-center items-start pt-1 gap-2 w-full h-full left-0 right-0 dark:bg-gray-900 min-h-screen">
         <SearchBarTutor />
-        <div className='bg-gray-100 dark:bg-gray-900 flex items-start lg:px-20 lg:py-10  w-full h-max left-0 right-0'>
+        <div className="bg-gray-50 dark:bg-gray-900 flex items-start lg:px-20 lg:py-10  w-full h-max left-0 right-0">
           <FilterTutor
             sortedByLanguages={sortedByLanguages}
             sortedByReview={sortedByReview}
           />
-          <div className='w-full lg:p-9 p-3 flex flex-col relative z-0'>
+          <div className="w-full lg:ml-12 flex flex-col relative z-0">
             {isLoading && (
-              <div className='flex justify-center items-center'>
+              <div className="flex justify-center items-center">
                 <Loader />
               </div>
             )}
             {!isLoading && (
               <>
-                <div className='flex items-center lg:justify-between justify-end'>
-                  <h2 className='pb-10 h-30 font-inter font-bold leading-150 lg:text-2xl text-black dark:text-codecolor text-left max-lg:hidden'>
+                <div className="flex items-center lg:justify-between justify-end">
+                  <h2 className=" font-inter font-bold leading-150 lg:text-xl text-black dark:text-codecolor text-left max-lg:hidden">
                     {tutors.length === 0
                       ? ''
                       : tutors.length === 1
                       ? '1 programador encontrado'
                       : `${tutors.length} programadores encontrados`}
                   </h2>
-                  <div className='pb-5 relative inline-block text-left'>
+                  <div className="pb-5 relative inline-block text-left">
                     <div>
                       <ButtonDropdownLocation />
                     </div>
                   </div>
                 </div>
                 {tutors.length === 0 && (
-                  <div className='flex justify-center items-center mt-40'>
-                    <h1 className='text-2xl dark:text-gray-200 font-semibold'>
+                  <div className="flex justify-center items-center mt-40">
+                    <h1 className="text-xl dark:text-gray-200 font-semibold">
                       No se encontraron programadores.
                     </h1>
                   </div>
                 )}
-                {currentTutors.map(tutor => (
+
+                {currentTutors.map((tutor) => (
                   <CardTutor
                     key={tutor._id}
                     tutor={tutor}
@@ -211,10 +205,11 @@ const SearchPage = () => {
                     tutorFavorites={tutorFavorites}
                   />
                 ))}
+
                 {tutors.length > currentTutors.length && (
                   <>
-                    <div className='flex justify-center items-center'>
-                      <div className='flex justify-center items-center max-lg:flex-wrap'>
+                    <div className="flex justify-center items-center">
+                      <div className="flex justify-center items-center max-lg:flex-wrap">
                         <button
                           onClick={handlePreviusPage}
                           className={
@@ -226,7 +221,7 @@ const SearchPage = () => {
                           <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
 
-                        {pages.map(number => (
+                        {pages.map((number) => (
                           <button
                             key={number}
                             onClick={() => handlePage(number)}
@@ -253,7 +248,7 @@ const SearchPage = () => {
                         </>
                       </div>
                     </div>
-                    <p className='text-codecolor font-bold max-lg:text-sm text-md mt-3'>
+                    <p className="text-codecolor font-bold max-lg:text-sm text-md mt-3">
                       {pageNumbers.length} páginas en total
                     </p>
                   </>
