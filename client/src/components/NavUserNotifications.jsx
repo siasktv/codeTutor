@@ -238,6 +238,23 @@ const NavUserNotifications = ({ user, id, redirect }) => {
     })
   }
 
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled)
+      }
+    }
+
+    document.addEventListener('scroll', handleScroll)
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [scrolled])
+
   return (
     <>
       <ToastContainer
@@ -251,7 +268,14 @@ const NavUserNotifications = ({ user, id, redirect }) => {
         closeOnClick
         rtl={false}
       />
-      <header className='flex items-center h-20 w-full dark:bg-gray-900'>
+      <header
+        className={
+          `flex items-center h-20 w-full` +
+          (scrolled
+            ? ' bg-white/40 backdrop-blur-sm dark:bg-gray-900 dark:bg-opacity-90'
+            : '')
+        }
+      >
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='flex justify-between w-full items-center'>
           <div className='pl-8 pt-2'>

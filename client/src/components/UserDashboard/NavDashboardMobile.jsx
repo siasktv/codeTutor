@@ -263,6 +263,23 @@ const NavDashboardMobile = ({
     setNavbarMobile(!navbarMobile)
   }
 
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled)
+      }
+    }
+
+    document.addEventListener('scroll', handleScroll)
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [scrolled])
+
   return (
     <>
       <ToastContainer
@@ -276,7 +293,13 @@ const NavDashboardMobile = ({
         closeOnClick
         rtl={false}
       />
-      <header className='dark:bg-gray-900'>
+      <header
+        className={
+          scrolled
+            ? ' bg-white/40 backdrop-blur-sm dark:bg-gray-900 dark:bg-opacity-90'
+            : ''
+        }
+      >
         <audio ref={audioPlayer} src={notificationSound} />
         <div className='lg:mx-auto py-4'>
           <div className='flex items-center justify-between gap-4 lg:gap-10'>

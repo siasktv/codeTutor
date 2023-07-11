@@ -295,8 +295,6 @@ const NavUserSearch = ({
     handleShowMessage(e, user)
   }
 
-  //scroll
-
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -332,9 +330,10 @@ const NavUserSearch = ({
         <audio ref={audioPlayer} src={notificationSound} />
         <header
           className={
-            scrolled
-              ? ' bg-white/40 backdrop-blur-xl lg:mx-auto px-4 py-4 dark:bg-gray-900'
-              : 'lg:mx-auto px-4 py-4'
+            `flex items-center h-20 w-full z-50` +
+            (scrolled
+              ? ' bg-white/40 backdrop-blur-sm dark:bg-gray-900 dark:bg-opacity-90'
+              : '')
           }
         >
           <div className="flex justify-between w-full items-center">
@@ -352,7 +351,7 @@ const NavUserSearch = ({
 
             <div className="relative pr-8">
               <button
-                className="flex items-center rounded-full btn btn-sm dark:font-semibold btn-white max-lg:hidden font-semibold text-codecolor"
+                className="flex items-center rounded-full btn btn-sm font-semibold btn-white max-lg:hidden text-codecolor"
                 onClick={handleShowTech}
               >
                 Encuentra desarrolladores

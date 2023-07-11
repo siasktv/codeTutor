@@ -132,7 +132,7 @@ const UserDashboard = () => {
               />
             </div>
             <div className='flex flex-col justify-center w-full dark:bg-gray-900 h-full left-0 right-0'>
-              <div className='sticky top-0 z-50 bg-white dark:bg-gray-900 max-lg:hidden'>
+              <div className='sticky top-0 z-50 max-lg:hidden'>
                 <NavDashboard
                   user={user}
                   showMessage={showMessage}
@@ -142,7 +142,7 @@ const UserDashboard = () => {
                   selectedViewTutors={selectedViewTutors}
                 />
               </div>
-              <div className='sticky top-0 z-50 bg-white lg:hidden'>
+              <div className='sticky top-0 z-50 lg:hidden'>
                 <NavDashboardMobile
                   user={user}
                   selectedSection={selectedSection}

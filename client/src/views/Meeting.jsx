@@ -309,7 +309,9 @@ const Meeting = () => {
         </div>
       ) : (
         <>
-          <NavUserNotifications user={user} />
+          <div className='sticky top-0 z-[99999]'>
+            <NavUserNotifications user={user} />
+          </div>
           <div className='lg:bg-gray-100 lg:dark:bg-gray-900 dark:bg-gray-900 max-lg:p-2 lg:py-10 py-4 w-full max-lg:h-full'>
             {/* --------------------------Fila 1--------------------------- */}
 

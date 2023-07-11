@@ -150,7 +150,7 @@ const SearchPage = () => {
 
   return (
     <div className="max-lg:w-full dark:bg-gray-900">
-      <div className="sticky top-0 z-[99999]">
+      <div className="sticky top-0 z-[100]">
         <NavUserSearch
           user={user}
           showMessage={showMessage}
@@ -159,7 +159,7 @@ const SearchPage = () => {
         />
       </div>
 
-      <div className="bg-transparent max-lg:px-3 mt-16 flex flex-col max-lg:items-center items-start pt-1 gap-2 w-full h-full left-0 right-0 dark:bg-gray-900 min-h-screen">
+      <div className="bg-transparent max-lg:px-3 mt-2 lg:mt-16 flex flex-col max-lg:items-center items-start pt-1 gap-2 w-full h-full left-0 right-0 dark:bg-gray-900 min-h-screen">
         <SearchBarTutor />
         <div className="bg-gray-50 dark:bg-gray-900 flex items-start lg:px-20 lg:py-10  w-full h-max left-0 right-0">
           <FilterTutor

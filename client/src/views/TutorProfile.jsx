@@ -54,7 +54,7 @@ const TutorProfile = () => {
       {!isLoading && (
         <>
           <div
-            className='sticky top-0 z-[100] bg-white min-h-16 dark:bg-gray-900'
+            className='sticky top-0 z-[100] min-h-16'
             style={{
               position: 'sticky !important',
               top: '0px !important',
