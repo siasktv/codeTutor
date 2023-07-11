@@ -312,6 +312,23 @@ const NavUserSearch = ({
     handleShowMessage(e, user)
   }
 
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled)
+      }
+    }
+
+    document.addEventListener('scroll', handleScroll)
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [scrolled])
+
   return (
     <>
       <>
@@ -328,7 +345,14 @@ const NavUserSearch = ({
         />
 
         <audio ref={audioPlayer} src={notificationSound} />
-        <header className='flex items-center h-20 w-full z-50 dark:bg-gray-900'>
+        <header
+          className={
+            `flex items-center h-20 w-full z-50` +
+            (scrolled
+              ? ' bg-white/40 backdrop-blur-sm dark:bg-gray-900 dark:bg-opacity-90'
+              : '')
+          }
+        >
           <div className='flex justify-between w-full items-center'>
             <div className='pl-8 pt-2'>
               <Link to='/'>
@@ -344,7 +368,7 @@ const NavUserSearch = ({
 
             <div className='relative pr-8'>
               <button
-                className='flex items-center rounded-full btn btn-sm dark:font-semibold btn-white max-lg:hidden text-codecolor'
+                className='flex items-center rounded-full btn btn-sm font-semibold btn-white max-lg:hidden text-codecolor'
                 onClick={handleShowTech}
               >
                 Encuentra desarrolladores

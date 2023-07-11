@@ -1,7 +1,7 @@
 import { contrate, help, revision } from '../../assets/index'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight, faBolt } from '@fortawesome/free-solid-svg-icons'
 
 const Services = () => {
   return (
@@ -9,8 +9,12 @@ const Services = () => {
       className='relative items-center lg:mt-36 w-full lg:px-8 max-lg:px-3 py-8'
       id='content'
     >
-      <h1 className='text-codecolor dark:text-codecolor font-bold text-lg max-lg:mt-10'>
-        Nuestros servicios
+      <h1 className='text-codecolor dark:text-codecolor font-bold text-lg max-lg:mt-10 flex items-center justify-center'>
+        Nuestros servicios{' '}
+        <FontAwesomeIcon
+          icon={faBolt}
+          className='text-codecolor ml-2 text-md self-center'
+        />
       </h1>
       <h1 className='lg:pb-10 pb-5 text-3xl dark:text-gray-200 font-semibold max-lg:text-xl'>
         Encuentra la ayuda que necesitas y desarrolla tus ideas.

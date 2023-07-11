@@ -6,23 +6,28 @@ import lautaro from '../../assets/Lautaro.png'
 import nahuel from '../../assets/Nahuel.png'
 import { LinkedIn } from '../../assets'
 import { GitHub } from '../../assets'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRocket, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 const Team = () => {
   return (
-    <div className='relative items-center w-full overflow-x-hidden'>
+    <div className='relative items-center w-full overflow-x-hidden max-lg:px-3'>
       <section class=' dark:text-gray-200 body-font flex justify-center w-full '>
         <div class=' w-full py-24'>
           <div class='flex flex-col text-center w-full '>
-            <h1 class='text-codecolor dark:text-codecolor font-bold text-lg max-lg:mt-10'>
-              Conoce al equipo 🚀
+            <h1 class='text-codecolor dark:text-codecolor font-bold text-lg max-lg:mt-10 items-center flex justify-center'>
+              Conoce al equipo{' '}
+              <FontAwesomeIcon
+                icon={faUsers}
+                className='text-codecolor ml-2 text-md self-center'
+              />
             </h1>
-            <p class='lg:pb-16  text-3xl dark:text-gray-200 font-semibold max-lg:text-xl'>
-              Descubre y conoce más sobre los programadores que han desarrollado{' '}
-              <br />
+            <p class='lg:pb-10  text-3xl max-lg:text-xl dark:text-gray-200 font-semibold max-lg:mb-5'>
+              Descubre y conoce más sobre los programadores que han desarrollado
               Code-tutor.
             </p>
           </div>
-          <div class='flex flex-wrap max-lg:px-3 gap-6 justify-center '>
+          <div class='flex flex-wrap gap-6 justify-center '>
             {/* Bianca */}
             <div class=' py-6 lg:w-1/6 border rounded-xl md:w-1/2 bg-white px-8 shadow-lg dark:bg-gray-800 hover:shadow-2xl transition-all duration-300 dark:border-none dark:hover:shadow-gray-800 dark:shadow-transparent max-lg:hover:shadow-md'>
               <div class='h-full flex flex-col items-center text-center'>

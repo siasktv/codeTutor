@@ -157,7 +157,7 @@ const SearchPage = () => {
 
   return (
     <div className='max-lg:w-full dark:bg-gray-900'>
-      <div className='sticky top-0 z-[100] bg-white dark:bg-gray-900'>
+      <div className='sticky top-0 z-[100]'>
         <NavUserSearch
           user={user}
           showMessage={showMessage}

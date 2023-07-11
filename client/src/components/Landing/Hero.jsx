@@ -92,24 +92,24 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <div className=' w-40 relative items-center left-[26rem] border border-codecolorlighter bottom-[32rem] flex flex-col py-5 px-5 rounded-2xl shadow-xl bg-white/40 backdrop-blur-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 dark:bg-gray-800 dark:bg-opacity-40 dark:border-codecolor'>
+            <div className=' w-44 relative items-center left-[26rem] border border-codecolorlighter bottom-[32rem] flex flex-col py-5 px-2 rounded-2xl shadow-xl bg-white/40 backdrop-blur-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 dark:bg-gray-800 dark:bg-opacity-40 dark:border-codecolor'>
               <div className='flex '>
                 <img className='w-16 h-16' src={teamWork} alt='teamwork' />
               </div>
 
               <div className='pt-3 font-bold text-xl dark:text-gray-200'>
-                3k+
+                3K+
               </div>
               <div className='flex items-center text-gray-800 dark:text-gray-400 leading-relaxed'>
-                <span className='pl-1'>usuarios online</span>
+                <span className='pl-1'>usuarios registrados</span>
               </div>
             </div>
-            <div className='w-72 px-2 py-3 relative bottom-[13rem] left-0 items-center border border-codecolorlighters flex bg-white/40 dark:bg-gray-800 dark:bg-opacity-40 dark:border-codecolor rounded-2xl shadow-xl backdrop-blur-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300'>
+            <div className='w-64 px-2 py-3 relative bottom-[13rem] left-0 items-center border border-codecolorlighters flex bg-white/40 dark:bg-gray-800 dark:bg-opacity-40 dark:border-codecolor rounded-2xl shadow-xl backdrop-blur-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300'>
               <img src={mentor} className='w-16 h-16 self-end' alt='mentor' />
               <div class='ml-4'>
-                <div class='font-bold text-xl dark:text-gray-200'>2k+</div>
+                <div class='font-bold text-xl dark:text-gray-200'>2K+</div>
                 <div class='text-gray-600 dark:text-gray-400 leading-relaxed'>
-                  más de 2,500 sesiones 🚀
+                  sesiones completadas
                 </div>
               </div>
             </div>
@@ -192,7 +192,7 @@ const Hero = () => {
                     <Link
                       to='/search'
                       type='button'
-                      className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-violet-100 px-6 py-2 text-md font-semibold dark:text-gray-200 dark:bg-codecolor dark:hover:bg-codecolordark dark:rounded-l-none text-codecolor shadow-sm hover:bg-violet-200'
+                      className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-violet-100 px-6 py-[7.2px] text-md font-semibold dark:text-gray-200 dark:bg-codecolor dark:hover:bg-codecolordark dark:rounded-l-none text-codecolor shadow-sm hover:bg-violet-200'
                       id='menu-button'
                       aria-expanded='false'
                       aria-haspopup='true'

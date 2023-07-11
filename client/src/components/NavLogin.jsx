@@ -289,7 +289,7 @@ const NavLogin = ({ user }) => {
       <header
         className={
           scrolled
-            ? ' bg-white/40 backdrop-blur-xl dark:bg-gray-900 dark:bg-opacity-90'
+            ? ' bg-white/40 backdrop-blur-sm dark:bg-gray-900 dark:bg-opacity-90'
             : ''
         }
       >

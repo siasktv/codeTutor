@@ -6,27 +6,27 @@ import LandingSlide3 from '../../components/LandingSlides/LandingSlide3'
 const Testimonials = ({
   slides = [<LandingSlide1 />, <LandingSlide2 />, <LandingSlide3 />],
   autoSlide = true,
-  autoSlideInterval = 6000,
+  autoSlideInterval = 6000
 }) => {
   const [curr, setCurr] = useState(0)
 
   const prev = () =>
-    setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1))
+    setCurr(curr => (curr === 0 ? slides.length - 1 : curr - 1))
   const next = () =>
-    setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
+    setCurr(curr => (curr === slides.length - 1 ? 0 : curr + 1))
 
-  const goToSlide = (index) => {
+  const goToSlide = index => {
     setCurr(index)
   }
 
   return (
-    <div>
-      <div className="overflow-hidden relative ">
+    <div className='max-lg:px-3 max-lg:w-full'>
+      <div className='overflow-hidden relative '>
         <div
-          className="w-screen h-fit transition-transform ease-out duration-500"
+          className='lg:w-screen h-fit transition-transform ease-out duration-500'
           style={{
             display: 'flex',
-            transform: `translateX(-${curr * 100}%)`,
+            transform: `translateX(-${curr * 100}%)`
           }}
         >
           {slides.map((slide, index) => (
@@ -34,7 +34,7 @@ const Testimonials = ({
               key={index}
               style={{
                 flex: '0 0 100%',
-                height: '100%',
+                height: '100%'
               }}
             >
               {slide}
@@ -42,8 +42,8 @@ const Testimonials = ({
           ))}
         </div>
 
-        <div className="absolute bottom-4 right-0 left-0 ">
-          <div className="flex items-center justify-center gap-2">
+        <div className='absolute bottom-4 right-0 left-0 '>
+          <div className='flex items-center justify-center gap-2'>
             {slides.map((_, i) => (
               <div
                 key={i}
